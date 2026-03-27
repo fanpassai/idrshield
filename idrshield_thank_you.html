@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en" style="background:#0A0E1A;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Purchase Confirmed &mdash; Institute of Digital Remediation</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --navy:   #0A0E1A;
+  --navy2:  #0D1526;
+  --navy3:  #111D35;
+  --gold:   #C9A84C;
+  --gold2:  #E2C97E;
+  --gold3:  #8A6F2E;
+  --cream:  #F0E8D8;
+  --cream2: #C8BFA0;
+  --gray:   #6B6B6B;
+  --lgray:  #999999;
+  --border: rgba(201,168,76,0.15);
+  --ease:   cubic-bezier(0.16,1,0.3,1);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 16px; background: #0A0E1A !important; }
+
+body {
+  font-family: 'EB Garamond', Georgia, serif;
+  background: #0A0E1A !important;
+  color: var(--cream);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* Grain */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute; top: -999px; left: 0;
+  padding: 8px 20px;
+  background: var(--gold); color: var(--navy);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px; font-weight: 700;
+  text-decoration: none; z-index: 9998;
+}
+.skip-link:focus { top: 0; }
+
+/* Top rule */
+.top-bar {
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--gold3), var(--gold), var(--gold2), var(--gold), var(--gold3), transparent);
+  flex-shrink: 0;
+}
+
+/* Header */
+header {
+  padding: 22px 48px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.brand-name {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.brand-sub {
+  font-family: 'EB Garamond', serif;
+  font-size: 12px;
+  font-style: italic;
+  color: rgba(201,168,76,0.35);
+  margin-top: 2px;
+}
+
+.header-doc {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.2);
+}
+
+/* Main */
+main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 24px;
+}
+
+.card {
+  width: 100%;
+  max-width: 640px;
+  text-align: center;
+}
+
+/* Confirmation icon */
+.confirm-icon {
+  width: 64px;
+  height: 64px;
+  border: 1px solid var(--gold3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 32px;
+  animation: icon-in 0.6s var(--ease) both;
+}
+
+.confirm-icon::after {
+  content: '';
+  width: 22px;
+  height: 14px;
+  border-left: 2px solid var(--gold);
+  border-bottom: 2px solid var(--gold);
+  transform: rotate(-45deg) translateY(-2px);
+  display: block;
+}
+
+@keyframes icon-in {
+  from { opacity: 0; transform: scale(0.7); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* Eyebrow */
+.eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold3);
+  margin-bottom: 16px;
+  animation: fade-up 0.5s var(--ease) 0.1s both;
+}
+
+/* Headline */
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+  margin-bottom: 20px;
+  animation: fade-up 0.5s var(--ease) 0.15s both;
+}
+
+h1 em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+/* Sub */
+.sub {
+  font-family: 'EB Garamond', serif;
+  font-size: 19px;
+  line-height: 1.7;
+  color: rgba(240,232,216,0.55);
+  margin-bottom: 48px;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+  animation: fade-up 0.5s var(--ease) 0.2s both;
+}
+
+/* Divider */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 48px;
+  animation: fade-up 0.5s var(--ease) 0.25s both;
+}
+
+.divider-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.divider-diamond {
+  width: 5px;
+  height: 5px;
+  background: var(--gold3);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+/* Trial offer block */
+.trial-block {
+  background: rgba(201,168,76,0.04);
+  border: 1px solid var(--border);
+  padding: 32px 36px;
+  margin-bottom: 28px;
+  text-align: left;
+  animation: fade-up 0.5s var(--ease) 0.3s both;
+  position: relative;
+}
+
+.trial-block::before {
+  content: 'INCLUDED WITH YOUR PURCHASE';
+  position: absolute;
+  top: -10px;
+  left: 20px;
+  background: var(--navy2);
+  padding: 0 12px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--gold3);
+}
+
+.trial-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 21px;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 8px;
+}
+
+.trial-sub {
+  font-family: 'EB Garamond', serif;
+  font-size: 16px;
+  font-style: italic;
+  color: rgba(240,232,216,0.45);
+  margin-bottom: 20px;
+}
+
+.trial-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 0;
+}
+
+.trial-item {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  font-family: 'EB Garamond', serif;
+  font-size: 16px;
+  color: rgba(240,232,216,0.65);
+  line-height: 1.4;
+}
+
+.trial-item::before {
+  content: '';
+  width: 14px;
+  height: 9px;
+  border-left: 1.5px solid var(--gold3);
+  border-bottom: 1.5px solid var(--gold3);
+  transform: rotate(-45deg) translateY(-1px);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.trial-item strong { color: var(--cream); font-weight: 600; }
+
+/* CTA */
+.cta-group {
+  animation: fade-up 0.5s var(--ease) 0.35s both;
+}
+
+.activate-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 20px 32px;
+  background: var(--gold);
+  color: var(--navy);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.2s var(--ease), transform 0.2s var(--ease), box-shadow 0.2s;
+  margin-bottom: 14px;
+}
+
+.activate-btn:hover {
+  background: var(--gold2);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 32px rgba(201,168,76,0.25);
+}
+
+.activate-btn:focus-visible {
+  outline: 2px solid var(--gold2);
+  outline-offset: 3px;
+}
+
+.btn-arrow {
+  font-size: 18px;
+  transition: transform 0.2s;
+}
+.activate-btn:hover .btn-arrow { transform: translateX(4px); }
+
+.cta-note {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.25);
+  line-height: 1.8;
+}
+
+/* What comes next */
+.next-block {
+  margin-top: 48px;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
+  text-align: left;
+  animation: fade-up 0.5s var(--ease) 0.4s both;
+}
+
+.next-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold3);
+  margin-bottom: 20px;
+}
+
+.next-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.next-step {
+  display: flex;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(201,168,76,0.06);
+  align-items: baseline;
+}
+.next-step:last-child { border-bottom: none; }
+
+.next-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gold);
+  flex-shrink: 0;
+  width: 20px;
+}
+
+.next-text {
+  font-family: 'EB Garamond', serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(240,232,216,0.5);
+}
+
+.next-text strong {
+  color: rgba(240,232,216,0.8);
+  font-weight: 500;
+}
+
+/* Footer */
+footer {
+  padding: 20px 48px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.footer-left {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.2);
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+}
+
+.footer-links a {
+  font-family: 'EB Garamond', serif;
+  font-size: 13px;
+  font-style: italic;
+  color: rgba(201,168,76,0.3);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: rgba(201,168,76,0.65); }
+.footer-links a:focus-visible { outline: 2px solid var(--gold2); outline-offset: 2px; }
+
+/* Animations */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  header { padding: 18px 24px; }
+  footer { padding: 18px 24px; flex-direction: column; gap: 14px; text-align: center; }
+  .footer-links { flex-wrap: wrap; justify-content: center; }
+  .trial-block { padding: 28px 24px; }
+  h1 { font-size: 30px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<div class="top-bar"></div>
+
+<header role="banner">
+  <div>
+    <span class="brand-name">Institute of Digital Remediation</span>
+    <div class="brand-sub">IDR Protocol Series &middot; 2026 Edition</div>
+  </div>
+  <span class="header-doc">idrshield.com</span>
+</header>
+
+<main id="main-content">
+  <div class="card">
+
+    <div class="confirm-icon" aria-hidden="true"></div>
+
+    <p class="eyebrow">Purchase Confirmed</p>
+
+    <h1>Your IDR Shield<br><em>is now active.</em></h1>
+
+    <p class="sub">
+      The 2026 Accessibility Shield has been delivered. Check your inbox &mdash; the PDF and your download link are there now.
+    </p>
+
+    <p style="font-family:'Montserrat',sans-serif; font-size:10px; font-weight:500; letter-spacing:0.1em; color:rgba(201,168,76,0.3); margin-bottom:40px; margin-top:-32px;">If you do not see the email within 5 minutes, check your spam folder or contact <a href="mailto:protocol@instituteofdigitalremediation.com" style="color:rgba(201,168,76,0.45); text-decoration:none;">protocol@instituteofdigitalremediation.com</a></p>
+
+    <div class="divider" aria-hidden="true">
+      <div class="divider-line"></div>
+      <div class="divider-diamond"></div>
+      <div class="divider-line"></div>
+    </div>
+
+    <div class="trial-block" role="region" aria-label="Included Pro trial offer">
+      <h2 class="trial-title">Your IDR Shield is now activated.</h2>
+      <p class="trial-sub">Full Pro access is included. Activation includes The 2026 Accessibility Shield report. Founding access — first 500 stores at $97. Standard price $127 after founding window closes.</p>
+      <div class="trial-items">
+        <div class="trial-item"><strong>IDR Registry listing</strong> &mdash; your store publicly verified</div>
+        <div class="trial-item"><strong>IDR Shield</strong> &mdash; live badge linked to your Registry record</div>
+        <div class="trial-item"><strong>Evidence Log</strong> &mdash; timestamped, structured from day one</div>
+        <div class="trial-item"><strong>Scan Receipt</strong> &mdash; first scan delivered within 24 hours, SHA-256 hashed and immutable</div>
+        <div class="trial-item"><strong>Defense Package</strong> &mdash; downloadable compliance summary</div>
+      </div>
+    </div>
+
+    <div class="cta-group">
+      <a
+        href="https://idrshield.com/activate"
+        class="activate-btn"
+        aria-label="Activate your 30-day IDR Pro access"
+      >
+        Activate Included Pro Access
+        <span class="btn-arrow" aria-hidden="true">&rarr;</span>
+      </a>
+      <p class="cta-note">
+        No credit card required &middot; Full Pro access from day one<br>
+        After 30 days: $29/month Pro or $9/month Basic · Reminder sent before any charge · No surprises
+      </p>
+    </div>
+
+    <div class="next-block" role="region" aria-label="What happens next">
+      <p class="next-label">What happens next</p>
+      <div class="next-steps">
+        <div class="next-step">
+          <span class="next-num">1.</span>
+          <p class="next-text"><strong>Check your inbox now</strong> &mdash; the PDF is already there along with your download link.</p>
+        </div>
+        <div class="next-step">
+          <span class="next-num">2.</span>
+          <p class="next-text"><strong>Read Chapter 5 first</strong> if you have already received a demand letter. Read from the beginning if you have not.</p>
+        </div>
+        <div class="next-step">
+          <span class="next-num">3.</span>
+          <p class="next-text"><strong>Activate your Pro access</strong> using the button above or the link on the final pages of the protocol.</p>
+        </div>
+        <div class="next-step">
+          <span class="next-num">4.</span>
+          <p class="next-text"><strong>Your Evidence Log opens</strong> the moment you activate. Every scan from that point forward is timestamped and stored.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer role="contentinfo">
+  <span class="footer-left">Institute of Digital Remediation &middot; 2026</span>
+  <nav class="footer-links" aria-label="Footer navigation">
+    <a href="https://idrshield.com">Protocol</a>
+    <a href="https://instituteofdigitalremediation.com">Institute</a>
+    <a href="mailto:protocol@instituteofdigitalremediation.com">Contact</a>
+  </nav>
+</footer>
+
+</body>
+</html>
