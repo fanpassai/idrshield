@@ -732,7 +732,7 @@ footer {
         ================================== -->
         <form
           id="activationForm"
-          action="https://app.kit.com/forms/9251778/subscriptions"
+          action="#"
           method="POST"
           novalidate
           aria-label="IDR Pro activation form"
@@ -821,22 +821,27 @@ footer {
           <div class="success-icon" aria-hidden="true">
             <div class="success-check"></div>
           </div>
-          <h2>Activation received.</h2>
-          <p class="success-sub">Your IDR Pro access is being set up. Check your inbox &mdash; confirmation is on its way.</p>
+          <h2>Scan Complete. Shield Active.</h2>
+          <p class="success-sub">Your IDR Scan Receipt has been generated and your Registry record is live.</p>
           <div class="success-steps">
             <div class="success-step">
-              <span class="success-step-num">1.</span>
-              <p class="success-step-text">Confirmation email arriving now with your activation reference and next-step details.</p>
+              <span class="success-step-num">&#10003;</span>
+              <p class="success-step-text"><strong>Receipt ID:</strong> <span id="receiptId" style="font-family:monospace;font-size:12px;word-break:break-all;">—</span></p>
             </div>
             <div class="success-step">
-              <span class="success-step-num">2.</span>
-              <p class="success-step-text">Your first Scan Receipt will be delivered within 24 hours.</p>
+              <span class="success-step-num">&#10003;</span>
+              <p class="success-step-text"><strong>Registry ID:</strong> <span id="registryId" style="font-family:monospace;font-size:12px;">—</span></p>
             </div>
             <div class="success-step">
-              <span class="success-step-num">3.</span>
-              <p class="success-step-text">Your Evidence Log is now open. Every scan from this point is timestamped and stored.</p>
+              <span class="success-step-num">&#10003;</span>
+              <p class="success-step-text"><strong>Score:</strong> <span id="scanScore">—</span>/100 &nbsp;&middot;&nbsp; <strong>Status:</strong> <span id="scanStatus">—</span></p>
+            </div>
+            <div class="success-step">
+              <span class="success-step-num">&#10003;</span>
+              <p class="success-step-text"><strong>Registry URL:</strong> <a id="registryUrl" href="#" style="color:var(--gold2);word-break:break-all;">—</a></p>
             </div>
           </div>
+          <p style="font-family:'Montserrat',sans-serif;font-size:10px;color:rgba(201,168,76,0.5);letter-spacing:0.1em;margin-top:24px;text-transform:uppercase;">Your SHA-256 signed receipt has been recorded. Check your email for your full report.</p>
         </div>
 
       </div>
@@ -856,11 +861,11 @@ footer {
   <nav class="footer-links" aria-label="Footer navigation">
     <a href="https://instituteofdigitalremediation.com">Institute</a>
     <a href="https://www.idrshield.com">Protocol</a>
-    <a href="mailto:protocol@instituteofdigitalremediation.com">Contact</a>
+    <a href="/cdn-cgi/l/email-protection#c4b4b6abb0aba7aba884adaab7b0adb0b1b0a1aba2a0ada3adb0a5a8b6a1a9a1a0ada5b0adabaaeaa7aba9">Contact</a>
   </nav>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // -- TIER SELECTOR --
 const tierPro   = document.getElementById('tier-pro');
 const tierBasic = document.getElementById('tier-basic');
@@ -885,6 +890,8 @@ const spinner      = document.getElementById('spinner');
 const btnArrow     = submitBtn.querySelector('.btn-arrow');
 const errorMsg     = document.getElementById('errorMsg');
 const successState = document.getElementById('successState');
+
+const BACKEND = 'https://idr-backend-production.up.railway.app';
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -914,25 +921,38 @@ form.addEventListener('submit', async (e) => {
   hideError();
 
   try {
-    const formData = new FormData(form);
-    const response = await fetch(form.action, {
+    const response = await fetch(BACKEND + '/api/activate', {
       method: 'POST',
-      body: formData,
-      headers: { 'Accept': 'application/json' }
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({ email: email, store_url: storeUrl })
     });
 
-    if (response.ok) {
+    const data = await response.json();
+
+    if (response.ok && data.success) {
+      // Populate receipt fields
+      document.getElementById('receiptId').textContent   = data.receipt_id || '—';
+      document.getElementById('registryId').textContent  = data.registry_id || '—';
+      document.getElementById('scanScore').textContent   = data.score !== undefined ? data.score : '—';
+      document.getElementById('scanStatus').textContent  = data.status ? data.status.toUpperCase() : '—';
+      const regLink = document.getElementById('registryUrl');
+      if (data.registry_url) {
+        regLink.href        = data.registry_url;
+        regLink.textContent = data.registry_url;
+      }
       showSuccess();
       return;
     }
 
-    showError('We could not confirm your activation. Please try again, or contact us if the issue continues.');
+    const msg = data.error || 'Activation could not be completed. Please try again.';
+    showError(msg);
     setLoading(false);
 
   } catch (err) {
-    // Network or CORS error -- inform user to check inbox rather than
-    // falsely confirming success
-    showError('Your activation may still be processing. Please check your inbox shortly. If you do not receive a confirmation, try again or email us directly.');
+    showError('Connection error. Please check your internet and try again. If the issue continues, email hello@idrshield.com.');
     setLoading(false);
   }
 });
@@ -952,15 +972,4 @@ function showSuccess() {
 }
 
 function showError(msg) {
-  errorMsg.textContent   = msg;
-  errorMsg.style.display = 'block';
-}
-
-function hideError() {
-  errorMsg.style.display = 'none';
-  errorMsg.textContent   = '';
-}
-</script>
-
-</body>
-</html>
+  errorMsg.textC
