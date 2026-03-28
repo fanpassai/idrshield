@@ -1072,9 +1072,10 @@ section { position: relative; }
 
 .inside-inner {
   display: grid;
-  grid-template-columns: 1fr 480px;
-  gap: 80px;
+  grid-template-columns: 1fr 320px;
+  gap: 60px;
   align-items: start;
+  overflow: visible;
 }
 
 .chapter-list {
@@ -1132,13 +1133,13 @@ section { position: relative; }
   background: var(--navy2);
   border-radius: 2px;
   overflow: hidden;
-  box-shadow: -8px 12px 40px rgba(0,0,0,0.25), 4px 4px 0 rgba(201,168,76,0.08);
-  transform: perspective(800px) rotateY(-6deg);
-  transition: transform 0.5s var(--ease);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.45), 0 2px 0 rgba(201,168,76,0.2), 4px 0 0 rgba(201,168,76,0.08);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .mockup-cover:hover {
-  transform: perspective(800px) rotateY(-2deg) translateY(-4px);
+  transform: translateY(-6px);
+  box-shadow: 0 28px 70px rgba(0,0,0,0.55), 0 2px 0 rgba(201,168,76,0.3), 4px 0 0 rgba(201,168,76,0.1);
 }
 
 .mockup-top { height: 4px; background: linear-gradient(90deg, var(--gold3), var(--gold), var(--gold3)); }
@@ -1534,8 +1535,8 @@ button:focus-visible {
   .protocol-grid { grid-template-columns: 1fr; }
   .audience-grid { grid-template-columns: 1fr; }
   .inside-inner { grid-template-columns: 1fr; }
-  .inside-mockup { display: block; max-width: 280px; margin: 40px auto 0; position: static; }
-  .mockup-cover { transform: none; }
+  .inside-mockup { display: block; max-width: 260px; margin: 40px auto 0; position: static; }
+  .mockup-cover { transform: none !important; box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
   .offer-inner { grid-template-columns: 1fr; }
   .final-vs { grid-template-columns: 1fr; gap: 20px; }
   .vs-separator { display: none; }
@@ -1550,8 +1551,9 @@ button:focus-visible {
   .final-cta-inner { padding: 0 24px; }
   footer { padding: 32px 24px; }
   .footer-inner { flex-direction: column; gap: 20px; text-align: center; }
-  .inside-mockup { display: block; max-width: 260px; margin: 32px auto 0; }
+  .inside-mockup { display: block; max-width: 220px; margin: 32px auto 0; }
   .inside-inner { grid-template-columns: 1fr; }
+  .mockup-cover { transform: none !important; }
   .footer-links { flex-wrap: wrap; justify-content: center; gap: 20px; }
 }
 </style>
@@ -1632,7 +1634,7 @@ button:focus-visible {
             <div class="bcr-acc">Accessibility</div>
             <div class="bcr-shield">Shield</div>
             <div class="bcr-rule"></div>
-            <div class="bcr-sub">A Field Guide to Federal Compliance &amp; Predatory Lawsuit Defense</div>
+            <div class="bcr-sub">ADA Website Lawsuit Defense for Online Store Owners</div>
             <div class="bcr-spacer"></div>
             <div class="bcr-warn"><span>▲ &nbsp; YOUR SITE IS BEING SCANNED EVERY DAY &nbsp; ▲</span></div>
             <div class="bcr-footer">IDR PRESS &nbsp;·&nbsp; DIGITAL RISK &amp; COMPLIANCE</li>
@@ -1959,8 +1961,9 @@ button:focus-visible {
             <div class="mockup-acc">Accessibility</div>
             <div class="mockup-s">Shield</div>
             <div class="mockup-rule"></div>
-            <div class="mockup-sub">A Field Guide to Federal Compliance &amp; Predatory Lawsuit Defense</div>
-            <div style="font-family:'Montserrat',sans-serif; font-size:8px; color:rgba(201,168,76,0.25); letter-spacing:0.1em; margin-bottom:12px;">33 PAGES · JUDICIAL PRECEDENT · RESPONSE PROTOCOL</li>
+            <div class="mockup-sub">ADA Website Lawsuit Defense<br>for Online Store Owners</div>
+            <div style="font-family:'EB Garamond',serif; font-size:8.5px; font-style:italic; color:rgba(200,190,165,0.4); line-height:1.5; margin-bottom:10px;">How to protect your store, document your compliance, and become a hard target before a demand letter arrives</div>
+            <div style="font-family:'Montserrat',sans-serif; font-size:7px; color:rgba(201,168,76,0.25); letter-spacing:0.1em; margin-bottom:12px;">33 PAGES · JUDICIAL PRECEDENT · RESPONSE PROTOCOL</div>
           </li>
           <div class="mockup-bot"></div>
         </div>
