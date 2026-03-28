@@ -1071,11 +1071,22 @@ section { position: relative; }
 }
 
 .inside-inner {
-  display: grid;
-  grid-template-columns: 1fr 320px;
-  gap: 60px;
-  align-items: start;
-  overflow: visible;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 64px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.inside-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.inside-book-col {
+  flex: 0 0 240px;
+  width: 240px;
 }
 
 .chapter-list {
@@ -1124,22 +1135,23 @@ section { position: relative; }
 
 /* Inside book mockup */
 .inside-mockup {
-  position: sticky;
-  top: 100px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .mockup-cover {
   width: 100%;
+  box-sizing: border-box;
   background: var(--navy2);
   border-radius: 2px;
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.45), 0 2px 0 rgba(201,168,76,0.2), 4px 0 0 rgba(201,168,76,0.08);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.45), 0 2px 0 rgba(201,168,76,0.2);
   transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .mockup-cover:hover {
   transform: translateY(-6px);
-  box-shadow: 0 28px 70px rgba(0,0,0,0.55), 0 2px 0 rgba(201,168,76,0.3), 4px 0 0 rgba(201,168,76,0.1);
+  box-shadow: 0 28px 70px rgba(0,0,0,0.55), 0 2px 0 rgba(201,168,76,0.3);
 }
 
 .mockup-top { height: 4px; background: linear-gradient(90deg, var(--gold3), var(--gold), var(--gold3)); }
@@ -1534,9 +1546,8 @@ button:focus-visible {
   .wt-inner { grid-template-columns: 1fr; }
   .protocol-grid { grid-template-columns: 1fr; }
   .audience-grid { grid-template-columns: 1fr; }
-  .inside-inner { grid-template-columns: 1fr; }
-  .inside-mockup { display: block; max-width: 260px; margin: 40px auto 0; position: static; }
-  .mockup-cover { transform: none !important; box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
+  .inside-inner { flex-direction: column; }
+  .inside-book-col { width: 100%; flex: none; max-width: 260px; margin: 40px auto 0; }
   .offer-inner { grid-template-columns: 1fr; }
   .final-vs { grid-template-columns: 1fr; gap: 20px; }
   .vs-separator { display: none; }
@@ -1551,8 +1562,7 @@ button:focus-visible {
   .final-cta-inner { padding: 0 24px; }
   footer { padding: 32px 24px; }
   .footer-inner { flex-direction: column; gap: 20px; text-align: center; }
-  .inside-mockup { display: block; max-width: 220px; margin: 32px auto 0; }
-  .inside-inner { grid-template-columns: 1fr; }
+  .inside-book-col { max-width: 220px; }
   .mockup-cover { transform: none !important; }
   .footer-links { flex-wrap: wrap; justify-content: center; gap: 20px; }
 }
@@ -1884,10 +1894,12 @@ button:focus-visible {
 </section>
 
 <!-- ══ INSIDE ══ -->
-<section class="inside">
+<section class="inside" style="overflow:hidden;">
   <div class="section-inner">
     <div class="inside-inner">
-      <div>
+
+      <!-- Left: chapter list -->
+      <div class="inside-content">
         <p class="s-label gold reveal">Inside the Protocol</p>
         <h2 class="s-title dark reveal" style="margin-bottom:16px;">33 pages. Zero filler.</h2>
         <p class="s-sub dark reveal" style="margin-bottom:8px;">Every section is operational. Every chapter answers a question a merchant actually faces — from how the scans work to what to say when the letter arrives.</p>
@@ -1897,82 +1909,85 @@ button:focus-visible {
             <span class="chapter-num">Front</span>
             <span class="chapter-title-text">Judicial Precedent — Why This Protocol Exists</span>
             <span class="chapter-pg">p. 3</span>
-          </div>
+          </li>
           <li class="chapter-item">
             <span class="chapter-num">Intro</span>
             <span class="chapter-title-text">Immediate Risk Notice + Small Business Reality Check</span>
             <span class="chapter-pg">p. 7</span>
-          </div>
+          </li>
           <li class="chapter-item">
             <span class="chapter-num">Ch. 1</span>
             <span class="chapter-title-text">Anatomy of an Attack — How Your Site Is Scanned</span>
             <span class="chapter-pg">p. 13</span>
-          </div>
+          </li>
           <li class="chapter-item">
             <span class="chapter-num">Ch. 2</span>
             <span class="chapter-title-text">The Widget Trap — Why Surface Tools Fail</span>
             <span class="chapter-pg">p. 15</span>
-          </div>
+          </li>
           <li class="chapter-item">
             <span class="chapter-num">Insert</span>
             <span class="chapter-title-text">Legal Perspective — What Actually Changes a Case</span>
             <span class="chapter-pg">p. 17</span>
-          </div>
+          </li>
           <li class="chapter-item">
             <span class="chapter-num">System</span>
             <span class="chapter-title-text">IDR System Overview — How This Is Executed</span>
             <span class="chapter-pg">p. 19</span>
-          </div>
+          </li>
           <li class="chapter-item">
             <span class="chapter-num">Ch. 3</span>
             <span class="chapter-title-text">Five Pillars of Remediation — Where Sites Break</span>
             <span class="chapter-pg">p. 22</span>
-          </div>
+          </li>
           <li class="chapter-item">
             <span class="chapter-num">Ch. 4</span>
             <span class="chapter-title-text">Evidence Management — Why Fixing Isn't Enough</span>
             <span class="chapter-pg">p. 25</span>
-          </div>
+          </li>
           <li class="chapter-item">
             <span class="chapter-num">Ch. 5</span>
             <span class="chapter-title-text">Hard Target Response Protocol — What to Do</span>
             <span class="chapter-pg">p. 27</span>
-          </div>
+          </li>
           <li class="chapter-item">
             <span class="chapter-num">Ch. 6</span>
             <span class="chapter-title-text">Deploying the Shield — Making the Work Visible</span>
             <span class="chapter-pg">p. 30</span>
-          </div>
+          </li>
           <li class="chapter-item">
             <span class="chapter-num">Ref.</span>
             <span class="chapter-title-text">FAQ · Glossary · Enrollment</span>
             <span class="chapter-pg">p. 35</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Right: book cover mockup -->
+      <div class="inside-book-col reveal">
+        <div class="inside-mockup">
+          <div class="mockup-cover">
+            <div class="mockup-top"></div>
+            <div class="mockup-body">
+              <div class="mockup-label">INSTITUTE OF DIGITAL REMEDIATION · IDR COMPLIANCE PROTOCOL SERIES · 2026 EDITION</div>
+              <div class="mockup-the">T H E</div>
+              <div class="mockup-year">2026</div>
+              <div class="mockup-acc">Accessibility</div>
+              <div class="mockup-s">Shield</div>
+              <div class="mockup-rule"></div>
+              <div class="mockup-sub">ADA Website Lawsuit Defense<br>for Online Store Owners</div>
+              <div style="font-family:'EB Garamond',serif;font-size:9px;font-style:italic;color:rgba(200,190,165,0.45);line-height:1.6;margin-bottom:16px;">How to protect your store, document your compliance, and become a hard target before a demand letter arrives</div>
+              <div style="font-family:'Montserrat',sans-serif;font-size:6.5px;color:rgba(201,168,76,0.3);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px;">33 Pages &nbsp;·&nbsp; Judicial Precedent &nbsp;·&nbsp; Response Protocol</div>
+            </div>
+            <div class="mockup-bot"></div>
+          </div>
+          <div style="margin-top:16px;text-align:center;">
+            <p style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;color:var(--gold3);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:4px;">IDR Press &nbsp;·&nbsp; 2026</p>
+            <p style="font-family:'EB Garamond',serif;font-size:13px;font-style:italic;color:var(--gray);">Institute of Digital Remediation</p>
           </div>
         </div>
       </div>
 
-      <div class="inside-mockup reveal">
-        <div class="mockup-cover">
-          <div class="mockup-top"></div>
-          <div class="mockup-body">
-            <div class="mockup-label">INSTITUTE OF DIGITAL REMEDIATION · IDR PROTOCOL 2026</div>
-            <div class="mockup-the">The</div>
-            <div class="mockup-year">2026</div>
-            <div class="mockup-acc">Accessibility</div>
-            <div class="mockup-s">Shield</div>
-            <div class="mockup-rule"></div>
-            <div class="mockup-sub">ADA Website Lawsuit Defense<br>for Online Store Owners</div>
-            <div style="font-family:'EB Garamond',serif; font-size:8.5px; font-style:italic; color:rgba(200,190,165,0.4); line-height:1.5; margin-bottom:10px;">How to protect your store, document your compliance, and become a hard target before a demand letter arrives</div>
-            <div style="font-family:'Montserrat',sans-serif; font-size:7px; color:rgba(201,168,76,0.25); letter-spacing:0.1em; margin-bottom:12px;">33 PAGES · JUDICIAL PRECEDENT · RESPONSE PROTOCOL</div>
-          </li>
-          <div class="mockup-bot"></div>
-        </div>
-        <div style="margin-top:20px; text-align:center;">
-          <p style="font-family:'Montserrat',sans-serif; font-size:10px; font-weight:700; color:var(--gold3); letter-spacing:0.15em; text-transform:uppercase; margin-bottom:6px;">Published by the</p>
-          <p style="font-family:'EB Garamond',serif; font-size:14px; font-style:italic; color:var(--gray);">Institute of Digital Remediation</p>
-          <p style="font-family:'Montserrat',sans-serif; font-size: 9px; color:var(--lgray); letter-spacing:0.1em; margin-top:4px;">IDR Protocol Series · 2026 Edition</p>
-        </div>
-      </div>
     </div>
   </div>
 </section>
