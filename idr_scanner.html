@@ -442,6 +442,10 @@ footer{border-top:1px solid var(--border2);padding:24px 40px;display:flex;align-
       <div class="hash-val" id="rf-hash">—</div>
       <div class="hash-note">Any change to this receipt — score, issues, domain, or timestamp — produces a different hash. Tamper-evident by design.</div>
     </div>
+    <!-- Kit Scanner Visitor Form -->
+    <div style="margin-bottom:16px;text-align:center;">
+      <script async data-uid="9251759" src="https://fanpass.kit.com/9251759/index.js"></script>
+    </div>
     <div class="activate-teaser">
       <p>This scan is not yet recorded in the IDR Registry. <strong>Activate your IDR Shield for $97</strong> — founding access, first 500 stores. Includes The 2026 Accessibility Shield report, registry listing, badge, and 30-day Pro access. Standard price $127 after founding window closes.</p>
     </div>
@@ -702,7 +706,8 @@ function cpHash(btn){
   navigator.clipboard.writeText(h).then(()=>{const o=btn.textContent;btn.textContent='Copied!';setTimeout(()=>btn.textContent=o,2000);});
 }
 function activateRecord(){
-  alert(`Activating IDR Shield for ${receipt?.scan?.domain||'store'}\n\nFounding Access: $97 (first 500 stores)\nStandard: $127 after founding window\n\nIncludes: Report + Registry + Badge + 30-day Pro\nAfter trial: $29/mo Pro or $9/mo Basic\n\nRouting to: idrshield.com/activate?ref=${receipt?.registry_id||''}`);
+  const ref = receipt?.registry_id || '';
+  window.location.href = 'https://idrshield.gumroad.com/l/oadcfq?ref=' + encodeURIComponent(ref);
 }
 
 // Utilities

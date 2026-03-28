@@ -1,0 +1,2189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The 2026 Accessibility Shield — Institute of Digital Remediation</title>
+<meta name="description" content="Activate your IDR Shield. Scan, document, and verify your store's accessibility posture. Founding access $97 — first 500 stores only.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+.skip-link {
+  position: absolute;
+  top: -999px;
+  left: 0;
+  padding: 12px 24px;
+  background: var(--gold);
+  color: var(--navy);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  z-index: 9999;
+  text-decoration: none;
+}
+.skip-link:focus { top: 0; }
+
+:root {
+  --navy:    #0A0E1A;
+  --navy2:   #0D1526;
+  --navy3:   #162038;
+  --gold:    #C9A84C;
+  --gold2:   #E2C97E;
+  --gold3:   #8A6F2E;
+  --cream:   #F0E8D8;
+  --cream2:  #C8BFA0;
+  --warm:    #F8F5EF;
+  --gray:    #6B6B6B;
+  --lgray:   #999999;
+  --red:     #8B1C1C;
+  --redl:    #CC3333;
+  --white:   #FFFFFF;
+  --border:  rgba(201,168,76,0.18);
+  --ease:    cubic-bezier(0.16,1,0.3,1);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: 'EB Garamond', Georgia, serif;
+  background: var(--warm);
+  color: #1A1A1A;
+  overflow-x: hidden;
+}
+
+/* ── GRAIN OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ══ NAV ══ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 0 48px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(10,14,26,0.0);
+  backdrop-filter: blur(0px);
+  transition: background 0.5s var(--ease), backdrop-filter 0.5s var(--ease), border-bottom 0.5s;
+  border-bottom: 1px solid transparent;
+}
+
+nav.scrolled {
+  background: rgba(10,14,26,0.96);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.nav-brand-name {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.nav-brand-sub {
+  font-family: 'EB Garamond', serif;
+  font-size: 11px;
+  font-style: italic;
+  color: rgba(201,168,76,0.5);
+  letter-spacing: 0.04em;
+}
+
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 24px;
+  background: var(--gold);
+  color: var(--navy);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.nav-cta:hover {
+  background: var(--gold2);
+  transform: translateY(-1px);
+}
+
+/* ══ HERO ══ */
+.hero {
+  min-height: 100vh;
+  background: var(--navy);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: 120px 0 80px;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 50%, rgba(201,168,76,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 80% at 0% 100%, rgba(13,21,38,0.8) 0%, transparent 60%),
+    linear-gradient(160deg, #0D1526 0%, #080C14 60%, #0A0E1A 100%);
+}
+
+.hero-line {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent 0%, var(--gold) 30%, var(--gold2) 50%, var(--gold) 70%, transparent 100%);
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 48px;
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 80px;
+  align-items: center;
+  width: 100%;
+}
+
+.hero-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold2); /* contrast boosted from gold3 */
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.hero-label::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: var(--gold3);
+}
+
+.hero-h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(52px, 6vw, 82px);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+  margin-bottom: 32px;
+}
+
+.hero-h1 em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.hero-sub {
+  font-family: 'EB Garamond', serif;
+  font-size: 19px;
+  line-height: 1.65;
+  color: rgba(240,232,216,0.65);
+  max-width: 540px;
+  margin-bottom: 40px;
+  font-weight: 400;
+}
+
+.hero-divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 40px;
+}
+
+.hero-divider-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold3), transparent);
+  max-width: 200px;
+}
+
+.hero-divider-diamond {
+  width: 5px;
+  height: 5px;
+  background: var(--gold);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px 36px;
+  margin-bottom: 48px;
+  max-width: 480px;
+}
+
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hero-stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.hero-stat-label { /* contrast-tested: gold on navy passes AA */
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.45);
+}
+
+.hero-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 18px 40px;
+  background: var(--gold);
+  color: var(--navy);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.25s var(--ease);
+  position: relative;
+  overflow: hidden;
+  align-self: flex-start;
+}
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.btn-primary:hover {
+  background: var(--gold2);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(201,168,76,0.3);
+}
+
+.btn-primary:hover::after { opacity: 1; }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'EB Garamond', serif;
+  font-size: 15px;
+  font-style: italic;
+  color: rgba(201,168,76,0.65);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+  align-self: flex-start;
+}
+
+.btn-secondary:hover { color: var(--gold); }
+
+.btn-secondary::after {
+  content: '→';
+  font-style: normal;
+  transition: transform 0.2s;
+}
+
+.btn-secondary:hover::after { transform: translateX(4px); }
+.btn-secondary:focus-visible {
+  outline: 2px solid var(--gold2);
+  outline-offset: 3px;
+}
+
+.hero-note {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  color: rgba(201,168,76,0.3);
+  letter-spacing: 0.08em;
+  margin-top: 4px;
+}
+
+/* Book cover in hero */
+.hero-book {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.book-3d {
+  position: relative;
+  width: 320px;
+  transform: perspective(1000px) rotateY(-8deg) rotateX(2deg);
+  transform-style: preserve-3d;
+  filter: drop-shadow(-20px 30px 60px rgba(0,0,0,0.8)) drop-shadow(-4px 4px 20px rgba(201,168,76,0.15));
+  transition: transform 0.6s var(--ease);
+  cursor: pointer;
+}
+
+.book-3d:hover {
+  transform: perspective(1000px) rotateY(-4deg) rotateX(1deg) translateY(-8px);
+}
+
+.book-cover-render {
+  width: 100%;
+  background: var(--navy2);
+  border-radius: 2px 4px 4px 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Rendered book cover */
+.bcr-top-band {
+  height: 5px;
+  background: linear-gradient(90deg, var(--gold3), var(--gold), var(--gold2), var(--gold), var(--gold3));
+}
+
+.bcr-body {
+  padding: 24px 28px 20px;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(165deg, #0d1526 0%, #080d1a 50%, #060a14 100%);
+  min-height: 440px;
+}
+
+.bcr-series {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 7px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.4);
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.bcr-the {
+  font-family: 'Playfair Display', serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.5);
+  margin-bottom: 4px;
+}
+
+.bcr-year {
+  font-family: 'Playfair Display', serif;
+  font-size: 72px;
+  font-weight: 900;
+  line-height: 0.85;
+  color: var(--gold);
+  letter-spacing: -0.01em;
+}
+
+.bcr-acc {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--cream);
+  letter-spacing: -0.01em;
+  margin-top: 4px;
+}
+
+.bcr-shield {
+  font-family: 'Playfair Display', serif;
+  font-size: 58px;
+  font-weight: 900;
+  line-height: 0.9;
+  color: var(--cream);
+  letter-spacing: -0.02em;
+}
+
+.bcr-rule {
+  width: 60%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  margin: 14px 0 10px;
+}
+
+.bcr-sub {
+  font-family: 'EB Garamond', serif;
+  font-size: 11px;
+  font-style: italic;
+  color: rgba(200,190,165,0.55);
+  line-height: 1.5;
+  margin-bottom: auto;
+}
+
+.bcr-spacer { flex: 1; min-height: 20px; }
+
+.bcr-warn {
+  background: rgba(100,15,15,0.2);
+  border-top: 1px solid rgba(150,25,25,0.4);
+  border-bottom: 1px solid rgba(150,25,25,0.4);
+  padding: 7px 0;
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.bcr-warn span {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 6px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(200,70,70,0.85);
+}
+
+.bcr-footer {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 7px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.3);
+  border-top: 1px solid rgba(201,168,76,0.12);
+  padding-top: 10px;
+}
+
+.bcr-bot-band {
+  height: 5px;
+  background: linear-gradient(90deg, var(--gold3), var(--gold), var(--gold2), var(--gold), var(--gold3));
+}
+
+/* Spine */
+.book-spine {
+  position: absolute;
+  left: -14px;
+  top: 0; bottom: 0;
+  width: 14px;
+  background: linear-gradient(180deg, #0c1220 0%, #1a2640 50%, #0c1220 100%);
+  border-radius: 2px 0 0 2px;
+  transform: translateZ(-2px);
+}
+
+/* ══ TICKER STRIP ══ */
+.ticker {
+  background: var(--navy2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 0;
+  overflow: hidden;
+}
+
+.ticker-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  padding: 16px 48px;
+  gap: 16px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.5);
+  flex-shrink: 0;
+}
+
+.ticker-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0;
+}
+
+.ticker-dot {
+  width: 3px;
+  height: 3px;
+  background: var(--gold3);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+
+
+/* ══ SECTION BASE ══ */
+section { position: relative; }
+
+.section-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+/* ══ SECTION LABEL ══ */
+.s-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.s-label::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+}
+
+.s-label.gold { color: var(--gold); }
+.s-label.gold::before { background: var(--gold); }
+.s-label.light { color: rgba(201,168,76,0.7); } /* contrast boosted */
+.s-label.light::before { background: rgba(201,168,76,0.3); }
+
+.s-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(36px, 4.5vw, 58px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.s-title.dark { color: var(--navy2); }
+.s-title.light { color: var(--cream); }
+
+.s-sub {
+  font-family: 'EB Garamond', serif;
+  font-size: 19px;
+  line-height: 1.7;
+  max-width: 640px;
+}
+
+.s-sub.dark { color: var(--gray); }
+.s-sub.light { color: rgba(240,232,216,0.65); }
+
+/* ══ SCROLL REVEAL ══ */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ══ JUDICIAL RECORD ══ */
+.judicial {
+  background: var(--warm);
+  padding: 120px 0;
+}
+
+.judicial-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.judicial-note {
+  font-family: 'EB Garamond', serif;
+  font-size: 17px;
+  font-style: italic;
+  color: var(--gray);
+  max-width: 600px;
+  margin: 20px auto 0;
+  line-height: 1.7;
+}
+
+.cases-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.12);
+}
+
+.case-card {
+  background: var(--warm);
+  padding: 44px 44px 40px;
+  position: relative;
+  transition: background 0.3s;
+}
+
+.case-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px;
+  height: 0;
+  background: var(--gold);
+  transition: height 0.5s var(--ease);
+}
+
+.case-card:hover { background: #FFFDF8; }
+.case-card:hover::before { height: 100%; }
+
+.case-number {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.case-number::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(201,168,76,0.2);
+}
+
+.case-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--navy2);
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.case-cite {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--lgray);
+  letter-spacing: 0.04em;
+  font-style: italic;
+  margin-bottom: 20px;
+}
+
+.case-holding {
+  font-family: 'EB Garamond', serif;
+  font-size: 16.5px;
+  line-height: 1.65;
+  color: #3A3A3A;
+  margin-bottom: 20px;
+}
+
+.case-idr {
+  font-family: 'EB Garamond', serif;
+  font-size: 15px;
+  font-style: italic;
+  color: var(--gold3);
+  line-height: 1.6;
+  padding-top: 16px;
+  border-top: 1px solid rgba(201,168,76,0.15);
+}
+
+.case-verdict {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 16px;
+  padding: 4px 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.verdict-dismissed { background: rgba(100,160,100,0.1); color: #3A7A3A; border: 1px solid rgba(100,160,100,0.25); }
+.verdict-settled { background: rgba(139,28,28,0.08); color: var(--red); border: 1px solid rgba(139,28,28,0.2); }
+.verdict-landmark { background: rgba(201,168,76,0.1); color: var(--gold3); border: 1px solid rgba(201,168,76,0.25); }
+
+/* ══ MECHANISM ══ */
+.mechanism {
+  background: var(--navy);
+  padding: 120px 0;
+  overflow: hidden;
+}
+
+.mechanism-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+  align-items: center;
+}
+
+.mech-pipeline {
+  position: relative;
+}
+
+.pipeline-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 24px 0;
+  position: relative;
+}
+
+.pipeline-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 19px;
+  top: 52px;
+  bottom: -24px;
+  width: 1px;
+  background: linear-gradient(180deg, rgba(201,168,76,0.4), rgba(201,168,76,0.1));
+}
+
+.pipeline-dot {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gold);
+  background: rgba(201,168,76,0.05);
+  transition: all 0.3s;
+}
+
+.pipeline-step:hover .pipeline-dot {
+  background: var(--gold);
+  color: var(--navy);
+  box-shadow: 0 0 24px rgba(201,168,76,0.4);
+}
+
+.pipeline-content {}
+
+.pipeline-action {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+
+.pipeline-desc {
+  font-family: 'EB Garamond', serif;
+  font-size: 17px;
+  color: rgba(240,232,216,0.6);
+  line-height: 1.6;
+}
+
+/* ══ WIDGET TRAP ══ */
+.widget-trap {
+  background: var(--warm);
+  padding: 120px 0;
+}
+
+.wt-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.wt-evidence {
+  background: #FFFDF8;
+  border: 1px solid rgba(201,168,76,0.15);
+  padding: 40px;
+  position: relative;
+}
+
+.wt-evidence::before {
+  content: 'COURT RECORD';
+  position: absolute;
+  top: -10px;
+  left: 28px;
+  background: var(--warm);
+  padding: 0 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  color: var(--gold3);
+}
+
+.wt-quote {
+  font-family: 'EB Garamond', serif;
+  font-size: 17px;
+  font-style: italic;
+  line-height: 1.7;
+  color: #2A2A2A;
+  margin-bottom: 20px;
+  padding-left: 20px;
+  border-left: 3px solid var(--gold);
+}
+
+.wt-cite {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--lgray);
+  font-style: normal;
+}
+
+.wt-ftc {
+  margin-top: 28px;
+  padding: 20px;
+  background: rgba(139,28,28,0.05);
+  border: 1px solid rgba(139,28,28,0.15);
+}
+
+.wt-ftc-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--redl);
+  margin-bottom: 8px;
+}
+
+.wt-ftc-text {
+  font-family: 'EB Garamond', serif;
+  font-size: 16px;
+  color: #2A2A2A;
+  line-height: 1.6;
+}
+
+/* ══ THE PROTOCOL ══ */
+.protocol {
+  background: var(--navy);
+  padding: 120px 0;
+}
+
+.protocol-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  margin-top: 64px;
+  background: rgba(201,168,76,0.08);
+}
+
+.protocol-card {
+  background: var(--navy2);
+  padding: 48px 44px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+
+.protocol-card:hover {
+  background: var(--navy3);
+}
+
+.protocol-number {
+  position: absolute;
+  top: 28px;
+  right: 36px;
+  font-family: 'Playfair Display', serif;
+  font-size: 80px;
+  font-weight: 900;
+  color: rgba(201,168,76,0.05);
+  line-height: 1;
+  pointer-events: none;
+  transition: color 0.3s;
+}
+
+.protocol-card:hover .protocol-number {
+  color: rgba(201,168,76,0.08);
+}
+
+.protocol-icon {
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(201,168,76,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+}
+
+.protocol-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 6px;
+}
+
+.protocol-subtitle {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold3);
+  margin-bottom: 16px;
+}
+
+.protocol-desc {
+  font-family: 'EB Garamond', serif;
+  font-size: 17px;
+  line-height: 1.65;
+  color: rgba(240,232,216,0.55);
+}
+
+.protocol-key {
+  margin-top: 20px;
+  padding: 12px 16px;
+  background: rgba(201,168,76,0.05);
+  border-left: 2px solid rgba(201,168,76,0.3);
+  font-family: 'EB Garamond', serif;
+  font-size: 15px;
+  font-style: italic;
+  color: rgba(201,168,76,0.7);
+  line-height: 1.5;
+}
+
+/* ══ WHO IT'S FOR ══ */
+.audience {
+  background: var(--warm);
+  padding: 120px 0;
+}
+
+.audience-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 64px;
+}
+
+.audience-card {
+  padding: 40px 36px;
+  border: 1px solid rgba(201,168,76,0.12);
+  background: #FFFDF8;
+  position: relative;
+  transition: border-color 0.3s, transform 0.3s var(--ease);
+}
+
+.audience-card:hover {
+  border-color: rgba(201,168,76,0.35);
+  transform: translateY(-6px);
+}
+
+.audience-profile {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold3);
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+}
+
+.audience-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--navy2);
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.audience-desc {
+  font-family: 'EB Garamond', serif;
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--gray);
+  margin-bottom: 20px;
+}
+
+.audience-why {
+  font-family: 'EB Garamond', serif;
+  font-size: 15px;
+  font-style: italic;
+  color: var(--gold3);
+  padding-top: 16px;
+  border-top: 1px solid rgba(201,168,76,0.15);
+  line-height: 1.6;
+}
+
+/* ══ INSIDE ══ */
+.inside {
+  background: #F0ECE4;
+  padding: 120px 0;
+}
+
+.inside-inner {
+  display: grid;
+  grid-template-columns: 1fr 480px;
+  gap: 80px;
+  align-items: start;
+}
+
+.chapter-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 40px;
+}
+
+.chapter-item {
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  gap: 16px;
+  align-items: baseline;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(201,168,76,0.12);
+  transition: background 0.2s;
+  cursor: default;
+}
+
+.chapter-item:hover .chapter-title-text { color: var(--gold3); }
+
+.chapter-num {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--gold3);
+  text-transform: uppercase;
+}
+
+.chapter-title-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--navy2);
+  transition: color 0.2s;
+}
+
+.chapter-pg {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  color: var(--lgray);
+}
+
+/* Inside book mockup */
+.inside-mockup {
+  position: sticky;
+  top: 100px;
+}
+
+.mockup-cover {
+  width: 100%;
+  background: var(--navy2);
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: -8px 12px 40px rgba(0,0,0,0.25), 4px 4px 0 rgba(201,168,76,0.08);
+  transform: perspective(800px) rotateY(-6deg);
+  transition: transform 0.5s var(--ease);
+}
+
+.mockup-cover:hover {
+  transform: perspective(800px) rotateY(-2deg) translateY(-4px);
+}
+
+.mockup-top { height: 4px; background: linear-gradient(90deg, var(--gold3), var(--gold), var(--gold3)); }
+.mockup-body { padding: 28px; background: linear-gradient(160deg, #0d1526, #060a14); }
+.mockup-label { font-family: 'Montserrat', sans-serif; font-size: 6px; font-weight: 600; letter-spacing: 0.18em; color: rgba(201,168,76,0.35); text-transform: uppercase; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid rgba(201,168,76,0.1); }
+.mockup-the { font-family: 'Playfair Display', serif; font-size: 9px; color: rgba(201,168,76,0.4); letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 2px; }
+.mockup-year { font-family: 'Playfair Display', serif; font-size: 54px; font-weight: 900; color: var(--gold); line-height: 0.85; }
+.mockup-acc { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--cream); line-height: 1; margin-top: 4px; }
+.mockup-s { font-family: 'Playfair Display', serif; font-size: 44px; font-weight: 900; color: var(--cream); line-height: 0.9; letter-spacing: -0.01em; }
+.mockup-rule { width: 50%; height: 2px; background: linear-gradient(90deg, var(--gold), transparent); margin: 12px 0 8px; }
+.mockup-sub { font-family: 'EB Garamond', serif; font-size: 9.5px; font-style: italic; color: rgba(200,190,165,0.5); line-height: 1.5; margin-bottom: 24px; }
+.mockup-pages { font-family: 'Montserrat', sans-serif; font-size: 8px; color: rgba(201,168,76,0.3); letter-spacing: 0.1em; margin-bottom: 10px; }
+.mockup-bot { height: 4px; background: linear-gradient(90deg, var(--gold3), var(--gold), var(--gold3)); }
+
+/* ══ OFFER ══ */
+.offer {
+  background: var(--navy);
+  padding: 120px 0;
+}
+
+.offer-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.offer-price-block {
+  background: rgba(201,168,76,0.04);
+  border: 1px solid var(--border);
+  padding: 48px;
+  position: relative;
+}
+
+.offer-price-block::before {
+  content: 'FOUNDING ACCESS PRICING';
+  position: absolute;
+  top: -11px;
+  left: 24px;
+  background: var(--navy);
+  padding: 0 12px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--gold3);
+}
+
+.offer-main-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 80px;
+  font-weight: 900;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.offer-main-label {
+  font-family: 'EB Garamond', serif;
+  font-size: 19px;
+  font-style: italic;
+  color: rgba(240,232,216,0.55);
+  margin-bottom: 32px;
+}
+
+.offer-includes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 36px;
+  padding-bottom: 36px;
+  border-bottom: 1px solid var(--border);
+}
+
+.offer-include-item {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  font-family: 'EB Garamond', serif;
+  font-size: 17px;
+  color: rgba(240,232,216,0.65);
+}
+
+.offer-include-item::before {
+  content: '—';
+  color: var(--gold);
+  flex-shrink: 0;
+  font-size: 14px;
+}
+
+.offer-trial-box {
+  background: rgba(201,168,76,0.06);
+  border: 1px solid rgba(201,168,76,0.2);
+  padding: 20px 24px;
+  margin-bottom: 32px;
+}
+
+.offer-trial-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold3);
+  margin-bottom: 8px;
+}
+
+.offer-trial-text {
+  font-family: 'EB Garamond', serif;
+  font-size: 16px;
+  color: rgba(240,232,216,0.6);
+  line-height: 1.6;
+}
+
+.offer-context {
+  font-family: 'EB Garamond', serif;
+  font-size: 16px;
+  font-style: italic;
+  color: rgba(201,168,76,0.45);
+  line-height: 1.65;
+}
+
+.offer-cta-block {}
+
+.offer-headline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(34px, 4vw, 48px);
+  font-weight: 900;
+  color: var(--cream);
+  line-height: 1.1;
+  margin-bottom: 24px;
+  letter-spacing: -0.01em;
+}
+
+.offer-headline em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.offer-body {
+  font-family: 'EB Garamond', serif;
+  font-size: 18px;
+  line-height: 1.7;
+  color: rgba(240,232,216,0.55);
+  margin-bottom: 40px;
+}
+
+.offer-guarantee {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  color: rgba(201,168,76,0.35);
+  letter-spacing: 0.1em;
+  margin-top: 20px;
+}
+
+/* ══ FINAL CTA ══ */
+.final-cta {
+  background: var(--navy2);
+  padding: 140px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.final-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 60% at 50% 50%, rgba(201,168,76,0.04) 0%, transparent 70%);
+}
+
+.final-cta-inner {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+.final-vs {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 40px;
+  align-items: center;
+  margin-bottom: 80px;
+}
+
+.final-vs-col {
+  padding: 40px;
+  border: 1px solid;
+  text-align: left;
+}
+
+.final-vs-col.soft {
+  border-color: rgba(139,28,28,0.2);
+  background: rgba(139,28,28,0.03);
+}
+
+.final-vs-col.hard {
+  border-color: rgba(201,168,76,0.25);
+  background: rgba(201,168,76,0.03);
+}
+
+.vs-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid;
+}
+
+.vs-label.soft { color: var(--redl); border-color: rgba(139,28,28,0.2); }
+.vs-label.hard { color: var(--gold); border-color: rgba(201,168,76,0.2); }
+
+.vs-item {
+  font-family: 'EB Garamond', serif;
+  font-size: 16px;
+  line-height: 1.5;
+  padding: 6px 0;
+}
+
+.vs-item.soft { color: rgba(200,80,80,0.6); }
+.vs-item.hard { color: rgba(240,232,216,0.6); }
+
+.vs-separator {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 900;
+  color: rgba(201,168,76,0.3);
+  font-style: italic;
+}
+
+.final-headline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(40px, 5vw, 62px);
+  font-weight: 900;
+  color: var(--cream);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+}
+
+.final-headline em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.final-sub {
+  font-family: 'EB Garamond', serif;
+  font-size: 19px;
+  color: rgba(240,232,216,0.5);
+  line-height: 1.7;
+  margin-bottom: 48px;
+}
+
+.final-btn-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.final-note {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: rgba(201,168,76,0.25);
+  margin-top: 8px;
+}
+
+/* ══ FOOTER ══ */
+footer {
+  background: var(--navy);
+  padding: 48px;
+  border-top: 1px solid var(--border);
+}
+
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-brand {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.3);
+}
+
+.footer-links {
+  display: flex;
+  gap: 32px;
+}
+
+.footer-links a {
+  font-family: 'EB Garamond', serif;
+  font-size: 14px;
+  font-style: italic;
+  color: rgba(201,168,76,0.55);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover { color: rgba(201,168,76,0.65); }
+
+.footer-doc {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  color: rgba(201,168,76,0.15);
+  letter-spacing: 0.15em;
+}
+
+/* ══ ACCESSIBILITY ══ */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--gold2);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ══ MOBILE STICKY CTA ══ */
+.mobile-cta {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 900;
+  padding: 14px 20px;
+  background: var(--navy);
+  border-top: 1px solid var(--border);
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.mobile-cta-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: rgba(201,168,76,0.5);
+  text-transform: uppercase;
+}
+
+.mobile-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 24px;
+  background: var(--gold);
+  color: var(--navy);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .mobile-cta.visible { display: flex; }
+  body { padding-bottom: 70px; }
+}
+
+/* ══ RESPONSIVE ══ */
+@media (max-width: 1024px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 60px; }
+  .hero-book { display: none; }
+  .cases-grid { grid-template-columns: 1fr; }
+  .mechanism-inner { grid-template-columns: 1fr; gap: 60px; }
+  .wt-inner { grid-template-columns: 1fr; }
+  .protocol-grid { grid-template-columns: 1fr; }
+  .audience-grid { grid-template-columns: 1fr; }
+  .inside-inner { grid-template-columns: 1fr; }
+  .offer-inner { grid-template-columns: 1fr; }
+  .final-vs { grid-template-columns: 1fr; gap: 20px; }
+  .vs-separator { display: none; }
+  nav { padding: 0 24px; }
+  .section-inner { padding: 0 24px; }
+  .hero-inner { padding: 0 24px; }
+}
+
+@media (max-width: 640px) {
+  .hero-h1 { font-size: 42px; }
+  .hero-stats { gap: 24px; }
+  .final-cta-inner { padding: 0 24px; }
+  footer { padding: 32px 24px; }
+  .footer-inner { flex-direction: column; gap: 20px; text-align: center; }
+  .footer-links { flex-wrap: wrap; justify-content: center; gap: 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<nav id="nav" role="navigation" aria-label="Site navigation">
+  <div class="nav-brand">
+    <span class="nav-brand-name">Institute of Digital Remediation</span>
+    <span class="nav-brand-sub">IDR Protocol Series · 2026 Edition</span>
+  </div>
+  <a href="https://www.idrshield.com/idrshield_activate.html" class="nav-cta" aria-label="Get the 2026 Accessibility Shield Protocol for $97">Activate IDR Shield — $97</a>
+</nav>
+
+<!-- ══ HERO ══ -->
+<main id="main-content">
+<section class="hero" aria-labelledby="hero-heading">
+  <div class="hero-bg"></div>
+  <div class="hero-line"></div>
+
+  <div class="hero-inner">
+    <div class="hero-content">
+      <p class="hero-label">IDR Field Protocol · 2026 Edition</p>
+
+      <h1 class="hero-h1" id="hero-heading">
+        Your site is<br>
+        <em>being scanned</em><br>
+        every day.
+      </h1>
+
+      <p class="hero-sub">
+        Automated legal systems are crawling thousands of e-commerce stores every day — reading source code, flagging violations, and building claim queues. Most merchants won't know until a demand letter arrives. This protocol was built from the federal cases that established what happens next.
+      </p>
+
+      <p style="font-family:'Montserrat',sans-serif; font-size:10px; font-weight:500; letter-spacing:0.12em; color:rgba(201,168,76,0.45); margin-bottom:32px; text-transform:uppercase;">Built from publicly documented federal cases, enforcement actions, and litigation patterns.</p>
+      <div class="hero-divider">
+        <div class="hero-divider-line"></div>
+        <div class="hero-divider-diamond"></div>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-num">5,000+</span>
+          <span class="hero-stat-label">Federal filings / year</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">Majority</span>
+          <span class="hero-stat-label">Target e-commerce &amp; SMBs</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">$5K – $25K</span>
+          <span class="hero-stat-label">Typical settlement range</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">Far more</span>
+          <span class="hero-stat-label">Demand letters than filed cases</span>
+        </div>
+      </div>
+
+      <div class="hero-actions">
+        <a href="https://www.idrshield.com/idrshield_activate.html" class="btn-primary">Activate IDR Shield — $97</a>
+        <a href="#offer" class="btn-secondary">See what's included</a>
+        <p class="hero-note">Immediate PDF access &nbsp;·&nbsp; Includes 30 days of IDR Pro access</p>
+      </div>
+    </div>
+
+    <div class="hero-book" aria-hidden="true">
+      <div class="book-spine"></div>
+      <div class="book-3d">
+        <div class="book-cover-render">
+          <div class="bcr-top-band"></div>
+          <div class="bcr-body">
+            <div class="bcr-series">INSTITUTE OF DIGITAL REMEDIATION &nbsp;·&nbsp; IDR COMPLIANCE PROTOCOL SERIES &nbsp;·&nbsp; 2026</div>
+            <div class="bcr-the">The</div>
+            <div class="bcr-year">2026</div>
+            <div class="bcr-acc">Accessibility</div>
+            <div class="bcr-shield">Shield</div>
+            <div class="bcr-rule"></div>
+            <div class="bcr-sub">A Field Guide to Federal Compliance &amp; Predatory Lawsuit Defense</div>
+            <div class="bcr-spacer"></div>
+            <div class="bcr-warn"><span>▲ &nbsp; YOUR SITE IS BEING SCANNED EVERY DAY &nbsp; ▲</span></div>
+            <div class="bcr-footer">IDR PRESS &nbsp;·&nbsp; DIGITAL RISK &amp; COMPLIANCE</li>
+          </li>
+          <div class="bcr-bot-band"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DOCUMENTED ENVIRONMENT STRIP ══ -->
+<div class="ticker" aria-hidden="true">
+  <div class="section-inner" style="padding-top:18px; padding-bottom:18px; text-align:center; max-width:100%;">
+    <p style="font-family:'Montserrat',sans-serif; font-size:10px; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:rgba(201,168,76,0.5); line-height:1.8;">
+      Documented environment &nbsp;·&nbsp; High annual federal filing volume &nbsp;·&nbsp; E-commerce concentration &nbsp;·&nbsp; Recurring plaintiff firms &nbsp;·&nbsp; Growing FTC scrutiny of overlay claims &nbsp;·&nbsp; Demand letters outnumber lawsuits significantly
+    </p>
+  </div>
+</div>
+
+<!-- ══ JUDICIAL RECORD ══ -->
+<section class="judicial">
+  <div class="section-inner">
+    <div class="judicial-header reveal">
+      <p class="s-label gold">The Judicial Record</p>
+      <h2 class="s-title dark">The cases that built this protocol.</h2>
+      <p class="judicial-note">These are not hypothetical scenarios. These are documented federal cases. They are publicly available. They establish three legal realities that govern your business today — and they are the foundation upon which every principle in this protocol is built.</p>
+    </div>
+
+    <div class="cases-grid">
+      <div class="case-card reveal reveal-delay-1">
+        <div class="case-number">Case Zero</div>
+        <h3 class="case-name">Robles v. Domino's Pizza, LLC</h3>
+        <p class="case-cite">913 F.3d 898 · 9th Circuit · Supreme Court Denied Certiorari October 7, 2019</p>
+        <p class="case-holding">A blind man could not order a pizza through Domino's website or app using screen-reading software. Domino's fought all the way to the Supreme Court. The Supreme Court refused to intervene — leaving the Ninth Circuit's ruling in place: the ADA applies to websites and mobile apps that extend a physical business.</p>
+        <p class="case-idr">When the Supreme Court declined to intervene, the practical signal was clear: website accessibility claims were now firmly in play. This case helped shape the legal environment e-commerce businesses operate in today.</p>
+        <span class="case-verdict verdict-landmark">Landmark · Certiorari Denied</span>
+      </div>
+
+      <div class="case-card reveal reveal-delay-2">
+        <div class="case-number">Case I</div>
+        <h3 class="case-name">Haynes v. Dunkin' Donuts LLC</h3>
+        <p class="case-cite">No. 18-10373 · 11th Circuit Court of Appeals · July 31, 2018</p>
+        <p class="case-holding">Dennis Haynes could not access the Dunkin' Donuts website using screen-reading software to find store locations or purchase gift cards. The Eleventh Circuit reversed dismissal, holding the ADA applies to intangible barriers — not just physical ones. A website facilitating access to a physical business is covered.</p>
+        <p class="case-idr">Your website is legally an extension of your business. The ADA does not care whether the barrier is a broken step or a broken label in your source code.</p>
+        <span class="case-verdict verdict-landmark">Landmark · Reversed Dismissal</span>
+      </div>
+
+      <div class="case-card reveal reveal-delay-3">
+        <div class="case-number">Case II</div>
+        <h3 class="case-name">Murphy v. Eyebobs LLC</h3>
+        <p class="case-cite">No. 1:21-cv-00017 · W.D. Pa. · Settled October 2021</p>
+        <p class="case-holding">Anthony Murphy sued the online eyewear retailer Eyebobs — despite the company having installed an accessibility overlay widget. Judge Lanzillo refused to dismiss. The settlement required removal of the overlay, full WCAG 2.1 source code remediation, a dedicated accessibility team, annual audits, and five years of compliance monitoring. In April 2025, the FTC separately fined the overlay vendor $1 million for making false compliance claims.</p>
+        <p class="case-idr">Federal courts and regulators have made clear that overlays alone are not a substitute for underlying remediation. The Eyebobs case established this judicially in 2021. A subsequent FTC enforcement action against a major overlay provider reinforced it regulatorily in 2025.</p>
+        <span class="case-verdict verdict-settled">Settled · Widget Rejected</span>
+      </div>
+
+      <div class="case-card reveal reveal-delay-4">
+        <div class="case-number">Case III</div>
+        <h3 class="case-name">Diaz v. The Kroger Co.</h3>
+        <p class="case-cite">No. 18-cv-7953 · S.D.N.Y. · Dismissed 2019</p>
+        <p class="case-holding">Kroger was sued for website accessibility violations. Kroger submitted a detailed affidavit documenting that it had begun WCAG compliance before the lawsuit was filed, had personally confirmed all identified barriers were fixed, and committed to ongoing monitoring. The Southern District of New York dismissed the case. The judge cited the affidavit as the deciding factor — not the perfection of the site, but the documented process behind it.</p>
+        <p class="case-idr">The court did not require perfection. It required proof of process. Documented effort, ongoing commitment, and structured evidence changed the outcome entirely. This is the blueprint.</p>
+        <span class="case-verdict verdict-dismissed">Dismissed · Documentation Prevailed</span>
+      </div>
+    </div>
+
+    <div class="reveal" style="margin-top: 48px; text-align: center;">
+      <p style="font-family:'Montserrat',sans-serif; font-size:10px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold3);">Three legal realities established by these cases</p>
+      <div style="display:flex; justify-content:center; gap:48px; margin-top:24px; flex-wrap:wrap;">
+        <div style="text-align:center;">
+          <p style="font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:var(--navy2); margin-bottom:6px;">Your website is covered by the ADA.</p>
+          <p style="font-family:'EB Garamond',serif; font-size:14px; font-style:italic; color:var(--gray);">Multiple circuits have confirmed this.</p>
+        </div>
+        <div style="color:rgba(201,168,76,0.3); font-size:28px; align-self:center;">·</div>
+        <div style="text-align:center;">
+          <p style="font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:var(--navy2); margin-bottom:6px;">Widgets are not a defense.</p>
+          <p style="font-family:'EB Garamond',serif; font-size:14px; font-style:italic; color:var(--gray);">Courts and the FTC have confirmed this.</p>
+        </div>
+        <div style="color:rgba(201,168,76,0.3); font-size:28px; align-self:center;">·</div>
+        <div style="text-align:center;">
+          <p style="font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:var(--navy2); margin-bottom:6px;">Documented process can materially improve posture.</p>
+          <p style="font-family:'EB Garamond',serif; font-size:14px; font-style:italic; color:var(--gray);">Kroger illustrates why.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MECHANISM ══ -->
+<section class="mechanism">
+  <div class="section-inner">
+    <div class="mechanism-inner">
+      <div>
+        <p class="s-label light reveal">The Mechanism</p>
+        <h2 class="s-title light reveal" style="margin-bottom:24px;">You are not being<br><em style="font-style:italic; color:var(--gold);">targeted.</em><br>You are being processed.</h2>
+        <p class="s-sub light reveal" style="margin-bottom:40px;">A modern plaintiff firm does not operate like a law practice. It operates like a data company. Automated scanners read your source code — not your site visually — and generate structured legal reports before a human ever reviews your case. Your brand does not matter. Your revenue does not matter. Your code either matches a vulnerable pattern or it does not.</p>
+        <div class="reveal" style="padding:32px; background:rgba(201,168,76,0.04); border:1px solid var(--border); border-left:3px solid var(--gold);">
+          <p style="font-family:'Playfair Display',serif; font-size:20px; font-style:italic; color:var(--cream); line-height:1.55;">Accessibility litigation has become increasingly repeatable, data-driven, and concentrated among a small number of plaintiff firms. For e-commerce merchants, that shifts the risk from theoretical to operational — and the code pattern that makes you a target has nothing to do with your brand.</p>
+          <p style="margin-top:16px; font-family:'Montserrat',sans-serif; font-size:9px; color:rgba(201,168,76,0.4); letter-spacing:0.15em;">— Based on public federal dockets, EcomBack annual reports, UsableNet lawsuit tracker, and Boston 25 News investigation</p>
+        </div>
+      </div>
+
+      <div class="mech-pipeline reveal">
+        <div class="pipeline-step">
+          <div class="pipeline-dot">01</div>
+          <div class="pipeline-content">
+            <div class="pipeline-action">Automated Scan</div>
+            <p class="pipeline-desc">A headless browser reads your site's Document Object Model — the source code layer — against WCAG criteria. This takes under 60 seconds. It does not see your design. It reads your structure.</p>
+          </div>
+        </div>
+        <div class="pipeline-step">
+          <div class="pipeline-dot">02</div>
+          <div class="pipeline-content">
+            <div class="pipeline-action">Violation Logged</div>
+            <p class="pipeline-desc">Each failure is recorded with the page URL, the specific element, the exact failure type, and a timestamp. This creates a structured, reproducible legal report — before you know any of it happened.</p>
+          </div>
+        </div>
+        <div class="pipeline-step">
+          <div class="pipeline-dot">03</div>
+          <div class="pipeline-content">
+            <div class="pipeline-action">Claim Queue</div>
+            <p class="pipeline-desc">Your domain enters a claim queue. Some stores are filed within days. Others sit for weeks or months. The queue is prioritized by resistance level — how hard this store is likely to fight.</p>
+          </div>
+        </div>
+        <div class="pipeline-step">
+          <div class="pipeline-dot">04</div>
+          <div class="pipeline-content">
+            <div class="pipeline-action">Demand Letter</div>
+            <p class="pipeline-desc">You receive a letter — usually from a law firm you have never heard of — demanding between $5,000 and $25,000. Defense costs more than settling. Most merchants pay.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ WIDGET TRAP ══ -->
+<section class="widget-trap">
+  <div class="section-inner">
+    <div class="wt-inner">
+      <div>
+        <p class="s-label gold reveal">The False Solution</p>
+        <h2 class="s-title dark reveal" style="margin-bottom:24px;">The widget signals<br>that you know about<br>the problem.</h2>
+        <p class="s-sub dark reveal" style="margin-bottom:28px;">It does not fix it. A widget sits on top of your source code without changing it. The automated scanner does not read the widget. It reads the code underneath — the same code that was broken before you installed the overlay. Installing a widget can make things worse: it tells an automated scanner and a reviewing attorney that you were aware of the issue and chose a shortcut over remediation.</p>
+        <p class="reveal" style="font-family:'EB Garamond',serif; font-size:18px; font-style:italic; color:var(--gold3); line-height:1.65;">A meaningful share of accessibility lawsuits have involved sites that already displayed accessibility overlays. The overlay did not resolve the underlying source-code barriers, and in some cases its presence reinforced the appearance of incomplete remediation.</p>
+      </div>
+
+      <div>
+        <div class="wt-evidence reveal">
+          <p class="wt-quote">"Defendant installed a low-cost overlay on the Digital Platform developed by a company called accessiBe. accessiBe claims this overlay can automatically bring a website into compliance with the ADA by resolving the website's underlying accessibility issues. Unfortunately, the overlay fails to provide screen reader users, including Murphy, full and equal access to the Digital Platform."</p>
+          <p class="wt-cite">Murphy v. Eyebobs LLC · Filed January 2021 · Western District of Pennsylvania</p>
+          <div class="wt-ftc">
+            <div class="wt-ftc-label">FTC Enforcement Action · 2025</div>
+            <p class="wt-ftc-text">In 2025, the Federal Trade Commission announced an enforcement action against a major overlay provider over misleading accessibility compliance claims — signaling increased regulatory scrutiny of automated compliance marketing. The action reinforced what the courts had already established: an overlay is not a substitute for remediation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ THE PROTOCOL ══ -->
+<section class="protocol">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="s-label light">The IDR System</p>
+      <h2 class="s-title light" style="margin-bottom:16px;">Most tools make your site<br><em style="font-style:italic; color:var(--gold);">look</em> accessible.</h2>
+      <h2 class="s-title light" style="margin-bottom:28px;">This system makes it <em style="font-style:italic; color:var(--gold);">defensible.</em></h2>
+      <p class="s-sub light">Four connected layers. Each one serves a specific legal and technical function. Together they build the kind of structured, documented compliance posture that changed the outcome in a federal courtroom.</p>
+    </div>
+
+    <p class="reveal" style="font-family:'EB Garamond',serif; font-size:19px; font-style:italic; color:rgba(201,168,76,0.55); margin-top:32px; margin-bottom:8px; line-height:1.65;">This is not about perfection. It is about building a defensible record — and that is achievable.</p>
+    <div class="protocol-grid">
+      <div class="protocol-card reveal reveal-delay-1">
+        <div class="protocol-number">01</div>
+        <div class="protocol-icon">SCAN</div>
+        <h3 class="protocol-title">IDR Scan Engine</h3>
+        <p class="protocol-subtitle">Detection</p>
+        <p class="protocol-desc">Automated code-level scan using established automated testing approaches aligned with WCAG evaluation practices and widely used across the accessibility industry. Identifies the specific failure patterns that appear most frequently in real ADA complaints: missing alt text, unlabeled form fields, keyboard traps, heading failures, contrast violations.</p>
+        <div class="protocol-key">You see your site the way a plaintiff's scanner sees it — before they do.</div>
+      </div>
+
+      <div class="protocol-card reveal reveal-delay-2">
+        <div class="protocol-number">02</div>
+        <div class="protocol-icon">FIX</div>
+        <h3 class="protocol-title">IDR Remediation Layer</h3>
+        <p class="protocol-subtitle">Correction</p>
+        <p class="protocol-desc">Guided, code-level remediation for each identified issue. Not a visual overlay. Not an automated patch on top of broken code. Targeted structural corrections to the actual elements that create legal exposure — with your review and approval at each step.</p>
+        <div class="protocol-key">The difference between a widget and remediation is the difference between painting over a crack and filling it.</div>
+      </div>
+
+      <div class="protocol-card reveal reveal-delay-3">
+        <div class="protocol-number">03</div>
+        <div class="protocol-icon">LOG</div>
+        <h3 class="protocol-title">IDR Evidence Log</h3>
+        <p class="protocol-subtitle">Documentation</p>
+        <p class="protocol-desc">Every scan result, every correction, every update automatically logged with timestamps. Structured, timestamped, and versioned. The log records what was found, what was fixed, when, and when the site was re-verified after changes. This reflects the same principle that mattered in Kroger: documented, structured evidence of ongoing accessibility effort — generated automatically, without requiring you to manage a spreadsheet.</p>
+        <div class="protocol-key">When a demand letter arrives, you are not starting from zero. You are pulling a structured, externally maintained record.</div>
+      </div>
+
+      <div class="protocol-card reveal reveal-delay-4">
+        <div class="protocol-number">04</div>
+        <div class="protocol-icon">SIGNAL</div>
+        <h3 class="protocol-title">IDR Shield + Registry</h3>
+        <p class="protocol-subtitle">Visibility</p>
+        <p class="protocol-desc">A live verification page at instituteofdigitalremediation.com/verify/yourstore — not a badge, a record. Last scan date. Remediation activity. Current status. A reporting channel. When an automated scanner or human reviewer encounters your site, they do not see silence. In practice, sites without visible verification often appear indistinguishable from sites with no documented process at all. The absence of a signal is itself a signal.</p>
+        <div class="protocol-key">The shield does not stop every lawsuit. It changes the calculation — making your site a harder, more documented target than thousands of unmonitored stores filing past it in the queue.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ WHO IT'S FOR ══ -->
+<section class="audience">
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center; max-width:640px; margin:0 auto 64px;">
+      <p class="s-label gold" style="justify-content:center;">Who This Serves</p>
+      <h2 class="s-title dark" style="margin-bottom:16px;">Built for operators,<br>not observers.</h2>
+      <p class="s-sub dark">This is not a theoretical guide for people who are curious about accessibility law. It is a working protocol for businesses that are already exposed — whether they know it or not.</p>
+    </div>
+
+    <div class="audience-grid">
+      <div class="audience-card reveal reveal-delay-1">
+        <div class="audience-profile">Primary Target</div>
+        <h3 class="audience-title">Shopify & WooCommerce Merchants</h3>
+        <p class="audience-desc">Stores doing $1K to $1M+ per month. Visible enough to be scanned. Small enough to be pressured. Unprotected enough to settle quickly. Shopify stores are among the most frequently named platforms in federal accessibility lawsuits.</p>
+            <p class="audience-desc" style="margin-top:16px; border-left:2px solid rgba(201,168,76,0.3); padding-left:16px;">The same automated systems scanning your site for plaintiff firms are the ones IDR uses to build your defense record. The difference is who runs it first.</p>
+        <p class="audience-why">You are the lawsuit mill's preferred inventory. The protocol was built around your specific exposure.</p>
+      </div>
+
+      <div class="audience-card reveal reveal-delay-2">
+        <div class="audience-profile">High Urgency</div>
+        <h3 class="audience-title">Store Owners Facing Immediate Exposure</h3>
+        <p class="audience-desc">The strongest use of this system is before a letter arrives. But if you have already received a demand letter, the Hard Target Response Protocol is designed to help you avoid reacting blindly — and to build the record that changes your position.</p>
+        <p class="audience-why">The first 72 hours determine the direction. Structure your response before you send one.</p>
+      </div>
+
+      <div class="audience-card reveal reveal-delay-3">
+        <div class="audience-profile">Distribution Channel</div>
+        <h3 class="audience-title">Agencies & Developers</h3>
+        <p class="audience-desc">You build and manage client stores. When a client receives a demand letter, the first call is often to you. You carry liability exposure for every store you launched or manage. The IDR Agency Dashboard — coming Phase 2 — is built for exactly this.</p>
+        <p class="audience-why">Your clients' exposure is your exposure. The protocol gives you something to point to.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ INSIDE ══ -->
+<section class="inside">
+  <div class="section-inner">
+    <div class="inside-inner">
+      <div>
+        <p class="s-label gold reveal">Inside the Protocol</p>
+        <h2 class="s-title dark reveal" style="margin-bottom:16px;">41 pages. Zero filler.</h2>
+        <p class="s-sub dark reveal" style="margin-bottom:8px;">Every section is operational. Every chapter answers a question a merchant actually faces — from how the scans work to what to say when the letter arrives.</p>
+
+        <ul class="chapter-list reveal" role="list">
+          <li class="chapter-item">
+            <span class="chapter-num">Front</span>
+            <span class="chapter-title-text">Judicial Precedent — Why This Protocol Exists</span>
+            <span class="chapter-pg">p. 3</span>
+          </div>
+          <li class="chapter-item">
+            <span class="chapter-num">Intro</span>
+            <span class="chapter-title-text">Immediate Risk Notice + Small Business Reality Check</span>
+            <span class="chapter-pg">p. 7</span>
+          </div>
+          <li class="chapter-item">
+            <span class="chapter-num">Ch. 1</span>
+            <span class="chapter-title-text">Anatomy of an Attack — How Your Site Is Scanned</span>
+            <span class="chapter-pg">p. 13</span>
+          </div>
+          <li class="chapter-item">
+            <span class="chapter-num">Ch. 2</span>
+            <span class="chapter-title-text">The Widget Trap — Why Surface Tools Fail</span>
+            <span class="chapter-pg">p. 15</span>
+          </div>
+          <li class="chapter-item">
+            <span class="chapter-num">Insert</span>
+            <span class="chapter-title-text">Legal Perspective — What Actually Changes a Case</span>
+            <span class="chapter-pg">p. 17</span>
+          </div>
+          <li class="chapter-item">
+            <span class="chapter-num">System</span>
+            <span class="chapter-title-text">IDR System Overview — How This Is Executed</span>
+            <span class="chapter-pg">p. 19</span>
+          </div>
+          <li class="chapter-item">
+            <span class="chapter-num">Ch. 3</span>
+            <span class="chapter-title-text">Five Pillars of Remediation — Where Sites Break</span>
+            <span class="chapter-pg">p. 22</span>
+          </div>
+          <li class="chapter-item">
+            <span class="chapter-num">Ch. 4</span>
+            <span class="chapter-title-text">Evidence Management — Why Fixing Isn't Enough</span>
+            <span class="chapter-pg">p. 25</span>
+          </div>
+          <li class="chapter-item">
+            <span class="chapter-num">Ch. 5</span>
+            <span class="chapter-title-text">Hard Target Response Protocol — What to Do</span>
+            <span class="chapter-pg">p. 27</span>
+          </div>
+          <li class="chapter-item">
+            <span class="chapter-num">Ch. 6</span>
+            <span class="chapter-title-text">Deploying the Shield — Making the Work Visible</span>
+            <span class="chapter-pg">p. 30</span>
+          </div>
+          <li class="chapter-item">
+            <span class="chapter-num">Ref.</span>
+            <span class="chapter-title-text">FAQ · Glossary · Enrollment</span>
+            <span class="chapter-pg">p. 35</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="inside-mockup reveal">
+        <div class="mockup-cover">
+          <div class="mockup-top"></div>
+          <div class="mockup-body">
+            <div class="mockup-label">INSTITUTE OF DIGITAL REMEDIATION · IDR PROTOCOL 2026</div>
+            <div class="mockup-the">The</div>
+            <div class="mockup-year">2026</div>
+            <div class="mockup-acc">Accessibility</div>
+            <div class="mockup-s">Shield</div>
+            <div class="mockup-rule"></div>
+            <div class="mockup-sub">A Field Guide to Federal Compliance &amp; Predatory Lawsuit Defense</div>
+            <div style="font-family:'Montserrat',sans-serif; font-size:8px; color:rgba(201,168,76,0.25); letter-spacing:0.1em; margin-bottom:12px;">41 PAGES · JUDICIAL PRECEDENT · RESPONSE PROTOCOL</li>
+          </li>
+          <div class="mockup-bot"></div>
+        </div>
+        <div style="margin-top:20px; text-align:center;">
+          <p style="font-family:'Montserrat',sans-serif; font-size:10px; font-weight:700; color:var(--gold3); letter-spacing:0.15em; text-transform:uppercase; margin-bottom:6px;">Published by the</p>
+          <p style="font-family:'EB Garamond',serif; font-size:14px; font-style:italic; color:var(--gray);">Institute of Digital Remediation</p>
+          <p style="font-family:'Montserrat',sans-serif; font-size: 9px; color:var(--lgray); letter-spacing:0.1em; margin-top:4px;">IDR Protocol Series · 2026 Edition</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ OFFER ══ -->
+<section class="offer" id="offer" aria-labelledby="offer-heading">
+  <div class="section-inner">
+    <div class="offer-inner">
+      <div class="offer-price-block reveal">
+        <div class="offer-main-price">$97</div>
+          <div class="offer-main-label" style="font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:rgba(201,168,76,0.5);margin-top:6px;">Founding Access · First 500 Stores · Standard Price $127</div>
+        <div class="offer-main-label">The 2026 Accessibility Shield Protocol</div>
+
+        <div class="offer-includes">
+          <div class="offer-include-item">41-page institutional compliance field guide</div>
+          <div class="offer-include-item">Four verified federal case citations</div>
+          <div class="offer-include-item">Hard Target Response Protocol with controlled response template</div>
+          <div class="offer-include-item">IDR System architecture and execution guide</div>
+          <div class="offer-include-item">Legal Perspective insert and evidence framework</div>
+          <div class="offer-include-item">The 2026 Accessibility Shield — full report included</div>
+        </div>
+
+        <div class="offer-trial-box">
+          <div class="offer-trial-label">Included with every activation</div>
+          <div class="offer-trial-text">Activate once. Your store is scanned immediately, your Registry record goes live, and your 30-day Pro access begins. The 2026 Accessibility Shield report is included automatically. After 30 days: $29/month Pro or $9/month Basic — or cancel anytime. Reminder sent before any charge. No surprises.</div>
+        </div>
+
+        <p class="offer-context">For most merchants, the cost of one rushed settlement conversation is many times higher than the cost of this protocol. Every merchant who reads it and activates the system changes their legal posture from that day forward.</p>
+      </div>
+
+      <div class="offer-cta-block reveal">
+        <h2 class="offer-headline" id="offer-heading">The only question is<br>whether you act<br><em>before</em> the letter.</h2>
+        <p class="offer-body">After the letter arrives, you are reacting. Before it, you are positioning. The merchants who built a documented record before they were selected are the ones who had something to show. The ones who didn't paid the settlement and hoped the next scan would pass them by.<br><br>Activation determines how your site is evaluated from this point forward.</p>
+        <a href="https://www.idrshield.com/idrshield_activate.html" class="btn-primary" style="font-size:14px; padding:20px 48px;">Activate IDR Shield — $97</a>
+        <p class="offer-guarantee">Founding access · First 500 stores only · Standard price $127 after window closes</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FINAL CTA ══ -->
+<section class="final-cta">
+  <div class="final-cta-inner">
+
+    <div class="final-vs reveal" role="region" aria-label="Soft target versus hard target comparison">
+      <div class="final-vs-col soft">
+        <div class="vs-label soft">Soft Target</div>
+        <div class="vs-item soft">No audit history</div>
+        <div class="vs-item soft">No documentation</div>
+        <div class="vs-item soft">No verification status</div>
+        <div class="vs-item soft">Reacts to pressure</div>
+        <div class="vs-item soft">Settles quietly</div>
+      </div>
+      <div class="vs-separator">vs</div>
+      <div class="final-vs-col hard">
+        <div class="vs-label hard">Hard Target</div>
+        <div class="vs-item hard">Timestamped scan history</div>
+        <div class="vs-item hard">Structured evidence log</div>
+        <div class="vs-item hard">Live registry status</div>
+        <div class="vs-item hard">Responds with documentation</div>
+        <div class="vs-item hard">Changes the calculation</div>
+      </div>
+    </div>
+
+    <h2 class="final-headline reveal">
+      Work that is done once<br>
+      fades. Work that is<br>
+      maintained <em>compounds.</em>
+    </h2>
+
+    <p class="final-sub reveal">
+      Systems that are visible are far less likely to be tested.<br>
+      This is the last decision point in this document.
+    </p>
+
+    <div class="final-btn-group reveal">
+      <a href="https://www.idrshield.com/idrshield_activate.html" class="btn-primary" style="font-size:15px; padding:22px 56px; letter-spacing:0.12em;">Activate IDR Shield — $97</a>
+      <p class="final-note">Activation includes report + 30-day Pro &nbsp;·&nbsp; Founding access &nbsp;·&nbsp; First 500 stores</p>
+    </div>
+
+  </div>
+</section>
+
+</main>
+<!-- ══ TRUST BLOCK ══ -->
+<!-- IDR Waitlist Form -->
+<section style="background:#0A1022; padding:56px 0; text-align:center; border-top:1px solid rgba(201,168,76,0.15);">
+  <div style="max-width:560px; margin:0 auto; padding:0 24px;">
+    <p style="font-family:'Montserrat',sans-serif; font-size:9px; font-weight:700; letter-spacing:0.28em; text-transform:uppercase; color:rgba(201,168,76,0.6); margin-bottom:12px;">Not ready to activate?</p>
+    <h3 style="font-family:'EB Garamond',serif; font-size:26px; color:#F0E8D8; margin-bottom:8px;">Join the IDR Waitlist</h3>
+    <p style="font-family:'EB Garamond',serif; font-size:16px; color:rgba(240,232,216,0.6); margin-bottom:24px;">Get notified when founding access closes and receive the free ADA risk assessment.</p>
+    <script async data-uid="3243339860" src="https://fanpass.kit.com/3243339860/index.js"></script>
+  </div>
+</section>
+
+<section style="background:#F7F3EA; border-top:1px solid rgba(201,168,76,0.12); border-bottom:1px solid rgba(201,168,76,0.12); padding:48px 0;">
+  <div class="section-inner" style="max-width:960px;">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start;">
+      <div>
+        <p style="font-family:'Montserrat',sans-serif; font-size:9px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold3); margin-bottom:14px;">Important Positioning Note</p>
+        <p style="font-family:'EB Garamond',serif; font-size:18px; line-height:1.75; color:#3A3A3A;">The Institute of Digital Remediation is not a law firm and does not provide legal advice. The protocol is a structured compliance and evidence management system — designed to help businesses improve accessibility posture through documented remediation and verification. It is not a legal guarantee.</p>
+      </div>
+      <div id="sources">
+        <p style="font-family:'Montserrat',sans-serif; font-size:9px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold3); margin-bottom:14px;">Sources Referenced</p>
+        <p style="font-family:'EB Garamond',serif; font-size:16px; line-height:1.8; color:#5A5A5A;">Federal court dockets via PACER &nbsp;·&nbsp; EcomBack Annual ADA Lawsuit Reports (2023, 2024) &nbsp;·&nbsp; UsableNet Accessibility Lawsuit Tracker &nbsp;·&nbsp; Seyfarth Shaw Title III survey data &nbsp;·&nbsp; Boston 25 News investigation (2025) &nbsp;·&nbsp; National Law Review case analysis &nbsp;·&nbsp; FTC consent order documentation</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">Institute of Digital Remediation &nbsp;·&nbsp; IDR Press &nbsp;·&nbsp; 2026</div>
+    <div class="footer-links">
+      <a href="https://instituteofdigitalremediation.com">Institute</a>
+      <a href="https://instituteofdigitalremediation.com/registry">Registry</a>
+      <a href="https://www.idrshield.com/idrshield_activate.html">Activate</a>
+      <a href="mailto:protocol@instituteofdigitalremediation.com">Contact</a>
+      <a href="#sources">Sources</a>
+    </div>
+    <div class="footer-doc">IDR-PROTOCOL-2026 &nbsp;·&nbsp; idrshield.com</div>
+  </div>
+</footer>
+
+<script>
+// ── NAV SCROLL ──
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+// ── SCROLL REVEAL ──
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+reveals.forEach(el => observer.observe(el));
+
+// ── BOOK PARALLAX (respects reduced-motion) ──
+const book = document.querySelector('.book-3d');
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (book && !prefersReducedMotion) {
+  document.addEventListener('mousemove', (e) => {
+    const rect = book.closest('.hero').getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const dx = (e.clientX - cx) / rect.width;
+    const dy = (e.clientY - cy) / rect.height;
+    book.style.transform = `perspective(1000px) rotateY(${-8 + dx * 6}deg) rotateX(${2 - dy * 3}deg)`;
+  }, { passive: true });
+}
+
+// ── ANIMATED COUNTERS — only clean integers ──
+const statNums = document.querySelectorAll('.hero-stat-num');
+const countObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const raw = el.textContent.trim();
+      // Only animate if the value matches pattern: optional $ + digits + optional single suffix char + optional +
+      // e.g. "5,000+" or "5000+" — NOT "$5K–$25K", "Majority", "Far more"
+      const cleanMatch = raw.match(/^(\$?)([0-9,]+)(\+?)$/);
+      if (cleanMatch) {
+        const prefix = cleanMatch[1];
+        const numStr = cleanMatch[2].replace(/,/g, '');
+        const suffix = cleanMatch[3];
+        const num = parseInt(numStr, 10);
+        if (!isNaN(num) && num > 0 && num < 100000) {
+          const duration = 1200;
+          const startTime = performance.now();
+          const tick = (now) => {
+            const elapsed = now - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const ease = 1 - Math.pow(1 - progress, 3);
+            const current = Math.round(ease * num);
+            el.textContent = prefix + current.toLocaleString() + suffix;
+            if (progress < 1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+        }
+      }
+      countObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+
+statNums.forEach(el => countObserver.observe(el));
+
+// ── DUPLICATE TICKER for infinite scroll ──
+// Already duplicated in HTML
+</script>
+
+<!-- ══ MOBILE STICKY CTA ══ -->
+<div class="mobile-cta" id="mobileCta" role="region" aria-label="Purchase call to action">
+  <span class="mobile-cta-text">Activate IDR Shield · $97</span>
+  <a href="https://www.idrshield.com/idrshield_activate.html" class="mobile-cta-btn">Activate Now — $97</a>
+</div>
+
+<script>
+// Show mobile CTA after hero
+const mobileCta = document.getElementById('mobileCta');
+if (mobileCta) {
+  const heroEl = document.querySelector('.hero');
+  if (heroEl) {
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY > heroEl.offsetHeight * 0.7;
+      mobileCta.classList.toggle('visible', scrolled && window.innerWidth <= 768);
+    }, { passive: true });
+  }
+}
+</script>
+
+</body>
+</html>
