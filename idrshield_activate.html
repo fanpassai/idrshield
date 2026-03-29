@@ -1,974 +1,309 @@
 <!DOCTYPE html>
-<html lang="en" style="background:#0A0E1A;">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Activate Your IDR Shield &mdash; Institute of Digital Remediation</title>
-<meta name="description" content="Activate your included 30-day IDR Pro access. Protocol readers receive Registry listing, IDR Shield status, Evidence Log, and Defense Package — all included in your activation.">
-<meta name="robots" content="noindex, nofollow">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>Activate IDR Shield — Institute of Digital Remediation</title>
 <style>
-
-/* ============================================
-   KIT SETUP
-   1. In Kit, create a form called "IDR Protocol Activation"
-   2. Add a custom field: store_url (text)
-   3. Copy the Form ID from the URL bar
-   4. Replace 9251778 below (two places)
-   ============================================ */
-
-:root {
-  --navy:   #0A0E1A;
-  --navy2:  #0D1526;
-  --navy3:  #111D35;
-  --gold:   #C9A84C;
-  --gold2:  #E2C97E;
-  --gold3:  #8A6F2E;
-  --cream:  #F0E8D8;
-  --gray:   #6B6B6B;
-  --border: rgba(201,168,76,0.15);
-  --ease:   cubic-bezier(0.16,1,0.3,1);
-}
-
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { font-size: 16px; scroll-behavior: smooth; background: #0A0E1A !important; }
-
+* { margin: 0; padding: 0; box-sizing: border-box; }
 body {
-  font-family: 'EB Garamond', Georgia, serif;
-  background: #0A0E1A !important;
-  color: #F0E8D8 !important;
+  font-family: 'Georgia', serif;
+  background: #080d1a;
+  color: #F0E8D8;
   min-height: 100vh;
-  overflow-x: hidden;
-}
-
-/* Grain overlay */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-  opacity: 0.03;
-  pointer-events: none;
-  z-index: 9999;
-}
-
-/* Skip link */
-.skip-link {
-  position: absolute;
-  top: -999px;
-  left: 0;
-  padding: 10px 20px;
-  background: var(--gold);
-  color: var(--navy);
-  font-family: 'Montserrat', sans-serif;
-  font-size: 12px;
-  font-weight: 700;
-  z-index: 9998;
-  text-decoration: none;
-}
-.skip-link:focus { top: 0; }
-
-/* Top gold rule */
-.top-bar {
-  height: 3px;
-  background: linear-gradient(90deg, transparent, var(--gold3), var(--gold), var(--gold2), var(--gold), var(--gold3), transparent);
-}
-
-/* -- HEADER -- */
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 24px 48px;
-  border-bottom: 1px solid var(--border);
-}
-
-.brand-name {
-  display: block;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 2px;
-}
-
-.brand-sub {
-  font-family: 'EB Garamond', serif;
-  font-size: 12px;
-  font-style: italic;
-  color: rgba(201,168,76,0.4);
-}
-
-.header-doc {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 9px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(201,168,76,0.2);
-}
-
-/* -- MAIN GRID -- */
-main {
-  display: grid;
-  grid-template-columns: 1fr 480px;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 80px 48px;
-  gap: 80px;
-  align-items: start;
-}
-
-/* -- LEFT: CONTEXT -- */
-.context-label {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--gold3);
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 32px;
-}
-.context-label::before { content: ''; width: 24px; height: 1px; background: var(--gold3); }
-
-h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(38px, 4vw, 54px);
-  font-weight: 900;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  color: var(--cream);
-  margin-bottom: 20px;
-}
-h1 em { font-style: italic; color: var(--gold); }
-
-.context-sub {
-  font-family: 'EB Garamond', serif;
-  font-size: 18px;
-  line-height: 1.7;
-  color: rgba(240,232,216,0.55);
-  margin-bottom: 48px;
-  max-width: 480px;
-}
-
-/* Includes list */
-.includes { margin-bottom: 48px; }
-
-.includes-label {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--gold3);
-  margin-bottom: 20px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--border);
-}
-
-.include-item {
-  display: flex;
-  align-items: baseline;
-  gap: 14px;
-  padding: 12px 0;
-  border-bottom: 1px solid rgba(201,168,76,0.06);
-}
-.include-item:last-child { border-bottom: none; }
-
-.include-check {
-  width: 16px;
-  height: 16px;
-  border: 1px solid var(--gold3);
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-  margin-top: 3px;
+  padding: 40px 20px;
 }
-.include-check::after {
-  content: '';
-  width: 6px;
-  height: 4px;
-  border-left: 1.5px solid var(--gold);
-  border-bottom: 1.5px solid var(--gold);
-  transform: rotate(-45deg) translateY(-1px);
-}
-
-.include-text {
-  font-family: 'EB Garamond', serif;
-  font-size: 17px;
-  color: rgba(240,232,216,0.65);
-  line-height: 1.4;
-}
-.include-text strong { color: var(--cream); font-weight: 600; }
-
-/* What happens next */
-.next-steps {
-  background: rgba(201,168,76,0.03);
-  border: 1px solid var(--border);
-  border-left: 3px solid rgba(201,168,76,0.25);
-  padding: 28px;
-}
-
-.next-label {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--gold3);
-  margin-bottom: 20px;
-}
-
-.next-step {
-  display: flex;
-  gap: 16px;
-  padding: 10px 0;
-  align-items: baseline;
-  border-bottom: 1px solid rgba(201,168,76,0.05);
-}
-.next-step:last-child { border-bottom: none; }
-
-.next-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--gold);
-  flex-shrink: 0;
-  width: 20px;
-}
-
-.next-text {
-  font-family: 'EB Garamond', serif;
-  font-size: 16px;
-  line-height: 1.6;
-  color: rgba(240,232,216,0.5);
-}
-.next-text strong { color: rgba(240,232,216,0.75); font-weight: 500; }
-
-/* -- RIGHT: FORM PANEL -- */
-.form-panel { position: sticky; top: 40px; }
-
-.form-card {
-  background: var(--navy2);
-  border: 1px solid var(--border);
-  position: relative;
-  overflow: hidden;
-}
-
-.form-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--gold3), var(--gold), var(--gold2), var(--gold), var(--gold3));
-}
-
-.form-header {
-  padding: 36px 40px 28px;
-  border-bottom: 1px solid var(--border);
-}
-
-.form-status-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
-}
-
-.status-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 4px 12px;
-  background: rgba(201,168,76,0.07);
-  border: 1px solid rgba(201,168,76,0.2);
-  font-family: 'Montserrat', sans-serif;
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--gold);
-}
-
-.status-dot {
-  width: 5px;
-  height: 5px;
-  background: var(--gold);
-  border-radius: 50%;
-  animation: pulse 2s ease-in-out infinite;
-}
-@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.35;} }
-
-.form-pricing {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 9px;
-  color: rgba(201,168,76,0.3);
-  letter-spacing: 0.1em;
-}
-
-.form-card h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--cream);
-  margin-bottom: 6px;
-  line-height: 1.2;
-}
-
-.form-desc {
-  font-family: 'EB Garamond', serif;
-  font-size: 15px;
-  font-style: italic;
-  color: rgba(240,232,216,0.35);
-}
-
-/* Form body */
-.form-body { padding: 32px 40px 36px; }
-
-.field { margin-bottom: 20px; }
-
-.field-label {
-  display: block;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--gold3);
-  margin-bottom: 8px;
-}
-.field-label span { color: var(--gold); }
-
-.field-input {
+.container {
+  max-width: 520px;
   width: 100%;
-  padding: 14px 16px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(201,168,76,0.18);
-  color: var(--cream);
-  font-family: 'EB Garamond', serif;
-  font-size: 17px;
-  outline: none;
-  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
-  border-radius: 0;
-  -webkit-appearance: none;
 }
-.field-input::placeholder { color: rgba(240,232,216,0.18); font-style: italic; }
-.field-input:focus {
-  border-color: rgba(201,168,76,0.5);
-  background: rgba(201,168,76,0.03);
-  box-shadow: 0 0 0 3px rgba(201,168,76,0.07);
-}
-.field-input:focus-visible { outline: 2px solid var(--gold2); outline-offset: 2px; }
-.field-input.error { border-color: rgba(200,70,70,0.5); }
-
-.field-hint {
-  display: block;
-  margin-top: 6px;
-  font-family: 'EB Garamond', serif;
-  font-size: 13px;
-  font-style: italic;
-  color: rgba(240,232,216,0.22);
-}
-
-/* Tier selector */
-.tier-section { margin-bottom: 28px; }
-
-.tier-label {
-  display: block;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 9px;
-  font-weight: 700;
+.brand {
+  font-family: 'Georgia', serif;
+  font-size: 11px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--gold3);
-  margin-bottom: 10px;
-}
-
-.tier-option {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  padding: 14px 16px;
-  border: 1px solid rgba(201,168,76,0.1);
+  color: rgba(201,168,82,0.6);
   margin-bottom: 8px;
-  cursor: pointer;
-  transition: border-color 0.2s, background 0.2s;
-  position: relative;
 }
-.tier-option:hover { border-color: rgba(201,168,76,0.25); }
-.tier-option.selected { border-color: rgba(201,168,76,0.4); background: rgba(201,168,76,0.04); }
-
-.tier-option input[type="radio"] {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
+h1 {
+  font-size: 38px;
+  font-weight: normal;
+  line-height: 1.15;
+  margin-bottom: 12px;
+  color: #F0E8D8;
 }
-
-.radio-circle {
-  width: 16px;
-  height: 16px;
-  border: 1px solid rgba(201,168,76,0.3);
-  border-radius: 50%;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 3px;
-  transition: border-color 0.2s;
-}
-.tier-option.selected .radio-circle { border-color: var(--gold); }
-
-.radio-dot {
-  width: 6px;
-  height: 6px;
-  background: var(--gold);
-  border-radius: 50%;
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-.tier-option.selected .radio-dot { opacity: 1; }
-
-.tier-name {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--cream);
-  margin-bottom: 3px;
-}
-.tier-option.selected .tier-name { color: var(--gold); }
-
-.tier-detail {
-  font-family: 'EB Garamond', serif;
-  font-size: 13px;
+h1 em {
+  color: #C4A052;
   font-style: italic;
-  color: rgba(240,232,216,0.3);
-  line-height: 1.4;
 }
-
-.tier-rec {
-  position: absolute;
-  top: -9px;
-  right: 12px;
-  background: var(--gold);
-  color: var(--navy);
-  font-family: 'Montserrat', sans-serif;
-  font-size: 7px;
+.subtitle {
+  font-size: 16px;
+  color: rgba(240,232,216,0.55);
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+.card {
+  background: #0d1526;
+  border: 1px solid rgba(201,168,82,0.2);
+  border-radius: 4px;
+  padding: 36px;
+}
+.field { margin-bottom: 24px; }
+label {
+  display: block;
+  font-family: 'Arial', sans-serif;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  padding: 2px 8px;
+  color: rgba(201,168,82,0.8);
+  margin-bottom: 8px;
 }
-
-/* Submit button */
-.submit-btn {
+input[type="email"],
+input[type="url"] {
+  width: 100%;
+  padding: 14px 16px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(201,168,82,0.3);
+  border-radius: 3px;
+  color: #F0E8D8;
+  font-family: 'Georgia', serif;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+input:focus { border-color: rgba(201,168,82,0.7); }
+input.error { border-color: #e05555; }
+.hint {
+  font-size: 13px;
+  color: rgba(240,232,216,0.35);
+  margin-top: 6px;
+  font-style: italic;
+}
+.btn {
   width: 100%;
   padding: 18px 24px;
-  background: var(--gold);
-  color: var(--navy);
-  font-family: 'Montserrat', sans-serif;
-  font-size: 13px;
+  background: linear-gradient(135deg, #C4A052, #A8842E);
+  color: #080d1a;
+  font-family: 'Arial', sans-serif;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   border: none;
+  border-radius: 3px;
   cursor: pointer;
-  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
+  margin-top: 8px;
+  transition: opacity 0.2s;
 }
-.submit-btn:hover { background: var(--gold2); transform: translateY(-1px); box-shadow: 0 8px 28px rgba(201,168,76,0.25); }
-.submit-btn:focus-visible { outline: 2px solid var(--gold2); outline-offset: 3px; }
-.submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-
-.btn-arrow { font-size: 16px; transition: transform 0.2s; }
-.submit-btn:hover .btn-arrow { transform: translateX(3px); }
-
-.spinner {
-  width: 16px;
-  height: 16px;
-  border: 2px solid rgba(10,14,26,0.25);
-  border-top-color: var(--navy);
-  border-radius: 50%;
-  animation: spin 0.7s linear infinite;
-  display: none;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-
-.form-guarantee {
-  margin-top: 14px;
-  text-align: center;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 9px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(201,168,76,0.2);
-  line-height: 1.8;
-}
-
+.btn:hover { opacity: 0.88; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
 .error-msg {
   display: none;
-  margin-top: 12px;
+  background: rgba(224,85,85,0.15);
+  border: 1px solid rgba(224,85,85,0.4);
+  border-radius: 3px;
   padding: 12px 16px;
-  background: rgba(200,50,50,0.07);
-  border: 1px solid rgba(200,50,50,0.2);
-  font-family: 'EB Garamond', serif;
-  font-size: 15px;
-  color: rgba(220,100,100,0.9);
+  color: #f08080;
+  font-size: 14px;
+  margin-top: 16px;
   line-height: 1.5;
 }
-
-/* Success state */
-.success-state {
+.success {
   display: none;
-  padding: 40px;
   text-align: center;
+  padding: 20px 0;
 }
-
-.success-icon {
-  width: 56px;
-  height: 56px;
-  border: 1px solid var(--gold);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 24px;
-}
-.success-check {
-  width: 20px;
-  height: 13px;
-  border-left: 2px solid var(--gold);
-  border-bottom: 2px solid var(--gold);
-  transform: rotate(-45deg) translateY(-2px);
-}
-
-.success-state h2 {
-  font-family: 'Playfair Display', serif;
+.success h2 {
   font-size: 26px;
-  font-weight: 700;
-  color: var(--cream);
-  margin-bottom: 10px;
+  font-weight: normal;
+  color: #C4A052;
+  margin-bottom: 12px;
 }
-
-.success-sub {
-  font-family: 'EB Garamond', serif;
-  font-size: 17px;
-  font-style: italic;
-  color: rgba(240,232,216,0.5);
-  line-height: 1.65;
-  margin-bottom: 24px;
-}
-
-.success-steps {
+.success p { color: rgba(240,232,216,0.7); font-size: 15px; line-height: 1.7; }
+.receipt-box {
+  background: rgba(201,168,82,0.08);
+  border: 1px solid rgba(201,168,82,0.2);
+  border-radius: 3px;
+  padding: 20px;
+  margin-top: 24px;
   text-align: left;
-  padding-top: 24px;
-  border-top: 1px solid var(--border);
+}
+.receipt-row {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  margin-bottom: 14px;
 }
-.success-step { display: flex; gap: 14px; align-items: baseline; }
-.success-step-num { font-family: 'Playfair Display', serif; font-size: 13px; color: var(--gold); flex-shrink: 0; }
-.success-step-text { font-family: 'EB Garamond', serif; font-size: 15px; color: rgba(240,232,216,0.5); line-height: 1.5; }
-
-/* Positioning note */
-.positioning-note {
-  margin-top: 18px;
-  text-align: center;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 9px;
-  letter-spacing: 0.1em;
+.receipt-row:last-child { margin-bottom: 0; }
+.receipt-label {
+  font-family: 'Arial', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgba(201,168,76,0.18);
-  line-height: 1.9;
+  color: rgba(201,168,82,0.6);
+  margin-bottom: 4px;
 }
-
-/* Footer */
-footer {
-  border-top: 1px solid var(--border);
-  padding: 22px 48px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.footer-left {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 9px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(201,168,76,0.2);
-}
-.footer-links { display: flex; gap: 28px; }
-.footer-links a {
-  font-family: 'EB Garamond', serif;
+.receipt-value {
+  font-family: 'Courier New', monospace;
   font-size: 13px;
-  font-style: italic;
-  color: rgba(201,168,76,0.35);
-  text-decoration: none;
-  transition: color 0.2s;
+  color: #F0E8D8;
+  word-break: break-all;
 }
-.footer-links a:hover { color: rgba(201,168,76,0.65); }
-.footer-links a:focus-visible { outline: 2px solid var(--gold2); outline-offset: 2px; }
-
-/* Responsive */
-@media (max-width: 960px) {
-  main { grid-template-columns: 1fr; gap: 48px; padding: 40px 24px 60px; }
-  .form-panel { position: static; }
-  header, footer { padding: 20px 24px; }
-  footer { flex-direction: column; gap: 16px; text-align: center; }
-  .footer-links { flex-wrap: wrap; justify-content: center; }
+.receipt-value a { color: #C4A052; }
+.score-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-family: 'Arial', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
 }
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+.score-pass { background: rgba(80,200,120,0.2); color: #80e0a0; border: 1px solid rgba(80,200,120,0.3); }
+.score-fail { background: rgba(224,85,85,0.2); color: #f08080; border: 1px solid rgba(224,85,85,0.3); }
+.score-warning { background: rgba(201,168,82,0.2); color: #C4A052; border: 1px solid rgba(201,168,82,0.3); }
+.loading-text { display: none; }
+.footer-note {
+  text-align: center;
+  margin-top: 28px;
+  font-size: 12px;
+  color: rgba(240,232,216,0.25);
+  line-height: 1.6;
 }
 </style>
 </head>
-<body style="background:#0A0E1A; color:#F0E8D8;">
+<body>
 
-<a href="#main-content" class="skip-link">Skip to main content</a>
-<div class="top-bar"></div>
+<div class="container">
+  <p class="brand">Institute of Digital Remediation &nbsp;·&nbsp; IDR-REG-2026</p>
+  <h1>Activate your<br><em>IDR Shield.</em></h1>
+  <p class="subtitle">Enter your email and store URL. Your store will be scanned immediately and your Scan Receipt generated.</p>
 
-<header role="banner">
-  <div>
-    <span class="brand-name">Institute of Digital Remediation</span>
-    <span class="brand-sub">Protocol Activation &nbsp;&middot;&nbsp; IDR Pro Access</span>
-  </div>
-  <span class="header-doc">IDR-REG-2026 &nbsp;&middot;&nbsp; Secure Activation</span>
-</header>
+  <div class="card">
 
-<main id="main-content">
-
-  <!-- LEFT: CONTEXT -->
-  <div class="context" role="region" aria-label="Activation overview">
-
-    <p class="context-label">Protocol Reader Access</p>
-
-    <h1>Activate your<br><em>IDR Shield.</em></h1>
-
-    <p class="context-sub">You understand the risk. You understand the system. Activate now — founding access at $97 for the first 500 stores. Standard price $127 after founding window closes. Activation includes The 2026 Accessibility Shield report.</p>
-
-    <div class="includes" role="region" aria-label="What is included">
-      <p class="includes-label">Included in your 30-day Pro access</p>
-
-      <div class="include-item">
-        <div class="include-check" aria-hidden="true"></div>
-        <p class="include-text"><strong>IDR Registry listing</strong> &mdash; your store listed with live verification status in the IDR Registry</p>
+    <!-- FORM -->
+    <div id="formSection">
+      <div class="field">
+        <label for="email">Email Address *</label>
+        <input type="email" id="email" placeholder="you@yourstore.com" autocomplete="email">
+        <p class="hint">Your Scan Receipt will be delivered here.</p>
       </div>
-      <div class="include-item">
-        <div class="include-check" aria-hidden="true"></div>
-        <p class="include-text"><strong>IDR Shield</strong> &mdash; active verification badge linked to your live Registry record</p>
+
+      <div class="field">
+        <label for="storeUrl">Store URL *</label>
+        <input type="url" id="storeUrl" placeholder="https://yourstore.com" autocomplete="url">
+        <p class="hint">Your store will be scanned against this URL.</p>
       </div>
-      <div class="include-item">
-        <div class="include-check" aria-hidden="true"></div>
-        <p class="include-text"><strong>Evidence Log</strong> &mdash; timestamped, structured record of every scan and remediation action from day one</p>
-      </div>
-      <div class="include-item">
-        <div class="include-check" aria-hidden="true"></div>
-        <p class="include-text"><strong>Scan Receipt</strong> &mdash; first automated scan delivered within 24 hours, formatted for your records</p>
-      </div>
-      <div class="include-item">
-        <div class="include-check" aria-hidden="true"></div>
-        <p class="include-text"><strong>Defense Package</strong> &mdash; downloadable summary of your compliance history for your records and legal review</p>
-      </div>
+
+      <button class="btn" id="activateBtn">
+        <span id="btnNormal">Activate Pro Access &rarr;</span>
+        <span id="btnLoading" class="loading-text">Scanning your store&hellip;</span>
+      </button>
+
+      <div class="error-msg" id="errorMsg"></div>
     </div>
 
-    <div class="next-steps" role="region" aria-label="What happens after activation">
-      <p class="next-label">What happens after you activate</p>
-      <div class="next-step">
-        <span class="next-num">1.</span>
-        <p class="next-text"><strong>Confirmation email immediately</strong> &mdash; your activation reference number and next-step details for Registry setup.</p>
-      </div>
-      <div class="next-step">
-        <span class="next-num">2.</span>
-        <p class="next-text"><strong>Scan Receipt within 24 hours</strong> &mdash; your first automated scan result, timestamped and formatted.</p>
-      </div>
-      <div class="next-step">
-        <span class="next-num">3.</span>
-        <p class="next-text"><strong>Evidence Log begins immediately</strong> &mdash; every scan from this point forward is logged and stored to your record.</p>
-      </div>
-      <div class="next-step">
-        <span class="next-num">4.</span>
-        <p class="next-text"><strong>After 30 days</strong> — $29/month Pro or $9/month Basic. Reminder sent before any charge. No surprises.</p>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- RIGHT: FORM -->
-  <div class="form-panel">
-    <div class="form-card" role="region" aria-label="Activation form">
-
-      <div class="form-header">
-        <div class="form-status-row">
-          <span class="status-badge">
-            <span class="status-dot" aria-hidden="true"></span>
-            Activation Open
-          </span>
-          <span class="form-pricing">Founding Access &nbsp;&middot;&nbsp; $97 &nbsp;&middot;&nbsp; First 500 Stores &nbsp;&middot;&nbsp; Standard $127</span>
+    <!-- SUCCESS -->
+    <div class="success" id="successSection">
+      <h2>Scan Complete. Shield Active.</h2>
+      <p>Your IDR Scan Receipt has been generated and your Registry record is live.</p>
+      <div class="receipt-box">
+        <div class="receipt-row">
+          <span class="receipt-label">Receipt ID</span>
+          <span class="receipt-value" id="rReceiptId">—</span>
         </div>
-        <h2>Activate Your IDR Shield.</h2>
-        <p class="form-desc">Two fields. No credit card. Full access from day one.</p>
-      </div>
-
-      <div class="form-body">
-
-        <!-- ==================================
-             KIT FORM &mdash; replace 9251778
-             with your actual Kit form ID number.
-             Find it in Kit under: Forms > Your Form > Settings
-             The ID is the number in the URL.
-        ================================== -->
-        <form
-          id="activationForm"
-          action="#"
-          method="POST"
-          novalidate
-          aria-label="IDR Pro activation form"
-        >
-
-          <div class="field">
-            <label class="field-label" for="email_address">
-              Email address <span aria-label="required">*</span>
-            </label>
-            <input
-              class="field-input"
-              type="email"
-              id="email_address"
-              name="email_address"
-              placeholder="you@yourstore.com"
-              required
-              autocomplete="email"
-              aria-required="true"
-              aria-describedby="email-hint"
-            >
-            <span class="field-hint" id="email-hint">Confirmation email and Scan Receipt delivered here.</span>
-          </div>
-
-          <div class="field">
-            <label class="field-label" for="store_url">
-              Store URL <span aria-label="required">*</span>
-            </label>
-            <input
-              class="field-input"
-              type="url"
-              id="store_url"
-              name="fields[store_url]"
-              placeholder="https://yourstore.com"
-              required
-              autocomplete="url"
-              aria-required="true"
-              aria-describedby="url-hint"
-            >
-            <span class="field-hint" id="url-hint">Your first Scan Receipt will be run against this URL.</span>
-          </div>
-
-          <!-- Tier selector -->
-          <div class="tier-section">
-            <span class="tier-label">After your 30-day Pro trial — choose your ongoing plan</span>
-
-            <label class="tier-option selected" id="tier-pro">
-              <input type="radio" name="fields[tier]" value="pro" checked aria-label="Pro plan, $29 per month, recommended">
-              <span class="tier-rec" aria-label="Recommended">Recommended</span>
-              <div class="radio-circle" aria-hidden="true"><div class="radio-dot"></div></div>
-              <div>
-                <p class="tier-name">Pro — $29 / month</p>
-                <p class="tier-desc" style="font-size:13px;color:rgba(240,232,216,0.45);font-style:italic;margin-top:4px;">Weekly scans · Evidence log · Defense package · Active status</p>
-                <p class="tier-detail">Registry &middot; Shield &middot; Evidence Log &middot; Defense Package &middot; Weekly scans</p>
-              </div>
-            </label>
-
-            <label class="tier-option" id="tier-basic">
-              <input type="radio" name="fields[tier]" value="basic" aria-label="Basic plan, $9 per month">
-              <div class="radio-circle" aria-hidden="true"><div class="radio-dot"></div></div>
-              <div>
-                <p class="tier-name">Basic — $9 / month</p>
-                <p class="tier-desc" style="font-size:13px;color:rgba(240,232,216,0.45);font-style:italic;margin-top:4px;">Quarterly scan · Registry and badge stay live</p>
-                <p class="tier-detail">Monthly scan &middot; Basic log only &middot; No Registry &middot; No Shield &middot; No Defense Package</p>
-              </div>
-            </label>
-          </div>
-
-          <button type="button" class="submit-btn" id="submitBtn">
-            <span class="btn-text">Activate Pro Access</span>
-            <div class="spinner" id="spinner" aria-hidden="true"></div>
-            <span class="btn-arrow" aria-hidden="true">&rarr;</span>
-          </button>
-
-          <div class="error-msg" id="errorMsg" role="alert" aria-live="assertive"></div>
-
-          <p class="form-guarantee">
-            Confirmation email sent immediately after activation.<br>
-            No credit card required &nbsp;&middot;&nbsp; Full Pro access from day one<br>
-            Reminder sent before any charge &nbsp;&middot;&nbsp; Cancel anytime
-          </p>
-
-        </form>
-
-        <!-- SUCCESS STATE -->
-        <div class="success-state" id="successState" tabindex="-1" role="status" aria-live="polite">
-          <div class="success-icon" aria-hidden="true">
-            <div class="success-check"></div>
-          </div>
-          <h2>Scan Complete. Shield Active.</h2>
-          <p class="success-sub">Your IDR Scan Receipt has been generated and your Registry record is live.</p>
-          <div class="success-steps">
-            <div class="success-step">
-              <span class="success-step-num">&#10003;</span>
-              <p class="success-step-text"><strong>Receipt ID:</strong> <span id="receiptId" style="font-family:monospace;font-size:12px;word-break:break-all;">—</span></p>
-            </div>
-            <div class="success-step">
-              <span class="success-step-num">&#10003;</span>
-              <p class="success-step-text"><strong>Registry ID:</strong> <span id="registryId" style="font-family:monospace;font-size:12px;">—</span></p>
-            </div>
-            <div class="success-step">
-              <span class="success-step-num">&#10003;</span>
-              <p class="success-step-text"><strong>Score:</strong> <span id="scanScore">—</span>/100 &nbsp;&middot;&nbsp; <strong>Status:</strong> <span id="scanStatus">—</span></p>
-            </div>
-            <div class="success-step">
-              <span class="success-step-num">&#10003;</span>
-              <p class="success-step-text"><strong>Registry URL:</strong> <a id="registryUrl" href="#" style="color:var(--gold2);word-break:break-all;">—</a></p>
-            </div>
-          </div>
-          <p style="font-family:'Montserrat',sans-serif;font-size:10px;color:rgba(201,168,76,0.5);letter-spacing:0.1em;margin-top:24px;text-transform:uppercase;">Your SHA-256 signed receipt has been recorded. Check your email for your full report.</p>
+        <div class="receipt-row">
+          <span class="receipt-label">Registry ID</span>
+          <span class="receipt-value" id="rRegistryId">—</span>
         </div>
-
+        <div class="receipt-row">
+          <span class="receipt-label">Score &amp; Status</span>
+          <span class="receipt-value" id="rScore">—</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-label">Registry URL</span>
+          <span class="receipt-value" id="rUrl">—</span>
+        </div>
       </div>
     </div>
 
-    <p class="positioning-note">
-      Institute of Digital Remediation is not a law firm<br>
-      and does not provide legal advice.<br>
-      This is a compliance documentation system.
-    </p>
   </div>
 
-</main>
+  <p class="footer-note">
+    Institute of Digital Remediation is not a law firm and does not provide legal advice.<br>
+    This is a compliance documentation system.
+  </p>
+</div>
 
-<footer role="contentinfo">
-  <span class="footer-left">Institute of Digital Remediation &nbsp;&middot;&nbsp; IDR-REG-2026</span>
-  <nav class="footer-links" aria-label="Footer navigation">
-    <a href="https://instituteofdigitalremediation.com">Institute</a>
-    <a href="https://www.idrshield.com">Protocol</a>
-    <a href="/cdn-cgi/l/email-protection#c4b4b6abb0aba7aba884adaab7b0adb0b1b0a1aba2a0ada3adb0a5a8b6a1a9a1a0ada5b0adabaaeaa7aba9">Contact</a>
-  </nav>
-</footer>
+<script>
+var BACKEND = 'https://idr-backend-production.up.railway.app';
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// -- TIER SELECTOR --
-const tierPro   = document.getElementById('tier-pro');
-const tierBasic = document.getElementById('tier-basic');
+var btn = document.getElementById('activateBtn');
+var btnNormal = document.getElementById('btnNormal');
+var btnLoading = document.getElementById('btnLoading');
+var errorMsg = document.getElementById('errorMsg');
+var formSection = document.getElementById('formSection');
+var successSection = document.getElementById('successSection');
 
-tierPro.addEventListener('click', () => {
-  tierPro.classList.add('selected');
-  tierBasic.classList.remove('selected');
-  tierPro.querySelector('input').checked = true;
-});
+btn.onclick = function() {
+  var email = document.getElementById('email').value.trim();
+  var storeUrl = document.getElementById('storeUrl').value.trim();
 
-tierBasic.addEventListener('click', () => {
-  tierBasic.classList.add('selected');
-  tierPro.classList.remove('selected');
-  tierBasic.querySelector('input').checked = true;
-});
-
-// -- FORM SUBMISSION --
-const form         = document.getElementById('activationForm');
-const submitBtn    = document.getElementById('submitBtn');
-const btnText      = submitBtn.querySelector('.btn-text');
-const spinner      = document.getElementById('spinner');
-const btnArrow     = submitBtn.querySelector('.btn-arrow');
-const errorMsg     = document.getElementById('errorMsg');
-const successState = document.getElementById('successState');
-
-const BACKEND = 'https://idr-backend-production.up.railway.app';
-
-document.getElementById('submitBtn').addEventListener('click', async (e) => {
-
-  const emailEl    = document.getElementById('email_address');
-  const storeUrlEl = document.getElementById('store_url');
-  const email      = emailEl.value.trim();
-  const storeUrl   = storeUrlEl.value.trim();
-
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+  // Validate
+  if (!email || email.indexOf('@') < 0) {
     showError('Please enter a valid email address.');
-    emailEl.classList.add('error');
-    emailEl.focus();
     return;
   }
-  emailEl.classList.remove('error');
-
-  if (!storeUrl || !/^https?:\/\/.+\..+/.test(storeUrl)) {
-    showError('Please enter your store URL beginning with https://');
-    storeUrlEl.classList.add('error');
-    storeUrlEl.focus();
+  if (!storeUrl || storeUrl.indexOf('http') !== 0) {
+    showError('Please enter your store URL starting with https://');
     return;
   }
-  storeUrlEl.classList.remove('error');
 
-  setLoading(true);
-  hideError();
+  // Loading state
+  btn.disabled = true;
+  btnNormal.style.display = 'none';
+  btnLoading.style.display = 'inline';
+  errorMsg.style.display = 'none';
 
-  try {
-    const response = await fetch(BACKEND + '/api/activate', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({ email: email, store_url: storeUrl })
-    });
-
-    const data = await response.json();
-
-    if (response.ok && data.success) {
-      // Populate receipt fields
-      document.getElementById('receiptId').textContent   = data.receipt_id || '—';
-      document.getElementById('registryId').textContent  = data.registry_id || '—';
-      document.getElementById('scanScore').textContent   = data.score !== undefined ? data.score : '—';
-      document.getElementById('scanStatus').textContent  = data.status ? data.status.toUpperCase() : '—';
-      const regLink = document.getElementById('registryUrl');
-      if (data.registry_url) {
-        regLink.href        = data.registry_url;
-        regLink.textContent = data.registry_url;
-      }
-      showSuccess();
-      return;
+  // Call backend
+  fetch(BACKEND + '/api/activate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: email, store_url: storeUrl })
+  })
+  .then(function(res) { return res.json(); })
+  .then(function(data) {
+    if (data.success) {
+      document.getElementById('rReceiptId').textContent = data.receipt_id || 'N/A';
+      document.getElementById('rRegistryId').textContent = data.registry_id || 'N/A';
+      var statusClass = data.status === 'pass' ? 'score-pass' : (data.status === 'warning' ? 'score-warning' : 'score-fail');
+      document.getElementById('rScore').innerHTML = data.score + '/100 &nbsp;<span class="score-badge ' + statusClass + '">' + (data.status || '').toUpperCase() + '</span>';
+      var urlEl = document.getElementById('rUrl');
+      urlEl.innerHTML = '<a href="' + data.registry_url + '" target="_blank">' + data.registry_url + '</a>';
+      formSection.style.display = 'none';
+      successSection.style.display = 'block';
+    } else {
+      showError(data.error || 'Activation failed. Please try again.');
+      btn.disabled = false;
+      btnNormal.style.display = 'inline';
+      btnLoading.style.display = 'none';
     }
-
-    const msg = data.error || ('Server error ' + response.status + '. Please try again.');
-    showError(msg);
-    setLoading(false);
-
-  } catch (err) {
-    showError('Connection error: ' + err.message + '. Please try again or email hello@idrshield.com.');
-    setLoading(false);
-  }
-});
-
-function setLoading(on) {
-  submitBtn.disabled     = on;
-  btnText.style.display  = on ? 'none'         : 'inline';
-  spinner.style.display  = on ? 'inline-block' : 'none';
-  btnArrow.style.display = on ? 'none'         : 'inline';
-}
-
-function showSuccess() {
-  form.style.display         = 'none';
-  successState.style.display = 'block';
-  successState.focus();
-  successState.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-}
+  })
+  .catch(function(err) {
+    showError('Connection error: ' + err.message + '. Please try again.');
+    btn.disabled = false;
+    btnNormal.style.display = 'inline';
+    btnLoading.style.display = 'none';
+  });
+};
 
 function showError(msg) {
-  errorMsg.textC
+  errorMsg.textContent = msg;
+  errorMsg.style.display = 'block';
+}
+</script>
+
+</body>
+</html>
