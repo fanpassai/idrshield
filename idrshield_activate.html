@@ -800,7 +800,7 @@ footer {
             </label>
           </div>
 
-          <button type="submit" class="submit-btn" id="submitBtn">
+          <button type="button" class="submit-btn" id="submitBtn">
             <span class="btn-text">Activate Pro Access</span>
             <div class="spinner" id="spinner" aria-hidden="true"></div>
             <span class="btn-arrow" aria-hidden="true">&rarr;</span>
@@ -893,9 +893,7 @@ const successState = document.getElementById('successState');
 
 const BACKEND = 'https://idr-backend-production.up.railway.app';
 
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  e.stopPropagation();
+document.getElementById('submitBtn').addEventListener('click', async (e) => {
 
   const emailEl    = document.getElementById('email_address');
   const storeUrlEl = document.getElementById('store_url');
