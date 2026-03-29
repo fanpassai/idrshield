@@ -895,6 +895,7 @@ const BACKEND = 'https://idr-backend-production.up.railway.app';
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
+  e.stopPropagation();
 
   const emailEl    = document.getElementById('email_address');
   const storeUrlEl = document.getElementById('store_url');
@@ -947,12 +948,12 @@ form.addEventListener('submit', async (e) => {
       return;
     }
 
-    const msg = data.error || 'Activation could not be completed. Please try again.';
+    const msg = data.error || ('Server error ' + response.status + '. Please try again.');
     showError(msg);
     setLoading(false);
 
   } catch (err) {
-    showError('Connection error. Please check your internet and try again. If the issue continues, email hello@idrshield.com.');
+    showError('Connection error: ' + err.message + '. Please try again or email hello@idrshield.com.');
     setLoading(false);
   }
 });
