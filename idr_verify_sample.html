@@ -3,1120 +3,490 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Verification Record: example-store.com &mdash; IDR Registry</title>
-<meta name="description" content="Public IDR Registry verification record for example-store.com. Current monitoring status, scan history, and issue summary.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>IDR Registry — Verify Compliance Record</title>
 <style>
-
-:root {
-  --ink:    #1A1A2E;
-  --ink2:   #2C2C44;
-  --navy:   #0D1526;
-  --gold:   #C9A84C;
-  --gold2:  #8A6F2E;
-  --gold3:  #E2C97E;
-  --warm:   #FAF7F2;
-  --warm2:  #F2EDE4;
-  --cream:  #EDE5D4;
-  --gray:   #5A5A6A;
-  --lgray:  #8A8A9A;
-  --border: rgba(26,26,46,0.1);
-  --green:  #2A6A2A;
-  --greenl: rgba(58,138,58,0.1);
-  --greens: rgba(58,138,58,0.25);
-  --ease:   cubic-bezier(0.16,1,0.3,1);
-}
-
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { font-size: 16px; }
-body { font-family: 'EB Garamond', Georgia, serif; background: var(--warm); color: var(--ink); line-height: 1.6; }
-
-.skip-link { position: absolute; top: -999px; left: 0; padding: 8px 20px; background: var(--navy); color: var(--gold); font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; text-decoration: none; z-index: 9998; }
-.skip-link:focus { top: 0; }
-
-/* ============================
-   REGISTRY HEADER BAR
-   ============================ */
-.registry-bar {
-  background: var(--navy);
-  padding: 14px 48px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 2px solid var(--gold2);
-}
-
-.registry-bar-brand {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  text-decoration: none;
-}
-
-.bar-acronym {
-  font-family: 'Playfair Display', serif;
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--gold);
-  letter-spacing: 0.08em;
-}
-
-.bar-name {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 9px;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(201,168,76,0.35);
-}
-
-.registry-bar-right {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-}
-
-.bar-path {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 9px;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  color: rgba(201,168,76,0.25);
-  text-transform: uppercase;
-}
-
-.bar-link {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: rgba(201,168,76,0.4);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-.bar-link:hover { color: var(--gold); }
-.bar-link:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
-
-/* ============================
-   MAIN LAYOUT
-   ============================ */
-main {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 56px 48px 80px;
-}
-
-/* ============================
-   STORE IDENTITY BLOCK
-   ============================ */
-.store-identity {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: 40px;
-  padding-bottom: 32px;
-  border-bottom: 1px solid var(--border);
-  gap: 24px;
-}
-
-.store-domain {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(26px, 3.5vw, 40px);
-  font-weight: 600;
-  color: var(--ink);
-  letter-spacing: -0.01em;
-  margin-bottom: 6px;
-}
-
-.store-meta {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.store-reg-id {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--lgray);
-}
-
-.store-enrolled {
-  font-family: 'EB Garamond', serif;
-  font-size: 15px;
-  font-style: italic;
-  color: var(--lgray);
-}
-
-/* STATUS BADGE */
-.status-block {
-  text-align: right;
-  flex-shrink: 0;
-}
-
-.status-badge-large {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  padding: 16px 24px;
-  background: var(--greenl);
-  border: 1px solid var(--greens);
-  min-width: 160px;
-}
-
-.status-dot-large {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--green);
-  box-shadow: 0 0 0 4px rgba(58,138,58,0.15);
-  animation: pulse-status 2.5s ease-in-out infinite;
-}
-@keyframes pulse-status { 0%,100%{box-shadow:0 0 0 4px rgba(58,138,58,0.15);} 50%{box-shadow:0 0 0 8px rgba(58,138,58,0.07);} }
-
-.status-text-large {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--green);
-}
-
-.status-updated {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 8px;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--lgray);
-  margin-top: 8px;
-}
-
-/* ============================
-   SNAPSHOT STATS
-   ============================ */
-.snapshot {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2px;
-  background: var(--border);
-  margin-bottom: 40px;
-}
-
-.snap-stat {
-  background: var(--warm2);
-  padding: 24px 20px;
-  text-align: center;
-}
-
-.snap-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 36px;
-  font-weight: 700;
-  line-height: 1;
-  margin-bottom: 8px;
-  color: var(--ink);
-}
-.snap-num.resolved { color: var(--green); }
-.snap-num.open     { color: #8A6400; }
-
-.snap-label {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 8px;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--lgray);
-}
-
-/* ============================
-   MONITORING DETAILS
-   ============================ */
-.monitoring-block {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
-  margin-bottom: 40px;
-  padding-bottom: 40px;
-  border-bottom: 1px solid var(--border);
-}
-
-.monitoring-section-title {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--gold2);
-  margin-bottom: 16px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--border);
-  grid-column: 1 / -1;
-}
-
-.detail-row {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(26,26,46,0.05);
-}
-.detail-row:last-child { border-bottom: none; }
-
-.detail-key {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--lgray);
-  flex-shrink: 0;
-  min-width: 130px;
-}
-
-.detail-val {
-  font-family: 'EB Garamond', serif;
-  font-size: 16px;
-  color: var(--ink);
-}
-
-/* ============================
-   SCAN HISTORY TABLE
-   ============================ */
-.scan-history {
-  margin-bottom: 40px;
-  padding-bottom: 40px;
-  border-bottom: 1px solid var(--border);
-}
-
-.history-title {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--gold2);
-  margin-bottom: 16px;
-}
-
-.history-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.history-table th {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--lgray);
-  padding: 10px 16px;
-  text-align: left;
-  background: var(--warm2);
-  border-bottom: 1px solid var(--border);
-}
-
-.history-table td {
-  font-family: 'EB Garamond', serif;
-  font-size: 15px;
-  color: var(--ink);
-  padding: 12px 16px;
-  border-bottom: 1px solid rgba(26,26,46,0.05);
-  vertical-align: middle;
-}
-
-.history-table tr:last-child td { border-bottom: none; }
-
-.scan-receipt-id {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  color: var(--lgray);
-}
-
-.scan-result-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 3px 10px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.scan-result-pill.clean { background: var(--greenl); color: var(--green); border: 1px solid var(--greens); }
-.scan-result-pill.issues { background: rgba(184,134,11,0.08); color: #7A5800; border: 1px solid rgba(184,134,11,0.2); }
-
-/* ============================
-   STATUS EXPLANATION
-   ============================ */
-.status-explanation {
-  background: var(--warm2);
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--green);
-  padding: 24px 28px;
-  margin-bottom: 40px;
-}
-
-.explanation-label {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--green);
-  margin-bottom: 10px;
-}
-
-.explanation-text {
-  font-family: 'EB Garamond', serif;
-  font-size: 17px;
-  line-height: 1.7;
-  color: var(--gray);
-}
-
-/* ============================
-   REPORTING SECTION
-   ============================ */
-.reporting {
-  padding: 32px;
-  border: 1px solid var(--border);
-  margin-bottom: 40px;
-  background: var(--warm);
-}
-
-.reporting-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--ink);
-  margin-bottom: 10px;
-}
-
-.reporting-desc {
-  font-family: 'EB Garamond', serif;
-  font-size: 17px;
-  line-height: 1.65;
-  color: var(--gray);
-  margin-bottom: 20px;
-  max-width: 560px;
-}
-
-.report-form {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.report-input {
-  flex: 1;
-  min-width: 240px;
-  padding: 12px 16px;
-  background: var(--warm2);
-  border: 1px solid var(--border);
-  color: var(--ink);
-  font-family: 'EB Garamond', serif;
-  font-size: 16px;
-  outline: none;
-  transition: border-color 0.2s;
-  border-radius: 0;
-}
-.report-input::placeholder { color: var(--lgray); font-style: italic; }
-.report-input:focus { border-color: var(--gold2); }
-.report-input:focus-visible { outline: 2px solid var(--gold2); outline-offset: 2px; }
-
-.report-btn {
-  padding: 12px 24px;
-  background: var(--navy);
-  color: var(--gold);
-  font-family: 'Montserrat', sans-serif;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  border: none;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.report-btn:hover { background: var(--ink); }
-.report-btn:focus-visible { outline: 2px solid var(--gold2); outline-offset: 2px; }
-
-/* ============================
-   METHODOLOGY NOTE
-   ============================ */
-.method-note {
-  padding: 20px 24px;
-  border: 1px solid var(--border);
-  border-left: 2px solid var(--border);
-  margin-bottom: 32px;
-}
-
-.method-note-text {
-  font-family: 'EB Garamond', serif;
-  font-size: 15px;
-  font-style: italic;
-  color: var(--lgray);
-  line-height: 1.7;
-}
-
-/* ============================
-   FOOTER BAR
-   ============================ */
-.verify-footer {
-  border-top: 1px solid var(--border);
-  padding: 24px 48px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: var(--warm2);
-}
-
-.verify-footer-left {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 9px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--lgray);
-}
-
-.verify-footer-links {
-  display: flex;
-  gap: 24px;
-}
-
-.verify-footer-links a {
-  font-family: 'EB Garamond', serif;
-  font-size: 14px;
-  font-style: italic;
-  color: var(--lgray);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-.verify-footer-links a:hover { color: var(--ink); }
-.verify-footer-links a:focus-visible { outline: 2px solid var(--gold2); outline-offset: 2px; }
-
-/* ============================
-   VERIFICATION INTEGRITY
-   ============================ */
-.integrity-block {
-  margin-bottom: 40px;
-  border: 1px solid var(--border);
-  overflow: hidden;
-}
-
-.integrity-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 24px;
-  background: var(--navy);
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.integrity-label {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--gold);
-}
-
-.integrity-hash {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 9px;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  color: rgba(201,168,76,0.4);
-}
-
-.integrity-body {
-  padding: 24px;
-  background: var(--warm2);
-}
-
-.integrity-text {
-  font-family: 'EB Garamond', serif;
-  font-size: 16px;
-  line-height: 1.65;
-  color: var(--gray);
-  margin-bottom: 20px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--border);
-}
-
-.integrity-properties {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0;
-}
-
-.integrity-prop {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  padding: 12px 0;
-  border-bottom: 1px solid rgba(26,26,46,0.05);
-}
-
-.integrity-prop:nth-last-child(-n+2) { border-bottom: none; }
-
-.iprop-key {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--lgray);
-}
-
-.iprop-val {
-  font-family: 'EB Garamond', serif;
-  font-size: 15px;
-  color: var(--ink2);
-  line-height: 1.4;
-}
-
-/* ============================
-   STATUS DEFINITIONS (collapsible)
-   ============================ */
-.status-defs {
-  margin-bottom: 40px;
-  border: 1px solid var(--border);
-}
-
-.status-defs-summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 24px;
-  cursor: pointer;
-  list-style: none;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--gold2);
-  background: var(--warm2);
-  user-select: none;
-  transition: background 0.2s;
-}
-.status-defs-summary::-webkit-details-marker { display: none; }
-.status-defs-summary:hover { background: var(--cream); }
-.status-defs-summary:focus-visible { outline: 2px solid var(--gold2); outline-offset: -2px; }
-
-.defs-toggle-icon {
-  font-size: 16px;
-  font-weight: 400;
-  color: var(--gold2);
-  transition: transform 0.2s;
-  line-height: 1;
-}
-details[open] .defs-toggle-icon { transform: rotate(45deg); }
-
-.status-defs-body {
-  padding: 0 24px 8px;
-  border-top: 1px solid var(--border);
-}
-
-.sdef-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  padding: 18px 0;
-  border-bottom: 1px solid rgba(26,26,46,0.05);
-}
-.sdef-item:last-child { border-bottom: none; }
-
-.sdef-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  margin-top: 6px;
-}
-.sdef-dot.active  { background: #3A8A3A; }
-.sdef-dot.monitor { background: #B8860B; }
-.sdef-dot.expired { background: #8A3A3A; }
-
-.sdef-name {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink);
-  margin-bottom: 4px;
-}
-
-.sdef-desc {
-  font-family: 'EB Garamond', serif;
-  font-size: 15px;
-  line-height: 1.6;
-  color: var(--gray);
-}
-
-/* ============================
-   VERIFY ANOTHER STORE
-   ============================ */
-.verify-another {
-  margin-bottom: 40px;
-  padding: 28px 32px;
-  background: var(--warm2);
-  border: 1px solid var(--border);
-  border-top: 2px solid var(--gold2);
-}
-
-.verify-another-label {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--gold2);
-  margin-bottom: 14px;
-}
-
-.verify-form {
-  display: flex;
-  gap: 0;
-  margin-bottom: 10px;
-}
-
-.verify-input {
-  flex: 1;
-  padding: 13px 16px;
-  background: var(--warm);
-  border: 1px solid var(--border);
-  border-right: none;
-  color: var(--ink);
-  font-family: 'EB Garamond', serif;
-  font-size: 17px;
-  outline: none;
-  transition: border-color 0.2s;
-  border-radius: 0;
-  -webkit-appearance: none;
-}
-.verify-input::placeholder { color: var(--lgray); font-style: italic; }
-.verify-input:focus { border-color: var(--gold2); }
-.verify-input:focus-visible { outline: 2px solid var(--gold2); outline-offset: -1px; }
-
-.verify-btn {
-  padding: 13px 24px;
-  background: var(--navy);
-  color: var(--gold);
-  font-family: 'Montserrat', sans-serif;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  border: 1px solid var(--navy);
-  cursor: pointer;
-  white-space: nowrap;
-  transition: background 0.2s;
-}
-.verify-btn:hover { background: var(--ink); }
-.verify-btn:focus-visible { outline: 2px solid var(--gold2); outline-offset: 2px; }
-
-.verify-hint {
-  font-family: 'EB Garamond', serif;
-  font-size: 13px;
-  font-style: italic;
-  color: var(--lgray);
-}
-
-/* ============================
-   INSTITUTIONAL SIGNATURE
-   ============================ */
-.inst-signature {
-  background: var(--navy);
-  border-top: 1px solid rgba(201,168,76,0.12);
-}
-
-.inst-sig-inner {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 20px 48px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.inst-sig-maintained {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 8px;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(201,168,76,0.25);
-}
-
-.inst-sig-name {
-  font-family: 'Playfair Display', serif;
-  font-size: 14px;
-  font-weight: 600;
-  color: rgba(201,168,76,0.55);
-  letter-spacing: 0.02em;
-}
-
-.inst-sig-ref {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 8px;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: rgba(201,168,76,0.2);
-  margin-left: auto;
-}
-
-/* ============================
-   RESPONSIVE
-   ============================ */
-@media (max-width: 768px) {
-  main { padding: 40px 24px 60px; }
-  .integrity-properties { grid-template-columns: 1fr; }
-  .integrity-prop:nth-last-child(-n+2) { border-bottom: 1px solid rgba(26,26,46,0.05); }
-  .integrity-prop:last-child { border-bottom: none; }
-  .inst-sig-inner { padding: 16px 24px; }
-  .inst-sig-ref { margin-left: 0; }
-  .verify-form { flex-direction: column; }
-  .verify-input { border-right: 1px solid var(--border); border-bottom: none; }
-  .registry-bar { padding: 14px 24px; }
-  .verify-footer { padding: 20px 24px; flex-direction: column; gap: 14px; text-align: center; }
-  .store-identity { flex-direction: column; }
-  .status-block { text-align: left; }
-  .snapshot { grid-template-columns: repeat(2, 1fr); }
-  .monitoring-block { grid-template-columns: 1fr; }
-  .history-table { font-size: 13px; }
-  .bar-path, .bar-link { display: none; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; }
-}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: Georgia, serif;
+    background: #f5f3ee;
+    color: #1a1a1a;
+    min-height: 100vh;
+  }
+
+  /* Header */
+  .header {
+    background: #080d1a;
+    border-bottom: 3px solid #C4A052;
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .header-brand {
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(196,160,82,0.7);
+  }
+  .header-title {
+    font-size: 20px;
+    color: #F0E8D8;
+    font-weight: normal;
+    margin-top: 4px;
+  }
+  .header-logo-link {
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    color: rgba(196,160,82,0.6);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+  }
+  .header-logo-link:hover { color: #C4A052; }
+
+  /* Main layout */
+  .container {
+    max-width: 760px;
+    margin: 48px auto;
+    padding: 0 20px 60px;
+  }
+
+  /* Loading */
+  .state-loading {
+    text-align: center;
+    padding: 80px 20px;
+  }
+  .spinner {
+    width: 36px; height: 36px;
+    border: 3px solid #ddd;
+    border-top-color: #C4A052;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 20px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-text {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    color: #888;
+    letter-spacing: 0.05em;
+  }
+
+  /* Error state */
+  .state-error {
+    text-align: center;
+    padding: 60px 20px;
+  }
+  .error-icon {
+    font-size: 40px;
+    margin-bottom: 16px;
+  }
+  .error-title {
+    font-size: 22px;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+  }
+  .error-sub {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    color: #666;
+    max-width: 400px;
+    margin: 0 auto 24px;
+    line-height: 1.6;
+  }
+  .btn-scan {
+    display: inline-block;
+    background: #C4A052;
+    color: #080d1a;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 12px 28px;
+    text-decoration: none;
+  }
+  .btn-scan:hover { background: #d4b062; }
+
+  /* Status badge */
+  .status-badge {
+    display: inline-block;
+    padding: 5px 18px;
+    border-radius: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: white;
+  }
+  .status-active   { background: #27AE60; }
+  .status-monitoring { background: #E67E22; }
+  .status-expired  { background: #888; }
+
+  /* Domain header */
+  .domain-header {
+    background: #080d1a;
+    padding: 28px 36px;
+    border-radius: 4px 4px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .domain-name {
+    font-size: 22px;
+    color: #F0E8D8;
+    font-weight: normal;
+  }
+
+  /* Registry card */
+  .registry-card {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    overflow: hidden;
+  }
+
+  /* Score block */
+  .score-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding: 32px 36px;
+    border-bottom: 1px solid #f0ede6;
+    flex-wrap: wrap;
+  }
+  .score-number {
+    text-align: center;
+  }
+  .score-big {
+    font-size: 64px;
+    font-weight: 700;
+    color: #080d1a;
+    line-height: 1;
+  }
+  .score-denom {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #999;
+    margin-top: 4px;
+  }
+  .score-stats {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+  .stat-item {
+    text-align: center;
+  }
+  .stat-val {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a1a1a;
+  }
+  .stat-val.red { color: #C0392B; }
+  .stat-label {
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #999;
+    margin-top: 2px;
+  }
+
+  /* Data grid */
+  .data-grid {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .data-grid:last-child { border-bottom: none; }
+  .data-label {
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #999;
+    padding: 14px 16px 14px 24px;
+    background: #fafaf8;
+    border-right: 1px solid #f0f0f0;
+    display: flex;
+    align-items: center;
+  }
+  .data-val {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    color: #1a1a1a;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+  }
+  .data-val.mono {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    word-break: break-all;
+    color: #333;
+  }
+
+  /* Hash block */
+  .hash-block {
+    background: #f5f2ec;
+    border: 1px solid #C4A052;
+    padding: 14px 20px;
+    margin: 16px 24px;
+    border-radius: 3px;
+  }
+  .hash-label {
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #C4A052;
+    margin-bottom: 6px;
+  }
+  .hash-val {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: #1a1a1a;
+    word-break: break-all;
+  }
+
+  /* Legal note */
+  .legal-note {
+    background: #f9f8f5;
+    border-top: 1px solid #e8e4dc;
+    padding: 20px 36px;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    color: #999;
+    line-height: 1.7;
+  }
+
+  /* Powered by */
+  .powered-by {
+    text-align: center;
+    margin-top: 28px;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    color: #aaa;
+  }
+  .powered-by a { color: #C4A052; text-decoration: none; }
+
+  @media (max-width: 600px) {
+    .header { padding: 16px 20px; }
+    .container { margin: 24px auto; }
+    .score-block { gap: 24px; padding: 24px 20px; }
+    .domain-header { padding: 20px; }
+    .data-label { padding: 12px 12px; }
+    .data-val { padding: 12px 16px; }
+  }
 </style>
 </head>
 <body>
 
-<a href="#main-content" class="skip-link">Skip to main content</a>
-
-<!-- REGISTRY BAR -->
-<div class="registry-bar" role="banner">
-  <a href="https://instituteofdigitalremediation.com" class="registry-bar-brand" aria-label="Institute of Digital Remediation homepage">
-    <span class="bar-acronym">IDR</span>
-    <span class="bar-name">Institute of Digital Remediation</span>
-  </a>
-  <div class="registry-bar-right">
-    <span class="bar-path">Registry &rsaquo; Verification</span>
-    <a href="https://instituteofdigitalremediation.com/registry" class="bar-link">Browse Registry Records</a>
-    <a href="https://instituteofdigitalremediation.com" class="bar-link">Institute</a>
+<div class="header">
+  <div>
+    <div class="header-brand">Institute of Digital Remediation</div>
+    <div class="header-title">IDR Registry</div>
   </div>
+  <a href="https://idrshield.com" class="header-logo-link">idrshield.com →</a>
 </div>
 
-<main id="main-content">
+<div class="container">
 
-  <!-- STORE IDENTITY -->
-  <div class="store-identity">
-    <div>
-      <h1 class="store-domain">example-store.com</h1>
-      <div class="store-meta">
-        <span class="store-reg-id">Registry ID: IDR-REG-2026-00147</span>
-        <span class="store-enrolled">Enrolled March 1, 2026</span>
-      </div>
-    </div>
-    <div class="status-block">
-      <div class="status-badge-large" role="status" aria-label="Current status: Active, under monitoring">
-        <span class="status-dot-large" aria-hidden="true"></span>
-        <span class="status-text-large">Active &mdash; Under Monitoring</span>
-        <span style="font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:.18em;color:rgba(58,138,58,0.7);text-transform:uppercase;margin-top:2px;">IDR Shield Active</span>
-      </div>
-      <p class="status-updated">Updated March 14, 2026</p>
-    </div>
+  <!-- Loading state -->
+  <div id="state-loading" class="state-loading">
+    <div class="spinner"></div>
+    <div class="loading-text">Looking up registry record…</div>
   </div>
 
-  <!-- SNAPSHOT STATS -->
-  <div class="snapshot" role="region" aria-label="Monitoring statistics summary">
-    <div class="snap-stat">
-      <div class="snap-num">3</div>
-      <div class="snap-label">Scans on Record</div>
+  <!-- Error state -->
+  <div id="state-error" class="state-error" style="display:none">
+    <div class="error-icon">⚠️</div>
+    <div class="error-title" id="error-title">No Registry Record Found</div>
+    <div class="error-sub" id="error-sub">
+      This domain has not been scanned by IDR. Run a free scan to generate your
+      compliance record and registry entry.
     </div>
-    <div class="snap-stat">
-      <div class="snap-num">12</div>
-      <div class="snap-label">Issues Identified</div>
-    </div>
-    <div class="snap-stat">
-      <div class="snap-num resolved">11</div>
-      <div class="snap-label">Issues Resolved</div>
-    </div>
-    <div class="snap-stat">
-      <div class="snap-num open">1</div>
-      <div class="snap-label">Open Issues</div>
-    </div>
+    <a href="https://idrshield.com" class="btn-scan">Run Free Scan</a>
   </div>
 
-  <!-- MONITORING DETAILS -->
-  <div class="monitoring-block" role="region" aria-label="Monitoring details">
-    <p class="monitoring-section-title">Monitoring Record</p>
-    <div>
-      <div class="detail-row">
-        <span class="detail-key">Enrollment Date</span>
-        <span class="detail-val">March 1, 2026</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-key">Last Scan</span>
-        <span class="detail-val">March 14, 2026</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-key">Scan Frequency</span>
-        <span class="detail-val">Weekly (Pro tier)</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-key">Pages Monitored</span>
-        <span class="detail-val">47 pages</span>
-      </div>
-    </div>
-    <div>
-      <div class="detail-row">
-        <span class="detail-key">Critical Issues</span>
-        <span class="detail-val">0 unresolved</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-key">Monitoring Window</span>
-        <span class="detail-val">Active (within 30 days)</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-key">Reporting Channel</span>
-        <span class="detail-val">Operational</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-key">Framework</span>
-        <span class="detail-val">IDR Pro &mdash; WCAG 2.1 AA</span>
-      </div>
-    </div>
-  </div>
+  <!-- Registry result -->
+  <div id="state-result" style="display:none">
 
-  <!-- SCAN HISTORY -->
-  <div class="scan-history" role="region" aria-label="Scan history">
-    <p class="history-title">Scan History</p>
-    <table class="history-table">
-      <thead>
-        <tr>
-          <th scope="col">Date</th>
-          <th scope="col">Receipt ID</th>
-          <th scope="col">Pages</th>
-          <th scope="col">Issues</th>
-          <th scope="col">Resolved</th>
-          <th scope="col">Result</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>March 14, 2026</td>
-          <td><span class="scan-receipt-id">IDR-SR-20260314-00147</span></td>
-          <td>47</td>
-          <td>1</td>
-          <td>0</td>
-          <td><span class="scan-result-pill issues">1 Open</span></td>
-        </tr>
-        <tr>
-          <td>March 7, 2026</td>
-          <td><span class="scan-receipt-id">IDR-SR-20260307-00147</span></td>
-          <td>47</td>
-          <td>6</td>
-          <td>6</td>
-          <td><span class="scan-result-pill clean">Resolved</span></td>
-        </tr>
-        <tr>
-          <td>March 1, 2026</td>
-          <td><span class="scan-receipt-id">IDR-SR-20260301-00147</span></td>
-          <td>47</td>
-          <td>12</td>
-          <td>5</td>
-          <td><span class="scan-result-pill issues">Initial Scan</span></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- VERIFICATION INTEGRITY -->
-  <div class="integrity-block" role="region" aria-label="Verification integrity information">
-    <div class="integrity-header">
-      <span class="integrity-label">Verification Integrity</span>
-      <span class="integrity-hash">IDR-HASH-7F3A91C2 &middot; Generated Mar 14, 2026 &middot; 14:32 UTC</span>
+    <div class="domain-header">
+      <div class="domain-name" id="r-domain"></div>
+      <div id="r-status-badge"></div>
     </div>
-    <div class="integrity-body">
-      <p class="integrity-text">This record is generated and maintained by the Institute of Digital Remediation Registry system. Each scan receipt and log entry is timestamped and recorded at the time of execution.</p>
-      <div class="integrity-properties">
-        <div class="integrity-prop">
-          <span class="iprop-key">Record Type</span>
-          <span class="iprop-val">Public Verification Registry</span>
+
+    <div class="registry-card">
+
+      <!-- Score + stats -->
+      <div class="score-block">
+        <div class="score-number">
+          <div class="score-big" id="r-score">—</div>
+          <div class="score-denom">/ 100</div>
         </div>
-        <div class="integrity-prop">
-          <span class="iprop-key">Log Structure</span>
-          <span class="iprop-val">Append-only &mdash; entries cannot be modified after creation</span>
-        </div>
-        <div class="integrity-prop">
-          <span class="iprop-key">Timestamp Authority</span>
-          <span class="iprop-val">IDR Registry System &mdash; recorded at time of scan execution</span>
-        </div>
-        <div class="integrity-prop">
-          <span class="iprop-key">Record Reference</span>
-          <span class="iprop-val">IDR-REG-2026-00147 &mdash; IDR-HASH-7F3A91C2</span>
+        <div class="score-stats">
+          <div class="stat-item">
+            <div class="stat-val red" id="r-critical">—</div>
+            <div class="stat-label">Critical Issues</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-val" id="r-scan-count">—</div>
+            <div class="stat-label">Total Scans</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-val" id="r-last-scanned">—</div>
+            <div class="stat-label">Days Since Scan</div>
+          </div>
         </div>
       </div>
+
+      <!-- Data rows -->
+      <div class="data-grid">
+        <div class="data-label">Registry ID</div>
+        <div class="data-val mono" id="r-registry-id"></div>
+      </div>
+      <div class="data-grid">
+        <div class="data-label">Domain</div>
+        <div class="data-val" id="r-domain-2"></div>
+      </div>
+      <div class="data-grid">
+        <div class="data-label">Last Scanned</div>
+        <div class="data-val" id="r-last-scanned-date"></div>
+      </div>
+      <div class="data-grid">
+        <div class="data-label">Registry Status</div>
+        <div class="data-val" id="r-status-text"></div>
+      </div>
+      <div class="data-grid">
+        <div class="data-label">Scan Count</div>
+        <div class="data-val" id="r-scan-count-2"></div>
+      </div>
+
+      <!-- Hash -->
+      <div class="hash-block" id="hash-block" style="display:none">
+        <div class="hash-label">SHA-256 Verification Hash — Latest Scan Receipt</div>
+        <div class="hash-val" id="r-hash"></div>
+      </div>
+
+      <!-- Legal -->
+      <div class="legal-note">
+        This registry record is maintained by the Institute of Digital Remediation and is updated
+        automatically with each scan. The status reflects the most recent scan result.
+        A status of <strong>Active</strong> indicates zero critical violations and a score ≥ 80/100.
+        <strong>Monitoring</strong> indicates open issues requiring remediation.
+        Institute of Digital Remediation is not a law firm and does not provide legal advice.
+      </div>
     </div>
-  </div>
 
-  <!-- STATUS EXPLANATION -->
-  <div class="status-explanation" role="region" aria-label="Status explanation">
-    <p class="explanation-label">What Active status means</p>
-    <p class="explanation-text">This store is currently enrolled under the IDR monitoring framework. Its last scan was completed within the active monitoring window (30 days). No unresolved critical accessibility failures are on record. The reporting channel is operational. Active status reflects documented monitoring activity &mdash; it is not a guarantee of legal immunity or accessibility perfection.</p>
-  </div>
-
-  <!-- STATUS DEFINITIONS -->
-  <details class="status-defs" role="group">
-    <summary class="status-defs-summary" aria-expanded="false">
-      <span>Registry Status Definitions</span>
-      <span class="defs-toggle-icon" aria-hidden="true">+</span>
-    </summary>
-    <div class="status-defs-body">
-      <div class="sdef-item">
-        <div class="sdef-dot active" aria-hidden="true"></div>
-        <div>
-          <p class="sdef-name">Active</p>
-          <p class="sdef-desc">Monitoring activity recorded within the last 30 days. No unresolved critical accessibility issues on record. Reporting channel operational. Subscription current.</p>
-        </div>
-      </div>
-      <div class="sdef-item">
-        <div class="sdef-dot monitor" aria-hidden="true"></div>
-        <div>
-          <p class="sdef-name">Monitoring</p>
-          <p class="sdef-desc">Active scan history exists and enrollment is current. A scan may be overdue, or identified issues are in active remediation. The record remains maintained.</p>
-        </div>
-      </div>
-      <div class="sdef-item">
-        <div class="sdef-dot expired" aria-hidden="true"></div>
-        <div>
-          <p class="sdef-name">Expired</p>
-          <p class="sdef-desc">No active monitoring status currently maintained. The historical record is retained for reference. Subscription has lapsed or no scan activity in 90 days.</p>
-        </div>
-      </div>
+    <div class="powered-by">
+      Verified by <a href="https://idrshield.com">IDR Shield</a> · Institute of Digital Remediation · IDR-PROTOCOL-2026
     </div>
-  </details>
 
-  <!-- REPORTING -->
-  <div class="reporting" role="region" aria-label="Accessibility issue reporting">
-    <h2 class="reporting-title">Report an Accessibility Issue</h2>
-    <p class="reporting-desc">If you have encountered an accessibility barrier on this store&rsquo;s website, you may report it here. Reports are logged and forwarded to the store&rsquo;s monitoring record.</p>
-    <form class="report-form" aria-label="Issue report form" onsubmit="handleReport(event)">
-      <input
-        class="report-input"
-        type="email"
-        name="reporter_email"
-        id="reporter_email"
-        placeholder="Your email (optional)"
-        autocomplete="email"
-        aria-label="Your email address, optional"
-      >
-      <input
-        class="report-input"
-        type="text"
-        name="issue_desc"
-        id="issue_desc"
-        placeholder="Describe the accessibility issue"
-        required
-        aria-label="Describe the accessibility issue"
-        aria-required="true"
-      >
-      <button type="submit" class="report-btn">Submit Report</button>
-    </form>
-  </div>
+  </div><!-- /state-result -->
 
-  <!-- VERIFY ANOTHER STORE -->
-  <div class="verify-another" role="search" aria-label="Verify another store">
-    <p class="verify-another-label">Verify another store</p>
-    <form class="verify-form" onsubmit="handleVerifySearch(event)" aria-label="Store verification search">
-      <input
-        class="verify-input"
-        type="url"
-        name="store_url"
-        id="verify_store_url"
-        placeholder="https://storename.com"
-        aria-label="Enter store URL to verify"
-        autocomplete="url"
-      >
-      <button type="submit" class="verify-btn">
-        Look Up Record <span aria-hidden="true">&rarr;</span>
-      </button>
-    </form>
-    <p class="verify-hint">Enter any store URL to search the IDR Registry for a verification record.</p>
-  </div>
-
-  <!-- METHODOLOGY NOTE -->
-  <div class="method-note" role="note">
-    <p class="method-note-text">This verification page reflects IDR Registry monitoring status and documented scan activity for the enrolled store. It is not legal advice and does not represent a guarantee of uninterrupted compliance, legal immunity, or accessibility perfection. The Institute of Digital Remediation is not a law firm. Scan methodology references WCAG 2.1 Level AA criteria via automated source-code evaluation.</p>
-  </div>
-
-</main>
-
-<div class="inst-signature" role="contentinfo" aria-label="Institutional signature">
-  <div class="inst-sig-inner">
-    <span class="inst-sig-maintained">Maintained by</span>
-    <span class="inst-sig-name">Institute of Digital Remediation</span>
-    <span class="inst-sig-ref">Registry System &mdash; IDR-REG-2026</span>
-  </div>
-</div>
-
-<footer class="verify-footer" role="contentinfo">
-  <span class="verify-footer-left">IDR Registry &middot; instituteofdigitalremediation.com/verify &middot; 2026</span>
-  <nav class="verify-footer-links" aria-label="Footer navigation">
-    <a href="https://instituteofdigitalremediation.com">Institute</a>
-    <a href="https://instituteofdigitalremediation.com/registry">Registry</a>
-    <a href="https://idrshield.com">Protocol</a>
-  </nav>
-</footer>
+</div><!-- /container -->
 
 <script>
-function handleVerifySearch(e) {
-  e.preventDefault();
-  const input = document.getElementById('verify_store_url');
-  const url = input.value.trim();
-  if (!url) return;
-  // Extract domain for the registry path
+const API = 'https://idr-backend-production.up.railway.app';
+
+function getDomain() {
+  // Try /verify/domain.com format
+  const path = window.location.pathname;
+  const match = path.match(/\/verify\/(.+)/);
+  if (match && match[1]) return match[1].replace(/\/$/, '');
+  // Fallback: query param ?domain=
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('domain')) return params.get('domain');
+  return null;
+}
+
+function daysSince(dateStr) {
+  if (!dateStr) return '—';
+  const diff = Date.now() - new Date(dateStr).getTime();
+  const days = Math.floor(diff / 86400000);
+  if (days === 0) return 'Today';
+  if (days === 1) return '1';
+  return String(days);
+}
+
+function statusBadgeHtml(status) {
+  const cls = status === 'active' ? 'status-active'
+            : status === 'monitoring' ? 'status-monitoring'
+            : 'status-expired';
+  return `<span class="status-badge ${cls}">${status.toUpperCase()}</span>`;
+}
+
+async function load() {
+  const domain = getDomain();
+
+  if (!domain) {
+    document.getElementById('state-loading').style.display = 'none';
+    document.getElementById('state-error').style.display = 'block';
+    document.getElementById('error-title').textContent = 'No Domain Specified';
+    document.getElementById('error-sub').textContent =
+      'Visit idrshield.com to run a free accessibility scan and generate your registry record.';
+    return;
+  }
+
   try {
-    const domain = new URL(url).hostname.replace('www.', '');
-    window.location.href = 'https://instituteofdigitalremediation.com/verify/' + domain;
-  } catch(err) {
-    input.style.borderColor = 'rgba(200,70,70,0.5)';
-    input.focus();
+    const res = await fetch(`${API}/api/registry/${domain}`);
+
+    document.getElementById('state-loading').style.display = 'none';
+
+    if (!res.ok) {
+      document.getElementById('state-error').style.display = 'block';
+      document.getElementById('error-title').textContent =
+        `No Registry Record for ${domain}`;
+      return;
+    }
+
+    const d = await res.json();
+    document.getElementById('state-result').style.display = 'block';
+
+    // Populate
+    const status = d.status || 'monitoring';
+    document.getElementById('r-domain').textContent = d.domain || domain;
+    document.getElementById('r-domain-2').textContent = d.domain || domain;
+    document.getElementById('r-status-badge').innerHTML = statusBadgeHtml(status);
+    document.getElementById('r-status-text').innerHTML = statusBadgeHtml(status);
+    document.getElementById('r-score').textContent =
+      d.latest_score != null ? d.latest_score : (d.overall_score != null ? d.overall_score : '—');
+    document.getElementById('r-critical').textContent =
+      d.critical_count != null ? d.critical_count : '—';
+    document.getElementById('r-scan-count').textContent =
+      d.scan_count != null ? d.scan_count : '—';
+    document.getElementById('r-scan-count-2').textContent =
+      d.scan_count != null ? d.scan_count : '—';
+    document.getElementById('r-registry-id').textContent = d.registry_id || '—';
+    document.getElementById('r-last-scanned').textContent =
+      daysSince(d.last_scanned);
+    document.getElementById('r-last-scanned-date').textContent =
+      d.last_scanned ? new Date(d.last_scanned).toLocaleDateString('en-US',
+        { year:'numeric', month:'long', day:'numeric' }) : '—';
+
+    document.title = `IDR Registry — ${d.domain || domain}`;
+
+  } catch (err) {
+    document.getElementById('state-loading').style.display = 'none';
+    document.getElementById('state-error').style.display = 'block';
+    document.getElementById('error-title').textContent = 'Registry Unavailable';
+    document.getElementById('error-sub').textContent =
+      'Could not reach the IDR registry. Please try again in a moment.';
   }
 }
 
-
-function handleReport(e) {
-  e.preventDefault();
-  const btn = e.target.querySelector('.report-btn');
-  btn.textContent = 'Report Submitted';
-  btn.disabled = true;
-  btn.style.background = '#2A6A2A';
-  btn.style.color = '#fff';
-}
+load();
 </script>
-
 </body>
 </html>

@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/verify/:domain*", "destination": "/idr_verify_sample.html" }
+  ]
+}
