@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Store Scan — IDR Shield</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Georgia', serif;
+  background: #080d1a;
+  color: #F0E8D8;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+.container {
+  max-width: 520px;
+  width: 100%;
+}
+.brand {
+  font-family: 'Georgia', serif;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(201,168,82,0.6);
+  margin-bottom: 8px;
+}
+h1 {
+  font-size: 38px;
+  font-weight: normal;
+  line-height: 1.15;
+  margin-bottom: 12px;
+  color: #F0E8D8;
+}
+h1 em {
+  color: #C4A052;
+  font-style: italic;
+}
+.subtitle {
+  font-size: 16px;
+  color: rgba(240,232,216,0.55);
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+.card {
+  background: #0d1526;
+  border: 1px solid rgba(201,168,82,0.2);
+  border-radius: 4px;
+  padding: 36px;
+}
+.field { margin-bottom: 24px; }
+label {
+  display: block;
+  font-family: 'Arial', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(201,168,82,0.8);
+  margin-bottom: 8px;
+}
+input[type="email"],
+input[type="url"] {
+  width: 100%;
+  padding: 14px 16px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(201,168,82,0.3);
+  border-radius: 3px;
+  color: #F0E8D8;
+  font-family: 'Georgia', serif;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+input:focus { border-color: rgba(201,168,82,0.7); }
+input.error { border-color: #e05555; }
+.hint {
+  font-size: 13px;
+  color: rgba(240,232,216,0.35);
+  margin-top: 6px;
+  font-style: italic;
+}
+.btn {
+  width: 100%;
+  padding: 18px 24px;
+  background: linear-gradient(135deg, #C4A052, #A8842E);
+  color: #080d1a;
+  font-family: 'Arial', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: opacity 0.2s;
+}
+.btn:hover { opacity: 0.88; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.error-msg {
+  display: none;
+  background: rgba(224,85,85,0.15);
+  border: 1px solid rgba(224,85,85,0.4);
+  border-radius: 3px;
+  padding: 12px 16px;
+  color: #f08080;
+  font-size: 14px;
+  margin-top: 16px;
+  line-height: 1.5;
+}
+.success {
+  display: none;
+  text-align: center;
+  padding: 20px 0;
+}
+.success h2 {
+  font-size: 26px;
+  font-weight: normal;
+  color: #C4A052;
+  margin-bottom: 12px;
+}
+.success p { color: rgba(240,232,216,0.7); font-size: 15px; line-height: 1.7; }
+.receipt-box {
+  background: rgba(201,168,82,0.08);
+  border: 1px solid rgba(201,168,82,0.2);
+  border-radius: 3px;
+  padding: 20px;
+  margin-top: 24px;
+  text-align: left;
+}
+.receipt-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 14px;
+}
+.receipt-row:last-child { margin-bottom: 0; }
+.receipt-label {
+  font-family: 'Arial', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(201,168,82,0.6);
+  margin-bottom: 4px;
+}
+.receipt-value {
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  color: #F0E8D8;
+  word-break: break-all;
+}
+.receipt-value a { color: #C4A052; }
+.score-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-family: 'Arial', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+}
+.score-pass { background: rgba(80,200,120,0.2); color: #80e0a0; border: 1px solid rgba(80,200,120,0.3); }
+.score-fail { background: rgba(224,85,85,0.2); color: #f08080; border: 1px solid rgba(224,85,85,0.3); }
+.score-warning { background: rgba(201,168,82,0.2); color: #C4A052; border: 1px solid rgba(201,168,82,0.3); }
+.loading-text { display: none; }
+.footer-note {
+  text-align: center;
+  margin-top: 28px;
+  font-size: 12px;
+  color: rgba(240,232,216,0.25);
+  line-height: 1.6;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <p class="brand">Institute of Digital Remediation &nbsp;·&nbsp; IDR-REG-2026</p>
+  <h1>Scan your<br><em>store free.</em></h1>
+  <p class="subtitle">Enter your email and store URL. Your store will be scanned immediately and your Scan Receipt generated.</p>
+
+  <div class="card">
+
+    <!-- FORM -->
+    <div id="formSection">
+      <div class="field">
+        <label for="email">Email Address *</label>
+        <input type="email" id="email" placeholder="you@yourstore.com" autocomplete="email">
+        <p class="hint">Your Scan Receipt will be delivered here.</p>
+      </div>
+
+      <div class="field">
+        <label for="storeUrl">Store URL *</label>
+        <input type="url" id="storeUrl" placeholder="https://yourstore.com" autocomplete="url">
+        <p class="hint">Your store will be scanned against this URL.</p>
+      </div>
+
+      <button class="btn" id="activateBtn">
+        <span id="btnNormal">Activate Pro Access &rarr;</span>
+        <span id="btnLoading" class="loading-text">Scanning your store&hellip;</span>
+      </button>
+
+      <div class="error-msg" id="errorMsg"></div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="success" id="successSection">
+      <h2>Scan Complete.</h2>
+      <p>Your IDR Scan Receipt has been generated and your Registry record is live.</p>
+      <div class="receipt-box">
+        <div class="receipt-row">
+          <span class="receipt-label">Receipt ID</span>
+          <span class="receipt-value" id="rReceiptId">—</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-label">Registry ID</span>
+          <span class="receipt-value" id="rRegistryId">—</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-label">Score &amp; Status</span>
+          <span class="receipt-value" id="rScore">—</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-label">Registry URL</span>
+          <span class="receipt-value" id="rUrl">—</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="footer-note">
+    Institute of Digital Remediation is not a law firm and does not provide legal advice.<br>
+    This is a compliance documentation system.
+  </p>
+</div>
+
+<script>
+var BACKEND = 'https://idr-backend-production.up.railway.app';
+
+var btn = document.getElementById('activateBtn');
+var btnNormal = document.getElementById('btnNormal');
+var btnLoading = document.getElementById('btnLoading');
+var errorMsg = document.getElementById('errorMsg');
+var formSection = document.getElementById('formSection');
+var successSection = document.getElementById('successSection');
+
+btn.onclick = function() {
+  var email = document.getElementById('email').value.trim();
+  var storeUrl = document.getElementById('storeUrl').value.trim();
+
+  // Validate
+  if (!email || email.indexOf('@') < 0) {
+    showError('Please enter a valid email address.');
+    return;
+  }
+  if (!storeUrl || storeUrl.indexOf('http') !== 0) {
+    showError('Please enter your store URL starting with https://');
+    return;
+  }
+
+  // Loading state
+  btn.disabled = true;
+  btnNormal.style.display = 'none';
+  btnLoading.style.display = 'inline';
+  errorMsg.style.display = 'none';
+
+  // Call backend
+  fetch(BACKEND + '/api/scan', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: email, url: storeUrl })
+  })
+  .then(function(res) { return res.json(); })
+  .then(function(data) {
+    // Free scan returns summary directly (not data.success wrapper)
+    var scan = data.scan || {};
+    if (scan.domain) {
+      var score = scan.overall_score || 0;
+      var status = scan.overall_status || 'fail';
+      var critical = scan.critical_count || 0;
+      document.getElementById('rReceiptId').textContent = data.receipt_id || 'N/A';
+      document.getElementById('rRegistryId').textContent = data.registry_id || 'N/A';
+      var statusClass = status === 'pass' ? 'score-pass' : (status === 'warning' ? 'score-warning' : 'score-fail');
+      document.getElementById('rScore').innerHTML = score + '/100 &nbsp;<span class="score-badge ' + statusClass + '">' + status.toUpperCase() + '</span>';
+      var urlEl = document.getElementById('rUrl');
+      urlEl.innerHTML = '<a href="' + (data.registry_url || '#') + '" target="_blank">' + (data.registry_url || 'N/A') + '</a>';
+      // Show unlock CTA
+      var ctaEl = document.getElementById('unlockCta');
+      if (ctaEl) {
+        ctaEl.innerHTML = '<div style="margin-top:24px;padding:20px;background:rgba(196,160,82,0.08);border:1px solid rgba(196,160,82,0.3);border-radius:4px;">'
+          + '<p style="font-size:13px;color:rgba(240,232,216,0.7);margin-bottom:12px;">'
+          + critical + ' critical issue' + (critical !== 1 ? 's' : '') + ' found. '
+          + 'Your full Defense Package — remediation code, plaintiff simulation, and SHA-256 receipt — is waiting.</p>'
+          + '<a href="https://gum.co/idrshield" target="_blank" style="display:inline-block;background:#C4A052;color:#080d1a;font-family:Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.12em;padding:12px 28px;text-decoration:none;text-transform:uppercase;">Unlock Founders Price — $97</a>'
+          + '<p style="font-size:11px;color:rgba(240,232,216,0.4);margin-top:8px;">Includes book · 30 days free · $29/month forever</p>'
+          + '</div>';
+        ctaEl.style.display = 'block';
+      }
+      formSection.style.display = 'none';
+      successSection.style.display = 'block';
+    } else if (data.error) {
+      showError(data.error || 'Scan failed. Please try again.');
+      btn.disabled = false;
+      btnNormal.style.display = 'inline';
+      btnLoading.style.display = 'none';
+    } else {
+      showError('Scan failed. Please try again.');
+      btn.disabled = false;
+      btnNormal.style.display = 'inline';
+      btnLoading.style.display = 'none';
+    }
+  })
+  .catch(function(err) {
+    showError('Connection error: ' + err.message + '. Please try again.');
+    btn.disabled = false;
+    btnNormal.style.display = 'inline';
+    btnLoading.style.display = 'none';
+  });
+};
+
+function showError(msg) {
+  errorMsg.textContent = msg;
+  errorMsg.style.display = 'block';
+}
+</script>
+
+</body>
+</html>
