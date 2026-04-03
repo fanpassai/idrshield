@@ -17,51 +17,26 @@ html, body {
   min-height:100vh;
 }
 *,*::before,*::after { box-sizing:border-box; }
-
 .page-wrap { background-color:#06080F; min-height:100vh; width:100%; }
 
-/* TOPBAR */
-.topbar {
-  position:sticky; top:0; z-index:200;
-  background-color:#06080F;
-  border-bottom:1px solid rgba(212,168,67,0.3);
-  padding:14px 28px;
-  display:flex; align-items:center; justify-content:space-between;
-}
-.logo {
-  display:flex; align-items:center; gap:12px;
-  cursor:pointer; text-decoration:none; user-select:none;
-  transition:opacity 0.18s;
-}
+.topbar { position:sticky; top:0; z-index:200; background-color:#06080F; border-bottom:1px solid rgba(212,168,67,0.3); padding:14px 28px; display:flex; align-items:center; justify-content:space-between; }
+.logo { display:flex; align-items:center; gap:12px; cursor:pointer; text-decoration:none; user-select:none; transition:opacity 0.18s; }
 .logo:hover { opacity:0.75; }
-.seal {
-  width:40px; height:40px;
-  border:1.5px solid #D4A843; border-radius:50%;
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  flex-shrink:0;
-}
+.seal { width:40px; height:40px; border:1.5px solid #D4A843; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; }
 .seal-text { font-size:7.5px; font-weight:700; letter-spacing:0.12em; color:#D4A843; line-height:1; }
 .seal-line { width:14px; height:1px; background:#D4A843; margin-top:3px; opacity:0.7; }
 .logo-lines { display:flex; flex-direction:column; gap:1px; }
 .logo-eyebrow { font-size:8px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#D4A843; opacity:0.75; line-height:1; }
 .logo-name { font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:700; color:#F0E8D4; line-height:1; }
 .topbar-badge { font-size:8px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:#D4A843; border:1px solid rgba(212,168,67,0.35); border-radius:20px; padding:4px 12px; opacity:0.8; }
-
 .gold-line { height:1px; background:linear-gradient(90deg,#06080F,#D4A843 50%,#06080F); opacity:0.4; }
 
-/* CONTENT */
 .content { max-width:580px; margin:0 auto; padding:0 24px 100px; }
 
-/* HERO */
 .hero { text-align:center; padding:60px 0 44px; }
-.hero-pill {
-  display:inline-flex; align-items:center; gap:8px;
-  background-color:rgba(212,168,67,0.12); border:1px solid rgba(212,168,67,0.4);
-  border-radius:2px; padding:6px 16px 6px 12px; margin-bottom:28px;
-  font-size:9px; font-weight:700; letter-spacing:0.24em; text-transform:uppercase; color:#D4A843;
-}
+.hero-pill { display:inline-flex; align-items:center; gap:8px; background-color:rgba(212,168,67,0.12); border:1px solid rgba(212,168,67,0.4); border-radius:2px; padding:6px 16px 6px 12px; margin-bottom:28px; font-size:9px; font-weight:700; letter-spacing:0.24em; text-transform:uppercase; color:#D4A843; }
 .live-dot { width:6px; height:6px; background-color:#D4A843; border-radius:50%; animation:pulse 2s ease infinite; flex-shrink:0; }
-.hero-h1 { font-family:'Cormorant Garamond',serif; font-size:clamp(42px,9vw,62px); font-weight:700; line-height:1.06; color:#F0E8D4; margin:0 0 20px; letter-spacing:-0.01em; }
+.hero-h1 { font-family:'Cormorant Garamond',serif; font-size:clamp(42px,9vw,62px); font-weight:700; line-height:1.06; color:#F0E8D4; margin:0 0 20px; }
 .hero-h1 em { color:#D4A843; font-style:italic; }
 .hero-sub { font-size:16px; font-weight:400; color:#C4B8A0; line-height:1.75; max-width:400px; margin:0 auto 24px; }
 
@@ -70,30 +45,17 @@ html, body {
 .trust-private svg { width:14px; height:14px; fill:#D4A843; flex-shrink:0; }
 .trust-sub { font-size:12px; color:#7A7060; font-style:italic; }
 
-/* SCAN CARD */
 .scan-card { background-color:#0C0F22; border:1px solid rgba(212,168,67,0.3); border-radius:6px; padding:36px 32px 32px; margin-top:40px; box-shadow:0 20px 80px rgba(0,0,0,0.6); }
 .field { margin-bottom:22px; }
 .field-last { margin-bottom:28px; }
 .field-label { display:block; font-size:9.5px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#D4A843; margin-bottom:9px; }
-input[type="email"], input[type="url"] {
-  display:block; width:100%; padding:14px 16px;
-  background-color:rgba(255,255,255,0.05); border:1px solid rgba(212,168,67,0.25); border-radius:3px;
-  color:#F0E8D4; font-family:'DM Sans',sans-serif; font-size:15px; outline:none;
-  transition:border-color 0.2s,background-color 0.2s,box-shadow 0.2s;
-}
+input[type="email"], input[type="url"] { display:block; width:100%; padding:14px 16px; background-color:rgba(255,255,255,0.05); border:1px solid rgba(212,168,67,0.25); border-radius:3px; color:#F0E8D4; font-family:'DM Sans',sans-serif; font-size:15px; outline:none; transition:border-color 0.2s,background-color 0.2s,box-shadow 0.2s; }
 input:focus { border-color:#D4A843; background-color:rgba(212,168,67,0.07); box-shadow:0 0 0 3px rgba(212,168,67,0.1); }
 input::placeholder { color:rgba(240,232,212,0.25); }
 .field-hint { font-size:12px; color:#7A7060; margin-top:6px; }
+.field-hint strong { color:#C4B8A0; font-weight:500; }
 
-.scan-btn {
-  display:flex; align-items:center; justify-content:center; gap:10px;
-  width:100%; padding:17px 24px;
-  background-color:#D4A843; color:#06080F;
-  font-family:'DM Sans',sans-serif; font-size:11.5px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase;
-  border:none; border-radius:3px; cursor:pointer;
-  box-shadow:0 4px 28px rgba(212,168,67,0.35);
-  transition:background-color 0.18s,box-shadow 0.18s,transform 0.1s;
-}
+.scan-btn { display:flex; align-items:center; justify-content:center; gap:10px; width:100%; padding:17px 24px; background-color:#D4A843; color:#06080F; font-family:'DM Sans',sans-serif; font-size:11.5px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; border:none; border-radius:3px; cursor:pointer; box-shadow:0 4px 28px rgba(212,168,67,0.35); transition:background-color 0.18s,box-shadow 0.18s,transform 0.1s; }
 .scan-btn:hover { background-color:#E8BC55; box-shadow:0 6px 36px rgba(212,168,67,0.5); }
 .scan-btn:active { transform:scale(0.982); }
 .scan-btn:disabled { background-color:rgba(212,168,67,0.3); color:rgba(6,8,15,0.5); box-shadow:none; cursor:not-allowed; transform:none; }
@@ -107,12 +69,10 @@ input::placeholder { color:rgba(240,232,212,0.25); }
 .error-msg { display:none; margin-top:14px; padding:12px 14px; background-color:rgba(217,79,79,0.12); border:1px solid rgba(217,79,79,0.35); border-radius:3px; font-size:13.5px; color:#F07070; }
 .error-msg.show { display:block; }
 
-/* WHY BLOCK */
 .why-block { margin-top:28px; padding:20px 22px; background-color:rgba(212,168,67,0.06); border-left:2px solid #D4A843; }
 .why-label { font-size:9px; font-weight:700; letter-spacing:0.22em; text-transform:uppercase; color:#D4A843; margin-bottom:8px; }
 .why-body { font-size:14px; color:#C4B8A0; line-height:1.78; }
 
-/* SOCIAL PROOF */
 .proof-row { display:flex; justify-content:center; gap:24px; flex-wrap:wrap; margin-top:32px; padding-top:24px; border-top:1px solid rgba(240,232,212,0.07); }
 .proof-item { display:flex; align-items:center; gap:7px; font-size:12px; color:#7A7060; }
 .proof-item svg { width:12px; height:12px; fill:#D4A843; flex-shrink:0; opacity:0.7; }
@@ -130,6 +90,10 @@ input::placeholder { color:rgba(240,232,212,0.25); }
 .risk-critical { background-color:rgba(217,79,79,0.2); color:#F07070; border:1px solid rgba(217,79,79,0.4); }
 .risk-atrisk   { background-color:rgba(217,123,47,0.2); color:#F0A060; border:1px solid rgba(217,123,47,0.4); }
 .risk-monitored{ background-color:rgba(47,168,116,0.2); color:#55CC95; border:1px solid rgba(47,168,116,0.4); }
+
+/* Email sent confirmation banner */
+.email-sent-bar { display:none; margin-top:16px; padding:12px 16px; background-color:rgba(47,168,116,0.12); border:1px solid rgba(47,168,116,0.3); border-radius:3px; font-size:13px; color:#55CC95; text-align:center; font-weight:500; }
+.email-sent-bar.show { display:block; }
 
 .stats-strip { display:flex; margin-top:20px; border:1px solid rgba(212,168,67,0.25); border-radius:4px; overflow:hidden; background-color:#06080F; }
 .stat-box { flex:1; text-align:center; padding:18px 8px; border-right:1px solid rgba(212,168,67,0.2); }
@@ -167,7 +131,8 @@ input::placeholder { color:rgba(240,232,212,0.25); }
 
 .upsell-card { background-color:#0C0F22; border:1px solid rgba(212,168,67,0.35); border-radius:6px; padding:32px 28px; margin-bottom:20px; text-align:center; position:relative; overflow:hidden; box-shadow:0 0 60px rgba(212,168,67,0.05); }
 .upsell-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,#D4A843,transparent); }
-.upsell-eyebrow { font-size:9px; font-weight:700; letter-spacing:0.22em; text-transform:uppercase; color:#D4A843; margin-bottom:10px; opacity:0.85; }
+.upsell-eyebrow { font-size:9px; font-weight:700; letter-spacing:0.22em; text-transform:uppercase; color:#D4A843; margin-bottom:6px; opacity:0.85; }
+.upsell-founding-note { font-size:13px; color:#C4B8A0; line-height:1.7; margin-bottom:14px; padding:12px 16px; background-color:rgba(212,168,67,0.06); border-radius:3px; border:1px solid rgba(212,168,67,0.15); }
 .upsell-price { font-family:'Cormorant Garamond',serif; font-size:54px; font-weight:700; color:#F0E8D4; line-height:1; margin-bottom:6px; }
 .upsell-terms { font-size:12.5px; color:#7A7060; margin-bottom:24px; }
 .upsell-list { list-style:none; text-align:left; margin-bottom:26px; padding:0; }
@@ -177,8 +142,10 @@ input::placeholder { color:rgba(240,232,212,0.25); }
 
 .cta-primary { display:flex; align-items:center; justify-content:center; width:100%; padding:18px 24px; background-color:#D4A843; color:#06080F; font-family:'DM Sans',sans-serif; font-size:11px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; border-radius:3px; text-decoration:none; margin-bottom:12px; box-shadow:0 4px 28px rgba(212,168,67,0.4); transition:background-color 0.18s,box-shadow 0.18s; }
 .cta-primary:hover { background-color:#E8BC55; box-shadow:0 6px 36px rgba(212,168,67,0.55); }
-.cta-secondary { display:flex; align-items:center; justify-content:center; width:100%; padding:15px 24px; background-color:transparent; color:#D4A843; font-family:'DM Sans',sans-serif; font-size:11px; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; border:1px solid rgba(212,168,67,0.35); border-radius:3px; text-decoration:none; transition:border-color 0.18s,color 0.18s,background-color 0.18s; }
-.cta-secondary:hover { border-color:#D4A843; color:#E8BC55; background-color:rgba(212,168,67,0.07); }
+
+.cta-soft { display:flex; align-items:center; justify-content:center; width:100%; padding:15px 24px; background-color:transparent; color:#D4A843; font-family:'DM Sans',sans-serif; font-size:11px; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; border:1px solid rgba(212,168,67,0.35); border-radius:3px; cursor:pointer; transition:border-color 0.18s,color 0.18s,background-color 0.18s; }
+.cta-soft:hover { border-color:#D4A843; color:#E8BC55; background-color:rgba(212,168,67,0.07); }
+.cta-soft:disabled { opacity:0.5; cursor:not-allowed; }
 
 .share-block { margin-bottom:20px; }
 .share-title { font-size:9px; font-weight:700; letter-spacing:0.22em; text-transform:uppercase; color:#D4A843; text-align:center; margin-bottom:14px; opacity:0.7; }
@@ -198,7 +165,6 @@ input::placeholder { color:rgba(240,232,212,0.25); }
 .reset-btn:hover { border-color:rgba(240,232,212,0.28); color:#C4B8A0; }
 .reset-btn svg { width:14px; height:14px; fill:currentColor; }
 
-/* FOOTER */
 .footer { background-color:#06080F; border-top:1px solid rgba(240,232,212,0.07); text-align:center; padding:30px 24px 48px; }
 .footer-powered { font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:#D4A843; opacity:0.6; margin-bottom:8px; }
 .footer-legal { font-size:11px; color:rgba(240,232,212,0.28); line-height:1.9; }
@@ -238,14 +204,9 @@ input::placeholder { color:rgba(240,232,212,0.25); }
 
 <div class="content">
 
-  <!-- SCAN SECTION -->
   <div id="scanSection">
-
     <div class="hero">
-      <div class="hero-pill">
-        <span class="live-dot"></span>
-        Free Accessibility Scan
-      </div>
+      <div class="hero-pill"><span class="live-dot"></span>Free Accessibility Scan</div>
       <h1 class="hero-h1">Discover accessibility<br>risks on your store<br><em>in seconds.</em></h1>
       <p class="hero-sub">See what your store reveals before anyone else scans it.<br>Instant results — no credit card required.</p>
       <div class="trust-strip">
@@ -261,12 +222,12 @@ input::placeholder { color:rgba(240,232,212,0.25); }
       <div class="field">
         <label class="field-label" for="emailInput">Email Address</label>
         <input type="email" id="emailInput" placeholder="you@yourstore.com" autocomplete="email">
-        <p class="field-hint">We'll send your private results here. No spam.</p>
+        <p class="field-hint"><strong>Your scan results and risk summary will be emailed to you.</strong> No spam, ever.</p>
       </div>
       <div class="field field-last">
         <label class="field-label" for="urlInput">Store URL</label>
         <input type="url" id="urlInput" placeholder="https://yourstore.com" autocomplete="url">
-        <p class="field-hint">We scan your site instantly. Nothing is installed.</p>
+        <p class="field-hint">We scan your site instantly. Nothing is installed on your store.</p>
       </div>
       <button class="scan-btn" id="scanBtn">
         <div class="btn-spinner" id="btnSpinner"></div>
@@ -274,18 +235,9 @@ input::placeholder { color:rgba(240,232,212,0.25); }
       </button>
       <div class="error-msg" id="errorMsg"></div>
       <div class="no-fear">
-        <div class="no-fear-row">
-          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-          We don't file claims or represent law firms
-        </div>
-        <div class="no-fear-row">
-          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-          We don't sell your data
-        </div>
-        <div class="no-fear-row">
-          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-          Results are visible only to you
-        </div>
+        <div class="no-fear-row"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>We don't file claims or represent law firms</div>
+        <div class="no-fear-row"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>We don't sell your data</div>
+        <div class="no-fear-row"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Results are visible only to you</div>
       </div>
     </div>
 
@@ -295,21 +247,11 @@ input::placeholder { color:rgba(240,232,212,0.25); }
     </div>
 
     <div class="proof-row">
-      <div class="proof-item">
-        <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
-        Used by e-commerce founders &amp; developers
-      </div>
-      <div class="proof-item">
-        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
-        Built for store owners, not law firms
-      </div>
-      <div class="proof-item">
-        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-        Instant results, no install required
-      </div>
+      <div class="proof-item"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>Used by e-commerce founders &amp; developers</div>
+      <div class="proof-item"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>Built for store owners, not law firms</div>
+      <div class="proof-item"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Instant results, no install required</div>
     </div>
-
-  </div><!-- /scanSection -->
+  </div>
 
   <!-- RESULTS -->
   <div id="results">
@@ -321,19 +263,15 @@ input::placeholder { color:rgba(240,232,212,0.25); }
       <div><span class="risk-pill" id="riskBadge"></span></div>
     </div>
 
+    <!-- Email sent confirmation — shows after auto-send -->
+    <div class="email-sent-bar" id="emailSentBar">
+      &#10003;&nbsp; Your full results have been emailed — check your inbox
+    </div>
+
     <div class="stats-strip">
-      <div class="stat-box">
-        <span class="stat-num c-red"    id="statCritical">0</span>
-        <span class="stat-lbl">Critical Issues</span>
-      </div>
-      <div class="stat-box">
-        <span class="stat-num c-orange" id="statTotal">0</span>
-        <span class="stat-lbl">Total Issues</span>
-      </div>
-      <div class="stat-box">
-        <span class="stat-num c-gold"   id="statCats">0</span>
-        <span class="stat-lbl">Categories</span>
-      </div>
+      <div class="stat-box"><span class="stat-num c-red" id="statCritical">0</span><span class="stat-lbl">Critical Issues</span></div>
+      <div class="stat-box"><span class="stat-num c-orange" id="statTotal">0</span><span class="stat-lbl">Total Issues</span></div>
+      <div class="stat-box"><span class="stat-num c-gold" id="statCats">0</span><span class="stat-lbl">Categories</span></div>
     </div>
 
     <div class="cats-card">
@@ -343,55 +281,40 @@ input::placeholder { color:rgba(240,232,212,0.25); }
 
     <div class="ornament">
       <div class="orn-line"></div>
-      <div class="orn-mid">
-        <div class="orn-diamond"></div>
-        <span class="orn-text">Defense Package</span>
-        <div class="orn-diamond"></div>
-      </div>
+      <div class="orn-mid"><div class="orn-diamond"></div><span class="orn-text">Founding Member Package</span><div class="orn-diamond"></div></div>
       <div class="orn-line"></div>
     </div>
 
     <div class="locked-card">
-      <p class="locked-title">This summary doesn't include</p>
+      <p class="locked-title">Your email includes — your full results don't include</p>
       <div class="locked-item"><span class="locked-icon">&#x1F512;</span><span class="locked-text">10-section legal-grade Defense Package PDF with SHA-256 tamper-evident receipt</span></div>
       <div class="locked-item"><span class="locked-icon">&#x1F512;</span><span class="locked-text">Before/after remediation code for every issue found on your store</span></div>
-      <div class="locked-item"><span class="locked-icon">&#x1F512;</span><span class="locked-text">Plaintiff simulation — how a law firm scores your store as a target</span></div>
-      <div class="locked-item"><span class="locked-icon">&#x1F512;</span><span class="locked-text">IDR Verified badge + weekly automated rescans + immediate alert system</span></div>
+      <div class="locked-item"><span class="locked-icon">&#x1F512;</span><span class="locked-text">Plaintiff simulation — exactly how a law firm scores your store as a target</span></div>
+      <div class="locked-item"><span class="locked-icon">&#x1F512;</span><span class="locked-text">IDR Verified badge + weekly automated rescans + immediate violation alerts</span></div>
     </div>
 
     <div class="upsell-card">
-      <p class="upsell-eyebrow">Founding Member Offer &#xB7; First 500 Only</p>
+      <p class="upsell-eyebrow">Founding Member Offer &#xB7; First 500 Stores Only</p>
+      <p class="upsell-founding-note">We are in our founding phase. The first 500 store owners who activate IDR Shield lock in the founding rate of $29/month — permanently. That rate will never increase, no matter what we charge in the future.</p>
       <p class="upsell-price">$97</p>
-      <p class="upsell-terms">Everything included &#xB7; 30 days free &#xB7; then $29/month locked forever</p>
+      <p class="upsell-terms">One-time activation &#xB7; 30 days free &#xB7; then $29/month locked forever</p>
       <ul class="upsell-list">
         <li><span class="upsell-dot"></span>Full Defense Package PDF — 10 sections, legal-grade documentation</li>
         <li><span class="upsell-dot"></span>SHA-256 Scan Receipt — cryptographic proof of your compliance record</li>
         <li><span class="upsell-dot"></span>IDR Registry entry — publicly verifiable, linked to your domain</li>
         <li><span class="upsell-dot"></span>Weekly rescans + immediate alert if new violations are detected</li>
       </ul>
-      <a href="https://idrshield.gumroad.com/l/oadcfq" target="_blank" class="cta-primary">Unlock Full Defense Package &#x2014; $97</a>
-      <a href="https://idrshield.gumroad.com/l/oadcfq" target="_blank" class="cta-secondary">See What's in the Full Package</a>
+      <a href="https://idrshield.gumroad.com/l/oadcfq" target="_blank" class="cta-primary">Activate Founding Membership &#x2014; $97</a>
+      <button class="cta-soft" id="resendEmailBtn">Resend My Results to Email</button>
     </div>
 
     <div class="share-block">
       <p class="share-title">Share your results</p>
       <div class="share-grid">
-        <button class="share-btn" id="shareCopy">
-          <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
-          Copy
-        </button>
-        <a class="share-btn" id="shareX" href="#" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-          Share on X
-        </a>
-        <a class="share-btn" id="shareWA" href="#" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          WhatsApp
-        </a>
-        <a class="share-btn" id="shareEmail" href="#">
-          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-          Email
-        </a>
+        <button class="share-btn" id="shareCopy"><svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>Copy</button>
+        <a class="share-btn" id="shareX" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>Share on X</a>
+        <a class="share-btn" id="shareWA" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp</a>
+        <a class="share-btn" id="shareEmail" href="#"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>Email</a>
       </div>
     </div>
 
@@ -428,16 +351,19 @@ input::placeholder { color:rgba(240,232,212,0.25); }
 var BACKEND   = 'https://idr-backend-production.up.railway.app';
 var SCAN_PAGE = 'https://idrshield.com/idrshield_scanner.html';
 
-var emailInput  = document.getElementById('emailInput');
-var urlInput    = document.getElementById('urlInput');
-var scanBtn     = document.getElementById('scanBtn');
-var btnLabel    = document.getElementById('btnLabel');
-var errorMsg    = document.getElementById('errorMsg');
-var scanSection = document.getElementById('scanSection');
-var resultsEl   = document.getElementById('results');
-var lastReceipt = null;
-var userEmail   = null;
+var emailInput    = document.getElementById('emailInput');
+var urlInput      = document.getElementById('urlInput');
+var scanBtn       = document.getElementById('scanBtn');
+var btnLabel      = document.getElementById('btnLabel');
+var errorMsg      = document.getElementById('errorMsg');
+var scanSection   = document.getElementById('scanSection');
+var resultsEl     = document.getElementById('results');
+var emailSentBar  = document.getElementById('emailSentBar');
+var resendBtn     = document.getElementById('resendEmailBtn');
+var lastReceipt   = null;
+var userEmail     = null;
 
+// ── SCAN ─────────────────────────────────────────────────────────
 scanBtn.addEventListener('click', function() {
   var email = emailInput.value.trim();
   var url   = urlInput.value.trim();
@@ -446,6 +372,7 @@ scanBtn.addEventListener('click', function() {
   userEmail = email;
   setScanning(true);
   clearErr();
+
   fetch(BACKEND + '/api/scan', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -457,6 +384,7 @@ scanBtn.addEventListener('click', function() {
     if (d.error) return showErr('Scan error: ' + d.error);
     lastReceipt = d;
     renderResults(d);
+    sendSummaryEmail(email, d, true); // auto-send, show confirmation bar
   })
   .catch(function() {
     setScanning(false);
@@ -464,6 +392,7 @@ scanBtn.addEventListener('click', function() {
   });
 });
 
+// ── RENDER RESULTS ────────────────────────────────────────────────
 function renderResults(r) {
   var scan     = r.scan || {};
   var domain   = scan.domain        || '';
@@ -477,13 +406,9 @@ function renderResults(r) {
   document.getElementById('resScore').textContent  = score;
 
   var rb = document.getElementById('riskBadge');
-  if (critical >= 3 || score < 50) {
-    rb.textContent = 'Critical Risk'; rb.className = 'risk-pill risk-critical';
-  } else if (critical >= 1 || score < 75) {
-    rb.textContent = 'At Risk';       rb.className = 'risk-pill risk-atrisk';
-  } else {
-    rb.textContent = 'Monitored';     rb.className = 'risk-pill risk-monitored';
-  }
+  if (critical >= 3 || score < 50)      { rb.textContent = 'Critical Risk'; rb.className = 'risk-pill risk-critical'; }
+  else if (critical >= 1 || score < 75) { rb.textContent = 'At Risk';       rb.className = 'risk-pill risk-atrisk'; }
+  else                                  { rb.textContent = 'Monitored';     rb.className = 'risk-pill risk-monitored'; }
 
   document.getElementById('statCritical').textContent = critical;
   document.getElementById('statTotal').textContent    = total;
@@ -495,30 +420,18 @@ function renderResults(r) {
     var failed   = cat.failed || 0;
     var catScore = (cat.score != null) ? cat.score : 100;
     var dotColor, badgeClass, badgeText;
-    if (failed === 0) {
-      dotColor = '#2FA874'; badgeClass = 'b-pass'; badgeText = 'Pass';
-    } else if (catScore < 70) {
-      dotColor = '#D94F4F'; badgeClass = 'b-fail';
-      badgeText = failed + ' issue' + (failed !== 1 ? 's' : '') + ' \u2014 Fail';
-    } else {
-      dotColor = '#D97B2F'; badgeClass = 'b-warn';
-      badgeText = failed + ' issue' + (failed !== 1 ? 's' : '') + ' \u2014 Warning';
-    }
+    if (failed === 0)      { dotColor = '#2FA874'; badgeClass = 'b-pass'; badgeText = 'Pass'; }
+    else if (catScore < 70){ dotColor = '#D94F4F'; badgeClass = 'b-fail'; badgeText = failed + ' issue' + (failed !== 1 ? 's' : '') + ' \u2014 Fail'; }
+    else                   { dotColor = '#D97B2F'; badgeClass = 'b-warn'; badgeText = failed + ' issue' + (failed !== 1 ? 's' : '') + ' \u2014 Warning'; }
     var row = document.createElement('div');
     row.className = 'cat-row';
-    row.innerHTML =
-      '<div class="cat-left">' +
-        '<span class="cat-dot" style="background-color:' + dotColor + '"></span>' +
-        '<span class="cat-name">' + (cat.name || '') + '</span>' +
-      '</div>' +
-      '<span class="cat-badge ' + badgeClass + '">' + badgeText + '</span>';
+    row.innerHTML = '<div class="cat-left"><span class="cat-dot" style="background-color:' + dotColor + '"></span><span class="cat-name">' + (cat.name || '') + '</span></div><span class="cat-badge ' + badgeClass + '">' + badgeText + '</span>';
     list.appendChild(row);
   });
 
   document.getElementById('resReceiptId').textContent  = r.receipt_id  || '\u2014';
   document.getElementById('resRegistryId').textContent = r.registry_id || '\u2014';
-  document.getElementById('resRegistryUrl').textContent =
-    r.registry_url || ('https://idrshield.com/verify/' + domain);
+  document.getElementById('resRegistryUrl').textContent = r.registry_url || ('https://idrshield.com/verify/' + domain);
 
   wireShare(domain, score, status);
   scanSection.style.display = 'none';
@@ -526,9 +439,42 @@ function renderResults(r) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+// ── SEND SUMMARY EMAIL ────────────────────────────────────────────
+function sendSummaryEmail(email, receipt, isAuto) {
+  fetch(BACKEND + '/api/scan/summary-email', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: email, receipt: receipt })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(d) {
+    if (d.success) {
+      if (isAuto) {
+        emailSentBar.classList.add('show');
+      } else {
+        resendBtn.textContent = '\u2713 Sent — check your inbox';
+        resendBtn.disabled = true;
+      }
+    } else {
+      if (!isAuto) { resendBtn.textContent = 'Resend My Results to Email'; resendBtn.disabled = false; }
+    }
+  })
+  .catch(function() {
+    if (!isAuto) { resendBtn.textContent = 'Resend My Results to Email'; resendBtn.disabled = false; }
+  });
+}
+
+// ── RESEND BUTTON ─────────────────────────────────────────────────
+resendBtn.addEventListener('click', function() {
+  if (!lastReceipt || !userEmail) return;
+  resendBtn.textContent = 'Sending\u2026';
+  resendBtn.disabled = true;
+  sendSummaryEmail(userEmail, lastReceipt, false);
+});
+
+// ── SHARE ─────────────────────────────────────────────────────────
 function wireShare(domain, score, status) {
-  var msg = 'I just scanned my store with IDR Shield and got a ' + score +
-    '/100 accessibility score. If you run an online store, check yours before a plaintiff firm does \u2014 free scan: ' + SCAN_PAGE;
+  var msg = 'I just scanned my store with IDR Shield and got a ' + score + '/100 accessibility score. If you run an online store, check yours before a plaintiff firm does \u2014 free scan: ' + SCAN_PAGE;
   var enc = encodeURIComponent(msg);
 
   document.getElementById('shareCopy').onclick = function() {
@@ -539,33 +485,29 @@ function wireShare(domain, score, status) {
       setTimeout(function() { b.classList.remove('share-copied'); }, 2200);
     });
   };
-
   document.getElementById('shareX').href  = 'https://x.com/intent/tweet?text=' + enc;
   document.getElementById('shareWA').href = 'https://wa.me/?text=' + enc;
-
   var subj = encodeURIComponent('My store scored ' + score + '/100 on IDR Shield \u2014 ' + domain);
-  var body = encodeURIComponent(
-    'I just scanned my store with IDR Shield \u2014 scored ' + score + '/100.\n\n' +
-    'If plaintiff firms use these same scanners to find targets, I wanted to know first.\n\n' +
-    'Run your free scan: ' + SCAN_PAGE
-  );
+  var body = encodeURIComponent('I just scanned my store with IDR Shield \u2014 scored ' + score + '/100.\n\nIf plaintiff firms use these same scanners to find targets, I wanted to know first.\n\nRun your free scan: ' + SCAN_PAGE);
   document.getElementById('shareEmail').href = 'mailto:?subject=' + subj + '&body=' + body;
 }
 
+// ── RESET ─────────────────────────────────────────────────────────
 function resetPage() {
-  emailInput.value = '';
-  urlInput.value   = '';
-  lastReceipt      = null;
-  userEmail        = null;
+  emailInput.value = ''; urlInput.value = '';
+  lastReceipt = null; userEmail = null;
   resultsEl.classList.remove('show');
   scanSection.style.display = '';
+  emailSentBar.classList.remove('show');
+  resendBtn.textContent = 'Resend My Results to Email';
+  resendBtn.disabled = false;
   clearErr();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
-
 document.getElementById('resetBtn').addEventListener('click', resetPage);
 document.getElementById('logoReset').addEventListener('click', resetPage);
 
+// ── HELPERS ───────────────────────────────────────────────────────
 function setScanning(on) {
   scanBtn.disabled = on;
   scanBtn.classList.toggle('scanning', on);
