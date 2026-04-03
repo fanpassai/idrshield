@@ -8,1122 +8,421 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-
-/* ─────────────────────────────────────────────
-   COLORS — all verified 9:1+ contrast on navy
-   Navy  #06080F  background
-   Gold  #D4A843  labels, accents, borders (9:1)
-   Cream #F0E8D4  primary text (16:1)
-   Mist  #C4B8A0  secondary text (10:1)
-   Dust  #7A7060  tertiary (4.8:1 large only)
-───────────────────────────────────────────── */
-
 html, body {
-  margin: 0; padding: 0;
-  background-color: #06080F !important;
-  color: #F0E8D4;
-  font-family: 'DM Sans', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  min-height: 100vh;
+  margin:0; padding:0;
+  background-color:#06080F !important;
+  color:#F0E8D4;
+  font-family:'DM Sans',sans-serif;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
 }
+*,*::before,*::after { box-sizing:border-box; }
 
-/* Force dark on everything — no surprises */
-*, *::before, *::after {
-  box-sizing: border-box;
-}
+.page-wrap { background-color:#06080F; min-height:100vh; width:100%; }
 
-/* ── Layout wrapper — explicit dark bg ─────── */
-.page-wrap {
-  background-color: #06080F;
-  min-height: 100vh;
-  width: 100%;
-}
-
-/* ── Topbar ─────────────────────────────────── */
+/* TOPBAR */
 .topbar {
-  position: sticky;
-  top: 0;
-  z-index: 200;
-  background-color: #06080F;
-  border-bottom: 1px solid rgba(212,168,67,0.3);
-  padding: 14px 28px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  position:sticky; top:0; z-index:200;
+  background-color:#06080F;
+  border-bottom:1px solid rgba(212,168,67,0.3);
+  padding:14px 28px;
+  display:flex; align-items:center; justify-content:space-between;
 }
-
 .logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  cursor: pointer;
-  text-decoration: none;
-  user-select: none;
-  transition: opacity 0.18s;
+  display:flex; align-items:center; gap:12px;
+  cursor:pointer; text-decoration:none; user-select:none;
+  transition:opacity 0.18s;
 }
-.logo:hover { opacity: 0.75; }
-
+.logo:hover { opacity:0.75; }
 .seal {
-  width: 40px; height: 40px;
-  border: 1.5px solid #D4A843;
-  border-radius: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  background-color: transparent;
+  width:40px; height:40px;
+  border:1.5px solid #D4A843; border-radius:50%;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  flex-shrink:0;
 }
-.seal-text {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 7.5px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: #D4A843;
-  line-height: 1;
-}
-.seal-line {
-  width: 14px;
-  height: 1px;
-  background: #D4A843;
-  margin-top: 3px;
-  opacity: 0.7;
-}
+.seal-text { font-size:7.5px; font-weight:700; letter-spacing:0.12em; color:#D4A843; line-height:1; }
+.seal-line { width:14px; height:1px; background:#D4A843; margin-top:3px; opacity:0.7; }
+.logo-lines { display:flex; flex-direction:column; gap:1px; }
+.logo-eyebrow { font-size:8px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#D4A843; opacity:0.75; line-height:1; }
+.logo-name { font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:700; color:#F0E8D4; line-height:1; }
+.topbar-badge { font-size:8px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:#D4A843; border:1px solid rgba(212,168,67,0.35); border-radius:20px; padding:4px 12px; opacity:0.8; }
 
-.logo-text { display: flex; flex-direction: column; gap: 1px; }
-.logo-eyebrow {
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #D4A843;
-  opacity: 0.75;
-  line-height: 1;
-}
-.logo-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 18px;
-  font-weight: 700;
-  color: #F0E8D4;
-  line-height: 1;
-  letter-spacing: 0.01em;
-}
+.gold-line { height:1px; background:linear-gradient(90deg,#06080F,#D4A843 50%,#06080F); opacity:0.4; }
 
-.topbar-badge {
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #D4A843;
-  border: 1px solid rgba(212,168,67,0.35);
-  border-radius: 20px;
-  padding: 4px 12px;
-  opacity: 0.8;
-}
+/* CONTENT */
+.content { max-width:580px; margin:0 auto; padding:0 24px 100px; }
 
-/* ── Gold divider line ──────────────────────── */
-.gold-line {
-  height: 1px;
-  background: linear-gradient(90deg, #06080F, #D4A843 50%, #06080F);
-  opacity: 0.4;
-}
-
-/* ── Content area ───────────────────────────── */
-.content {
-  max-width: 580px;
-  margin: 0 auto;
-  padding: 0 24px 100px;
-}
-
-/* ── Hero ───────────────────────────────────── */
-.hero {
-  text-align: center;
-  padding: 60px 0 44px;
-}
-
+/* HERO */
+.hero { text-align:center; padding:60px 0 44px; }
 .hero-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background-color: rgba(212,168,67,0.12);
-  border: 1px solid rgba(212,168,67,0.4);
-  border-radius: 2px;
-  padding: 6px 16px 6px 12px;
-  margin-bottom: 28px;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: #D4A843;
+  display:inline-flex; align-items:center; gap:8px;
+  background-color:rgba(212,168,67,0.12); border:1px solid rgba(212,168,67,0.4);
+  border-radius:2px; padding:6px 16px 6px 12px; margin-bottom:28px;
+  font-size:9px; font-weight:700; letter-spacing:0.24em; text-transform:uppercase; color:#D4A843;
 }
-.live-dot {
-  width: 6px; height: 6px;
-  background-color: #D4A843;
-  border-radius: 50%;
-  animation: pulse 2s ease infinite;
-  flex-shrink: 0;
-}
+.live-dot { width:6px; height:6px; background-color:#D4A843; border-radius:50%; animation:pulse 2s ease infinite; flex-shrink:0; }
+.hero-h1 { font-family:'Cormorant Garamond',serif; font-size:clamp(42px,9vw,62px); font-weight:700; line-height:1.06; color:#F0E8D4; margin:0 0 20px; letter-spacing:-0.01em; }
+.hero-h1 em { color:#D4A843; font-style:italic; }
+.hero-sub { font-size:16px; font-weight:400; color:#C4B8A0; line-height:1.75; max-width:400px; margin:0 auto 24px; }
 
-.hero-h1 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(42px, 9vw, 62px);
-  font-weight: 700;
-  line-height: 1.06;
-  color: #F0E8D4;
-  margin: 0 0 20px;
-  letter-spacing: -0.01em;
-}
-.hero-h1 em {
-  color: #D4A843;
-  font-style: italic;
-}
+.trust-strip { display:flex; flex-direction:column; align-items:center; gap:8px; }
+.trust-private { display:inline-flex; align-items:center; gap:8px; background-color:rgba(212,168,67,0.1); border:1px solid rgba(212,168,67,0.3); border-radius:2px; padding:8px 16px; font-size:13px; font-weight:500; color:#F0E8D4; }
+.trust-private svg { width:14px; height:14px; fill:#D4A843; flex-shrink:0; }
+.trust-sub { font-size:12px; color:#7A7060; font-style:italic; }
 
-.hero-sub {
-  font-size: 16px;
-  font-weight: 400;
-  color: #C4B8A0;
-  line-height: 1.75;
-  max-width: 400px;
-  margin: 0 auto 24px;
+/* SCAN CARD */
+.scan-card { background-color:#0C0F22; border:1px solid rgba(212,168,67,0.3); border-radius:6px; padding:36px 32px 32px; margin-top:40px; box-shadow:0 20px 80px rgba(0,0,0,0.6); }
+.field { margin-bottom:22px; }
+.field-last { margin-bottom:28px; }
+.field-label { display:block; font-size:9.5px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#D4A843; margin-bottom:9px; }
+input[type="email"], input[type="url"] {
+  display:block; width:100%; padding:14px 16px;
+  background-color:rgba(255,255,255,0.05); border:1px solid rgba(212,168,67,0.25); border-radius:3px;
+  color:#F0E8D4; font-family:'DM Sans',sans-serif; font-size:15px; outline:none;
+  transition:border-color 0.2s,background-color 0.2s,box-shadow 0.2s;
 }
-
-/* ── Trust strip ────────────────────────────── */
-.trust-strip {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 0;
-}
-.trust-private {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background-color: rgba(212,168,67,0.1);
-  border: 1px solid rgba(212,168,67,0.3);
-  border-radius: 2px;
-  padding: 8px 16px;
-  font-size: 13px;
-  font-weight: 500;
-  color: #F0E8D4;
-}
-.trust-private svg {
-  width: 14px; height: 14px;
-  fill: #D4A843;
-  flex-shrink: 0;
-}
-.trust-sub {
-  font-size: 12px;
-  color: #7A7060;
-  font-style: italic;
-}
-
-/* ── Scan card ──────────────────────────────── */
-.scan-card {
-  background-color: #0C0F22;
-  border: 1px solid rgba(212,168,67,0.3);
-  border-radius: 6px;
-  padding: 36px 32px 32px;
-  margin-top: 40px;
-  box-shadow: 0 20px 80px rgba(0,0,0,0.6);
-}
-
-.field { margin-bottom: 22px; }
-.field-last { margin-bottom: 28px; }
-
-.field-label {
-  display: block;
-  font-size: 9.5px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #D4A843;
-  margin-bottom: 9px;
-}
-
-input[type="email"],
-input[type="url"] {
-  display: block;
-  width: 100%;
-  padding: 14px 16px;
-  background-color: rgba(255,255,255,0.05);
-  border: 1px solid rgba(212,168,67,0.25);
-  border-radius: 3px;
-  color: #F0E8D4;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 15px;
-  font-weight: 400;
-  outline: none;
-  transition: border-color 0.2s, background-color 0.2s, box-shadow 0.2s;
-}
-input:focus {
-  border-color: #D4A843;
-  background-color: rgba(212,168,67,0.07);
-  box-shadow: 0 0 0 3px rgba(212,168,67,0.1);
-}
-input::placeholder { color: rgba(240,232,212,0.25); }
-
-.field-hint {
-  font-size: 12px;
-  color: #7A7060;
-  margin-top: 6px;
-}
+input:focus { border-color:#D4A843; background-color:rgba(212,168,67,0.07); box-shadow:0 0 0 3px rgba(212,168,67,0.1); }
+input::placeholder { color:rgba(240,232,212,0.25); }
+.field-hint { font-size:12px; color:#7A7060; margin-top:6px; }
 
 .scan-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: 100%;
-  padding: 17px 24px;
-  background-color: #D4A843;
-  color: #06080F;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 11.5px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-  box-shadow: 0 4px 28px rgba(212,168,67,0.35);
-  transition: background-color 0.18s, box-shadow 0.18s, transform 0.1s;
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  width:100%; padding:17px 24px;
+  background-color:#D4A843; color:#06080F;
+  font-family:'DM Sans',sans-serif; font-size:11.5px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase;
+  border:none; border-radius:3px; cursor:pointer;
+  box-shadow:0 4px 28px rgba(212,168,67,0.35);
+  transition:background-color 0.18s,box-shadow 0.18s,transform 0.1s;
 }
-.scan-btn:hover {
-  background-color: #E8BC55;
-  box-shadow: 0 6px 36px rgba(212,168,67,0.5);
-}
-.scan-btn:active { transform: scale(0.982); }
-.scan-btn:disabled {
-  background-color: rgba(212,168,67,0.3);
-  color: rgba(6,8,15,0.5);
-  box-shadow: none;
-  cursor: not-allowed;
-  transform: none;
-}
+.scan-btn:hover { background-color:#E8BC55; box-shadow:0 6px 36px rgba(212,168,67,0.5); }
+.scan-btn:active { transform:scale(0.982); }
+.scan-btn:disabled { background-color:rgba(212,168,67,0.3); color:rgba(6,8,15,0.5); box-shadow:none; cursor:not-allowed; transform:none; }
+.btn-spinner { display:none; width:15px; height:15px; border:2.5px solid rgba(6,8,15,0.25); border-top-color:#06080F; border-radius:50%; animation:spin 0.6s linear infinite; }
+.scanning .btn-spinner { display:block; }
 
-.btn-spinner {
-  display: none;
-  width: 15px; height: 15px;
-  border: 2.5px solid rgba(6,8,15,0.25);
-  border-top-color: #06080F;
-  border-radius: 50%;
-  animation: spin 0.6s linear infinite;
-}
-.scanning .btn-spinner { display: block; }
+.no-fear { margin-top:20px; padding-top:18px; border-top:1px solid rgba(240,232,212,0.08); display:flex; flex-direction:column; gap:8px; }
+.no-fear-row { display:flex; align-items:center; gap:10px; font-size:13px; color:#C4B8A0; }
+.no-fear-row svg { width:13px; height:13px; fill:#2FA874; flex-shrink:0; }
 
-/* No-fear list */
-.no-fear {
-  margin-top: 20px;
-  padding-top: 18px;
-  border-top: 1px solid rgba(240,232,212,0.08);
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.no-fear-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 13px;
-  color: #C4B8A0;
-}
-.no-fear-row svg {
-  width: 13px; height: 13px;
-  fill: #2FA874;
-  flex-shrink: 0;
-}
+.error-msg { display:none; margin-top:14px; padding:12px 14px; background-color:rgba(217,79,79,0.12); border:1px solid rgba(217,79,79,0.35); border-radius:3px; font-size:13.5px; color:#F07070; }
+.error-msg.show { display:block; }
 
-.error-msg {
-  display: none;
-  margin-top: 14px;
-  padding: 12px 14px;
-  background-color: rgba(217,79,79,0.12);
-  border: 1px solid rgba(217,79,79,0.35);
-  border-radius: 3px;
-  font-size: 13.5px;
-  color: #F07070;
-}
-.error-msg.show { display: block; }
+/* WHY BLOCK */
+.why-block { margin-top:28px; padding:20px 22px; background-color:rgba(212,168,67,0.06); border-left:2px solid #D4A843; }
+.why-label { font-size:9px; font-weight:700; letter-spacing:0.22em; text-transform:uppercase; color:#D4A843; margin-bottom:8px; }
+.why-body { font-size:14px; color:#C4B8A0; line-height:1.78; }
 
-/* ── Why block ──────────────────────────────── */
-.why-block {
-  margin-top: 28px;
-  padding: 20px 22px;
-  background-color: rgba(212,168,67,0.06);
-  border-left: 2px solid #D4A843;
-}
-.why-label {
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: #D4A843;
-  margin-bottom: 8px;
-}
-.why-body {
-  font-size: 14px;
-  color: #C4B8A0;
-  line-height: 1.78;
-}
+/* SOCIAL PROOF */
+.proof-row { display:flex; justify-content:center; gap:24px; flex-wrap:wrap; margin-top:32px; padding-top:24px; border-top:1px solid rgba(240,232,212,0.07); }
+.proof-item { display:flex; align-items:center; gap:7px; font-size:12px; color:#7A7060; }
+.proof-item svg { width:12px; height:12px; fill:#D4A843; flex-shrink:0; opacity:0.7; }
 
-/* ── Social proof ───────────────────────────── */
-.proof-row {
-  display: flex;
-  justify-content: center;
-  gap: 24px;
-  flex-wrap: wrap;
-  margin-top: 32px;
-  padding-top: 24px;
-  border-top: 1px solid rgba(240,232,212,0.07);
-}
-.proof-item {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 12px;
-  color: #7A7060;
-}
-.proof-item svg {
-  width: 12px; height: 12px;
-  fill: #D4A843;
-  flex-shrink: 0;
-  opacity: 0.7;
-}
+/* RESULTS */
+#results { display:none; }
+#results.show { display:block; }
 
-/* ─── RESULTS ──────────────────────────────── */
-#results { display: none; }
-#results.show { display: block; }
+.score-card { background-color:#0C0F22; border:1px solid rgba(212,168,67,0.3); border-radius:6px; text-align:center; padding:44px 24px 36px; margin-top:32px; position:relative; overflow:hidden; }
+.score-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,#D4A843,transparent); }
+.score-domain { font-size:11px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#D4A843; margin-bottom:16px; opacity:0.9; }
+.score-number { font-family:'Cormorant Garamond',serif; font-size:96px; font-weight:700; line-height:1; color:#F0E8D4; display:block; }
+.score-denom { font-family:'Cormorant Garamond',serif; font-size:32px; color:#7A7060; display:block; margin-bottom:18px; }
+.risk-pill { display:inline-block; font-size:10px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; padding:6px 20px; border-radius:20px; }
+.risk-critical { background-color:rgba(217,79,79,0.2); color:#F07070; border:1px solid rgba(217,79,79,0.4); }
+.risk-atrisk   { background-color:rgba(217,123,47,0.2); color:#F0A060; border:1px solid rgba(217,123,47,0.4); }
+.risk-monitored{ background-color:rgba(47,168,116,0.2); color:#55CC95; border:1px solid rgba(47,168,116,0.4); }
 
-/* Score header card */
-.score-card {
-  background-color: #0C0F22;
-  border: 1px solid rgba(212,168,67,0.3);
-  border-radius: 6px;
-  text-align: center;
-  padding: 44px 24px 36px;
-  margin-top: 32px;
-  position: relative;
-  overflow: hidden;
-}
-/* gold top glow line */
-.score-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #D4A843, transparent);
-}
+.stats-strip { display:flex; margin-top:20px; border:1px solid rgba(212,168,67,0.25); border-radius:4px; overflow:hidden; background-color:#06080F; }
+.stat-box { flex:1; text-align:center; padding:18px 8px; border-right:1px solid rgba(212,168,67,0.2); }
+.stat-box:last-child { border-right:none; }
+.stat-num { font-family:'Cormorant Garamond',serif; font-size:36px; font-weight:700; line-height:1; display:block; margin-bottom:5px; }
+.stat-num.c-red { color:#F07070; }
+.stat-num.c-orange { color:#F0A060; }
+.stat-num.c-gold { color:#D4A843; }
+.stat-lbl { font-size:9px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#7A7060; display:block; }
 
-.score-domain {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #D4A843;
-  margin-bottom: 16px;
-  opacity: 0.9;
-}
-.score-number {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 96px;
-  font-weight: 700;
-  line-height: 1;
-  color: #F0E8D4;
-  display: block;
-}
-.score-denom {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 32px;
-  color: #7A7060;
-  display: block;
-  margin-bottom: 18px;
-}
+.cats-card { background-color:#0C0F22; border:1px solid rgba(212,168,67,0.2); border-radius:6px; padding:22px 24px; margin-top:16px; }
+.cats-label { font-size:9px; font-weight:700; letter-spacing:0.22em; text-transform:uppercase; color:#D4A843; margin-bottom:16px; opacity:0.85; }
+.cat-row { display:flex; align-items:center; justify-content:space-between; padding:12px 0; border-bottom:1px solid rgba(240,232,212,0.07); }
+.cat-row:last-child { border-bottom:none; }
+.cat-left { display:flex; align-items:center; gap:12px; }
+.cat-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.cat-name { font-size:14px; font-weight:400; color:#F0E8D4; }
+.cat-badge { font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:4px 12px; border-radius:14px; }
+.b-fail { background-color:rgba(217,79,79,0.15); color:#F07070; border:1px solid rgba(217,79,79,0.3); }
+.b-warn { background-color:rgba(217,123,47,0.15); color:#F0A060; border:1px solid rgba(217,123,47,0.3); }
+.b-pass { background-color:rgba(47,168,116,0.15); color:#55CC95; border:1px solid rgba(47,168,116,0.3); }
 
-.risk-pill {
-  display: inline-block;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  padding: 6px 20px;
-  border-radius: 20px;
-}
-.risk-critical { background-color: rgba(217,79,79,0.2); color: #F07070; border: 1px solid rgba(217,79,79,0.4); }
-.risk-atrisk   { background-color: rgba(217,123,47,0.2); color: #F0A060; border: 1px solid rgba(217,123,47,0.4); }
-.risk-monitored{ background-color: rgba(47,168,116,0.2); color: #55CC95; border: 1px solid rgba(47,168,116,0.4); }
+.ornament { display:flex; align-items:center; gap:14px; margin:32px 0; }
+.orn-line { flex:1; height:1px; background:rgba(212,168,67,0.25); }
+.orn-mid { display:flex; align-items:center; gap:8px; }
+.orn-diamond { width:6px; height:6px; border:1px solid #D4A843; transform:rotate(45deg); opacity:0.5; }
+.orn-text { font-size:8px; font-weight:700; letter-spacing:0.26em; text-transform:uppercase; color:#D4A843; opacity:0.55; }
 
-/* Stats strip */
-.stats-strip {
-  display: flex;
-  margin-top: 20px;
-  border: 1px solid rgba(212,168,67,0.25);
-  border-radius: 4px;
-  overflow: hidden;
-  background-color: #06080F;
-}
-.stat-box {
-  flex: 1;
-  text-align: center;
-  padding: 18px 8px;
-  border-right: 1px solid rgba(212,168,67,0.2);
-}
-.stat-box:last-child { border-right: none; }
-.stat-num {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 36px;
-  font-weight: 700;
-  line-height: 1;
-  display: block;
-  margin-bottom: 5px;
-}
-.stat-num.c-red    { color: #F07070; }
-.stat-num.c-orange { color: #F0A060; }
-.stat-num.c-gold   { color: #D4A843; }
-.stat-lbl {
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: #7A7060;
-  display: block;
-}
+.locked-card { background-color:rgba(212,168,67,0.05); border:1px solid rgba(212,168,67,0.25); border-radius:6px; padding:24px; margin-bottom:20px; }
+.locked-title { font-size:9px; font-weight:700; letter-spacing:0.22em; text-transform:uppercase; color:#D4A843; margin-bottom:16px; opacity:0.85; }
+.locked-item { display:flex; align-items:flex-start; gap:12px; margin-bottom:12px; }
+.locked-item:last-child { margin-bottom:0; }
+.locked-icon { font-size:14px; flex-shrink:0; line-height:1.5; }
+.locked-text { font-size:13.5px; color:#C4B8A0; line-height:1.6; }
 
-/* Category list */
-.cats-card {
-  background-color: #0C0F22;
-  border: 1px solid rgba(212,168,67,0.2);
-  border-radius: 6px;
-  padding: 22px 24px;
-  margin-top: 16px;
-}
-.cats-label {
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: #D4A843;
-  margin-bottom: 16px;
-  opacity: 0.85;
-}
-.cat-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 0;
-  border-bottom: 1px solid rgba(240,232,212,0.07);
-}
-.cat-row:last-child { border-bottom: none; }
-.cat-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.cat-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-.cat-name {
-  font-size: 14px;
-  font-weight: 400;
-  color: #F0E8D4;
-}
-.cat-badge {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 4px 12px;
-  border-radius: 14px;
-}
-.b-fail { background-color: rgba(217,79,79,0.15); color: #F07070; border: 1px solid rgba(217,79,79,0.3); }
-.b-warn { background-color: rgba(217,123,47,0.15); color: #F0A060; border: 1px solid rgba(217,123,47,0.3); }
-.b-pass { background-color: rgba(47,168,116,0.15); color: #55CC95; border: 1px solid rgba(47,168,116,0.3); }
+.upsell-card { background-color:#0C0F22; border:1px solid rgba(212,168,67,0.35); border-radius:6px; padding:32px 28px; margin-bottom:20px; text-align:center; position:relative; overflow:hidden; box-shadow:0 0 60px rgba(212,168,67,0.05); }
+.upsell-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,#D4A843,transparent); }
+.upsell-eyebrow { font-size:9px; font-weight:700; letter-spacing:0.22em; text-transform:uppercase; color:#D4A843; margin-bottom:10px; opacity:0.85; }
+.upsell-price { font-family:'Cormorant Garamond',serif; font-size:54px; font-weight:700; color:#F0E8D4; line-height:1; margin-bottom:6px; }
+.upsell-terms { font-size:12.5px; color:#7A7060; margin-bottom:24px; }
+.upsell-list { list-style:none; text-align:left; margin-bottom:26px; padding:0; }
+.upsell-list li { display:flex; align-items:flex-start; gap:12px; font-size:14px; color:#C4B8A0; padding:10px 0; border-bottom:1px solid rgba(240,232,212,0.07); line-height:1.5; }
+.upsell-list li:last-child { border-bottom:none; }
+.upsell-dot { width:6px; height:6px; background-color:#D4A843; border-radius:50%; flex-shrink:0; margin-top:6px; }
 
-/* Ornament divider */
-.ornament {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin: 32px 0;
-}
-.orn-line { flex: 1; height: 1px; background: rgba(212,168,67,0.25); }
-.orn-mid {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.orn-diamond {
-  width: 6px; height: 6px;
-  border: 1px solid #D4A843;
-  transform: rotate(45deg);
-  opacity: 0.5;
-}
-.orn-text {
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-  color: #D4A843;
-  opacity: 0.55;
-}
+.cta-primary { display:flex; align-items:center; justify-content:center; width:100%; padding:18px 24px; background-color:#D4A843; color:#06080F; font-family:'DM Sans',sans-serif; font-size:11px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; border-radius:3px; text-decoration:none; margin-bottom:12px; box-shadow:0 4px 28px rgba(212,168,67,0.4); transition:background-color 0.18s,box-shadow 0.18s; }
+.cta-primary:hover { background-color:#E8BC55; box-shadow:0 6px 36px rgba(212,168,67,0.55); }
+.cta-secondary { display:flex; align-items:center; justify-content:center; width:100%; padding:15px 24px; background-color:transparent; color:#D4A843; font-family:'DM Sans',sans-serif; font-size:11px; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; border:1px solid rgba(212,168,67,0.35); border-radius:3px; text-decoration:none; transition:border-color 0.18s,color 0.18s,background-color 0.18s; }
+.cta-secondary:hover { border-color:#D4A843; color:#E8BC55; background-color:rgba(212,168,67,0.07); }
 
-/* Locked teaser */
-.locked-card {
-  background-color: rgba(212,168,67,0.05);
-  border: 1px solid rgba(212,168,67,0.25);
-  border-radius: 6px;
-  padding: 24px 24px;
-  margin-bottom: 20px;
-}
-.locked-title {
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: #D4A843;
-  margin-bottom: 16px;
-  opacity: 0.85;
-}
-.locked-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-.locked-item:last-child { margin-bottom: 0; }
-.locked-icon { font-size: 14px; flex-shrink: 0; line-height: 1.5; }
-.locked-text { font-size: 13.5px; color: #C4B8A0; line-height: 1.6; }
+.share-block { margin-bottom:20px; }
+.share-title { font-size:9px; font-weight:700; letter-spacing:0.22em; text-transform:uppercase; color:#D4A843; text-align:center; margin-bottom:14px; opacity:0.7; }
+.share-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+.share-btn { display:flex; flex-direction:column; align-items:center; gap:6px; padding:14px 6px; background-color:#0C0F22; border:1px solid rgba(212,168,67,0.2); border-radius:3px; color:#C4B8A0; font-size:10px; font-weight:500; letter-spacing:0.06em; text-decoration:none; cursor:pointer; font-family:'DM Sans',sans-serif; transition:border-color 0.18s,color 0.18s,background-color 0.18s; }
+.share-btn:hover { border-color:#D4A843; color:#D4A843; background-color:rgba(212,168,67,0.07); }
+.share-btn svg { width:17px; height:17px; fill:currentColor; }
+.share-copied { color:#2FA874 !important; border-color:#2FA874 !important; }
 
-/* Upsell card */
-.upsell-card {
-  background-color: #0C0F22;
-  border: 1px solid rgba(212,168,67,0.35);
-  border-radius: 6px;
-  padding: 32px 28px;
-  margin-bottom: 20px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 0 60px rgba(212,168,67,0.05);
-}
-.upsell-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #D4A843, transparent);
-}
-.upsell-eyebrow {
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: #D4A843;
-  margin-bottom: 10px;
-  opacity: 0.85;
-}
-.upsell-price {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 54px;
-  font-weight: 700;
-  color: #F0E8D4;
-  line-height: 1;
-  margin-bottom: 6px;
-}
-.upsell-terms {
-  font-size: 12.5px;
-  color: #7A7060;
-  margin-bottom: 24px;
-}
-.upsell-list {
-  list-style: none;
-  text-align: left;
-  margin-bottom: 26px;
-}
-.upsell-list li {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  font-size: 14px;
-  color: #C4B8A0;
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(240,232,212,0.07);
-  line-height: 1.5;
-}
-.upsell-list li:last-child { border-bottom: none; }
-.upsell-dot {
-  width: 6px; height: 6px;
-  background-color: #D4A843;
-  border-radius: 50%;
-  flex-shrink: 0;
-  margin-top: 6px;
-}
+.ids-card { background-color:#0C0F22; border:1px solid rgba(240,232,212,0.1); border-radius:6px; padding:18px 20px; margin-bottom:20px; }
+.id-row { display:flex; justify-content:space-between; align-items:center; padding:7px 0; border-bottom:1px solid rgba(240,232,212,0.06); }
+.id-row:last-child { border-bottom:none; }
+.id-lbl { font-size:9px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:#7A7060; }
+.id-val { font-family:'Courier New',monospace; font-size:11px; color:#C4B8A0; text-align:right; word-break:break-all; max-width:60%; }
 
-.cta-primary {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  padding: 18px 24px;
-  background-color: #D4A843;
-  color: #06080F;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  border-radius: 3px;
-  text-decoration: none;
-  margin-bottom: 12px;
-  box-shadow: 0 4px 28px rgba(212,168,67,0.4);
-  transition: background-color 0.18s, box-shadow 0.18s;
-}
-.cta-primary:hover {
-  background-color: #E8BC55;
-  box-shadow: 0 6px 36px rgba(212,168,67,0.55);
-}
+.reset-btn { display:flex; align-items:center; justify-content:center; gap:8px; width:100%; padding:14px; background-color:transparent; border:1px solid rgba(240,232,212,0.12); border-radius:3px; color:#7A7060; font-family:'DM Sans',sans-serif; font-size:11px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; cursor:pointer; transition:border-color 0.18s,color 0.18s; }
+.reset-btn:hover { border-color:rgba(240,232,212,0.28); color:#C4B8A0; }
+.reset-btn svg { width:14px; height:14px; fill:currentColor; }
 
-.cta-soft {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  padding: 15px 24px;
-  background-color: transparent;
-  color: #D4A843;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  border: 1px solid rgba(212,168,67,0.35);
-  border-radius: 3px;
-  cursor: pointer;
-  transition: border-color 0.18s, color 0.18s, background-color 0.18s;
-}
-.cta-soft:hover {
-  border-color: #D4A843;
-  color: #E8BC55;
-  background-color: rgba(212,168,67,0.07);
-}
-.cta-confirm {
-  display: none;
-  font-size: 13px;
-  color: #2FA874;
-  text-align: center;
-  margin-top: 12px;
-  font-weight: 500;
-}
+/* FOOTER */
+.footer { background-color:#06080F; border-top:1px solid rgba(240,232,212,0.07); text-align:center; padding:30px 24px 48px; }
+.footer-powered { font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:#D4A843; opacity:0.6; margin-bottom:8px; }
+.footer-legal { font-size:11px; color:rgba(240,232,212,0.28); line-height:1.9; }
+.footer-legal a { color:rgba(212,168,67,0.5); text-decoration:none; }
+.footer-legal a:hover { color:#D4A843; }
 
-/* Share */
-.share-block { margin-bottom: 20px; }
-.share-title {
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: #D4A843;
-  text-align: center;
-  margin-bottom: 14px;
-  opacity: 0.7;
-}
-.share-grid {
-  display: grid;
-  grid-template-columns: repeat(4,1fr);
-  gap: 8px;
-}
-.share-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  padding: 14px 6px;
-  background-color: #0C0F22;
-  border: 1px solid rgba(212,168,67,0.2);
-  border-radius: 3px;
-  color: #C4B8A0;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-decoration: none;
-  cursor: pointer;
-  font-family: 'DM Sans', sans-serif;
-  transition: border-color 0.18s, color 0.18s, background-color 0.18s;
-}
-.share-btn:hover {
-  border-color: #D4A843;
-  color: #D4A843;
-  background-color: rgba(212,168,67,0.07);
-}
-.share-btn svg { width: 17px; height: 17px; fill: currentColor; }
-.share-copied { color: #2FA874 !important; border-color: #2FA874 !important; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
+@keyframes spin { to{transform:rotate(360deg)} }
 
-/* IDs card */
-.ids-card {
-  background-color: #0C0F22;
-  border: 1px solid rgba(240,232,212,0.1);
-  border-radius: 6px;
-  padding: 18px 20px;
-  margin-bottom: 20px;
+@media(max-width:500px){
+  .scan-card{padding:28px 20px 24px;}
+  .topbar{padding:13px 18px;}
+  .topbar-badge{display:none;}
+  .hero{padding:44px 0 32px;}
+  .share-grid{grid-template-columns:repeat(2,1fr);}
 }
-.id-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 7px 0;
-  border-bottom: 1px solid rgba(240,232,212,0.06);
-}
-.id-row:last-child { border-bottom: none; }
-.id-lbl {
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: #7A7060;
-}
-.id-val {
-  font-family: 'Courier New', monospace;
-  font-size: 11px;
-  color: #C4B8A0;
-  text-align: right;
-  word-break: break-all;
-  max-width: 60%;
-}
-
-/* Reset */
-.reset-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
-  padding: 14px;
-  background-color: transparent;
-  border: 1px solid rgba(240,232,212,0.12);
-  border-radius: 3px;
-  color: #7A7060;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: border-color 0.18s, color 0.18s;
-}
-.reset-btn:hover { border-color: rgba(240,232,212,0.28); color: #C4B8A0; }
-.reset-btn svg { width: 14px; height: 14px; fill: currentColor; }
-
-/* Footer */
-.footer {
-  background-color: #06080F;
-  border-top: 1px solid rgba(240,232,212,0.07);
-  text-align: center;
-  padding: 30px 24px 48px;
-}
-.footer-powered {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #D4A843;
-  opacity: 0.6;
-  margin-bottom: 8px;
-}
-.footer-legal {
-  font-size: 11px;
-  color: rgba(240,232,212,0.28);
-  line-height: 1.9;
-}
-.footer-legal a { color: rgba(212,168,67,0.5); text-decoration: none; }
-.footer-legal a:hover { color: #D4A843; }
-
-/* Animations */
-@keyframes pulse {
-  0%,100% { opacity: 1; }
-  50%      { opacity: 0.35; }
-}
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.animate { animation: fadeUp 0.5s ease both; }
-
-/* Mobile */
-@media (max-width: 500px) {
-  .scan-card { padding: 28px 20px 24px; }
-  .topbar { padding: 13px 18px; }
-  .topbar-badge { display: none; }
-  .hero { padding: 44px 0 32px; }
-  .share-grid { grid-template-columns: repeat(2,1fr); }
-  .social-proof-row { gap: 14px; }
-}
-
 </style>
 </head>
 <body>
-
 <div class="page-wrap">
 
-  <!-- TOPBAR -->
-  <header class="topbar">
-    <div class="logo" id="logoReset" role="button" aria-label="IDR Shield — go home">
-      <div class="seal">
-        <span class="seal-text">IDR</span>
-        <div class="seal-line"></div>
+<header class="topbar">
+  <div class="logo" id="logoReset" role="button" aria-label="IDR Shield home">
+    <div class="seal">
+      <span class="seal-text">IDR</span>
+      <div class="seal-line"></div>
+    </div>
+    <div class="logo-lines">
+      <span class="logo-eyebrow">Institute of Digital Remediation</span>
+      <span class="logo-name">IDR Shield</span>
+    </div>
+  </div>
+  <span class="topbar-badge">IDR-BRAND-2026-01</span>
+</header>
+
+<div class="gold-line"></div>
+
+<div class="content">
+
+  <!-- SCAN SECTION -->
+  <div id="scanSection">
+
+    <div class="hero">
+      <div class="hero-pill">
+        <span class="live-dot"></span>
+        Free Accessibility Scan
       </div>
-      <div class="logo-text">
-        <span class="logo-eyebrow">Institute of Digital Remediation</span>
-        <span class="logo-name">IDR Shield</span>
+      <h1 class="hero-h1">Discover accessibility<br>risks on your store<br><em>in seconds.</em></h1>
+      <p class="hero-sub">See what your store reveals before anyone else scans it.<br>Instant results — no credit card required.</p>
+      <div class="trust-strip">
+        <span class="trust-private">
+          <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+          Your scan is private. We do not share your data with any third party.
+        </span>
+        <span class="trust-sub">This tool is for store owners — not law firms.</span>
       </div>
     </div>
-    <span class="topbar-badge">IDR-BRAND-2026-01</span>
-  </header>
 
-  <div class="gold-line"></div>
-
-  <!-- CONTENT -->
-  <div class="content">
-
-    <!-- ══ SCAN SECTION ══════════════════════════ -->
-    <div id="scanSection">
-
-      <!-- Hero -->
-      <div class="hero animate">
-        <div class="hero-pill">
-          <span class="live-dot"></span>
-          Free Accessibility Scan
-        </div>
-
-        <h1 class="hero-h1">
-          Discover accessibility<br>
-          risks on your store<br>
-          <em>in seconds.</em>
-        </h1>
-
-        <p class="hero-sub">
-          See what your store reveals before anyone else scans it.<br>
-          Instant results — no credit card required.
-        </p>
-
-        <div class="trust-strip">
-          <span class="trust-private">
-            <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
-            Your scan is private. We do not share your data with any third party.
-          </span>
-          <span class="trust-sub">This tool is for store owners — not law firms.</span>
-        </div>
+    <div class="scan-card">
+      <div class="field">
+        <label class="field-label" for="emailInput">Email Address</label>
+        <input type="email" id="emailInput" placeholder="you@yourstore.com" autocomplete="email">
+        <p class="field-hint">We'll send your private results here. No spam.</p>
       </div>
-
-      <!-- Form card -->
-      <div class="scan-card animate">
-        <div class="field">
-          <label class="field-label" for="emailInput">Email Address</label>
-          <input type="email" id="emailInput" placeholder="you@yourstore.com" autocomplete="email">
-          <p class="field-hint">We'll send your private results here. No spam.</p>
-        </div>
-        <div class="field field-last">
-          <label class="field-label" for="urlInput">Store URL</label>
-          <input type="url" id="urlInput" placeholder="https://yourstore.com" autocomplete="url">
-          <p class="field-hint">We scan your site instantly. Nothing is installed.</p>
-        </div>
-
-        <button class="scan-btn" id="scanBtn">
-          <div class="btn-spinner" id="btnSpinner"></div>
-          <span id="btnLabel">Run Free Scan →</span>
-        </button>
-
-        <div class="error-msg" id="errorMsg"></div>
-
-        <div class="no-fear">
-          <div class="no-fear-row">
-            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-            We don't file claims or represent law firms
-          </div>
-          <div class="no-fear-row">
-            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-            We don't sell your data
-          </div>
-          <div class="no-fear-row">
-            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-            Results are visible only to you
-          </div>
-        </div>
+      <div class="field field-last">
+        <label class="field-label" for="urlInput">Store URL</label>
+        <input type="url" id="urlInput" placeholder="https://yourstore.com" autocomplete="url">
+        <p class="field-hint">We scan your site instantly. Nothing is installed.</p>
       </div>
-
-      <!-- Why block -->
-      <div class="why-block animate">
-        <p class="why-label">Why we built this</p>
-        <p class="why-body">Most store owners don't know their risk until a demand letter arrives. IDR exists to give you visibility — before anyone else runs a scan on your store.</p>
-      </div>
-
-      <!-- Social proof -->
-      <div class="proof-row animate">
-        <div class="proof-item">
-          <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
-          Used by e-commerce founders &amp; developers
-        </div>
-        <div class="proof-item">
-          <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
-          Built for store owners, not law firms
-        </div>
-        <div class="proof-item">
-          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-          Instant results, no install required
-        </div>
-      </div>
-
-    </div><!-- /scanSection -->
-
-    <!-- ══ RESULTS ════════════════════════════════ -->
-    <div id="results">
-
-      <!-- Score card -->
-      <div class="score-card">
-        <p class="score-domain" id="resDomain"></p>
-        <span class="score-number" id="resScore"></span>
-        <span class="score-denom">/ 100</span>
-        <div><span class="risk-pill" id="riskBadge"></span></div>
-      </div>
-
-      <!-- Stats strip -->
-      <div class="stats-strip">
-        <div class="stat-box">
-          <span class="stat-num c-red"    id="statCritical">—</span>
-          <span class="stat-lbl">Critical Issues</span>
-        </div>
-        <div class="stat-box">
-          <span class="stat-num c-orange" id="statTotal">—</span>
-          <span class="stat-lbl">Total Issues</span>
-        </div>
-        <div class="stat-box">
-          <span class="stat-num c-gold"   id="statCats">—</span>
-          <span class="stat-lbl">Categories</span>
-        </div>
-      </div>
-
-      <!-- Categories -->
-      <div class="cats-card">
-        <p class="cats-label">Issue Breakdown</p>
-        <div id="catList"></div>
-      </div>
-
-      <!-- Ornament -->
-      <div class="ornament">
-        <div class="orn-line"></div>
-        <div class="orn-mid">
-          <div class="orn-diamond"></div>
-          <span class="orn-text">Defense Package</span>
-          <div class="orn-diamond"></div>
-        </div>
-        <div class="orn-line"></div>
-      </div>
-
-      <!-- Locked teaser -->
-      <div class="locked-card">
-        <p class="locked-title">This summary doesn't include</p>
-        <div class="locked-item">
-          <span class="locked-icon">🔒</span>
-          <span class="locked-text">10-section legal-grade Defense Package PDF with SHA-256 tamper-evident receipt</span>
-        </div>
-        <div class="locked-item">
-          <span class="locked-icon">🔒</span>
-          <span class="locked-text">Before/after remediation code for every issue found on your store</span>
-        </div>
-        <div class="locked-item">
-          <span class="locked-icon">🔒</span>
-          <span class="locked-text">Plaintiff simulation — how a law firm scores your store as a target</span>
-        </div>
-        <div class="locked-item">
-          <span class="locked-icon">🔒</span>
-          <span class="locked-text">IDR Verified badge + weekly automated rescans + immediate alert system</span>
-        </div>
-      </div>
-
-      <!-- Upsell -->
-      <div class="upsell-card">
-        <p class="upsell-eyebrow">Founding Member Offer · First 500 Only</p>
-        <p class="upsell-price">$97</p>
-        <p class="upsell-terms">Everything included · 30 days free · then $29/month locked forever</p>
-        <ul class="upsell-list">
-          <li><span class="upsell-dot"></span>Full Defense Package PDF — 10 sections, legal-grade documentation</li>
-          <li><span class="upsell-dot"></span>SHA-256 Scan Receipt — cryptographic proof of your compliance record</li>
-          <li><span class="upsell-dot"></span>IDR Registry entry — publicly verifiable, linked to your domain</li>
-          <li><span class="upsell-dot"></span>Weekly rescans + immediate alert if new violations are detected</li>
-        </ul>
-        <a href="https://idrshield.gumroad.com/l/oadcfq" target="_blank" class="cta-primary" id="ctaUnlock">
-          Unlock Full Defense Package — $97
-        </a>
-        <a href="https://idrshield.gumroad.com/l/oadcfq" target="_blank" class="cta-soft">See What's in the Full Package</a>
-      </div>
-
-      <!-- Share -->
-      <div class="share-block">
-        <p class="share-title">Share your results</p>
-        <div class="share-grid">
-          <button class="share-btn" id="shareCopy" title="Copy link">
-            <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
-            Copy
-          </button>
-          <a class="share-btn" id="shareX" href="#" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-            Share on X
-          </a>
-          <a class="share-btn" id="shareWA" href="#" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            WhatsApp
-          </a>
-          <a class="share-btn" id="shareEmail" href="#">
-            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-            Email
-          </a>
-        </div>
-      </div>
-
-      <!-- IDs -->
-      <div class="ids-card">
-        <div class="id-row">
-          <span class="id-lbl">Receipt ID</span>
-          <span class="id-val" id="resReceiptId">—</span>
-        </div>
-        <div class="id-row">
-          <span class="id-lbl">Registry ID</span>
-          <span class="id-val" id="resRegistryId">—</span>
-        </div>
-        <div class="id-row">
-          <span class="id-lbl">Registry Record</span>
-          <span class="id-val" id="resRegistryUrl">—</span>
-        </div>
-      </div>
-
-      <!-- Reset -->
-      <button class="reset-btn" id="resetBtn">
-        <svg viewBox="0 0 24 24"><path d="M17.65 6.35A7.958 7.958 0 0012 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0112 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
-        Scan Another Store
+      <button class="scan-btn" id="scanBtn">
+        <div class="btn-spinner" id="btnSpinner"></div>
+        <span id="btnLabel">Run Free Scan &#8594;</span>
       </button>
+      <div class="error-msg" id="errorMsg"></div>
+      <div class="no-fear">
+        <div class="no-fear-row">
+          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          We don't file claims or represent law firms
+        </div>
+        <div class="no-fear-row">
+          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          We don't sell your data
+        </div>
+        <div class="no-fear-row">
+          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          Results are visible only to you
+        </div>
+      </div>
+    </div>
 
-    </div><!-- /results -->
+    <div class="why-block">
+      <p class="why-label">Why we built this</p>
+      <p class="why-body">Most store owners don't know their risk until a demand letter arrives. IDR exists to give you visibility — before anyone else runs a scan on your store.</p>
+    </div>
 
-  </div><!-- /content -->
+    <div class="proof-row">
+      <div class="proof-item">
+        <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        Used by e-commerce founders &amp; developers
+      </div>
+      <div class="proof-item">
+        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+        Built for store owners, not law firms
+      </div>
+      <div class="proof-item">
+        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+        Instant results, no install required
+      </div>
+    </div>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <p class="footer-powered">Powered by the Institute of Digital Remediation</p>
-    <p class="footer-legal">
-      <a href="https://idrshield.com" target="_blank">idrshield.com</a> &nbsp;·&nbsp;
-      Not a law firm &nbsp;·&nbsp; We don't file claims &nbsp;·&nbsp; We don't sell your data<br>
-      IDR-PROTOCOL-2026 &nbsp;·&nbsp; <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="224a474e4e4d624b4650514a4b474e460c414d4f">[email&#160;protected]</a>
-    </p>
-  </footer>
+  </div><!-- /scanSection -->
+
+  <!-- RESULTS -->
+  <div id="results">
+
+    <div class="score-card">
+      <p class="score-domain" id="resDomain"></p>
+      <span class="score-number" id="resScore"></span>
+      <span class="score-denom">/ 100</span>
+      <div><span class="risk-pill" id="riskBadge"></span></div>
+    </div>
+
+    <div class="stats-strip">
+      <div class="stat-box">
+        <span class="stat-num c-red"    id="statCritical">0</span>
+        <span class="stat-lbl">Critical Issues</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num c-orange" id="statTotal">0</span>
+        <span class="stat-lbl">Total Issues</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num c-gold"   id="statCats">0</span>
+        <span class="stat-lbl">Categories</span>
+      </div>
+    </div>
+
+    <div class="cats-card">
+      <p class="cats-label">Issue Breakdown</p>
+      <div id="catList"></div>
+    </div>
+
+    <div class="ornament">
+      <div class="orn-line"></div>
+      <div class="orn-mid">
+        <div class="orn-diamond"></div>
+        <span class="orn-text">Defense Package</span>
+        <div class="orn-diamond"></div>
+      </div>
+      <div class="orn-line"></div>
+    </div>
+
+    <div class="locked-card">
+      <p class="locked-title">This summary doesn't include</p>
+      <div class="locked-item"><span class="locked-icon">&#x1F512;</span><span class="locked-text">10-section legal-grade Defense Package PDF with SHA-256 tamper-evident receipt</span></div>
+      <div class="locked-item"><span class="locked-icon">&#x1F512;</span><span class="locked-text">Before/after remediation code for every issue found on your store</span></div>
+      <div class="locked-item"><span class="locked-icon">&#x1F512;</span><span class="locked-text">Plaintiff simulation — how a law firm scores your store as a target</span></div>
+      <div class="locked-item"><span class="locked-icon">&#x1F512;</span><span class="locked-text">IDR Verified badge + weekly automated rescans + immediate alert system</span></div>
+    </div>
+
+    <div class="upsell-card">
+      <p class="upsell-eyebrow">Founding Member Offer &#xB7; First 500 Only</p>
+      <p class="upsell-price">$97</p>
+      <p class="upsell-terms">Everything included &#xB7; 30 days free &#xB7; then $29/month locked forever</p>
+      <ul class="upsell-list">
+        <li><span class="upsell-dot"></span>Full Defense Package PDF — 10 sections, legal-grade documentation</li>
+        <li><span class="upsell-dot"></span>SHA-256 Scan Receipt — cryptographic proof of your compliance record</li>
+        <li><span class="upsell-dot"></span>IDR Registry entry — publicly verifiable, linked to your domain</li>
+        <li><span class="upsell-dot"></span>Weekly rescans + immediate alert if new violations are detected</li>
+      </ul>
+      <a href="https://idrshield.gumroad.com/l/oadcfq" target="_blank" class="cta-primary">Unlock Full Defense Package &#x2014; $97</a>
+      <a href="https://idrshield.gumroad.com/l/oadcfq" target="_blank" class="cta-secondary">See What's in the Full Package</a>
+    </div>
+
+    <div class="share-block">
+      <p class="share-title">Share your results</p>
+      <div class="share-grid">
+        <button class="share-btn" id="shareCopy">
+          <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+          Copy
+        </button>
+        <a class="share-btn" id="shareX" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          Share on X
+        </a>
+        <a class="share-btn" id="shareWA" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp
+        </a>
+        <a class="share-btn" id="shareEmail" href="#">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          Email
+        </a>
+      </div>
+    </div>
+
+    <div class="ids-card">
+      <div class="id-row"><span class="id-lbl">Receipt ID</span><span class="id-val" id="resReceiptId">&#x2014;</span></div>
+      <div class="id-row"><span class="id-lbl">Registry ID</span><span class="id-val" id="resRegistryId">&#x2014;</span></div>
+      <div class="id-row"><span class="id-lbl">Registry Record</span><span class="id-val" id="resRegistryUrl">&#x2014;</span></div>
+    </div>
+
+    <button class="reset-btn" id="resetBtn">
+      <svg viewBox="0 0 24 24"><path d="M17.65 6.35A7.958 7.958 0 0012 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0112 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+      Scan Another Store
+    </button>
+
+  </div><!-- /results -->
+
+</div><!-- /content -->
+
+<footer class="footer">
+  <p class="footer-powered">Powered by the Institute of Digital Remediation</p>
+  <p class="footer-legal">
+    <a href="https://idrshield.com" target="_blank">idrshield.com</a> &nbsp;&#xB7;&nbsp;
+    Not a law firm &nbsp;&#xB7;&nbsp; We don't file claims &nbsp;&#xB7;&nbsp; We don't sell your data<br>
+    IDR-PROTOCOL-2026
+  </p>
+</footer>
 
 </div><!-- /page-wrap -->
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false">
+(function() {
 'use strict';
 
 var BACKEND   = 'https://idr-backend-production.up.railway.app';
@@ -1139,12 +438,11 @@ var resultsEl   = document.getElementById('results');
 var lastReceipt = null;
 var userEmail   = null;
 
-/* ── Scan ─────────────────────────────────── */
 scanBtn.addEventListener('click', function() {
   var email = emailInput.value.trim();
   var url   = urlInput.value.trim();
-  if (!email || !email.includes('@')) return showErr('Please enter a valid email address.');
-  if (!url   || !url.startsWith('http')) return showErr('Please enter a valid store URL starting with https://');
+  if (!email || email.indexOf('@') === -1) return showErr('Please enter a valid email address.');
+  if (!url   || url.indexOf('http') !== 0)  return showErr('Please enter a valid store URL starting with https://');
   userEmail = email;
   setScanning(true);
   clearErr();
@@ -1159,7 +457,6 @@ scanBtn.addEventListener('click', function() {
     if (d.error) return showErr('Scan error: ' + d.error);
     lastReceipt = d;
     renderResults(d);
-    // Summary email fires automatically on backend when email is provided
   })
   .catch(function() {
     setScanning(false);
@@ -1167,7 +464,6 @@ scanBtn.addEventListener('click', function() {
   });
 });
 
-/* ── Render results ───────────────────────── */
 function renderResults(r) {
   var scan     = r.scan || {};
   var domain   = scan.domain        || '';
@@ -1180,7 +476,6 @@ function renderResults(r) {
   document.getElementById('resDomain').textContent = domain;
   document.getElementById('resScore').textContent  = score;
 
-  /* Risk badge */
   var rb = document.getElementById('riskBadge');
   if (critical >= 3 || score < 50) {
     rb.textContent = 'Critical Risk'; rb.className = 'risk-pill risk-critical';
@@ -1190,12 +485,10 @@ function renderResults(r) {
     rb.textContent = 'Monitored';     rb.className = 'risk-pill risk-monitored';
   }
 
-  /* Stats */
   document.getElementById('statCritical').textContent = critical;
   document.getElementById('statTotal').textContent    = total;
   document.getElementById('statCats').textContent     = cats.length;
 
-  /* Categories */
   var list = document.getElementById('catList');
   list.innerHTML = '';
   cats.forEach(function(cat) {
@@ -1206,10 +499,10 @@ function renderResults(r) {
       dotColor = '#2FA874'; badgeClass = 'b-pass'; badgeText = 'Pass';
     } else if (catScore < 70) {
       dotColor = '#D94F4F'; badgeClass = 'b-fail';
-      badgeText = failed + ' issue' + (failed !== 1 ? 's' : '') + ' — Fail';
+      badgeText = failed + ' issue' + (failed !== 1 ? 's' : '') + ' \u2014 Fail';
     } else {
       dotColor = '#D97B2F'; badgeClass = 'b-warn';
-      badgeText = failed + ' issue' + (failed !== 1 ? 's' : '') + ' — Warning';
+      badgeText = failed + ' issue' + (failed !== 1 ? 's' : '') + ' \u2014 Warning';
     }
     var row = document.createElement('div');
     row.className = 'cat-row';
@@ -1222,29 +515,24 @@ function renderResults(r) {
     list.appendChild(row);
   });
 
-  /* IDs */
-  document.getElementById('resReceiptId').textContent  = r.receipt_id  || '—';
-  document.getElementById('resRegistryId').textContent = r.registry_id || '—';
+  document.getElementById('resReceiptId').textContent  = r.receipt_id  || '\u2014';
+  document.getElementById('resRegistryId').textContent = r.registry_id || '\u2014';
   document.getElementById('resRegistryUrl').textContent =
     r.registry_url || ('https://idrshield.com/verify/' + domain);
 
-  /* Share buttons */
   wireShare(domain, score, status);
-
-  /* Swap views */
   scanSection.style.display = 'none';
-  resultsEl.style.display   = 'block';
+  resultsEl.classList.add('show');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-/* ── Share ────────────────────────────────── */
 function wireShare(domain, score, status) {
   var msg = 'I just scanned my store with IDR Shield and got a ' + score +
-    '/100 accessibility score. If you run an online store, check yours before a plaintiff firm does — free scan: ' + SCAN_PAGE;
+    '/100 accessibility score. If you run an online store, check yours before a plaintiff firm does \u2014 free scan: ' + SCAN_PAGE;
   var enc = encodeURIComponent(msg);
 
   document.getElementById('shareCopy').onclick = function() {
-    var txt = 'IDR Shield scan — ' + domain + ' · Score: ' + score + '/100 (' + status + ')\n' + SCAN_PAGE;
+    var txt = 'IDR Shield scan \u2014 ' + domain + ' \xB7 Score: ' + score + '/100 (' + status + ')\n' + SCAN_PAGE;
     navigator.clipboard.writeText(txt).then(function() {
       var b = document.getElementById('shareCopy');
       b.classList.add('share-copied');
@@ -1255,22 +543,21 @@ function wireShare(domain, score, status) {
   document.getElementById('shareX').href  = 'https://x.com/intent/tweet?text=' + enc;
   document.getElementById('shareWA').href = 'https://wa.me/?text=' + enc;
 
-  var subj = encodeURIComponent('My store scored ' + score + '/100 on IDR Shield — ' + domain);
+  var subj = encodeURIComponent('My store scored ' + score + '/100 on IDR Shield \u2014 ' + domain);
   var body = encodeURIComponent(
-    'I just scanned my store with IDR Shield — scored ' + score + '/100.\n\n' +
+    'I just scanned my store with IDR Shield \u2014 scored ' + score + '/100.\n\n' +
     'If plaintiff firms use these same scanners to find targets, I wanted to know first.\n\n' +
     'Run your free scan: ' + SCAN_PAGE
   );
   document.getElementById('shareEmail').href = 'mailto:?subject=' + subj + '&body=' + body;
 }
 
-/* ── Reset ────────────────────────────────── */
 function resetPage() {
   emailInput.value = '';
   urlInput.value   = '';
   lastReceipt      = null;
   userEmail        = null;
-  resultsEl.style.display   = 'none';
+  resultsEl.classList.remove('show');
   scanSection.style.display = '';
   clearErr();
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1279,8 +566,15 @@ function resetPage() {
 document.getElementById('resetBtn').addEventListener('click', resetPage);
 document.getElementById('logoReset').addEventListener('click', resetPage);
 
-/* ── Helpers ──────────────────────────────── */
 function setScanning(on) {
   scanBtn.disabled = on;
   scanBtn.classList.toggle('scanning', on);
-  btnLabel.textContent = on ? 'Scanning 
+  btnLabel.textContent = on ? 'Scanning\u2026' : 'Run Free Scan \u2192';
+}
+function showErr(msg) { errorMsg.textContent = msg; errorMsg.classList.add('show'); }
+function clearErr()   { errorMsg.classList.remove('show'); errorMsg.textContent = ''; }
+
+})();
+</script>
+</body>
+</html>
