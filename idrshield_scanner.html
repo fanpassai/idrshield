@@ -1056,11 +1056,10 @@ input::placeholder { color: rgba(240,232,212,0.25); }
           <li><span class="upsell-dot"></span>IDR Registry entry — publicly verifiable, linked to your domain</li>
           <li><span class="upsell-dot"></span>Weekly rescans + immediate alert if new violations are detected</li>
         </ul>
-        <a href="https://gum.co/idrshield" target="_blank" class="cta-primary" id="ctaUnlock">
+        <a href="https://idrshield.gumroad.com/l/oadcfq" target="_blank" class="cta-primary" id="ctaUnlock">
           Unlock Full Defense Package — $97
         </a>
-        <button class="cta-soft" id="ctaEmail">Email Me My Summary</button>
-        <p class="cta-confirm" id="emailConfirm">✓ Summary sent — check your inbox</p>
+        <a href="https://idrshield.gumroad.com/l/oadcfq" target="_blank" class="cta-soft">See What's in the Full Package</a>
       </div>
 
       <!-- Share -->
@@ -1118,13 +1117,13 @@ input::placeholder { color: rgba(240,232,212,0.25); }
     <p class="footer-legal">
       <a href="https://idrshield.com" target="_blank">idrshield.com</a> &nbsp;·&nbsp;
       Not a law firm &nbsp;·&nbsp; We don't file claims &nbsp;·&nbsp; We don't sell your data<br>
-      IDR-PROTOCOL-2026 &nbsp;·&nbsp; hello@idrshield.com
+      IDR-PROTOCOL-2026 &nbsp;·&nbsp; <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="224a474e4e4d624b4650514a4b474e460c414d4f">[email&#160;protected]</a>
     </p>
   </footer>
 
 </div><!-- /page-wrap -->
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 'use strict';
 
 var BACKEND   = 'https://idr-backend-production.up.railway.app';
@@ -1160,7 +1159,7 @@ scanBtn.addEventListener('click', function() {
     if (d.error) return showErr('Scan error: ' + d.error);
     lastReceipt = d;
     renderResults(d);
-    fireSummaryEmail(email, d);
+    // Summary email fires automatically on backend when email is provided
   })
   .catch(function() {
     setScanning(false);
@@ -1265,39 +1264,6 @@ function wireShare(domain, score, status) {
   document.getElementById('shareEmail').href = 'mailto:?subject=' + subj + '&body=' + body;
 }
 
-/* ── Auto summary email ───────────────────── */
-function fireSummaryEmail(email, receipt) {
-  fetch(BACKEND + '/api/scan/summary-email', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email: email, receipt: receipt })
-  })
-  .then(function(r) { return r.json(); })
-  .then(function(d) { console.log('[IDR] summary email:', d.success ? 'sent' : 'failed'); })
-  .catch(function()  { console.log('[IDR] summary email: network error'); });
-}
-
-/* ── Manual "Email me my summary" ────────── */
-document.getElementById('ctaEmail').addEventListener('click', function() {
-  if (!lastReceipt || !userEmail) return;
-  var btn = document.getElementById('ctaEmail');
-  btn.textContent = 'Sending…';
-  btn.disabled    = true;
-  fetch(BACKEND + '/api/scan/summary-email', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email: userEmail, receipt: lastReceipt })
-  })
-  .then(function() {
-    btn.style.display = 'none';
-    document.getElementById('emailConfirm').style.display = 'block';
-  })
-  .catch(function() {
-    btn.textContent = 'Email Me My Summary';
-    btn.disabled    = false;
-  });
-});
-
 /* ── Reset ────────────────────────────────── */
 function resetPage() {
   emailInput.value = '';
@@ -1306,9 +1272,6 @@ function resetPage() {
   userEmail        = null;
   resultsEl.style.display   = 'none';
   scanSection.style.display = '';
-  var sb = document.getElementById('ctaEmail');
-  sb.style.display = ''; sb.disabled = false; sb.textContent = 'Email Me My Summary';
-  document.getElementById('emailConfirm').style.display = 'none';
   clearErr();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -1320,11 +1283,4 @@ document.getElementById('logoReset').addEventListener('click', resetPage);
 function setScanning(on) {
   scanBtn.disabled = on;
   scanBtn.classList.toggle('scanning', on);
-  btnLabel.textContent = on ? 'Scanning…' : 'Run Free Scan →';
-}
-function showErr(msg) { errorMsg.textContent = msg; errorMsg.classList.add('show'); }
-function clearErr()   { errorMsg.classList.remove('show'); errorMsg.textContent = ''; }
-
-</script>
-</body>
-</html>
+  btnLabel.textContent = on ? 'Scanning 
