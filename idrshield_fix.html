@@ -7,13 +7,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-html,body{margin:0;padding:0;background:#06080F!important;color:#F0E8D4;font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh;}
+html,body{margin:0;padding:0;background:#06080F;color:#F0E8D4;font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh;}
 *,*::before,*::after{box-sizing:border-box;}
-
-/* TOPBAR */
 .topbar{background:#06080F;border-bottom:1px solid rgba(212,168,67,.3);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
 .logo{display:flex;align-items:center;gap:11px;text-decoration:none;}
-.seal{width:38px;height:38px;border:1.5px solid #D4A843;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;}
+.seal{width:38px;height:38px;border:1.5px solid #D4A843;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;}
 .seal-text{font-size:7px;font-weight:700;letter-spacing:.12em;color:#D4A843;line-height:1;}
 .seal-line{width:13px;height:1px;background:#D4A843;margin-top:3px;opacity:.7;}
 .logo-lines{display:flex;flex-direction:column;gap:1px;}
@@ -21,167 +19,162 @@ html,body{margin:0;padding:0;background:#06080F!important;color:#F0E8D4;font-fam
 .logo-name{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:700;color:#F0E8D4;}
 .topbar-tag{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(212,168,67,.6);}
 .gold-line{height:1px;background:linear-gradient(90deg,#06080F,#D4A843 50%,#06080F);opacity:.4;}
-
-/* PAGE */
 .content{max-width:680px;margin:0 auto;padding:0 20px 100px;}
-
-/* HEADER */
 .page-header{padding:40px 0 28px;}
-.page-eyebrow{font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#D4A843;margin-bottom:10px;opacity:.85;}
+.eyebrow{font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#D4A843;margin-bottom:10px;opacity:.85;}
 .page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,7vw,52px);font-weight:700;line-height:1.06;color:#F0E8D4;margin:0 0 12px;}
 .page-title em{color:#D4A843;font-style:italic;}
 .page-sub{font-size:14px;color:#C4B8A0;line-height:1.72;margin:0;}
-
-/* STATUS CARD */
 .status-card{background:#0C0F22;border:1px solid rgba(212,168,67,.3);border-radius:8px;padding:22px 24px;margin-bottom:28px;position:relative;overflow:hidden;}
 .status-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#D4A843,transparent);}
 .status-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
-.status-left{}
 .status-domain{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#D4A843;margin-bottom:6px;opacity:.85;}
 .status-nums{display:flex;align-items:baseline;gap:6px;}
-.status-score{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:#F0E8D4;line-height:1;}
-.status-denom{font-family:'Cormorant Garamond',serif;font-size:20px;color:#7A7060;}
+.score-big{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:#F0E8D4;line-height:1;}
+.score-denom{font-family:'Cormorant Garamond',serif;font-size:20px;color:#7A7060;}
 .status-pill{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:4px 13px;border-radius:20px;margin-left:10px;}
-.pill-monitoring{background:rgba(212,168,67,.15);color:#D4A843;border:1px solid rgba(212,168,67,.3);}
-.pill-active{background:rgba(47,168,116,.15);color:#2FA874;border:1px solid rgba(47,168,116,.3);}
-.pill-critical{background:rgba(217,79,79,.15);color:#F07070;border:1px solid rgba(217,79,79,.3);}
+.pill-m{background:rgba(212,168,67,.15);color:#D4A843;border:1px solid rgba(212,168,67,.3);}
+.pill-a{background:rgba(47,168,116,.15);color:#2FA874;border:1px solid rgba(47,168,116,.3);}
+.pill-c{background:rgba(217,79,79,.15);color:#F07070;border:1px solid rgba(217,79,79,.3);}
 .status-right{font-size:12px;color:#7A7060;text-align:right;}
+.section-lbl{font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#D4A843;opacity:.8;margin:0 0 14px;}
+.success-bar{display:none;background:rgba(47,168,116,.1);border:1px solid rgba(47,168,116,.3);border-radius:6px;padding:14px 18px;margin-bottom:20px;font-size:14px;color:#2FA874;font-weight:500;text-align:center;}
+.success-bar.show{display:block;}
 
-/* SUCCESS BANNER */
-.success-banner{display:none;background:rgba(47,168,116,.1);border:1px solid rgba(47,168,116,.3);border-radius:6px;padding:14px 18px;margin-bottom:20px;font-size:14px;color:#2FA874;font-weight:500;text-align:center;}
-.success-banner.show{display:block;}
+/* VIOLATION CARDS */
+.vcard{background:#0C0F22;border:1px solid rgba(212,168,67,.2);border-radius:8px;margin-bottom:14px;overflow:hidden;transition:border-color .2s;}
+.vcard.v-open{border-color:rgba(212,168,67,.5);}
+.vcard.v-resolved{border-color:rgba(47,168,116,.3);opacity:.65;}
 
-/* SECTION LABEL */
-.section-label{font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#D4A843;opacity:.8;margin:0 0 14px;}
+/* TAP HINT — the clickable bar at top */
+.tap-hint{
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(212,168,67,.1);
+  border-bottom:1px solid rgba(212,168,67,.15);
+  padding:10px 20px;
+  cursor:pointer;
+  user-select:none;
+  -webkit-tap-highlight-color:rgba(212,168,67,.2);
+}
+.tap-hint:active{background:rgba(212,168,67,.2);}
+.tap-hint-left{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:#D4A843;letter-spacing:.04em;}
+.tap-hint-left svg{width:14px;height:14px;fill:#D4A843;flex-shrink:0;}
+.tap-arrow{font-size:14px;color:#D4A843;transition:transform .25s;}
+.vcard.v-open .tap-arrow{transform:rotate(180deg);}
+.vcard.v-resolved .tap-hint{display:none;}
 
-/* VIOLATION CARD */
-.vcard{background:#0C0F22;border:1px solid rgba(212,168,67,.2);border-radius:8px;margin-bottom:12px;overflow:hidden;transition:border-color .2s;}
-.vcard.open{border-color:rgba(212,168,67,.45);}
-.vcard.resolved{border-color:rgba(47,168,116,.3);opacity:.7;}
-
-/* CLICK HINT */
-.click-hint{display:flex;align-items:center;justify-content:center;gap:6px;background:rgba(212,168,67,.07);border-bottom:1px solid rgba(212,168,67,.12);padding:7px 14px;font-size:11px;font-weight:600;color:#D4A843;letter-spacing:.04em;cursor:pointer;}
-.click-hint svg{width:13px;height:13px;fill:#D4A843;flex-shrink:0;}
-.vcard.open .click-hint{background:rgba(212,168,67,.12);}
-.vcard.resolved .click-hint{display:none;}
-
-/* VCARD HEADER */
-.vcard-header{padding:18px 20px 16px;cursor:pointer;user-select:none;}
-.vcard-header:hover{background:rgba(255,255,255,.02);}
-.vsev{font-size:8.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 10px;border-radius:10px;display:inline-block;margin-bottom:8px;}
+/* CARD SUMMARY (always visible) */
+.vcard-summary{padding:16px 20px;cursor:pointer;user-select:none;-webkit-tap-highlight-color:rgba(212,168,67,.1);}
+.vcard-summary:active{background:rgba(255,255,255,.02);}
+.vsev-badge{font-size:8.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 10px;border-radius:10px;display:inline-block;margin-bottom:8px;}
 .sev-critical{background:rgba(217,79,79,.15);color:#F07070;border:1px solid rgba(217,79,79,.25);}
 .sev-serious{background:rgba(217,123,47,.15);color:#F0A060;border:1px solid rgba(217,123,47,.25);}
 .sev-moderate{background:rgba(212,168,67,.15);color:#D4A843;border:1px solid rgba(212,168,67,.25);}
 .vname{font-size:15px;font-weight:600;color:#F0E8D4;margin:0 0 6px;}
 .vplain{font-size:13px;color:#C4B8A0;line-height:1.65;margin:0 0 6px;}
 .vlegal{font-size:11.5px;color:#7A7060;font-style:italic;margin:0;}
-.vcount{font-size:12px;color:#D4A843;font-weight:600;margin-top:6px;}
-.resolved-tag{display:none;float:right;font-size:11px;font-weight:600;color:#2FA874;background:rgba(47,168,116,.12);border:1px solid rgba(47,168,116,.25);padding:3px 12px;border-radius:12px;margin-top:2px;}
-.vcard.resolved .resolved-tag{display:inline-block;}
+.resolved-tag{float:right;font-size:11px;font-weight:600;color:#2FA874;background:rgba(47,168,116,.12);border:1px solid rgba(47,168,116,.25);padding:3px 12px;border-radius:12px;display:none;}
+.vcard.v-resolved .resolved-tag{display:inline-block;}
 
-/* VCARD BODY */
+/* CARD BODY — hidden until open */
 .vcard-body{display:none;border-top:1px solid rgba(212,168,67,.12);padding:20px;}
-.vcard.open .vcard-body{display:block;}
+.vcard.v-open .vcard-body{display:block;}
 
-/* PATH SELECTOR */
-.path-label{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#D4A843;opacity:.85;margin-bottom:12px;}
+.path-lbl{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#D4A843;opacity:.85;margin-bottom:12px;}
+
+/* PATH BUTTONS */
 .paths{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px;}
-@media(max-width:540px){.paths{grid-template-columns:1fr;}}
-.path-btn{background:#06080F;border:1px solid rgba(212,168,67,.2);border-radius:6px;padding:14px 12px;cursor:pointer;text-align:left;transition:border-color .18s,background .18s;width:100%;}
-.path-btn:hover,.path-btn.active{border-color:#D4A843;background:rgba(212,168,67,.06);}
+@media(max-width:520px){.paths{grid-template-columns:1fr;}}
+.path-btn{
+  background:#06080F;border:1px solid rgba(212,168,67,.2);border-radius:6px;
+  padding:14px 12px;text-align:left;width:100%;
+  cursor:pointer;
+  -webkit-tap-highlight-color:rgba(212,168,67,.15);
+  transition:border-color .18s,background .18s;
+}
+.path-btn:active,.path-btn.active{border-color:#D4A843;background:rgba(212,168,67,.08);}
 .path-icon{font-size:18px;margin-bottom:6px;}
-.path-title{font-size:12px;font-weight:700;color:#F0E8D4;margin-bottom:3px;}
-.path-desc{font-size:11px;color:#7A7060;line-height:1.5;}
-.path-diff{display:inline-block;margin-top:6px;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#D4A843;opacity:.7;}
+.path-title{font-size:12px;font-weight:700;color:#F0E8D4;margin:0 0 3px;}
+.path-desc{font-size:11px;color:#7A7060;line-height:1.5;margin:0;}
+.path-diff{display:block;margin-top:6px;font-size:9px;font-weight:600;color:#D4A843;opacity:.7;}
 
 /* GUIDE PANELS */
-.guide-area{display:none;}
-.guide-area.show{display:block;}
+.guide-wrap{display:none;margin-top:4px;}
+.guide-wrap.g-show{display:block;}
 .guide-panel{background:#06080F;border:1px solid rgba(212,168,67,.2);border-radius:6px;padding:18px 20px;}
 .guide-panel h4{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#D4A843;margin:0 0 14px;}
-
 .step{display:flex;gap:11px;margin-bottom:11px;align-items:flex-start;}
 .step-n{width:22px;height:22px;border-radius:50%;background:rgba(212,168,67,.15);border:1px solid rgba(212,168,67,.3);font-size:10px;font-weight:700;color:#D4A843;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .step-t{font-size:13px;color:#C4B8A0;line-height:1.6;}
 .step-t strong{color:#F0E8D4;}
-
-.code-lbl{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin:12px 0 4px;}
-.code-lbl.bad{color:#F07070;}
-.code-lbl.good{color:#2FA874;}
-.code-block{background:#000;border:1px solid rgba(255,255,255,.08);border-radius:4px;padding:12px 14px;font-family:'Courier New',monospace;font-size:12px;line-height:1.7;overflow-x:auto;white-space:pre-wrap;word-break:break-all;margin:0 0 8px;}
-.code-block.bad{color:#F07070;}
-.code-block.good{color:#2FA874;}
-
+.clbl{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin:12px 0 4px;}
+.clbl.bad{color:#F07070;}.clbl.good{color:#2FA874;}
+.cblock{background:#000;border:1px solid rgba(255,255,255,.08);border-radius:4px;padding:12px 14px;font-family:'Courier New',monospace;font-size:12px;line-height:1.7;overflow-x:auto;white-space:pre-wrap;word-break:break-all;margin:0 0 8px;}
+.cblock.bad{color:#F07070;}.cblock.good{color:#2FA874;}
 .dev-box{background:#06080F;border:1px solid rgba(212,168,67,.2);border-radius:5px;padding:14px 16px;}
 .dev-subj{font-size:11px;font-weight:700;color:#D4A843;margin-bottom:8px;}
-.dev-body{font-size:12px;color:#C4B8A0;line-height:1.75;white-space:pre-wrap;}
-.copy-btn{margin-top:10px;padding:8px 18px;background:transparent;color:#D4A843;font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;border:1px solid rgba(212,168,67,.3);border-radius:3px;cursor:pointer;transition:all .18s;}
-.copy-btn:hover{border-color:#D4A843;color:#E8BC55;}
-.copy-btn.copied{color:#2FA874;border-color:rgba(47,168,116,.4);}
+.dev-body-txt{font-size:12px;color:#C4B8A0;line-height:1.75;white-space:pre-wrap;}
+.copy-btn{margin-top:10px;padding:8px 18px;background:transparent;color:#D4A843;font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;border:1px solid rgba(212,168,67,.3);border-radius:3px;cursor:pointer;-webkit-tap-highlight-color:rgba(212,168,67,.2);}
+.copy-btn:active{background:rgba(212,168,67,.1);}
 
 /* MARK FIXED */
 .mark-row{margin-top:18px;padding-top:14px;border-top:1px solid rgba(212,168,67,.12);display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
-.mark-btn{padding:11px 22px;background:#D4A843;color:#06080F;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;border:none;border-radius:3px;cursor:pointer;box-shadow:0 3px 14px rgba(212,168,67,.3);transition:all .18s;}
-.mark-btn:hover{background:#E8BC55;box-shadow:0 4px 20px rgba(212,168,67,.45);}
+.mark-btn{padding:12px 24px;background:#D4A843;color:#06080F;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;border:none;border-radius:3px;cursor:pointer;box-shadow:0 3px 14px rgba(212,168,67,.3);-webkit-tap-highlight-color:rgba(212,168,67,.3);}
+.mark-btn:active{background:#c89a35;}
 .mark-note{font-size:11.5px;color:#7A7060;}
 
-/* SUBMIT SECTION */
+/* SUBMIT */
 .submit-card{background:#0C0F22;border:1px solid rgba(212,168,67,.25);border-radius:8px;padding:28px 24px;margin-top:8px;text-align:center;position:relative;overflow:hidden;}
 .submit-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#D4A843,transparent);}
 .submit-title{font-size:17px;font-weight:600;color:#F0E8D4;margin-bottom:6px;}
 .submit-sub{font-size:13px;color:#7A7060;margin-bottom:20px;line-height:1.6;}
-.submit-btn{padding:16px 40px;background:#D4A843;color:#06080F;font-family:'DM Sans',sans-serif;font-size:11.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;border:none;border-radius:3px;cursor:pointer;box-shadow:0 4px 22px rgba(212,168,67,.35);transition:all .18s;}
-.submit-btn:hover{background:#E8BC55;box-shadow:0 6px 30px rgba(212,168,67,.5);}
+.submit-btn{padding:16px 40px;background:#D4A843;color:#06080F;font-family:'DM Sans',sans-serif;font-size:11.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;border:none;border-radius:3px;cursor:pointer;box-shadow:0 4px 22px rgba(212,168,67,.35);-webkit-tap-highlight-color:rgba(212,168,67,.3);}
+.submit-btn:active{background:#c89a35;}
 .submit-btn:disabled{background:rgba(212,168,67,.25);box-shadow:none;cursor:not-allowed;}
 
 /* WAITLIST */
 .waitlist-card{background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.2);border-radius:8px;padding:28px 24px;margin-top:24px;text-align:center;}
-.waitlist-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#F0E8D4;margin-bottom:6px;}
-.waitlist-sub{font-size:13px;color:#C4B8A0;line-height:1.65;margin-bottom:20px;}
-.waitlist-form{display:flex;gap:8px;max-width:400px;margin:0 auto;}
+.waitlist-eyebrow{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#D4A843;border:1px solid rgba(212,168,67,.3);border-radius:20px;padding:4px 14px;margin-bottom:12px;}
+.waitlist-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#F0E8D4;margin:0 0 8px;}
+.waitlist-sub{font-size:13px;color:#C4B8A0;line-height:1.65;margin:0 0 20px;}
+.waitlist-form{display:flex;gap:8px;max-width:420px;margin:0 auto;}
 @media(max-width:480px){.waitlist-form{flex-direction:column;}}
-.waitlist-input{flex:1;padding:12px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(212,168,67,.25);border-radius:3px;color:#F0E8D4;font-family:'DM Sans',sans-serif;font-size:14px;outline:none;transition:border-color .18s;}
-.waitlist-input:focus{border-color:#D4A843;background:rgba(212,168,67,.06);}
+.waitlist-input{flex:1;padding:12px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(212,168,67,.25);border-radius:3px;color:#F0E8D4;font-family:'DM Sans',sans-serif;font-size:14px;outline:none;}
+.waitlist-input:focus{border-color:#D4A843;}
 .waitlist-input::placeholder{color:rgba(240,232,212,.25);}
-.waitlist-btn{padding:12px 22px;background:#D4A843;color:#06080F;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;border:none;border-radius:3px;cursor:pointer;white-space:nowrap;transition:background .18s;}
-.waitlist-btn:hover{background:#E8BC55;}
-.waitlist-confirm{display:none;font-size:13px;color:#2FA874;font-weight:500;margin-top:10px;}
-.waitlist-confirm.show{display:block;}
-.waitlist-badge{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#D4A843;border:1px solid rgba(212,168,67,.3);border-radius:20px;padding:4px 14px;margin-bottom:12px;}
+.waitlist-btn{padding:12px 22px;background:#D4A843;color:#06080F;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;border:none;border-radius:3px;cursor:pointer;white-space:nowrap;-webkit-tap-highlight-color:rgba(212,168,67,.3);}
+.waitlist-btn:active{background:#c89a35;}
+.waitlist-ok{display:none;font-size:13px;color:#2FA874;font-weight:500;margin-top:12px;}
+.waitlist-ok.show{display:block;}
 
-/* STATES */
+/* MODAL */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:500;align-items:center;justify-content:center;padding:20px;}
+.modal-bg.show{display:flex;}
+.modal-box{background:#0C0F22;border:1px solid rgba(212,168,67,.35);border-radius:8px;padding:30px 26px;max-width:420px;width:100%;}
+.modal-title{font-size:17px;font-weight:600;color:#F0E8D4;margin:0 0 6px;}
+.modal-sub{font-size:13px;color:#7A7060;margin:0 0 18px;line-height:1.6;}
+.modal-err{font-size:12px;color:#F07070;margin-bottom:8px;display:none;}
+.modal-input{width:100%;padding:13px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(212,168,67,.25);border-radius:3px;color:#F0E8D4;font-family:'DM Sans',sans-serif;font-size:14px;outline:none;margin-bottom:12px;}
+.modal-input:focus{border-color:#D4A843;}
+.modal-input::placeholder{color:rgba(240,232,212,.25);}
+.modal-btns{display:flex;gap:8px;}
+.modal-go{flex:1;padding:13px;background:#D4A843;color:#06080F;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;border:none;border-radius:3px;cursor:pointer;}
+.modal-go:active{background:#c89a35;}
+.modal-cancel-btn{padding:13px 16px;background:transparent;color:#7A7060;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;border:1px solid rgba(240,232,212,.12);border-radius:3px;cursor:pointer;}
+
 .loading-wrap{text-align:center;padding:80px 20px;}
 .spinner{width:30px;height:30px;border:2px solid rgba(212,168,67,.2);border-top-color:#D4A843;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 14px;}
 .state-sub{font-size:14px;color:#7A7060;}
 .clean-wrap{text-align:center;padding:60px 20px;}
 .clean-icon{font-size:44px;margin-bottom:12px;}
-.clean-title{font-family:'Cormorant Garamond',serif;font-size:34px;color:#2FA874;margin-bottom:10px;}
+.clean-ttl{font-family:'Cormorant Garamond',serif;font-size:34px;color:#2FA874;margin-bottom:10px;}
 .clean-sub{font-size:14px;color:#7A7060;max-width:360px;margin:0 auto;line-height:1.7;}
-
-/* EMAIL PROMPT MODAL */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;align-items:center;justify-content:center;padding:20px;}
-.modal-overlay.show{display:flex;}
-.modal{background:#0C0F22;border:1px solid rgba(212,168,67,.35);border-radius:8px;padding:32px 28px;max-width:420px;width:100%;position:relative;}
-.modal-title{font-size:17px;font-weight:600;color:#F0E8D4;margin-bottom:6px;}
-.modal-sub{font-size:13px;color:#7A7060;margin-bottom:20px;line-height:1.6;}
-.modal input{width:100%;padding:13px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(212,168,67,.25);border-radius:3px;color:#F0E8D4;font-family:'DM Sans',sans-serif;font-size:14px;outline:none;margin-bottom:12px;transition:border-color .18s;}
-.modal input:focus{border-color:#D4A843;}
-.modal input::placeholder{color:rgba(240,232,212,.25);}
-.modal-btns{display:flex;gap:8px;}
-.modal-submit{flex:1;padding:13px;background:#D4A843;color:#06080F;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;border:none;border-radius:3px;cursor:pointer;}
-.modal-cancel{padding:13px 18px;background:transparent;color:#7A7060;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;border:1px solid rgba(240,232,212,.12);border-radius:3px;cursor:pointer;}
-.modal-err{font-size:12px;color:#F07070;margin-bottom:8px;display:none;}
-
-footer{text-align:center;padding:24px 20px 40px;border-top:1px solid rgba(240,232,212,.06);font-size:11px;color:rgba(240,232,212,.28);line-height:1.8;}
-
+footer{text-align:center;padding:24px 20px 40px;border-top:1px solid rgba(240,232,212,.06);font-size:11px;color:rgba(240,232,212,.28);line-height:1.8;margin-top:20px;}
 @keyframes spin{to{transform:rotate(360deg)}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.anim{animation:fadeUp .4s ease both;}
 </style>
 </head>
 <body>
 
-<!-- TOPBAR -->
 <header class="topbar">
   <a class="logo" href="https://idrshield.com">
     <div class="seal"><span class="seal-text">IDR</span><div class="seal-line"></div></div>
@@ -195,427 +188,473 @@ footer{text-align:center;padding:24px 20px 40px;border-top:1px solid rgba(240,23
 <div class="gold-line"></div>
 
 <!-- EMAIL MODAL -->
-<div class="modal-overlay" id="emailModal">
-  <div class="modal">
+<div class="modal-bg" id="modalBg">
+  <div class="modal-box">
     <p class="modal-title">Confirm your email</p>
-    <p class="modal-sub">We'll email you the confirmation scan result and update your registry record.</p>
+    <p class="modal-sub">We'll run a confirmation scan and email you the result.</p>
     <p class="modal-err" id="modalErr">Please enter a valid email address.</p>
-    <input type="email" id="modalEmail" placeholder="you@yourstore.com" autocomplete="email">
+    <input class="modal-input" type="email" id="modalEmailInput" placeholder="you@yourstore.com" autocomplete="email">
     <div class="modal-btns">
-      <button class="modal-submit" onclick="confirmSubmit()">Run Confirmation Scan &#x2192;</button>
-      <button class="modal-cancel" onclick="closeModal()">Cancel</button>
+      <button class="modal-go" id="modalGoBtn">Run Confirmation Scan &#x2192;</button>
+      <button class="modal-cancel-btn" id="modalCancelBtn">Cancel</button>
     </div>
   </div>
 </div>
 
 <div class="content">
   <div id="appRoot">
-    <div class="loading-wrap">
-      <div class="spinner"></div>
-      <p class="state-sub">Loading your issues&hellip;</p>
-    </div>
+    <div class="loading-wrap"><div class="spinner"></div><p class="state-sub">Loading your issues&hellip;</p></div>
   </div>
 </div>
 
-<footer>
-  Institute of Digital Remediation &nbsp;·&nbsp; idrshield.com &nbsp;·&nbsp; Not a law firm &nbsp;·&nbsp; IDR-PROTOCOL-2026
-</footer>
+<footer>Institute of Digital Remediation &nbsp;·&nbsp; idrshield.com &nbsp;·&nbsp; Not a law firm &nbsp;·&nbsp; IDR-PROTOCOL-2026</footer>
 
 <script data-cfasync="false">
-(function(){
-'use strict';
+// ── ALL FUNCTIONS IN GLOBAL SCOPE — required for onclick attributes ───────────
 
 var BACKEND = 'https://idr-backend-production.up.railway.app';
 var GUMROAD = 'https://idrshield.gumroad.com/l/oadcfq';
+var IDR_domain = '';
+var IDR_registry = null;
+var IDR_marked = {};    // category -> true when marked fixed
+var IDR_submitEmail = '';
 
 // ── Violation library ────────────────────────────────────────────────────────
 var VIO = {
-  alt_text:{
-    name:'Product images are invisible to screen readers',
-    plain:'Your images are missing descriptive text. Blind users cannot perceive what your products look like — this is a direct barrier to purchase.',
-    legal:'Cited as the primary violation in Robles v. Domino\'s and the majority of ADA demand letters targeting e-commerce.',
-    sev:'critical',
-    shopify:[
-      {t:'Go to your <strong>Shopify Admin</strong>'},
-      {t:'Click <strong>Products</strong> in the left sidebar'},
-      {t:'Open any product and scroll to the product images'},
-      {t:'Click on an image — a panel opens on the right side'},
-      {t:'Find the <strong>"Image alt text"</strong> field and fill it in with a plain description — e.g. <em>"Blue leather wallet, front view"</em>'},
-      {t:'Repeat for every product image. For purely decorative images, type <strong>"decorative"</strong>'},
+  alt_text: {
+    name: 'Product images are invisible to screen readers',
+    plain: 'Your images are missing descriptive text. Blind users cannot perceive what your products look like — a direct barrier to purchase.',
+    legal: 'Cited as the primary violation in Robles v. Domino\'s and the majority of ADA demand letters targeting e-commerce.',
+    sev: 'critical',
+    shopify: [
+      'Go to your <strong>Shopify Admin</strong>',
+      'Click <strong>Products</strong> in the left sidebar',
+      'Open any product and scroll down to the images',
+      'Click on an image — a panel opens on the right',
+      'Fill in the <strong>"Image alt text"</strong> field: e.g. <em>"Blue leather wallet, front view"</em>',
+      'Repeat for every product image. For decorative images only, type <strong>"decorative"</strong>',
     ],
-    cbefore:'<img src="/products/item.jpg">',
-    cafter:'<img src="/products/item.jpg" alt="Blue leather wallet, front view">',
-    diff:'⭐ Easy — no developer needed',
+    cbefore: '<img src="/products/item.jpg">',
+    cafter:  '<img src="/products/item.jpg" alt="Blue leather wallet, front view">',
+    diff: '⭐ Easy — no developer needed',
   },
-  form_labels:{
-    name:'Your form fields can\'t be identified by screen readers',
-    plain:'Contact forms and checkout fields don\'t have labels. Screen reader users cannot identify what to enter — a complete barrier to completing a purchase.',
-    legal:'WCAG 1.3.1 failure. Courts have found unlabeled checkout forms constitute a cognizable ADA injury.',
-    sev:'critical',
-    shopify:[
-      {t:'This fix usually requires a <strong>theme code edit</strong> — we recommend the developer path below'},
-      {t:'If you\'re comfortable with code: go to <strong>Online Store → Themes → Edit Code</strong>'},
-      {t:'Find your form template — usually <strong>sections/contact-form.liquid</strong>'},
-      {t:'Add a <strong>&lt;label&gt;</strong> element above each input field as shown in the code fix'},
+  form_labels: {
+    name: 'Your form fields can\'t be identified by screen readers',
+    plain: 'Contact forms and checkout fields don\'t have labels. Screen reader users cannot identify what to enter — a complete barrier to purchase.',
+    legal: 'WCAG 1.3.1 failure. Courts have found unlabeled checkout forms constitute a cognizable ADA injury.',
+    sev: 'critical',
+    shopify: [
+      'This fix requires a <strong>theme code edit</strong> — we recommend the developer path',
+      'If comfortable with code: go to <strong>Online Store → Themes → Edit Code</strong>',
+      'Find your form template — usually <strong>sections/contact-form.liquid</strong>',
+      'Add a <strong>&lt;label&gt;</strong> element above each input as shown in the code fix below',
     ],
-    cbefore:'<input type="email" placeholder="Email Address">',
-    cafter:'<label for="email">Email address</label>\n<input type="email" id="email" placeholder="Email Address">',
-    diff:'⭐⭐ Developer recommended',
+    cbefore: '<input type="email" placeholder="Email Address">',
+    cafter:  '<label for="email">Email address</label>\n<input type="email" id="email" placeholder="Email Address">',
+    diff: '⭐⭐ Developer recommended',
   },
-  keyboard_nav:{
-    name:'Keyboard users can\'t navigate your site efficiently',
-    plain:'There\'s no "skip to content" link. Users who can\'t use a mouse must tab through your entire navigation on every page — a significant barrier for motor-impaired users.',
-    legal:'WCAG 2.4.1 failure. Cited in Gil v. Winn-Dixie.',
-    sev:'serious',
-    shopify:[
-      {t:'Go to <strong>Online Store → Themes → Edit Code</strong>'},
-      {t:'Open <strong>layout/theme.liquid</strong>'},
-      {t:'Add the skip link code below as the very <strong>first element inside &lt;body&gt;</strong>'},
-      {t:'Also add the CSS to your main stylesheet'},
+  keyboard_nav: {
+    name: 'Keyboard users can\'t navigate your site efficiently',
+    plain: 'There\'s no "skip to content" link. Users who can\'t use a mouse must tab through your entire navigation on every page load — a significant barrier for motor-impaired users.',
+    legal: 'WCAG 2.4.1 failure. Cited in Gil v. Winn-Dixie.',
+    sev: 'serious',
+    shopify: [
+      'Go to <strong>Online Store → Themes → Edit Code</strong>',
+      'Open <strong>layout/theme.liquid</strong>',
+      'Paste the skip link code below as the <strong>first element inside &lt;body&gt;</strong>',
+      'Add the CSS to your main stylesheet',
     ],
-    cbefore:'<!-- No skip link present -->',
-    cafter:'<a class="skip-link" href="#main-content">Skip to main content</a>\n\n/* CSS */\n.skip-link { position:absolute; top:-40px; left:0; background:#000; color:#fff; padding:8px; z-index:100; }\n.skip-link:focus { top:0; }',
-    diff:'⭐⭐ Developer recommended',
+    cbefore: '<!-- No skip link present -->',
+    cafter:  '<a class="skip-link" href="#main-content">Skip to main content</a>\n\n/* CSS */\n.skip-link { position:absolute; top:-40px; left:0;\n  background:#000; color:#fff; padding:8px; z-index:100; }\n.skip-link:focus { top:0; }',
+    diff: '⭐⭐ Developer recommended',
   },
-  heading_structure:{
-    name:'Your page headings are out of order or missing',
-    plain:'Pages have multiple H1 headings, empty headings, or headings that skip levels. Screen readers use headings to navigate — broken structure makes your store disorienting.',
-    legal:'WCAG 2.4.6 and 1.3.1 failures.',
-    sev:'moderate',
-    shopify:[
-      {t:'Go to <strong>Online Store → Themes → Customize</strong>'},
-      {t:'Navigate to any page showing this issue'},
-      {t:'Look for text blocks or banners set to <strong>Heading 1 (H1)</strong> — only one H1 is allowed per page'},
-      {t:'Change any duplicate H1s to <strong>Heading 2 (H2)</strong> using the formatting dropdown'},
-      {t:'Delete or fill any <strong>empty heading elements</strong> — blank headings confuse screen readers'},
+  heading_structure: {
+    name: 'Your page headings are out of order or missing',
+    plain: 'Pages have multiple H1 headings, empty headings, or headings that skip levels. Screen readers use headings to navigate — broken structure makes your store disorienting.',
+    legal: 'WCAG 2.4.6 and 1.3.1 failures.',
+    sev: 'moderate',
+    shopify: [
+      'Go to <strong>Online Store → Themes → Customize</strong>',
+      'Navigate to a page showing this issue',
+      'Only <strong>one H1 is allowed per page</strong> — find any duplicate H1 elements',
+      'Change duplicate H1s to <strong>H2</strong> using the text formatting dropdown',
+      'Delete any <strong>empty heading elements</strong> — blank headings confuse screen readers',
     ],
-    cbefore:'<h1>Store Name</h1>\n<h1>Featured Products</h1>',
-    cafter:'<h1>Store Name</h1>\n<h2>Featured Products</h2>',
-    diff:'⭐ Often fixable in theme editor',
+    cbefore: '<h1>Store Name</h1>\n<h1>Featured Products</h1>',
+    cafter:  '<h1>Store Name</h1>\n<h2>Featured Products</h2>',
+    diff: '⭐ Often fixable in theme editor',
   },
-  aria_links:{
-    name:'Buttons and links have no description for screen readers',
-    plain:'Icon buttons — cart, search, close, menu — have no accessible names. Screen readers announce them as "button" with no context. This is a direct barrier to completing a purchase.',
-    legal:'WCAG 2.4.4 and 4.1.2 failures. Empty buttons and links are cited in the majority of e-commerce ADA claims.',
-    sev:'critical',
-    shopify:[
-      {t:'This fix requires a <strong>theme code edit</strong> — use the developer path below'},
-      {t:'If comfortable with code: find icon buttons in your theme templates'},
-      {t:'Add an <strong>aria-label</strong> describing the action — e.g. <em>aria-label="View shopping cart"</em>'},
-      {t:'The label should describe the action, not the icon — "View cart" not "cart icon"'},
+  aria_links: {
+    name: 'Buttons and links have no description for screen readers',
+    plain: 'Icon buttons — cart, search, close, menu — have no accessible names. Screen readers announce them as "button" with no context. This is a direct barrier to completing a purchase.',
+    legal: 'WCAG 2.4.4 and 4.1.2 failures. Empty buttons and links cited in the majority of e-commerce ADA claims.',
+    sev: 'critical',
+    shopify: [
+      'This fix requires a <strong>theme code edit</strong> — use the developer path below',
+      'Find icon buttons in your theme templates (e.g. cart, search, close)',
+      'Add <strong>aria-label="[action description]"</strong> to each button',
+      'Describe the action, not the icon — e.g. <strong>aria-label="View shopping cart"</strong> not "cart icon"',
     ],
-    cbefore:'<button><svg><!-- cart icon --></svg></button>\n<a href="/cart"></a>',
-    cafter:'<button aria-label="View shopping cart"><svg><!-- cart icon --></svg></button>\n<a href="/cart" aria-label="View shopping cart"></a>',
-    diff:'⭐⭐⭐ Developer required',
+    cbefore: '<button><svg><!-- cart icon --></svg></button>\n<a href="/cart"></a>',
+    cafter:  '<button aria-label="View shopping cart">\n  <svg><!-- cart icon --></svg>\n</button>\n<a href="/cart" aria-label="View shopping cart"></a>',
+    diff: '⭐⭐⭐ Developer required',
   },
-  contrast:{
-    name:'Some text is hard to read due to low color contrast',
-    plain:'Text on your site doesn\'t have enough contrast with its background. Users with low vision or color blindness cannot read this content.',
-    legal:'WCAG 1.4.3 failure.',
-    sev:'moderate',
-    shopify:[
-      {t:'Go to <strong>Online Store → Themes → Customize</strong>'},
-      {t:'Find your <strong>Colors</strong> settings'},
-      {t:'Increase the contrast between text colors and their backgrounds'},
-      {t:'Use a free tool: <strong>webaim.org/resources/contrastchecker</strong> — your ratio must be at least <strong>4.5:1</strong>'},
+  contrast: {
+    name: 'Some text is hard to read due to low color contrast',
+    plain: 'Text on your site doesn\'t have enough contrast with its background. Users with low vision or color blindness cannot read this content.',
+    legal: 'WCAG 1.4.3 failure.',
+    sev: 'moderate',
+    shopify: [
+      'Go to <strong>Online Store → Themes → Customize</strong>',
+      'Find your <strong>Colors</strong> settings panel',
+      'Increase contrast between text colors and background colors',
+      'Check your ratio at <strong>webaim.org/resources/contrastchecker</strong> — minimum is <strong>4.5:1</strong>',
     ],
-    cbefore:'color: #999;\nbackground: #fff; /* fails — ratio 2.9:1 */',
-    cafter:'color: #333;\nbackground: #fff; /* passes — ratio 12.6:1 */',
-    diff:'⭐ Fixable in theme settings',
+    cbefore: 'color: #999;\nbackground: #fff;\n/* Fails — ratio 2.9:1 */',
+    cafter:  'color: #333;\nbackground: #fff;\n/* Passes — ratio 12.6:1 */',
+    diff: '⭐ Fixable in theme settings',
   },
 };
 
-// ── State ────────────────────────────────────────────────────────────────────
-var domain    = getDomain();
-var registry  = null;
-var marked    = {};   // category → true
-var activeGuide = {};
+var CAT_ORDER = ['alt_text','form_labels','aria_links','keyboard_nav','heading_structure','contrast'];
 
 // ── Boot ─────────────────────────────────────────────────────────────────────
-if (!domain) {
-  showRoot('<div class="clean-wrap"><div class="clean-icon">&#x26A0;</div><h2 style="color:#F07070;font-size:20px;">No domain specified</h2><p class="clean-sub">Please use the link from your IDR Shield email.</p></div>');
-} else {
-  loadPage();
-}
+window.addEventListener('DOMContentLoaded', function() {
+  var path  = window.location.pathname.split('/').filter(Boolean);
+  IDR_domain = (path[0] === 'fix' && path[1]) ? path[1]
+             : new URLSearchParams(window.location.search).get('domain') || '';
 
-function getDomain(){
-  var p = window.location.pathname.split('/').filter(Boolean);
-  if(p[0]==='fix'&&p[1]) return p[1];
-  return new URLSearchParams(window.location.search).get('domain')||'';
-}
+  // Wire modal buttons
+  document.getElementById('modalGoBtn').addEventListener('click', IDR_confirmSubmit);
+  document.getElementById('modalCancelBtn').addEventListener('click', IDR_closeModal);
 
-function loadPage(){
-  fetch(BACKEND+'/api/registry/'+domain)
-    .then(function(r){return r.json();})
-    .then(function(reg){
-      if(reg.error) return showRoot('<div class="clean-wrap"><div class="clean-icon">&#x26A0;</div><h2 style="color:#F07070;font-size:20px;">Store not found</h2><p class="clean-sub">No registry record found for '+domain+'. Please use the link from your IDR Shield email.</p></div>');
-      registry = reg;
-      buildPage();
+  if (!IDR_domain) {
+    IDR_showError('No domain specified', 'Please use the link from your IDR Shield email.');
+    return;
+  }
+  IDR_loadPage();
+});
+
+function IDR_loadPage() {
+  fetch(BACKEND + '/api/registry/' + IDR_domain)
+    .then(function(r) { return r.json(); })
+    .then(function(reg) {
+      if (reg.error) { IDR_showError('Store not found', 'No registry record for ' + IDR_domain + '. Please use the link from your IDR Shield email.'); return; }
+      IDR_registry = reg;
+      IDR_buildPage();
     })
-    .catch(function(){
-      showRoot('<div class="clean-wrap"><div class="clean-icon">&#x26A0;</div><h2 style="color:#F07070;font-size:20px;">Connection error</h2><p class="clean-sub">Could not reach the IDR server. Please try again.</p></div>');
-    });
+    .catch(function() { IDR_showError('Connection error', 'Could not reach the IDR server. Please try again.'); });
 }
 
-function buildPage(){
-  var score    = registry.latest_score   || 0;
-  var critical = registry.critical_count || 0;
-  var status   = registry.status         || 'monitoring';
-  var lastScan = registry.last_scanned   || '';
-  var scanDate = lastScan ? new Date(lastScan).toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}) : '—';
+function IDR_buildPage() {
+  var score    = IDR_registry.latest_score   || 0;
+  var critical = IDR_registry.critical_count || 0;
+  var status   = IDR_registry.status         || 'monitoring';
+  var lastScan = IDR_registry.last_scanned   || '';
+  var dateStr  = lastScan ? new Date(lastScan).toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}) : '—';
 
-  var pillCls = status==='active' ? 'pill-active' : (critical>=3 ? 'pill-critical' : 'pill-monitoring');
-  var pillLbl = status==='active' ? 'Active'      : (status==='monitoring' ? 'Monitoring' : 'Expired');
+  var pillCls = status === 'active' ? 'pill-a' : (critical >= 3 ? 'pill-c' : 'pill-m');
+  var pillLbl = status === 'active' ? 'Active' : (status === 'monitoring' ? 'Monitoring' : 'Expired');
 
   var html = '';
 
   // Header
-  html += '<div class="page-header anim">';
-  html += '<p class="page-eyebrow">Fix Portal</p>';
+  html += '<div class="page-header">';
+  html += '<p class="eyebrow">Fix Portal</p>';
   html += '<h1 class="page-title">Your open <em>violations.</em></h1>';
-  html += '<p class="page-sub">Tap any issue below to see how to fix it. Mark each one when done, then submit — we\'ll run a confirmation scan automatically.</p>';
+  html += '<p class="page-sub">Tap any issue to see how to fix it. Mark each one done, then submit — we\'ll run a confirmation scan automatically.</p>';
   html += '</div>';
 
   // Status card
-  html += '<div class="status-card anim">';
+  html += '<div class="status-card">';
   html += '<div class="status-row">';
-  html += '<div class="status-left"><p class="status-domain">'+domain+'</p>';
-  html += '<div class="status-nums"><span class="status-score">'+score+'</span><span class="status-denom">/100</span><span class="status-pill '+pillCls+'">'+pillLbl+'</span></div></div>';
-  html += '<div class="status-right">Last scanned<br>'+scanDate+'</div>';
+  html += '<div><p class="status-domain">' + IDR_domain + '</p>';
+  html += '<div class="status-nums"><span class="score-big">' + score + '</span><span class="score-denom">&nbsp;/ 100</span><span class="status-pill ' + pillCls + '">' + pillLbl + '</span></div></div>';
+  html += '<div class="status-right">Last scanned<br>' + dateStr + '</div>';
   html += '</div></div>';
 
   // Success banner
-  html += '<div class="success-banner" id="successBanner">&#x2713; &nbsp;Fix report submitted — confirmation scan is running. Check your email for the result.</div>';
+  html += '<div class="success-bar" id="successBar">&#x2713; &nbsp;Fix report submitted — confirmation scan running. Check your email for results.</div>';
 
-  // Violations
-  if(status==='active' && critical===0){
-    html += '<div class="clean-wrap"><div class="clean-icon">&#x2705;</div><h2 class="clean-title">Your store is clean.</h2><p class="clean-sub">No open violations in your latest scan. Your registry reflects this. We\'ll continue monitoring weekly.</p></div>';
+  if (status === 'active' && critical === 0) {
+    html += '<div class="clean-wrap"><div class="clean-icon">&#x2705;</div><h2 class="clean-ttl">Your store is clean.</h2><p class="clean-sub">No open violations in your latest scan. Registry updated. We\'ll continue monitoring weekly.</p></div>';
   } else {
-    var cats = buildCatList();
-    html += '<p class="section-label">Open Issues ('+cats.length+')</p>';
-    cats.forEach(function(cat){
-      html += renderCard(cat);
+    html += '<p class="section-lbl">Open Issues (' + CAT_ORDER.length + ')</p>';
+    CAT_ORDER.forEach(function(cat) {
+      if (VIO[cat]) html += IDR_renderCard(cat);
     });
-    // Submit
-    html += '<div class="submit-card anim">';
+    // Submit card
+    html += '<div class="submit-card">';
     html += '<p class="submit-title">Ready to verify your fixes?</p>';
-    html += '<p class="submit-sub">Mark each issue you\'ve addressed above, then tap the button below. We\'ll rescan your store and email you the result within minutes.</p>';
-    html += '<button class="submit-btn" id="submitBtn" onclick="openModal()">Submit for Confirmation Scan &#x2192;</button>';
+    html += '<p class="submit-sub">Mark each issue you\'ve fixed above. Then tap the button — we\'ll rescan your store and email you the result.</p>';
+    html += '<button class="submit-btn" id="submitBtn" onclick="IDR_openModal()">Submit for Confirmation Scan &#x2192;</button>';
     html += '</div>';
   }
 
   // Waitlist
-  html += '<div class="waitlist-card anim">';
-  html += '<span class="waitlist-badge">Coming Soon</span>';
+  html += '<div class="waitlist-card">';
+  html += '<span class="waitlist-eyebrow">Coming Soon</span>';
   html += '<h3 class="waitlist-title">Don\'t have time to fix this yourself?</h3>';
-  html += '<p class="waitlist-sub">IDR Approved Developers — vetted specialists who fix accessibility issues and verify through our system automatically. Join the waitlist to be notified first.</p>';
+  html += '<p class="waitlist-sub">IDR Approved Developers — vetted specialists who fix accessibility issues and verify through our system automatically. Join the waitlist to be first notified.</p>';
   html += '<div class="waitlist-form">';
-  html += '<input class="waitlist-input" id="waitlistEmail" type="email" placeholder="your@email.com">';
-  html += '<button class="waitlist-btn" onclick="joinWaitlist()">Join Waitlist</button>';
+  html += '<input class="waitlist-input" id="waitlistInput" type="email" placeholder="your@email.com" autocomplete="email">';
+  html += '<button class="waitlist-btn" onclick="IDR_joinWaitlist()">Join Waitlist</button>';
   html += '</div>';
-  html += '<p class="waitlist-confirm" id="waitlistConfirm">&#x2713; You\'re on the list — we\'ll notify you when IDR Approved Developers launch.</p>';
+  html += '<p class="waitlist-ok" id="waitlistOk">&#x2713; You\'re on the list — we\'ll notify you when IDR Approved Developers launch.</p>';
   html += '</div>';
 
-  showRoot(html);
+  document.getElementById('appRoot').innerHTML = html;
 }
 
-function buildCatList(){
-  // Show critical + serious by default; show all if score is very low
-  return ['alt_text','form_labels','aria_links','keyboard_nav','heading_structure','contrast']
-    .filter(function(c){ return VIO[c]; })
-    .slice(0,5);
-}
-
-function renderCard(cat){
+function IDR_renderCard(cat) {
   var v = VIO[cat];
-  var sevCls = 'sev-'+v.sev;
-  var sevLbl = v.sev.charAt(0).toUpperCase()+v.sev.slice(1);
-  return '<div class="vcard" id="vc-'+cat+'" data-cat="'+cat+'">' +
-    '<div class="click-hint" onclick="toggleCard(\''+cat+'\')">' +
-    '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>' +
-    'Tap to see fix instructions &nbsp;&#x25BC;</div>' +
-    '<div class="vcard-header" onclick="toggleCard(\''+cat+'\')">' +
-    '<span class="resolved-tag">&#x2713; Fixed</span>' +
-    '<span class="vsev '+sevCls+'">'+sevLbl+'</span>' +
-    '<p class="vname">'+v.name+'</p>' +
-    '<p class="vplain">'+v.plain+'</p>' +
-    '<p class="vlegal">&#x2696; &nbsp;'+v.legal+'</p>' +
+  var sevCls = 'sev-' + v.sev;
+  var sevLbl = v.sev.charAt(0).toUpperCase() + v.sev.slice(1);
+
+  var shopifySteps = v.shopify.map(function(s, i) {
+    return '<div class="step"><span class="step-n">' + (i+1) + '</span><span class="step-t">' + s + '</span></div>';
+  }).join('');
+
+  var devEmail = IDR_buildDevEmail(cat, v);
+
+  return '' +
+    '<div class="vcard" id="vc-' + cat + '">' +
+
+    // TAP HINT BAR
+    '<div class="tap-hint" onclick="IDR_toggleCard(\'' + cat + '\')">' +
+    '<span class="tap-hint-left"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>Tap to see how to fix this</span>' +
+    '<span class="tap-arrow">&#x25BC;</span>' +
     '</div>' +
+
+    // SUMMARY
+    '<div class="vcard-summary" onclick="IDR_toggleCard(\'' + cat + '\')">' +
+    '<span class="resolved-tag">&#x2713; Marked as Fixed</span>' +
+    '<span class="vsev-badge ' + sevCls + '">' + sevLbl + '</span>' +
+    '<p class="vname">' + v.name + '</p>' +
+    '<p class="vplain">' + v.plain + '</p>' +
+    '<p class="vlegal">&#x2696; &nbsp;' + v.legal + '</p>' +
+    '</div>' +
+
+    // BODY
     '<div class="vcard-body">' +
-    '<p class="path-label">How would you like to fix this?</p>' +
+    '<p class="path-lbl">Choose how you\'d like to fix this:</p>' +
+
+    // PATH BUTTONS
     '<div class="paths">' +
-    '<button class="path-btn" onclick="showGuide(\''+cat+'\',\'shopify\',this)">' +
+
+    '<button class="path-btn" id="pb-' + cat + '-shopify" onclick="IDR_showGuide(\'' + cat + '\', \'shopify\')">' +
     '<div class="path-icon">&#x1F6CD;</div>' +
     '<p class="path-title">Fix it myself</p>' +
-    '<p class="path-desc">Step-by-step Shopify guide — no code needed for most</p>' +
-    '<span class="path-diff">'+v.diff+'</span>' +
+    '<p class="path-desc">Shopify step-by-step — no code needed for most</p>' +
+    '<span class="path-diff">' + v.diff + '</span>' +
     '</button>' +
-    '<button class="path-btn" onclick="showGuide(\''+cat+'\',\'dev\',this)">' +
+
+    '<button class="path-btn" id="pb-' + cat + '-dev" onclick="IDR_showGuide(\'' + cat + '\', \'dev\')">' +
     '<div class="path-icon">&#x1F4E7;</div>' +
     '<p class="path-title">Send to developer</p>' +
-    '<p class="path-desc">Pre-written email ready to copy and forward</p>' +
+    '<p class="path-desc">Pre-written email — just copy and forward</p>' +
     '<span class="path-diff">&#x1F4CB; Copy &amp; send</span>' +
     '</button>' +
-    '<button class="path-btn" onclick="showGuide(\''+cat+'\',\'code\',this)">' +
+
+    '<button class="path-btn" id="pb-' + cat + '-code" onclick="IDR_showGuide(\'' + cat + '\', \'code\')">' +
     '<div class="path-icon">&#x1F4BB;</div>' +
     '<p class="path-title">See the code</p>' +
     '<p class="path-desc">Before/after code for developers</p>' +
     '<span class="path-diff">&#x2699; Technical</span>' +
     '</button>' +
+
+    '</div>' + // .paths
+
+    // GUIDE PANELS
+    '<div class="guide-wrap" id="gw-' + cat + '">' +
+
+    // Shopify
+    '<div id="gp-' + cat + '-shopify" class="guide-panel" style="display:none;">' +
+    '<h4>&#x1F6CD; &nbsp;Shopify Fix Guide</h4>' +
+    shopifySteps +
     '</div>' +
-    '<div class="guide-area" id="ga-'+cat+'">'+buildGuides(cat, v)+'</div>' +
+
+    // Dev
+    '<div id="gp-' + cat + '-dev" class="guide-panel" style="display:none;">' +
+    '<h4>&#x1F4E7; &nbsp;Forward This to Your Developer</h4>' +
+    '<div class="dev-box">' +
+    '<p class="dev-subj">Subject: Accessibility fix needed on ' + IDR_domain + '</p>' +
+    '<p class="dev-body-txt" id="devtxt-' + cat + '">' + IDR_esc(devEmail) + '</p>' +
+    '</div>' +
+    '<button class="copy-btn" onclick="IDR_copyDev(\'' + cat + '\')">&#x270D; Copy to Clipboard</button>' +
+    '</div>' +
+
+    // Code
+    '<div id="gp-' + cat + '-code" class="guide-panel" style="display:none;">' +
+    '<h4>&#x1F4BB; &nbsp;Code Fix</h4>' +
+    '<p class="clbl bad">&#x2717; Before — violation</p>' +
+    '<div class="cblock bad">' + IDR_esc(v.cbefore) + '</div>' +
+    '<p class="clbl good">&#x2713; After — corrected</p>' +
+    '<div class="cblock good">' + IDR_esc(v.cafter) + '</div>' +
+    '</div>' +
+
+    '</div>' + // .guide-wrap
+
+    // MARK FIXED
     '<div class="mark-row">' +
-    '<button class="mark-btn" onclick="markFixed(\''+cat+'\')">&#x2713; I\'ve Fixed This</button>' +
-    '<span class="mark-note">We\'ll verify it automatically when you submit</span>' +
+    '<button class="mark-btn" onclick="IDR_markFixed(\'' + cat + '\')">&#x2713; &nbsp;I\'ve Fixed This</button>' +
+    '<span class="mark-note">We\'ll verify automatically when you submit</span>' +
     '</div>' +
-    '</div>' +
-    '</div>';
+
+    '</div>' + // .vcard-body
+    '</div>';  // .vcard
 }
 
-function buildGuides(cat, v){
-  // Shopify guide
-  var shopify = '<div id="gp-'+cat+'-shopify" class="guide-panel" style="display:none;">';
-  shopify += '<h4>&#x1F6CD; Shopify Fix Guide</h4>';
-  v.shopify.forEach(function(s,i){
-    shopify += '<div class="step"><span class="step-n">'+(i+1)+'</span><span class="step-t">'+s.t+'</span></div>';
+// ── Card toggle ───────────────────────────────────────────────────────────────
+function IDR_toggleCard(cat) {
+  var card = document.getElementById('vc-' + cat);
+  if (!card || card.classList.contains('v-resolved')) return;
+  var wasOpen = card.classList.contains('v-open');
+  // Close all
+  document.querySelectorAll('.vcard.v-open').forEach(function(c) { c.classList.remove('v-open'); });
+  // Open this one if it was closed
+  if (!wasOpen) card.classList.add('v-open');
+}
+
+// ── Show fix guide ────────────────────────────────────────────────────────────
+function IDR_showGuide(cat, type) {
+  // Show guide wrapper
+  var gw = document.getElementById('gw-' + cat);
+  if (gw) gw.classList.add('g-show');
+
+  // Hide all panels
+  ['shopify', 'dev', 'code'].forEach(function(t) {
+    var el = document.getElementById('gp-' + cat + '-' + t);
+    if (el) el.style.display = 'none';
+    var btn = document.getElementById('pb-' + cat + '-' + t);
+    if (btn) btn.classList.remove('active');
   });
-  shopify += '</div>';
 
-  // Dev email
-  var devBody = buildDevEmail(cat, v, domain);
-  var dev = '<div id="gp-'+cat+'-dev" class="guide-panel" style="display:none;">';
-  dev += '<h4>&#x1F4E7; Forward This to Your Developer</h4>';
-  dev += '<div class="dev-box">';
-  dev += '<p class="dev-subj">Subject: Accessibility fix needed — '+domain+'</p>';
-  dev += '<p class="dev-body" id="db-'+cat+'">'+esc(devBody)+'</p>';
-  dev += '</div>';
-  dev += '<button class="copy-btn" onclick="copyDev(\''+cat+'\')">&#x270D; Copy to Clipboard</button>';
-  dev += '</div>';
-
-  // Code
-  var code = '<div id="gp-'+cat+'-code" class="guide-panel" style="display:none;">';
-  code += '<h4>&#x1F4BB; Code Fix</h4>';
-  code += '<p class="code-lbl bad">&#x2717; Before — violation</p>';
-  code += '<div class="code-block bad">'+esc(v.cbefore)+'</div>';
-  code += '<p class="code-lbl good">&#x2713; After — corrected</p>';
-  code += '<div class="code-block good">'+esc(v.cafter)+'</div>';
-  code += '</div>';
-
-  return shopify + dev + code;
+  // Show selected
+  var panel = document.getElementById('gp-' + cat + '-' + type);
+  if (panel) panel.style.display = 'block';
+  var btn = document.getElementById('pb-' + cat + '-' + type);
+  if (btn) btn.classList.add('active');
 }
 
-function buildDevEmail(cat, v, domain){
-  return 'Hi,\n\nOur store ('+domain+') needs an accessibility fix. We\'re enrolled in IDR Shield compliance monitoring and this issue was flagged in our latest scan.\n\nISSUE: '+v.name+'\nSEVERITY: '+v.sev.toUpperCase()+'\n\nWHY IT MATTERS:\n'+v.plain+'\n\nTHE FIX:\n\nBefore:\n'+v.cbefore+'\n\nAfter:\n'+v.cafter+'\n\nPlease fix this as soon as you can. Our monitoring system will verify the fix automatically.\n\nThank you';
+// ── Mark fixed ────────────────────────────────────────────────────────────────
+function IDR_markFixed(cat) {
+  IDR_marked[cat] = true;
+  var card = document.getElementById('vc-' + cat);
+  if (card) {
+    card.classList.remove('v-open');
+    card.classList.add('v-resolved');
+  }
 }
 
-// ── Interactions ──────────────────────────────────────────────────────────────
-function toggleCard(cat){
-  var card = document.getElementById('vc-'+cat);
-  if(!card||card.classList.contains('resolved')) return;
-  var isOpen = card.classList.contains('open');
-  // Close all others
-  document.querySelectorAll('.vcard.open').forEach(function(c){ c.classList.remove('open'); });
-  if(!isOpen) card.classList.add('open');
-}
-
-function showGuide(cat, type, btn){
-  // Mark active path button
-  var body = document.getElementById('vc-'+cat).querySelector('.vcard-body');
-  body.querySelectorAll('.path-btn').forEach(function(b){ b.classList.remove('active'); });
-  if(btn) btn.classList.add('active');
-
-  // Show guide area
-  var ga = document.getElementById('ga-'+cat);
-  ga.classList.add('show');
-
-  // Hide all panels, show the right one
-  ['shopify','dev','code'].forEach(function(t){
-    var el = document.getElementById('gp-'+cat+'-'+t);
-    if(el) el.style.display = 'none';
-  });
-  var target = document.getElementById('gp-'+cat+'-'+type);
-  if(target) target.style.display = 'block';
-}
-
-function markFixed(cat){
-  marked[cat] = true;
-  var card = document.getElementById('vc-'+cat);
-  if(card){ card.classList.remove('open'); card.classList.add('resolved'); }
-}
-
-function copyDev(cat){
-  var el = document.getElementById('db-'+cat);
-  if(!el) return;
-  navigator.clipboard.writeText(el.innerText).then(function(){
-    var btn = el.closest('.guide-panel').querySelector('.copy-btn');
-    if(btn){ btn.textContent='✓ Copied!'; btn.classList.add('copied'); setTimeout(function(){ btn.textContent='✍ Copy to Clipboard'; btn.classList.remove('copied'); },2500); }
-  });
+// ── Copy dev email ────────────────────────────────────────────────────────────
+function IDR_copyDev(cat) {
+  var el = document.getElementById('devtxt-' + cat);
+  if (!el) return;
+  var btn = el.closest('.guide-panel').querySelector('.copy-btn');
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(el.innerText).then(function() {
+      if (btn) { btn.textContent = '✓ Copied!'; setTimeout(function() { btn.textContent = '✍ Copy to Clipboard'; }, 2500); }
+    });
+  } else {
+    // Fallback
+    var ta = document.createElement('textarea');
+    ta.value = el.innerText;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    if (btn) { btn.textContent = '✓ Copied!'; setTimeout(function() { btn.textContent = '✍ Copy to Clipboard'; }, 2500); }
+  }
 }
 
 // ── Submit flow ───────────────────────────────────────────────────────────────
-function openModal(){
-  var fixed = Object.keys(marked).filter(function(k){ return marked[k]; });
-  if(fixed.length===0){ alert('Please mark at least one issue as fixed before submitting.'); return; }
+function IDR_openModal() {
+  var fixed = Object.keys(IDR_marked).filter(function(k) { return IDR_marked[k]; });
+  if (fixed.length === 0) {
+    alert('Please mark at least one issue as fixed before submitting.');
+    return;
+  }
+  // Check if email already in URL
   var params = new URLSearchParams(window.location.search);
-  var existingEmail = params.get('email')||'';
-  if(existingEmail){ doSubmit(existingEmail); return; }
-  document.getElementById('emailModal').classList.add('show');
-  setTimeout(function(){ document.getElementById('modalEmail').focus(); },100);
+  var urlEmail = params.get('email') || '';
+  if (urlEmail && urlEmail.indexOf('@') !== -1) {
+    IDR_doSubmit(urlEmail);
+    return;
+  }
+  document.getElementById('modalBg').classList.add('show');
+  setTimeout(function() { document.getElementById('modalEmailInput').focus(); }, 150);
 }
 
-function closeModal(){
-  document.getElementById('emailModal').classList.remove('show');
+function IDR_closeModal() {
+  document.getElementById('modalBg').classList.remove('show');
+  document.getElementById('modalErr').style.display = 'none';
 }
 
-function confirmSubmit(){
-  var email = document.getElementById('modalEmail').value.trim();
-  var err   = document.getElementById('modalErr');
-  if(!email||email.indexOf('@')===-1){ err.style.display='block'; return; }
-  err.style.display='none';
-  closeModal();
-  doSubmit(email);
+function IDR_confirmSubmit() {
+  var email = document.getElementById('modalEmailInput').value.trim();
+  if (!email || email.indexOf('@') === -1) {
+    document.getElementById('modalErr').style.display = 'block';
+    return;
+  }
+  document.getElementById('modalErr').style.display = 'none';
+  IDR_closeModal();
+  IDR_doSubmit(email);
 }
 
-function doSubmit(email){
-  var fixed      = Object.keys(marked).filter(function(k){ return marked[k]; });
-  var params     = new URLSearchParams(window.location.search);
-  var receiptId  = params.get('receipt')||'IDR-PENDING';
-  var btn        = document.getElementById('submitBtn');
-  if(btn){ btn.disabled=true; btn.textContent='Running confirmation scan\u2026'; }
+function IDR_doSubmit(email) {
+  var fixed     = Object.keys(IDR_marked).filter(function(k) { return IDR_marked[k]; });
+  var params    = new URLSearchParams(window.location.search);
+  var receiptId = params.get('receipt') || 'IDR-PENDING';
+  var btn       = document.getElementById('submitBtn');
 
-  fetch(BACKEND+'/api/fix-report',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({ email:email, domain:domain, receipt_id:receiptId, categories:fixed })
+  if (btn) { btn.disabled = true; btn.textContent = 'Running confirmation scan\u2026'; }
+
+  fetch(BACKEND + '/api/fix-report', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: email, domain: IDR_domain, receipt_id: receiptId, categories: fixed })
   })
-  .then(function(r){ return r.json(); })
-  .then(function(d){
-    if(btn) btn.style.display='none';
-    var banner = document.getElementById('successBanner');
-    if(banner) banner.classList.add('show');
-    window.scrollTo({top:0,behavior:'smooth'});
+  .then(function(r) { return r.json(); })
+  .then(function() {
+    if (btn) btn.style.display = 'none';
+    var bar = document.getElementById('successBar');
+    if (bar) bar.classList.add('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   })
-  .catch(function(){
-    if(btn){ btn.disabled=false; btn.textContent='Submit for Confirmation Scan \u2192'; }
-    alert('Something went wrong. Please try again or contact hello@idrshield.com');
+  .catch(function() {
+    if (btn) { btn.disabled = false; btn.textContent = 'Submit for Confirmation Scan \u2192'; }
+    alert('Something went wrong. Please try again or email hello@idrshield.com');
   });
 }
 
 // ── Waitlist ──────────────────────────────────────────────────────────────────
-function joinWaitlist(){
-  var email = document.getElementById('waitlistEmail').value.trim();
-  if(!email||email.indexOf('@')===-1){ document.getElementById('waitlistEmail').focus(); return; }
-  // Store in SendGrid via a simple endpoint — for now just show confirmation
-  document.getElementById('waitlistEmail').style.display='none';
-  document.querySelector('.waitlist-btn').style.display='none';
-  document.getElementById('waitlistConfirm').classList.add('show');
+function IDR_joinWaitlist() {
+  var email = document.getElementById('waitlistInput').value.trim();
+  if (!email || email.indexOf('@') === -1) {
+    document.getElementById('waitlistInput').focus();
+    return;
+  }
+  document.getElementById('waitlistInput').style.display = 'none';
+  document.querySelector('.waitlist-btn').style.display = 'none';
+  document.getElementById('waitlistOk').classList.add('show');
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
-function showRoot(html){ document.getElementById('appRoot').innerHTML=html; }
-function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function IDR_buildDevEmail(cat, v) {
+  return 'Hi,\n\nOur store (' + IDR_domain + ') needs an accessibility fix. We\'re enrolled in IDR Shield compliance monitoring and this issue was flagged in our latest scan.\n\nISSUE: ' + v.name + '\nSEVERITY: ' + v.sev.toUpperCase() + '\n\nWHY THIS MATTERS:\n' + v.plain + '\n\nTHE FIX:\n\nBefore (violation):\n' + v.cbefore + '\n\nAfter (corrected):\n' + v.cafter + '\n\nPlease fix this as soon as possible. Our monitoring system will verify the change automatically.\n\nThank you';
+}
 
-})();
+function IDR_showError(title, sub) {
+  document.getElementById('appRoot').innerHTML =
+    '<div class="clean-wrap"><div class="clean-icon">&#x26A0;</div>' +
+    '<h2 style="color:#F07070;font-size:20px;margin-bottom:8px;">' + title + '</h2>' +
+    '<p class="clean-sub">' + sub + '</p></div>';
+}
+
+function IDR_esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
 </script>
 </body>
 </html>
