@@ -1022,35 +1022,29 @@ function IDR_send() {
 
 function IDR_callClaude(contextString) {
   var systemPrompt = IDR_buildSystemPrompt(contextString);
+  var apiMessages  = IDR_history.slice();
 
-  // Build messages for API — system + full history
-  var apiMessages = IDR_history.slice(); // copy
-
-  fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
+  // Route through backend proxy — API key never touches the browser
+  fetch(BACKEND + '/api/support/chat', {
+    method:  'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      model:      'claude-sonnet-4-20250514',
-      max_tokens: 1000,
-      system:     systemPrompt,
-      messages:   apiMessages
+      system:   systemPrompt,
+      messages: apiMessages
     })
   })
   .then(function(r) { return r.json(); })
   .then(function(data) {
     IDR_setTyping(false);
-    var reply = (data.content || [])
-      .filter(function(b) { return b.type === 'text'; })
-      .map(function(b) { return b.text; })
-      .join('\n');
-
-    if (!reply) {
-      reply = "I'm sorry, I had trouble processing that. Could you rephrase your question?";
+    if (!data.success || !data.reply) {
+      IDR_addMessage('reid',
+        "I'm having trouble connecting right now. Please try again in a moment, " +
+        "or email us directly at support@idrshield.com.");
+      return;
     }
-
-    // Check if Claude detected legal issue in its response
-    if (reply.toLowerCase().includes('[ESCALATE_LEGAL]')) {
-      reply = reply.replace('[ESCALATE_LEGAL]', '').trim();
+    var reply = data.reply.trim();
+    if (reply.toLowerCase().includes('[escalate_legal]')) {
+      reply = reply.replace(/\[ESCALATE_LEGAL\]/gi, '').trim();
       IDR_addMessage('reid', reply);
       IDR_history.push({ role: 'assistant', content: reply });
       IDR_showEscalationForm();
@@ -1059,7 +1053,7 @@ function IDR_callClaude(contextString) {
       IDR_history.push({ role: 'assistant', content: reply });
     }
   })
-  .catch(function(err) {
+  .catch(function() {
     IDR_setTyping(false);
     IDR_addMessage('reid',
       "I'm having trouble connecting right now. Please try again in a moment, " +
