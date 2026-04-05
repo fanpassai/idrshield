@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IDR Shield — Member Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600;700&family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:      #0A0E1A;
+    --navy2:     #10162A;
+    --navy3:     #161D35;
+    --gold:      #C9A84C;
+    --gold-deep: #8A6F2E;
+    --gold-lite: #E2C97E;
+    --cream:     #FAF7F2;
+    --muted:     rgba(250,247,242,0.38);
+    --border:    rgba(201,168,76,0.18);
+    --red:       #C0392B;
+    --amber:     #E67E22;
+    --green:     #27AE60;
+  }
+
+  html, body {
+    background: var(--navy);
+    color: var(--cream);
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 15px;
+    min-height: 100vh;
+  }
+
+  /* ── Top bar ── */
+  .top-bar {
+    background: var(--navy2);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    height: 56px;
+  }
+  .top-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .top-monogram {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+  .top-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .top-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .top-email {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    color: var(--muted);
+  }
+  .btn-logout {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: color 0.12s, border-color 0.12s;
+  }
+  .btn-logout:hover { color: var(--cream); border-color: var(--cream); }
+
+  /* ── Nav tabs ── */
+  .nav-bar {
+    background: var(--navy2);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+  }
+  .nav-tab {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 14px 20px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color 0.12s, border-color 0.12s;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+  .nav-tab:hover   { color: var(--cream); }
+  .nav-tab.active  { color: var(--gold); border-bottom-color: var(--gold); }
+
+  /* ── Domain selector (if multiple domains) ── */
+  .domain-bar {
+    background: var(--navy3);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 40px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .domain-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .domain-select {
+    background: var(--navy2);
+    border: 1px solid var(--border);
+    color: var(--cream);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    padding: 6px 12px;
+    outline: none;
+    cursor: pointer;
+  }
+  .domain-select:focus { border-color: var(--gold); }
+
+  /* ── Main ── */
+  .main { padding: 32px 40px; max-width: 1200px; }
+
+  /* ── Panels (tabs) ── */
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* ── Score hero ── */
+  .score-hero {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 32px;
+    align-items: center;
+    background: var(--navy2);
+    border: 1px solid var(--border);
+    padding: 32px 36px;
+    margin-bottom: 28px;
+  }
+  .score-gauge {
+    text-align: center;
+  }
+  .score-big {
+    font-family: 'Playfair Display', serif;
+    font-size: 64px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .score-denom {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .score-info { }
+  .score-domain {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--cream);
+    margin-bottom: 6px;
+  }
+  .score-registry {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+    margin-bottom: 18px;
+  }
+  .score-pills {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+  }
+  .pill {
+    display: inline-block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+  .pill-active     { background: rgba(39,174,96,0.15);  color: var(--green); border: 1px solid rgba(39,174,96,0.3); }
+  .pill-monitoring { background: rgba(230,126,34,0.15); color: var(--amber); border: 1px solid rgba(230,126,34,0.3); }
+  .pill-expired    { background: rgba(192,57,43,0.15);  color: var(--red);   border: 1px solid rgba(192,57,43,0.3); }
+  .pill-info       { background: rgba(201,168,76,0.1);  color: var(--gold);  border: 1px solid rgba(201,168,76,0.25); }
+
+  .score-meta {
+    display: flex;
+    gap: 28px;
+  }
+  .meta-item { }
+  .meta-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .meta-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── Stats grid ── */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 28px;
+  }
+  .stat-cell {
+    background: var(--navy2);
+    padding: 20px 20px;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── Section heading ── */
+  .section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .section-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 1px;
+    background: var(--gold-deep);
+  }
+
+  /* ── Score history chart ── */
+  .chart-wrap {
+    background: var(--navy2);
+    border: 1px solid var(--border);
+    padding: 24px;
+    margin-bottom: 28px;
+  }
+  .chart-canvas-wrap {
+    position: relative;
+    height: 160px;
+  }
+  canvas#IDR_scoreChart {
+    width: 100% !important;
+    height: 160px !important;
+  }
+
+  /* ── Tables ── */
+  .tbl-wrap {
+    border: 1px solid var(--border);
+    overflow-x: auto;
+    margin-bottom: 28px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  thead tr {
+    background: var(--navy3);
+    border-bottom: 1px solid var(--border);
+  }
+  th {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 10px 16px;
+    text-align: left;
+    white-space: nowrap;
+  }
+  tbody tr {
+    border-bottom: 1px solid rgba(201,168,76,0.07);
+    transition: background 0.1s;
+  }
+  tbody tr:hover { background: rgba(201,168,76,0.03); }
+  td {
+    padding: 12px 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    color: var(--cream);
+    white-space: nowrap;
+  }
+  td.muted { color: var(--muted); }
+
+  /* ── Evidence log ── */
+  .evidence-list { }
+  .evidence-item {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 0;
+    border-bottom: 1px solid rgba(201,168,76,0.07);
+    padding: 14px 20px;
+    transition: background 0.1s;
+  }
+  .evidence-item:first-child { border-top: 1px solid var(--border); }
+  .evidence-item:hover { background: rgba(201,168,76,0.03); }
+  .ev-time {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    padding-top: 2px;
+  }
+  .ev-body { }
+  .ev-type {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3px;
+  }
+  .ev-detail {
+    font-family: 'EB Garamond', serif;
+    font-size: 13px;
+    color: var(--cream);
+  }
+
+  /* ── Documents panel ── */
+  .doc-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .doc-card {
+    background: var(--navy2);
+    border: 1px solid var(--border);
+    padding: 24px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .doc-icon {
+    font-size: 28px;
+    line-height: 1;
+  }
+  .doc-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: var(--cream);
+  }
+  .doc-desc {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    color: var(--muted);
+    line-height: 1.6;
+    flex: 1;
+  }
+  .btn-download {
+    display: inline-block;
+    background: transparent;
+    border: 1px solid var(--gold-deep);
+    color: var(--gold);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 10px 18px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: border-color 0.12s, background 0.12s;
+    width: 100%;
+  }
+  .btn-download:hover { border-color: var(--gold); background: rgba(201,168,76,0.06); }
+  .btn-download:disabled { opacity: 0.4; cursor: default; }
+
+  /* ── Badge panel ── */
+  .badge-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 28px;
+  }
+  .badge-card {
+    background: var(--navy2);
+    border: 1px solid var(--border);
+    padding: 24px;
+  }
+  .badge-card-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .badge-card-desc {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .code-block {
+    background: var(--navy);
+    border: 1px solid var(--border);
+    padding: 14px 16px;
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    color: var(--gold-lite);
+    line-height: 1.7;
+    white-space: pre;
+    overflow-x: auto;
+    margin-bottom: 12px;
+  }
+  .btn-copy {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 7px 16px;
+    cursor: pointer;
+    transition: color 0.12s, border-color 0.12s;
+  }
+  .btn-copy:hover  { color: var(--gold); border-color: var(--gold); }
+  .btn-copy.copied { color: var(--green); border-color: var(--green); }
+
+  /* ── Account panel ── */
+  .account-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 28px;
+  }
+  .account-card {
+    background: var(--navy2);
+    border: 1px solid var(--border);
+    padding: 28px 28px;
+  }
+  .account-field { margin-bottom: 20px; }
+  .account-field:last-child { margin-bottom: 0; }
+  .field-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .field-value {
+    font-family: 'EB Garamond', serif;
+    font-size: 16px;
+    color: var(--cream);
+  }
+  .field-value.mono {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: var(--gold-lite);
+  }
+
+  /* ── Loading / empty ── */
+  .loading-msg {
+    padding: 48px;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .empty-msg {
+    padding: 32px;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    margin-bottom: 28px;
+  }
+
+  /* Score colors */
+  .c-green { color: var(--green); }
+  .c-amber { color: var(--amber); }
+  .c-red   { color: var(--red); }
+
+  /* Print */
+  @media print {
+    .top-bar, .nav-bar, .domain-bar, .btn-logout,
+    .btn-download, .btn-copy, .nav-tab { display: none !important; }
+    .panel { display: block !important; }
+    body { background: white; color: black; }
+  }
+
+  @media (max-width: 768px) {
+    .top-bar, .nav-bar, .domain-bar { padding: 0 16px; }
+    .main { padding: 20px 16px; }
+    .score-hero { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: repeat(2,1fr); }
+    .doc-grid, .badge-grid, .account-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Top bar -->
+<div class="top-bar">
+  <div class="top-brand">
+    <span class="top-monogram">IDR</span>
+    <span class="top-label">Member Portal</span>
+  </div>
+  <div class="top-right">
+    <span class="top-email" id="IDR_topEmail"></span>
+    <button class="btn-logout" onclick="IDR_logout()">Log Out</button>
+  </div>
+</div>
+
+<!-- Nav tabs -->
+<div class="nav-bar">
+  <button class="nav-tab active" onclick="IDR_tab('overview',this)">Overview</button>
+  <button class="nav-tab" onclick="IDR_tab('evidence',this)">Evidence Log</button>
+  <button class="nav-tab" onclick="IDR_tab('fixes',this)">Fix Tracker</button>
+  <button class="nav-tab" onclick="IDR_tab('documents',this)">Documents</button>
+  <button class="nav-tab" onclick="IDR_tab('badge',this)">Badge & Chip</button>
+  <button class="nav-tab" onclick="IDR_tab('account',this)">Account</button>
+</div>
+
+<!-- Domain selector (shown if multiple domains) -->
+<div class="domain-bar" id="IDR_domainBar" style="display:none;">
+  <span class="domain-label">Store</span>
+  <select class="domain-select" id="IDR_domainSelect" onchange="IDR_switchDomain()"></select>
+</div>
+
+<div class="main">
+  <div id="IDR_globalLoading" class="loading-msg">Loading your portal…</div>
+
+  <!-- ── Overview panel ── -->
+  <div class="panel" id="IDR_panelOverview">
+
+    <div class="score-hero" id="IDR_scoreHero">
+      <div class="score-gauge">
+        <div class="score-big" id="IDR_scoreBig">—</div>
+        <div class="score-denom">/ 100</div>
+        <div id="IDR_statusPill"></div>
+      </div>
+      <div class="score-info">
+        <div class="score-domain" id="IDR_heroDomain"></div>
+        <div class="score-registry" id="IDR_heroRegistry"></div>
+        <div class="score-pills" id="IDR_heroPills"></div>
+        <div class="score-meta" id="IDR_heroMeta"></div>
+      </div>
+    </div>
+
+    <!-- Score history -->
+    <div class="section-head">
+      <div class="section-title">Compliance Score History</div>
+    </div>
+    <div class="chart-wrap">
+      <div class="chart-canvas-wrap">
+        <canvas id="IDR_scoreChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Recent scans table -->
+    <div class="section-head">
+      <div class="section-title">Recent Scans</div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Score</th>
+            <th>Status</th>
+            <th>Critical Issues</th>
+            <th>Total Issues</th>
+            <th>Receipt ID</th>
+          </tr>
+        </thead>
+        <tbody id="IDR_scansBody"></tbody>
+      </table>
+    </div>
+
+  </div><!-- /overview -->
+
+  <!-- ── Evidence log panel ── -->
+  <div class="panel" id="IDR_panelEvidence">
+    <div class="section-head">
+      <div class="section-title">Compliance Evidence Log</div>
+      <button class="btn-download" style="width:auto;padding:8px 18px;" onclick="window.print()">Print Log</button>
+    </div>
+    <p style="font-family:'Montserrat',sans-serif;font-size:10px;color:var(--muted);line-height:1.7;margin-bottom:20px;">
+      Every scan, fix, activation, and compliance event is recorded here with a timestamp.
+      This log constitutes your documented evidence of compliance effort.
+      Print or save this page if you receive a demand letter.
+    </p>
+    <div id="IDR_evidenceList"></div>
+  </div>
+
+  <!-- ── Fix tracker panel ── -->
+  <div class="panel" id="IDR_panelFixes">
+    <div class="section-head">
+      <div class="section-title">Fix Tracker</div>
+      <a id="IDR_fixPortalLink" href="#" target="_blank"
+         style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);text-decoration:none;">
+        Open Fix Portal →
+      </a>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Issue Category</th>
+            <th>Original Count</th>
+            <th>Status</th>
+            <th>Reported</th>
+            <th>Confirmed</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody id="IDR_fixesBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── Documents panel ── -->
+  <div class="panel" id="IDR_panelDocuments">
+    <div class="section-head">
+      <div class="section-title">Your Documents</div>
+    </div>
+    <p style="font-family:'Montserrat',sans-serif;font-size:10px;color:var(--muted);line-height:1.7;margin-bottom:24px;">
+      All documents are generated from your live registry data. Downloads reflect your most recent scan.
+    </p>
+    <div class="doc-grid">
+
+      <div class="doc-card">
+        <div class="doc-icon">📄</div>
+        <div class="doc-title">Defense Package</div>
+        <div class="doc-desc">
+          Your full compliance report — scan receipt, SHA-256 hash, violation breakdown,
+          remediation guidance, and comparable case law summary.
+          Present this to your attorney if you receive a demand letter.
+        </div>
+        <button class="btn-download" onclick="IDR_downloadPDF()">Download Defense Package PDF</button>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-icon">📋</div>
+        <div class="doc-title">Evidence Log</div>
+        <div class="doc-desc">
+          Your complete timestamped compliance timeline — every scan, fix submission,
+          confirmation, and status change. Printable directly from the Evidence Log tab.
+        </div>
+        <button class="btn-download" onclick="IDR_tab('evidence',null);window.print()">Print Evidence Log</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Badge & chip panel ── -->
+  <div class="panel" id="IDR_panelBadge">
+    <div class="section-head">
+      <div class="section-title">Badge & Chip Embed Code</div>
+    </div>
+    <p style="font-family:'Montserrat',sans-serif;font-size:10px;color:var(--muted);line-height:1.7;margin-bottom:24px;">
+      Add these to your store to display your IDR Verified status.
+      The badge checks your live registry status on every page load —
+      it will automatically reflect Active, Monitoring, or Expired.
+    </p>
+
+    <div class="badge-grid">
+      <div class="badge-card">
+        <div class="badge-card-title">Footer Badge — badge.js</div>
+        <div class="badge-card-desc">
+          Place in your store footer. Renders a seal at 52px (adjustable).
+          Use data-theme="dark" on light backgrounds, "outline" on dark.
+        </div>
+        <div class="code-block" id="IDR_badgeCode">Loading…</div>
+        <button class="btn-copy" onclick="IDR_copy('IDR_badgeCode',this)">Copy Code</button>
+      </div>
+
+      <div class="badge-card">
+        <div class="badge-card-title">Inline Chip — chip.js</div>
+        <div class="badge-card-desc">
+          Place near your Add to Cart button or price. Pill format builds
+          trust at the point of purchase. Also available in text format.
+        </div>
+        <div class="code-block" id="IDR_chipCode">Loading…</div>
+        <button class="btn-copy" onclick="IDR_copy('IDR_chipCode',this)">Copy Code</button>
+      </div>
+    </div>
+
+    <div class="section-head" style="margin-top:8px;">
+      <div class="section-title">Platform Guides</div>
+    </div>
+    <div style="background:var(--navy2);border:1px solid var(--border);padding:20px 24px;font-family:'Montserrat',sans-serif;font-size:10px;color:var(--muted);line-height:1.9;">
+      <strong style="color:var(--cream);">Shopify:</strong> Online Store → Themes → Edit Code → paste in <code style="color:var(--gold-lite);">theme.liquid</code> before <code style="color:var(--gold-lite);">&lt;/body&gt;</code><br>
+      <strong style="color:var(--cream);">Squarespace:</strong> Settings → Advanced → Code Injection → Footer<br>
+      <strong style="color:var(--cream);">WooCommerce:</strong> Appearance → Theme Editor → <code style="color:var(--gold-lite);">footer.php</code> before <code style="color:var(--gold-lite);">&lt;/body&gt;</code><br>
+      <strong style="color:var(--cream);">Wix:</strong> Settings → Custom Code → Add to Footer → All Pages<br>
+      <strong style="color:var(--cream);">Any HTML:</strong> Paste directly before <code style="color:var(--gold-lite);">&lt;/body&gt;</code> in your template
+    </div>
+  </div>
+
+  <!-- ── Account panel ── -->
+  <div class="panel" id="IDR_panelAccount">
+    <div class="section-head">
+      <div class="section-title">Account Details</div>
+    </div>
+    <div class="account-grid">
+      <div class="account-card">
+        <div class="account-field">
+          <div class="field-label">Email Address</div>
+          <div class="field-value" id="IDR_acctEmail">—</div>
+        </div>
+        <div class="account-field">
+          <div class="field-label">Member Since</div>
+          <div class="field-value" id="IDR_acctSince">—</div>
+        </div>
+        <div class="account-field">
+          <div class="field-label">Membership</div>
+          <div class="field-value">
+            <span class="pill pill-info">Founding Member</span>
+          </div>
+        </div>
+      </div>
+      <div class="account-card">
+        <div class="account-field">
+          <div class="field-label">Registry ID</div>
+          <div class="field-value mono" id="IDR_acctRegistry">—</div>
+        </div>
+        <div class="account-field">
+          <div class="field-label">Public Verify Page</div>
+          <div class="field-value" style="font-size:13px;">
+            <a id="IDR_acctVerifyLink" href="#" target="_blank"
+               style="color:var(--gold);text-decoration:none;font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:0.06em;">
+            </a>
+          </div>
+        </div>
+        <div class="account-field">
+          <div class="field-label">Session</div>
+          <div class="field-value" style="font-family:'Montserrat',sans-serif;font-size:11px;color:var(--muted);" id="IDR_acctSession">Active</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:8px;">
+      <div class="section-head">
+        <div class="section-title">Session Management</div>
+      </div>
+      <div style="background:var(--navy2);border:1px solid var(--border);padding:24px;">
+        <p style="font-family:'Montserrat',sans-serif;font-size:10px;color:var(--muted);line-height:1.7;margin-bottom:16px;">
+          Your session is valid for 30 days from login. Logging out will immediately invalidate
+          your current session on this device.
+        </p>
+        <button class="btn-download" style="width:auto;" onclick="IDR_logout()">Log Out of Portal</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<script>
+'use strict';
+
+var BACKEND       = 'https://idr-backend-production.up.railway.app';
+var IDR_session   = '';
+var IDR_email     = '';
+var IDR_data      = null;   // full dashboard response
+var IDR_domain    = '';     // currently selected domain
+var IDR_domainData = null;  // current domain object
+var IDR_badgeData = null;
+
+// ── Bootstrap ─────────────────────────────────────────────────────────────────
+
+window.addEventListener('DOMContentLoaded', function() {
+  // Check for magic link token in URL first
+  var params = new URLSearchParams(window.location.search);
+  var token  = params.get('token');
+  if (token) {
+    IDR_consumeToken(token);
+    return;
+  }
+
+  // Otherwise check stored session
+  var stored = localStorage.getItem('idr_session');
+  if (!stored) {
+    IDR_redirectLogin();
+    return;
+  }
+  IDR_session = stored;
+  IDR_email   = localStorage.getItem('idr_email') || '';
+  IDR_boot();
+});
+
+function IDR_consumeToken(token) {
+  fetch(BACKEND + '/api/auth/verify', {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body:    JSON.stringify({ token: token })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(d) {
+    if (d.success && d.session_token) {
+      localStorage.setItem('idr_session', d.session_token);
+      localStorage.setItem('idr_email',   d.email);
+      localStorage.setItem('idr_expires', d.expires_at);
+      IDR_session = d.session_token;
+      IDR_email   = d.email;
+      // Clean token from URL
+      history.replaceState({}, '', window.location.pathname);
+      IDR_boot();
+    } else {
+      IDR_redirectLogin('expired');
+    }
+  })
+  .catch(function() { IDR_redirectLogin(); });
+}
+
+function IDR_boot() {
+  document.getElementById('IDR_topEmail').textContent = IDR_email;
+  IDR_loadDashboard();
+}
+
+function IDR_redirectLogin(reason) {
+  var url = 'https://idrshield.com/idrshield_login.html';
+  if (reason) url += '?reason=' + reason;
+  window.location.replace(url);
+}
+
+// ── API calls ─────────────────────────────────────────────────────────────────
+
+function IDR_apiHeaders() {
+  return {
+    'Content-Type':  'application/json',
+    'Authorization': 'Bearer ' + IDR_session
+  };
+}
+
+function IDR_loadDashboard() {
+  fetch(BACKEND + '/api/member/dashboard', { headers: IDR_apiHeaders() })
+  .then(function(r) {
+    if (r.status === 401) { IDR_redirectLogin(); return null; }
+    return r.json();
+  })
+  .then(function(d) {
+    if (!d) return;
+    IDR_data = d;
+    document.getElementById('IDR_globalLoading').style.display = 'none';
+    document.getElementById('IDR_panelOverview').classList.add('active');
+    IDR_populateDomains(d.domains);
+  })
+  .catch(function(e) {
+    document.getElementById('IDR_globalLoading').textContent = 'Failed to load. Please refresh.';
+  });
+}
+
+function IDR_populateDomains(domains) {
+  if (!domains || !domains.length) {
+    document.getElementById('IDR_globalLoading').textContent = 'No domains found for this account.';
+    return;
+  }
+
+  if (domains.length > 1) {
+    var bar = document.getElementById('IDR_domainBar');
+    var sel = document.getElementById('IDR_domainSelect');
+    bar.style.display = 'flex';
+    sel.innerHTML = domains.map(function(d) {
+      return '<option value="' + IDR_esc(d.domain) + '">' + IDR_esc(d.domain) + '</option>';
+    }).join('');
+  }
+
+  IDR_selectDomain(domains[0]);
+}
+
+function IDR_switchDomain() {
+  var sel    = document.getElementById('IDR_domainSelect');
+  var domain = sel.value;
+  var found  = (IDR_data.domains || []).find(function(d) { return d.domain === domain; });
+  if (found) IDR_selectDomain(found);
+}
+
+function IDR_selectDomain(domainObj) {
+  IDR_domain     = domainObj.domain;
+  IDR_domainData = domainObj;
+  IDR_renderOverview(domainObj);
+  IDR_loadEvidence();
+  IDR_loadFixes();
+  IDR_loadBadgeCode();
+  IDR_renderAccount(domainObj);
+}
+
+// ── Overview ──────────────────────────────────────────────────────────────────
+
+function IDR_renderOverview(d) {
+  var score  = d.latest_score;
+  var status = d.status;
+
+  // Score
+  var scoreEl = document.getElementById('IDR_scoreBig');
+  scoreEl.textContent = score !== null ? score : '—';
+  scoreEl.className   = 'score-big ' + IDR_scoreClass(score);
+
+  // Status pill
+  document.getElementById('IDR_statusPill').innerHTML =
+    '<span class="pill pill-' + status + '">' + status + '</span>';
+
+  // Hero
+  document.getElementById('IDR_heroDomain').textContent   = d.domain;
+  document.getElementById('IDR_heroRegistry').textContent = d.registry_id;
+
+  // Pills
+  var pills = '';
+  if (d.badge_active) pills += '<span class="pill pill-info">Badge Active</span>';
+  if (d.critical_count > 0)
+    pills += '<span class="pill pill-expired">' + d.critical_count + ' Critical Issue' + (d.critical_count !== 1 ? 's' : '') + '</span>';
+  document.getElementById('IDR_heroPills').innerHTML = pills;
+
+  // Meta
+  var ls = d.last_scanned ? IDR_fmtDate(d.last_scanned) : '—';
+  document.getElementById('IDR_heroMeta').innerHTML =
+    '<div class="meta-item"><div class="meta-num">' + (d.scan_count || 0) + '</div><div class="meta-label">Total Scans</div></div>' +
+    '<div class="meta-item"><div class="meta-num" style="font-size:16px;">' + IDR_esc(ls) + '</div><div class="meta-label">Last Scanned</div></div>';
+
+  // Scan history table
+  var scans = d.scan_history || [];
+  var tbody = document.getElementById('IDR_scansBody');
+  if (!scans.length) {
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:24px;">No scans yet</td></tr>';
+  } else {
+    tbody.innerHTML = scans.map(function(s) {
+      var sc = IDR_scoreClass(s.score);
+      return '<tr>' +
+        '<td class="muted">' + IDR_fmtDate(s.scanned_at) + '</td>' +
+        '<td class="' + sc + '" style="font-weight:700;">' + (s.score !== null ? s.score : '—') + '</td>' +
+        '<td><span class="pill pill-' + (s.status || 'monitoring') + '">' + (s.status || '—') + '</span></td>' +
+        '<td style="color:' + (s.critical_count > 0 ? 'var(--red)' : 'var(--muted)') + '">' + (s.critical_count || 0) + '</td>' +
+        '<td class="muted">' + (s.total_issues || 0) + '</td>' +
+        '<td class="muted" style="font-size:9px;font-family:monospace;">' + IDR_esc((s.receipt_id || '').substring(0,8)) + '…</td>' +
+      '</tr>';
+    }).join('');
+  }
+
+  // Chart
+  IDR_drawChart(scans);
+}
+
+function IDR_drawChart(scans) {
+  var canvas = document.getElementById('IDR_scoreChart');
+  var ctx    = canvas.getContext('2d');
+  var dpr    = window.devicePixelRatio || 1;
+  var w      = canvas.offsetWidth  || canvas.parentElement.offsetWidth;
+  var h      = 160;
+  canvas.width  = w * dpr;
+  canvas.height = h * dpr;
+  ctx.scale(dpr, dpr);
+
+  // Reverse so oldest is left
+  var pts = scans.slice().reverse();
+  if (pts.length < 2) {
+    ctx.fillStyle = 'rgba(250,247,242,0.2)';
+    ctx.font = '11px Montserrat, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('More scans needed for chart', w / 2, h / 2);
+    return;
+  }
+
+  var pad = { top: 16, right: 16, bottom: 32, left: 36 };
+  var cw  = w - pad.left - pad.right;
+  var ch  = h - pad.top  - pad.bottom;
+
+  // Grid lines at 0, 25, 50, 75, 100
+  ctx.strokeStyle = 'rgba(201,168,76,0.1)';
+  ctx.lineWidth   = 1;
+  [0, 25, 50, 75, 100].forEach(function(v) {
+    var y = pad.top + ch - (v / 100) * ch;
+    ctx.beginPath();
+    ctx.moveTo(pad.left, y);
+    ctx.lineTo(pad.left + cw, y);
+    ctx.stroke();
+    ctx.fillStyle = 'rgba(250,247,242,0.25)';
+    ctx.font      = '8px Montserrat, sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText(v, pad.left - 6, y + 3);
+  });
+
+  // Line
+  var coords = pts.map(function(p, i) {
+    return {
+      x: pad.left + (i / (pts.length - 1)) * cw,
+      y: pad.top  + ch - ((p.score || 0) / 100) * ch
+    };
+  });
+
+  // Gradient fill
+  var grad = ctx.createLinearGradient(0, pad.top, 0, pad.top + ch);
+  grad.addColorStop(0,   'rgba(201,168,76,0.25)');
+  grad.addColorStop(1,   'rgba(201,168,76,0)');
+  ctx.beginPath();
+  ctx.moveTo(coords[0].x, pad.top + ch);
+  coords.forEach(function(c) { ctx.lineTo(c.x, c.y); });
+  ctx.lineTo(coords[coords.length-1].x, pad.top + ch);
+  ctx.closePath();
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  // Line stroke
+  ctx.beginPath();
+  ctx.moveTo(coords[0].x, coords[0].y);
+  coords.slice(1).forEach(function(c) { ctx.lineTo(c.x, c.y); });
+  ctx.strokeStyle = '#C9A84C';
+  ctx.lineWidth   = 2;
+  ctx.stroke();
+
+  // Dots
+  coords.forEach(function(c, i) {
+    ctx.beginPath();
+    ctx.arc(c.x, c.y, 4, 0, Math.PI * 2);
+    ctx.fillStyle   = '#C9A84C';
+    ctx.fill();
+    ctx.strokeStyle = '#0A0E1A';
+    ctx.lineWidth   = 2;
+    ctx.stroke();
+  });
+
+  // Date labels
+  ctx.fillStyle = 'rgba(250,247,242,0.3)';
+  ctx.font      = '8px Montserrat, sans-serif';
+  ctx.textAlign = 'center';
+  var step = Math.ceil(pts.length / 6);
+  coords.forEach(function(c, i) {
+    if (i % step === 0 || i === pts.length - 1) {
+      var label = IDR_fmtDateShort(pts[i].scanned_at);
+      ctx.fillText(label, c.x, pad.top + ch + 18);
+    }
+  });
+}
+
+// ── Evidence ──────────────────────────────────────────────────────────────────
+
+function IDR_loadEvidence() {
+  fetch(BACKEND + '/api/member/evidence/' + encodeURIComponent(IDR_domain), {
+    headers: IDR_apiHeaders()
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(d) { IDR_renderEvidence(d.entries || []); })
+  .catch(function() { IDR_renderEvidence([]); });
+}
+
+function IDR_renderEvidence(entries) {
+  var el = document.getElementById('IDR_evidenceList');
+  if (!entries.length) {
+    el.innerHTML = '<div class="empty-msg">No evidence entries yet.</div>';
+    return;
+  }
+  el.innerHTML = entries.map(function(e) {
+    return '<div class="evidence-item">' +
+      '<div class="ev-time">' + IDR_fmtDateTime(e.timestamp) + '</div>' +
+      '<div class="ev-body">' +
+        '<div class="ev-type">' + IDR_esc(e.event_type.replace(/_/g,' ')) + '</div>' +
+        '<div class="ev-detail">' + IDR_esc(e.detail || '') + '</div>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+// ── Fixes ─────────────────────────────────────────────────────────────────────
+
+function IDR_loadFixes() {
+  document.getElementById('IDR_fixPortalLink').href =
+    'https://idrshield.com/fix/' + IDR_domain;
+
+  fetch(BACKEND + '/api/member/fixes/' + encodeURIComponent(IDR_domain), {
+    headers: IDR_apiHeaders()
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(d) { IDR_renderFixes(d.fixes || []); })
+  .catch(function() { IDR_renderFixes([]); });
+}
+
+function IDR_renderFixes(fixes) {
+  var tbody = document.getElementById('IDR_fixesBody');
+  if (!fixes.length) {
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:24px;">No fix reports submitted yet. Use the Fix Portal to report resolved issues.</td></tr>';
+    return;
+  }
+  var statusColor = { confirmed: 'var(--green)', partial: 'var(--amber)', failed: 'var(--red)', pending: 'var(--muted)' };
+  tbody.innerHTML = fixes.map(function(f) {
+    var sc = statusColor[f.status] || 'var(--muted)';
+    return '<tr>' +
+      '<td>' + IDR_esc(f.category.replace(/_/g,' ')) + '</td>' +
+      '<td class="muted">' + (f.original_count || 0) + '</td>' +
+      '<td><span style="font-family:Montserrat,sans-serif;font-size:8px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:' + sc + ';">' + f.status + '</span></td>' +
+      '<td class="muted">' + IDR_fmtDate(f.reported_at) + '</td>' +
+      '<td class="muted">' + (f.confirmed_at ? IDR_fmtDate(f.confirmed_at) : '—') + '</td>' +
+      '<td class="muted" style="font-size:10px;">' + IDR_esc(f.notes || '—') + '</td>' +
+    '</tr>';
+  }).join('');
+}
+
+// ── Documents ─────────────────────────────────────────────────────────────────
+
+function IDR_downloadPDF() {
+  var url = BACKEND + '/api/member/receipt/' + encodeURIComponent(IDR_domain) + '/latest/pdf';
+  // Can't send auth header via window.open, so fetch as blob
+  fetch(url, { headers: IDR_apiHeaders() })
+  .then(function(r) {
+    if (!r.ok) throw new Error('PDF not available');
+    return r.blob();
+  })
+  .then(function(blob) {
+    var a   = document.createElement('a');
+    a.href  = URL.createObjectURL(blob);
+    a.download = 'IDR-DefensePackage-' + IDR_domain + '.pdf';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  })
+  .catch(function(e) { alert('Could not download PDF: ' + e.message); });
+}
+
+// ── Badge code ────────────────────────────────────────────────────────────────
+
+function IDR_loadBadgeCode() {
+  fetch(BACKEND + '/api/member/badge-code/' + encodeURIComponent(IDR_domain), {
+    headers: IDR_apiHeaders()
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(d) {
+    IDR_badgeData = d;
+    document.getElementById('IDR_badgeCode').textContent = d.badge_code || '—';
+    document.getElementById('IDR_chipCode').textContent  = d.chip_code  || '—';
+  })
+  .catch(function() {
+    document.getElementById('IDR_badgeCode').textContent = 'Error loading code.';
+    document.getElementById('IDR_chipCode').textContent  = 'Error loading code.';
+  });
+}
+
+function IDR_copy(elementId, btn) {
+  var text = document.getElementById(elementId).textContent;
+  navigator.clipboard.writeText(text).then(function() {
+    btn.textContent = 'Copied ✓';
+    btn.className   = 'btn-copy copied';
+    setTimeout(function() {
+      btn.textContent = 'Copy Code';
+      btn.className   = 'btn-copy';
+    }, 2500);
+  });
+}
+
+// ── Account ───────────────────────────────────────────────────────────────────
+
+function IDR_renderAccount(d) {
+  document.getElementById('IDR_acctEmail').textContent    = IDR_email;
+  document.getElementById('IDR_acctRegistry').textContent = d.registry_id || '—';
+  document.getElementById('IDR_acctSince').textContent    = d.created_at ? IDR_fmtDate(d.created_at) : '—';
+
+  var verifyUrl  = 'https://idrshield.com/verify/' + d.domain;
+  var verifyLink = document.getElementById('IDR_acctVerifyLink');
+  verifyLink.href        = verifyUrl;
+  verifyLink.textContent = verifyUrl;
+
+  var exp = localStorage.getItem('idr_expires');
+  if (exp) {
+    document.getElementById('IDR_acctSession').textContent =
+      'Expires ' + IDR_fmtDate(exp);
+  }
+}
+
+// ── Logout ────────────────────────────────────────────────────────────────────
+
+function IDR_logout() {
+  fetch(BACKEND + '/api/auth/logout', {
+    method:  'POST',
+    headers: IDR_apiHeaders()
+  }).finally(function() {
+    localStorage.removeItem('idr_session');
+    localStorage.removeItem('idr_email');
+    localStorage.removeItem('idr_expires');
+    window.location.replace('https://idrshield.com/idrshield_login.html');
+  });
+}
+
+// ── Tab switching ─────────────────────────────────────────────────────────────
+
+function IDR_tab(name, btn) {
+  var panels = ['overview','evidence','fixes','documents','badge','account'];
+  panels.forEach(function(p) {
+    document.getElementById('IDR_panel' + p.charAt(0).toUpperCase() + p.slice(1))
+            .classList.remove('active');
+  });
+  document.getElementById('IDR_panel' + name.charAt(0).toUpperCase() + name.slice(1))
+          .classList.add('active');
+
+  document.querySelectorAll('.nav-tab').forEach(function(t) {
+    t.classList.remove('active');
+  });
+  if (btn) btn.classList.add('active');
+}
+
+// ── Utilities ─────────────────────────────────────────────────────────────────
+
+function IDR_esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function IDR_scoreClass(score) {
+  if (score === null || score === undefined) return '';
+  return score >= 80 ? 'c-green' : score >= 50 ? 'c-amber' : 'c-red';
+}
+
+function IDR_fmtDate(iso) {
+  if (!iso) return '—';
+  var d = new Date(iso);
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+function IDR_fmtDateShort(iso) {
+  if (!iso) return '';
+  var d = new Date(iso);
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
+function IDR_fmtDateTime(iso) {
+  if (!iso) return '—';
+  var d = new Date(iso);
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) +
+    ' ' + d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+}
+</script>
+</body>
+</html>
