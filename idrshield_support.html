@@ -1002,10 +1002,20 @@ function IDR_send() {
   var ctxStr = IDR_buildContextString();
 
   // Check if legal escalation needed (client-side pre-check)
-  var legalKeywords = ['demand letter', 'lawsuit', 'sued', 'attorney', 'lawyer',
-                       'legal action', 'court', 'litigation', 'settlement', 'plaintiff contacted'];
-  var isLegal = legalKeywords.some(function(kw) {
-    return text.toLowerCase().includes(kw);
+  // Only escalate when legal threat is INCOMING — not when member mentions their own attorney
+  var legalPhrases = [
+    'demand letter', 'received a letter', 'got a letter',
+    'lawsuit', 'being sued', 'they sued', 'filed a lawsuit',
+    'attorney contacted', 'lawyer contacted', 'attorney reached out',
+    'lawyer reached out', 'heard from an attorney', 'heard from a lawyer',
+    'legal action', 'legal threat', 'threatening legal',
+    'cease and desist', 'ada claim', 'wcag claim',
+    'plaintiff firm', 'plaintiff attorney', 'plaintiff lawyer',
+    'litigation', 'going to court', 'taking me to court',
+    'settlement offer', 'settle this', 'they want to settle'
+  ];
+  var isLegal = legalPhrases.some(function(phrase) {
+    return text.toLowerCase().includes(phrase);
   });
 
   if (isLegal) {
@@ -1231,8 +1241,15 @@ function IDR_buildSystemPrompt(contextString) {
     "  - Use phrases like 'I'd recommend' when 'do this' is clearer",
     "",
     "LEGAL ESCALATION — NON-NEGOTIABLE:",
-    "  Trigger words: demand letter, lawsuit, sued, attorney, lawyer contacted me, legal action,",
-    "  court, litigation, settlement, plaintiff firm, cease and desist, ADA claim filed.",
+    "  ONLY escalate when the legal threat is INCOMING — someone contacting THEM, not them",
+    "  proactively preparing or asking their own attorney something.",
+    "  Trigger phrases: demand letter, received a letter, lawsuit, being sued, filed a lawsuit,",
+    "  attorney contacted me, lawyer reached out, legal action taken against me,",
+    "  cease and desist, ADA claim filed against me, plaintiff firm contacted me,",
+    "  settlement offer received, taking me to court.",
+    "  DO NOT escalate for: 'show my attorney', 'ask my lawyer', 'my attorney wants to see',",
+    "  'preparing for my attorney', 'what do I give my attorney' — these are proactive preparation",
+    "  questions that Reid should answer directly by directing to the Evidence Log and Defense Package PDF.",
     "  Response: acknowledge warmly, say this goes to the legal team immediately, collect their info.",
     "  Add [ESCALATE_LEGAL] at the end of your response — no exceptions.",
     "  Never give legal opinions, never say 'you're protected', never assess their legal risk.",
