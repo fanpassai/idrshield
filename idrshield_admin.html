@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IDR Shield — Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600;700&family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:      #0A0E1A;
+    --navy2:     #10162A;
+    --navy3:     #161D35;
+    --gold:      #C9A84C;
+    --gold-deep: #8A6F2E;
+    --gold-lite: #E2C97E;
+    --cream:     #FAF7F2;
+    --red:       #C0392B;
+    --amber:     #E67E22;
+    --green:     #27AE60;
+    --muted:     rgba(250,247,242,0.35);
+    --border:    rgba(201,168,76,0.18);
+  }
+
+  html, body {
+    background: var(--navy);
+    color: var(--cream);
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 15px;
+    min-height: 100vh;
+  }
+
+  /* ── Auth screen ── */
+  #IDR_authScreen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: var(--navy);
+  }
+  .auth-box {
+    width: 360px;
+    border: 1px solid var(--border);
+    background: var(--navy2);
+    padding: 48px 40px;
+    text-align: center;
+  }
+  .auth-monogram {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    color: var(--gold);
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+  }
+  .auth-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 36px;
+  }
+  .auth-box input {
+    width: 100%;
+    background: var(--navy);
+    border: 1px solid var(--border);
+    color: var(--cream);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    outline: none;
+  }
+  .auth-box input:focus { border-color: var(--gold); }
+  .auth-box input::placeholder { color: var(--muted); }
+  .btn-gold {
+    background: var(--gold);
+    color: var(--navy);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 13px 28px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.15s;
+  }
+  .btn-gold:hover { background: var(--gold-lite); }
+  .auth-error {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    color: var(--red);
+    margin-top: 12px;
+    display: none;
+  }
+
+  /* ── Dashboard layout ── */
+  #IDR_dashboard { display: none; }
+
+  .top-bar {
+    background: var(--navy2);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .top-bar-brand {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+  }
+  .top-monogram {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+  .top-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .top-bar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .top-ts {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+  .btn-refresh {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--gold);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 7px 16px;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .btn-refresh:hover { border-color: var(--gold); color: var(--gold-lite); }
+
+  .main { padding: 32px 40px; max-width: 1400px; }
+
+  /* ── Stats row ── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 36px;
+  }
+  .stat-cell {
+    background: var(--navy2);
+    padding: 20px 18px;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: var(--cream);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-num.gold { color: var(--gold); }
+  .stat-num.green { color: var(--green); }
+  .stat-num.amber { color: var(--amber); }
+  .stat-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── Section headings ── */
+  .section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .section-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title::before {
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 1px;
+    background: var(--gold-deep);
+  }
+  .section-count {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  /* ── Tables ── */
+  .tbl-wrap {
+    border: 1px solid var(--border);
+    overflow-x: auto;
+    margin-bottom: 40px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+  thead tr {
+    background: var(--navy3);
+    border-bottom: 1px solid var(--border);
+  }
+  th {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 10px 14px;
+    text-align: left;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+  }
+  th:hover { color: var(--gold); }
+  th.sort-asc::after  { content: ' ↑'; color: var(--gold); }
+  th.sort-desc::after { content: ' ↓'; color: var(--gold); }
+  tbody tr {
+    border-bottom: 1px solid rgba(201,168,76,0.07);
+    transition: background 0.1s;
+  }
+  tbody tr:hover { background: rgba(201,168,76,0.04); }
+  td {
+    padding: 11px 14px;
+    color: var(--cream);
+    white-space: nowrap;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+  }
+  td.domain {
+    font-family: 'EB Garamond', serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--cream);
+  }
+  td.email {
+    color: rgba(250,247,242,0.55);
+    font-size: 10px;
+  }
+
+  /* Score cells */
+  .score-red   { color: var(--red);   font-weight: 700; }
+  .score-amber { color: var(--amber); font-weight: 700; }
+  .score-green { color: var(--green); font-weight: 700; }
+
+  /* Status pills */
+  .pill {
+    display: inline-block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 2px;
+  }
+  .pill-active     { background: rgba(39,174,96,0.18);  color: var(--green); border: 1px solid rgba(39,174,96,0.3); }
+  .pill-monitoring { background: rgba(230,126,34,0.15); color: var(--amber); border: 1px solid rgba(230,126,34,0.3); }
+  .pill-expired    { background: rgba(192,57,43,0.15);  color: var(--red);   border: 1px solid rgba(192,57,43,0.3); }
+
+  /* Action links */
+  .tbl-link {
+    color: var(--gold-deep);
+    text-decoration: none;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-right: 10px;
+    transition: color 0.12s;
+  }
+  .tbl-link:hover { color: var(--gold); }
+
+  /* Rescan button in table */
+  .btn-rescan {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    cursor: pointer;
+    transition: border-color 0.12s, color 0.12s;
+  }
+  .btn-rescan:hover    { border-color: var(--gold); color: var(--gold); }
+  .btn-rescan:disabled { opacity: 0.4; cursor: default; }
+  .btn-rescan.spinning { color: var(--amber); border-color: var(--amber); }
+  .btn-rescan.done     { color: var(--green); border-color: var(--green); }
+
+  /* ── Two-column layout for bottom panels ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-bottom: 48px;
+  }
+  @media (max-width: 1100px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* Empty state */
+  .empty {
+    padding: 28px;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  /* Step badges A1–A6 */
+  .step-badge {
+    display: inline-block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 2px 7px;
+    background: rgba(201,168,76,0.12);
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 2px;
+  }
+
+  /* Loading overlay */
+  #IDR_loading {
+    position: fixed; inset: 0;
+    background: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* Toast */
+  #IDR_toast {
+    position: fixed;
+    bottom: 32px; right: 32px;
+    background: var(--navy3);
+    border: 1px solid var(--border);
+    color: var(--cream);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    padding: 14px 22px;
+    display: none;
+    z-index: 999;
+    min-width: 240px;
+  }
+
+  /* Search / filter */
+  .search-input {
+    background: var(--navy);
+    border: 1px solid var(--border);
+    color: var(--cream);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    padding: 6px 12px;
+    outline: none;
+    width: 220px;
+  }
+  .search-input:focus { border-color: var(--gold); }
+  .search-input::placeholder { color: var(--muted); }
+</style>
+</head>
+<body>
+
+<!-- Auth screen -->
+<div id="IDR_authScreen">
+  <div class="auth-box">
+    <div class="auth-monogram">IDR</div>
+    <div class="auth-label">Admin Command Center</div>
+    <input type="password" id="IDR_keyInput" placeholder="Admin key" onkeydown="IDR_keyEnter(event)">
+    <button class="btn-gold" onclick="IDR_authenticate()">Enter</button>
+    <div class="auth-error" id="IDR_authError">Invalid key</div>
+  </div>
+</div>
+
+<!-- Loading -->
+<div id="IDR_loading" style="display:none;">Loading registry data…</div>
+
+<!-- Dashboard -->
+<div id="IDR_dashboard">
+
+  <div class="top-bar">
+    <div class="top-bar-brand">
+      <span class="top-monogram">IDR</span>
+      <span class="top-title">Admin Command Center</span>
+    </div>
+    <div class="top-bar-right">
+      <span class="top-ts" id="IDR_ts"></span>
+      <button class="btn-refresh" onclick="IDR_loadData()">↻ Refresh</button>
+    </div>
+  </div>
+
+  <div class="main">
+
+    <!-- Stats row -->
+    <div class="stats-row" id="IDR_statsRow">
+      <div class="stat-cell"><div class="stat-num gold" id="st_total">—</div><div class="stat-label">Total Members</div></div>
+      <div class="stat-cell"><div class="stat-num green" id="st_active">—</div><div class="stat-label">Active</div></div>
+      <div class="stat-cell"><div class="stat-num amber" id="st_monitoring">—</div><div class="stat-label">Monitoring</div></div>
+      <div class="stat-cell"><div class="stat-num" id="st_expired">—</div><div class="stat-label">Expired</div></div>
+      <div class="stat-cell"><div class="stat-num" id="st_scanners">—</div><div class="stat-label">Free Scanners</div></div>
+      <div class="stat-cell"><div class="stat-num" id="st_queued">—</div><div class="stat-label">Emails Queued</div></div>
+    </div>
+
+    <!-- Members table -->
+    <div class="section-head">
+      <div class="section-title">Registry Members</div>
+      <div style="display:flex;gap:12px;align-items:center;">
+        <input class="search-input" type="text" id="IDR_memberSearch" placeholder="Filter domain or email…" oninput="IDR_filterMembers()">
+        <span class="section-count" id="IDR_memberCount"></span>
+      </div>
+    </div>
+    <div class="tbl-wrap">
+      <table id="IDR_memberTable">
+        <thead>
+          <tr>
+            <th onclick="IDR_sortMembers('domain')">Domain</th>
+            <th onclick="IDR_sortMembers('email')">Email</th>
+            <th onclick="IDR_sortMembers('latest_score')">Score</th>
+            <th onclick="IDR_sortMembers('status')">Status</th>
+            <th onclick="IDR_sortMembers('critical_count')">Critical</th>
+            <th onclick="IDR_sortMembers('scan_count')">Scans</th>
+            <th onclick="IDR_sortMembers('last_scanned')">Last Scanned</th>
+            <th>Badge</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="IDR_memberBody"></tbody>
+      </table>
+    </div>
+
+    <!-- Free scanners + Email queue -->
+    <div class="two-col">
+
+      <!-- Free scanners -->
+      <div>
+        <div class="section-head">
+          <div class="section-title">Free Scanner Pipeline</div>
+          <span class="section-count" id="IDR_scannerCount"></span>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Email</th>
+                <th>Domain</th>
+                <th>Step</th>
+                <th>Next Email</th>
+                <th>Days Since Scan</th>
+              </tr>
+            </thead>
+            <tbody id="IDR_scannerBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Email queue -->
+      <div>
+        <div class="section-head">
+          <div class="section-title">Email Queue — Next 20</div>
+          <span class="section-count" id="IDR_queueCount"></span>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Domain</th>
+                <th>Sequence</th>
+                <th>Step</th>
+                <th>Fires At</th>
+              </tr>
+            </thead>
+            <tbody id="IDR_queueBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /main -->
+</div><!-- /dashboard -->
+
+<!-- Toast -->
+<div id="IDR_toast"></div>
+
+<script>
+'use strict';
+
+var BACKEND   = 'https://idr-backend-production.up.railway.app';
+var ADMIN_KEY = '';
+var IDR_allMembers = [];
+var IDR_memberSortCol = 'last_scanned';
+var IDR_memberSortAsc = false;
+
+// ── Auth ─────────────────────────────────────────────────────────────────────
+
+function IDR_keyEnter(e) {
+  if (e.key === 'Enter') IDR_authenticate();
+}
+
+function IDR_authenticate() {
+  var key = document.getElementById('IDR_keyInput').value.trim();
+  if (!key) return;
+  ADMIN_KEY = key;
+  document.getElementById('IDR_authError').style.display = 'none';
+  document.getElementById('IDR_authScreen').style.display = 'none';
+  document.getElementById('IDR_loading').style.display = 'flex';
+  IDR_loadData();
+}
+
+// ── Data load ─────────────────────────────────────────────────────────────────
+
+function IDR_loadData() {
+  document.getElementById('IDR_loading').style.display = 'flex';
+  document.getElementById('IDR_dashboard').style.display = 'none';
+
+  fetch(BACKEND + '/api/admin/members?key=' + encodeURIComponent(ADMIN_KEY))
+    .then(function(r) {
+      if (r.status === 401) {
+        document.getElementById('IDR_loading').style.display = 'none';
+        document.getElementById('IDR_authScreen').style.display = 'flex';
+        document.getElementById('IDR_authError').style.display = 'block';
+        ADMIN_KEY = '';
+        return null;
+      }
+      return r.json();
+    })
+    .then(function(data) {
+      if (!data) return;
+      IDR_render(data);
+    })
+    .catch(function(err) {
+      document.getElementById('IDR_loading').style.display = 'none';
+      IDR_toast('Failed to load: ' + err.message, true);
+    });
+}
+
+// ── Render ────────────────────────────────────────────────────────────────────
+
+function IDR_render(data) {
+  var stats = data.stats || {};
+  document.getElementById('st_total').textContent     = stats.total_members       || 0;
+  document.getElementById('st_active').textContent    = stats.active              || 0;
+  document.getElementById('st_monitoring').textContent= stats.monitoring          || 0;
+  document.getElementById('st_expired').textContent   = stats.expired             || 0;
+  document.getElementById('st_scanners').textContent  = stats.total_free_scanners || 0;
+  document.getElementById('st_queued').textContent    = stats.emails_queued       || 0;
+
+  document.getElementById('IDR_ts').textContent = 'Updated ' + IDR_fmtTime(new Date());
+
+  IDR_allMembers = data.members || [];
+  IDR_renderMembers(IDR_allMembers);
+  IDR_renderScanners(data.free_scanners || []);
+  IDR_renderQueue(data.next_emails || []);
+
+  document.getElementById('IDR_loading').style.display = 'none';
+  document.getElementById('IDR_dashboard').style.display = 'block';
+}
+
+// ── Members table ─────────────────────────────────────────────────────────────
+
+function IDR_renderMembers(members) {
+  var tbody = document.getElementById('IDR_memberBody');
+  document.getElementById('IDR_memberCount').textContent = members.length + ' stores';
+
+  if (!members.length) {
+    tbody.innerHTML = '<tr><td colspan="9" class="empty">No members yet</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = members.map(function(m) {
+    var scoreClass = m.latest_score >= 80 ? 'score-green'
+                   : m.latest_score >= 50 ? 'score-amber' : 'score-red';
+    var pillClass  = m.status === 'active'     ? 'pill-active'
+                   : m.status === 'monitoring' ? 'pill-monitoring' : 'pill-expired';
+    var scanned = m.last_scanned ? IDR_fmtDate(m.last_scanned) : '—';
+    var badge   = m.badge_active ? '<span style="color:var(--green);font-size:10px;">✓</span>'
+                                 : '<span style="color:var(--muted);font-size:10px;">—</span>';
+    return '<tr>' +
+      '<td class="domain">' + IDR_esc(m.domain) + '</td>' +
+      '<td class="email">'  + IDR_esc(m.email || '—') + '</td>' +
+      '<td class="' + scoreClass + '">' + (m.latest_score !== null ? m.latest_score : '—') + '</td>' +
+      '<td><span class="pill ' + pillClass + '">' + m.status + '</span></td>' +
+      '<td style="color:' + (m.critical_count > 0 ? 'var(--red)' : 'var(--muted)') + '">' + (m.critical_count || 0) + '</td>' +
+      '<td style="color:var(--muted)">' + (m.scan_count || 0) + '</td>' +
+      '<td style="color:var(--muted)">' + scanned + '</td>' +
+      '<td>' + badge + '</td>' +
+      '<td>' +
+        '<a class="tbl-link" href="https://idrshield.com/fix/' + IDR_esc(m.domain) + '" target="_blank">Fix</a>' +
+        '<a class="tbl-link" href="https://idrshield.com/verify/' + IDR_esc(m.domain) + '" target="_blank">Verify</a>' +
+        '<button class="btn-rescan" onclick="IDR_rescan(this, \'' + IDR_esc(m.domain) + '\')">Rescan</button>' +
+      '</td>' +
+    '</tr>';
+  }).join('');
+}
+
+function IDR_filterMembers() {
+  var q = document.getElementById('IDR_memberSearch').value.toLowerCase();
+  if (!q) { IDR_renderMembers(IDR_allMembers); return; }
+  var filtered = IDR_allMembers.filter(function(m) {
+    return (m.domain || '').toLowerCase().indexOf(q) > -1 ||
+           (m.email  || '').toLowerCase().indexOf(q) > -1;
+  });
+  IDR_renderMembers(filtered);
+}
+
+function IDR_sortMembers(col) {
+  if (IDR_memberSortCol === col) {
+    IDR_memberSortAsc = !IDR_memberSortAsc;
+  } else {
+    IDR_memberSortCol = col;
+    IDR_memberSortAsc = col === 'domain' || col === 'email';
+  }
+
+  // Update header classes
+  var ths = document.querySelectorAll('#IDR_memberTable thead th');
+  var cols = ['domain','email','latest_score','status','critical_count','scan_count','last_scanned','badge_active','actions'];
+  ths.forEach(function(th, i) {
+    th.className = '';
+    if (cols[i] === IDR_memberSortCol) {
+      th.className = IDR_memberSortAsc ? 'sort-asc' : 'sort-desc';
+    }
+  });
+
+  var sorted = IDR_allMembers.slice().sort(function(a, b) {
+    var av = a[col] || '', bv = b[col] || '';
+    if (typeof av === 'number' || typeof bv === 'number') {
+      av = av || 0; bv = bv || 0;
+    } else {
+      av = String(av).toLowerCase(); bv = String(bv).toLowerCase();
+    }
+    if (av < bv) return IDR_memberSortAsc ? -1 : 1;
+    if (av > bv) return IDR_memberSortAsc ?  1 : -1;
+    return 0;
+  });
+  IDR_renderMembers(sorted);
+}
+
+// ── Free scanners ─────────────────────────────────────────────────────────────
+
+function IDR_renderScanners(scanners) {
+  var tbody = document.getElementById('IDR_scannerBody');
+  document.getElementById('IDR_scannerCount').textContent = scanners.length + ' prospects';
+
+  if (!scanners.length) {
+    tbody.innerHTML = '<tr><td colspan="5" class="empty">No free scanners yet</td></tr>';
+    return;
+  }
+
+  // Step number → label A2–A6
+  var stepLabel = { 2: 'A2', 3: 'A3', 4: 'A4', 5: 'A5', 6: 'A6' };
+
+  tbody.innerHTML = scanners.map(function(f) {
+    var label   = stepLabel[f.sequence_step] || ('A' + f.sequence_step);
+    var nextAt  = f.next_email_at  ? IDR_fmtDateTime(f.next_email_at)  : '—';
+    var days    = f.scanned_at     ? IDR_daysSince(f.scanned_at) + 'd ago' : '—';
+    return '<tr>' +
+      '<td class="email">' + IDR_esc(f.email) + '</td>' +
+      '<td class="domain" style="font-size:12px;">' + IDR_esc(f.domain) + '</td>' +
+      '<td><span class="step-badge">' + label + '</span></td>' +
+      '<td style="color:var(--muted);font-size:10px;">' + nextAt + '</td>' +
+      '<td style="color:var(--muted);font-size:10px;">' + days + '</td>' +
+    '</tr>';
+  }).join('');
+}
+
+// ── Email queue ───────────────────────────────────────────────────────────────
+
+function IDR_renderQueue(emails) {
+  var tbody = document.getElementById('IDR_queueBody');
+  document.getElementById('IDR_queueCount').textContent = emails.length + ' next';
+
+  if (!emails.length) {
+    tbody.innerHTML = '<tr><td colspan="4" class="empty">Queue empty</td></tr>';
+    return;
+  }
+
+  var seqColors = {
+    'free_scanner': 'var(--amber)',
+    'founder':      'var(--green)',
+    'rescan_nudge': 'var(--gold)',
+    'win_back':     'var(--red)',
+  };
+
+  tbody.innerHTML = emails.map(function(e) {
+    var col = seqColors[e.sequence] || 'var(--muted)';
+    var seqLabel = e.sequence.replace('_', ' ').toUpperCase();
+    return '<tr>' +
+      '<td class="domain" style="font-size:12px;">' + IDR_esc(e.domain) + '</td>' +
+      '<td><span style="font-family:Montserrat,sans-serif;font-size:8px;font-weight:700;letter-spacing:0.1em;color:' + col + ';">' + seqLabel + '</span></td>' +
+      '<td style="color:var(--muted);font-size:10px;">' + e.step + '</td>' +
+      '<td style="color:var(--muted);font-size:10px;">' + (e.send_after ? IDR_fmtDateTime(e.send_after) : '—') + '</td>' +
+    '</tr>';
+  }).join('');
+}
+
+// ── Rescan action ─────────────────────────────────────────────────────────────
+
+function IDR_rescan(btn, domain) {
+  btn.disabled = true;
+  btn.className = 'btn-rescan spinning';
+  btn.textContent = '…';
+
+  fetch(BACKEND + '/api/confirm-scan/' + encodeURIComponent(domain), {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ triggered_by: 'admin' })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(d) {
+    btn.className = 'btn-rescan done';
+    btn.textContent = '✓';
+    IDR_toast(domain + ' rescanned — score: ' + (d.new_score || d.score || '?'));
+    setTimeout(function() {
+      btn.disabled = false;
+      btn.className = 'btn-rescan';
+      btn.textContent = 'Rescan';
+    }, 4000);
+  })
+  .catch(function(err) {
+    btn.disabled = false;
+    btn.className = 'btn-rescan';
+    btn.textContent = 'Rescan';
+    IDR_toast('Rescan failed: ' + err.message, true);
+  });
+}
+
+// ── Utilities ─────────────────────────────────────────────────────────────────
+
+function IDR_esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function IDR_fmtDate(iso) {
+  if (!iso) return '—';
+  var d = new Date(iso);
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+function IDR_fmtDateTime(iso) {
+  if (!iso) return '—';
+  var d = new Date(iso);
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + ' ' +
+         d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+}
+
+function IDR_fmtTime(d) {
+  return d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+}
+
+function IDR_daysSince(iso) {
+  var diff = Date.now() - new Date(iso).getTime();
+  return Math.floor(diff / 86400000);
+}
+
+function IDR_toast(msg, isErr) {
+  var el = document.getElementById('IDR_toast');
+  el.textContent = msg;
+  el.style.borderColor  = isErr ? 'var(--red)' : 'var(--gold)';
+  el.style.color        = isErr ? 'var(--red)'  : 'var(--cream)';
+  el.style.display = 'block';
+  setTimeout(function() { el.style.display = 'none'; }, 4000);
+}
+</script>
+</body>
+</html>
