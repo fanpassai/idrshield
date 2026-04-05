@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IDR Shield — Member Login</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600;700&family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:      #0A0E1A;
+    --navy2:     #10162A;
+    --gold:      #C9A84C;
+    --gold-lite: #E2C97E;
+    --cream:     #FAF7F2;
+    --muted:     rgba(250,247,242,0.4);
+    --border:    rgba(201,168,76,0.2);
+    --red:       #C0392B;
+    --green:     #27AE60;
+  }
+
+  html, body {
+    background: var(--navy);
+    color: var(--cream);
+    font-family: 'EB Garamond', Georgia, serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .wrap {
+    width: 100%;
+    max-width: 420px;
+  }
+
+  /* Header */
+  .brand {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .monogram {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    color: var(--gold);
+    letter-spacing: 0.06em;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .brand-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* Card */
+  .card {
+    background: var(--navy2);
+    border: 1px solid var(--border);
+    padding: 40px 36px;
+  }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 8px;
+  }
+  .card-sub {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 32px;
+  }
+
+  label {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  input[type="email"] {
+    width: 100%;
+    background: var(--navy);
+    border: 1px solid var(--border);
+    color: var(--cream);
+    font-family: 'EB Garamond', serif;
+    font-size: 15px;
+    padding: 13px 16px;
+    outline: none;
+    transition: border-color 0.15s;
+    margin-bottom: 20px;
+  }
+  input[type="email"]:focus { border-color: var(--gold); }
+  input[type="email"]::placeholder { color: var(--muted); font-size: 13px; }
+
+  .btn-primary {
+    width: 100%;
+    background: var(--gold);
+    color: var(--navy);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 15px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.15s, opacity 0.15s;
+  }
+  .btn-primary:hover    { background: var(--gold-lite); }
+  .btn-primary:disabled { opacity: 0.5; cursor: default; }
+
+  /* States */
+  .state { display: none; }
+  .state.active { display: block; }
+
+  /* Success state */
+  .success-icon {
+    width: 52px; height: 52px;
+    border: 2px solid var(--green);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+    color: var(--green);
+    font-size: 22px;
+  }
+  .success-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--cream);
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  .success-body {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+  .success-email {
+    color: var(--gold);
+    font-weight: 700;
+  }
+  .resend-row {
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    color: var(--muted);
+  }
+  .resend-btn {
+    background: none;
+    border: none;
+    color: var(--gold);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: underline;
+  }
+  .resend-btn:disabled { opacity: 0.4; cursor: default; }
+
+  /* Error message */
+  .error-msg {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    color: var(--red);
+    margin-top: -12px;
+    margin-bottom: 16px;
+    display: none;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 28px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: rgba(250,247,242,0.2);
+  }
+  .footer a {
+    color: rgba(201,168,76,0.4);
+    text-decoration: none;
+  }
+  .footer a:hover { color: var(--gold); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="brand">
+    <div class="monogram">IDR</div>
+    <div class="brand-name">Institute of Digital Remediation</div>
+  </div>
+
+  <div class="card">
+
+    <!-- State 1: Email entry -->
+    <div id="IDR_stateForm" class="state active">
+      <div class="card-title">Member Portal</div>
+      <div class="card-sub">Enter your registered email address and we'll send you a secure login link. No password required.</div>
+
+      <label for="IDR_emailInput">Registered Email</label>
+      <input type="email" id="IDR_emailInput"
+             placeholder="you@yourstore.com"
+             onkeydown="IDR_enterKey(event)">
+
+      <div class="error-msg" id="IDR_errorMsg"></div>
+
+      <button class="btn-primary" id="IDR_submitBtn" onclick="IDR_requestLink()">
+        Send Login Link
+      </button>
+    </div>
+
+    <!-- State 2: Check email -->
+    <div id="IDR_stateSuccess" class="state">
+      <div class="success-icon">✓</div>
+      <div class="success-title">Check your inbox</div>
+      <div class="success-body">
+        A login link has been sent to<br>
+        <span class="success-email" id="IDR_confirmedEmail"></span><br><br>
+        The link expires in <strong style="color:var(--cream);">15 minutes</strong>
+        and can only be used once.
+        Check your spam folder if you don't see it.
+      </div>
+      <div class="resend-row">
+        Didn't receive it?
+        <button class="resend-btn" id="IDR_resendBtn" onclick="IDR_resend()">Resend</button>
+        <span id="IDR_resendTimer"></span>
+      </div>
+    </div>
+
+    <!-- State 3: Invalid / expired token -->
+    <div id="IDR_stateInvalid" class="state">
+      <div class="success-icon" style="border-color:var(--red);color:var(--red);">✕</div>
+      <div class="success-title" style="color:var(--red);">Link expired</div>
+      <div class="success-body">
+        This login link has expired or already been used.<br>
+        Request a new one below.
+      </div>
+      <button class="btn-primary" onclick="IDR_showForm()">Request New Link</button>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <a href="https://idrshield.com">idrshield.com</a>
+    &nbsp;·&nbsp;
+    <a href="mailto:hello@idrshield.com">hello@idrshield.com</a>
+  </div>
+
+</div>
+
+<script>
+'use strict';
+
+var BACKEND      = 'https://idr-backend-production.up.railway.app';
+var IDR_email    = '';
+var IDR_resendCd = 0;
+
+// On load: check if there's a token in the URL (coming from magic link click)
+window.addEventListener('DOMContentLoaded', function() {
+  var params = new URLSearchParams(window.location.search);
+  var token  = params.get('token');
+  if (token) {
+    IDR_verifyToken(token);
+  }
+});
+
+function IDR_enterKey(e) {
+  if (e.key === 'Enter') IDR_requestLink();
+}
+
+function IDR_requestLink() {
+  var email = document.getElementById('IDR_emailInput').value.trim().toLowerCase();
+  if (!email || !email.includes('@')) {
+    IDR_showError('Please enter a valid email address.');
+    return;
+  }
+  IDR_email = email;
+  IDR_hideError();
+
+  var btn = document.getElementById('IDR_submitBtn');
+  btn.disabled    = true;
+  btn.textContent = 'Sending…';
+
+  fetch(BACKEND + '/api/auth/request', {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body:    JSON.stringify({ email: email })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(d) {
+    btn.disabled    = false;
+    btn.textContent = 'Send Login Link';
+    if (d.success) {
+      document.getElementById('IDR_confirmedEmail').textContent = email;
+      IDR_showState('IDR_stateSuccess');
+      IDR_startResendCooldown();
+    } else {
+      IDR_showError(d.error || 'Something went wrong. Please try again.');
+    }
+  })
+  .catch(function() {
+    btn.disabled    = false;
+    btn.textContent = 'Send Login Link';
+    IDR_showError('Network error — please try again.');
+  });
+}
+
+function IDR_verifyToken(token) {
+  // Show brief loading state
+  document.getElementById('IDR_stateForm').classList.remove('active');
+
+  fetch(BACKEND + '/api/auth/verify', {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body:    JSON.stringify({ token: token })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(d) {
+    if (d.success && d.session_token) {
+      // Store session and redirect to portal
+      localStorage.setItem('idr_session', d.session_token);
+      localStorage.setItem('idr_email',   d.email);
+      localStorage.setItem('idr_expires', d.expires_at);
+      // Clean token from URL then redirect
+      window.location.replace('https://idrshield.com/idrshield_portal.html');
+    } else {
+      IDR_showState('IDR_stateInvalid');
+    }
+  })
+  .catch(function() {
+    IDR_showState('IDR_stateInvalid');
+  });
+}
+
+function IDR_resend() {
+  if (IDR_resendCd > 0) return;
+  IDR_showState('IDR_stateForm');
+  document.getElementById('IDR_emailInput').value = IDR_email;
+  IDR_requestLink();
+}
+
+function IDR_startResendCooldown() {
+  IDR_resendCd = 60;
+  var btn   = document.getElementById('IDR_resendBtn');
+  var timer = document.getElementById('IDR_resendTimer');
+  btn.disabled = true;
+  var iv = setInterval(function() {
+    IDR_resendCd--;
+    timer.textContent = ' (' + IDR_resendCd + 's)';
+    if (IDR_resendCd <= 0) {
+      clearInterval(iv);
+      btn.disabled      = false;
+      timer.textContent = '';
+    }
+  }, 1000);
+}
+
+function IDR_showForm() {
+  IDR_showState('IDR_stateForm');
+}
+
+function IDR_showState(id) {
+  ['IDR_stateForm','IDR_stateSuccess','IDR_stateInvalid'].forEach(function(s) {
+    document.getElementById(s).classList.remove('active');
+  });
+  document.getElementById(id).classList.add('active');
+}
+
+function IDR_showError(msg) {
+  var el = document.getElementById('IDR_errorMsg');
+  el.textContent  = msg;
+  el.style.display = 'block';
+}
+
+function IDR_hideError() {
+  document.getElementById('IDR_errorMsg').style.display = 'none';
+}
+</script>
+</body>
+</html>
