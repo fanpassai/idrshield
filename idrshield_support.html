@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reid — IDR Support Specialist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Montserrat:wght@400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:       #0A0E1A;
+    --navy2:      #10162A;
+    --gold:       #C9A84C;
+    --gold-deep:  #8A6F2E;
+    --gold-lite:  #E2C97E;
+    --cream:      #FAF7F2;
+    --white:      #FFFFFF;
+    --ink:        #1A1A2E;
+    --ink-soft:   #3D3D5C;
+    --ink-muted:  #8888A8;
+    --border:     #E8E4DC;
+    --border-gold: rgba(201,168,76,0.25);
+    --red:        #C0392B;
+    --green:      #27AE60;
+    --shadow:     0 2px 24px rgba(10,14,26,0.08);
+    --shadow-lg:  0 8px 48px rgba(10,14,26,0.12);
+  }
+
+  html, body {
+    background: var(--white);
+    color: var(--ink);
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 16px;
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 0 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 1px 0 var(--border);
+  }
+  .header-brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-decoration: none;
+  }
+  .header-monogram {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--navy);
+    letter-spacing: 0.05em;
+  }
+  .header-divider {
+    width: 1px;
+    height: 20px;
+    background: var(--border);
+  }
+  .header-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .header-session {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    color: var(--ink-muted);
+  }
+  .btn-portal {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    text-decoration: none;
+    border: 1px solid var(--border-gold);
+    padding: 7px 16px;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .btn-portal:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ── Hero intro ── */
+  .hero {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 48px 48px 40px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 32px;
+    align-items: start;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* Reid's seal / initial */
+  .reid-seal {
+    width: 72px;
+    height: 72px;
+    background: var(--navy);
+    border: 2px solid var(--gold-deep);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .reid-initial {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: var(--gold);
+    letter-spacing: 0.03em;
+  }
+  .reid-status {
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    width: 14px;
+    height: 14px;
+    background: var(--green);
+    border: 2px solid var(--white);
+    border-radius: 50%;
+  }
+
+  .hero-text { padding-top: 4px; }
+  .hero-eyebrow {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: var(--navy);
+    margin-bottom: 8px;
+    line-height: 1.1;
+  }
+  .hero-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 14px;
+  }
+  .hero-bio {
+    font-family: 'EB Garamond', serif;
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.75;
+    max-width: 560px;
+    margin-bottom: 16px;
+  }
+  .hero-disclaimer {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 8px;
+    background: #FEF9EE;
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 10px 14px;
+    max-width: 560px;
+  }
+  .disclaimer-icon {
+    font-size: 12px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .disclaimer-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    line-height: 1.6;
+    color: var(--gold-deep);
+    font-weight: 500;
+  }
+
+  /* ── Guest intro form ── */
+  .guest-intro {
+    background: #FAFAF7;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    padding: 20px 24px;
+    margin-bottom: 28px;
+  }
+  .guest-intro-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 12px;
+  }
+  .guest-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 10px;
+    align-items: end;
+  }
+  .guest-field label {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 6px;
+  }
+  .guest-field input {
+    width: 100%;
+    background: var(--white);
+    border: 1px solid var(--border);
+    color: var(--ink);
+    font-family: 'EB Garamond', serif;
+    font-size: 14px;
+    padding: 9px 12px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .guest-field input:focus { border-color: var(--gold); }
+  .guest-field input::placeholder { color: var(--ink-muted); font-size: 13px; }
+  .btn-identify {
+    background: var(--navy);
+    color: var(--gold);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s;
+    height: 38px;
+  }
+  .btn-identify:hover { background: var(--navy2); }
+
+  /* ── Conversation area ── */
+  .convo-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 48px 120px;
+  }
+
+  /* Context bar — shows member's account summary */
+  .context-bar {
+    background: var(--navy);
+    color: var(--cream);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+  .ctx-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+  .ctx-item {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    color: rgba(250,247,242,0.65);
+  }
+  .ctx-item strong { color: var(--cream); font-weight: 600; }
+  .ctx-divider {
+    width: 1px;
+    height: 14px;
+    background: rgba(201,168,76,0.25);
+    flex-shrink: 0;
+  }
+
+  /* Messages */
+  .messages {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    margin-bottom: 28px;
+  }
+
+  .msg {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 16px;
+    align-items: start;
+    animation: msgIn 0.3s ease;
+  }
+  @keyframes msgIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .msg-avatar {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+  .msg-avatar.reid-av {
+    background: var(--navy);
+    border: 1px solid var(--gold-deep);
+  }
+  .msg-avatar.reid-av span {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: var(--gold);
+  }
+  .msg-avatar.user-av {
+    background: #F0EDE6;
+    border: 1px solid var(--border);
+  }
+  .msg-avatar.user-av span {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: var(--ink-soft);
+  }
+
+  .msg-body { }
+  .msg-sender {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .msg-sender.reid-sender { color: var(--navy); }
+  .msg-sender.user-sender { color: var(--ink-muted); }
+  .msg-time {
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: var(--ink-muted);
+    font-size: 8px;
+    text-transform: none;
+  }
+
+  .msg-content {
+    font-family: 'EB Garamond', serif;
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--ink);
+  }
+  .msg-content.user-content {
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+  .msg-content p { margin-bottom: 12px; }
+  .msg-content p:last-child { margin-bottom: 0; }
+  .msg-content strong { font-weight: 600; color: var(--navy); }
+  .msg-content ul {
+    margin: 8px 0 12px 20px;
+    list-style: none;
+  }
+  .msg-content ul li::before {
+    content: '—';
+    color: var(--gold);
+    margin-right: 8px;
+  }
+
+  /* Typing indicator */
+  .msg-typing .msg-content {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 0;
+  }
+  .dot {
+    width: 6px; height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    animation: bounce 1.2s infinite;
+    opacity: 0.6;
+  }
+  .dot:nth-child(2) { animation-delay: 0.2s; }
+  .dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes bounce {
+    0%, 80%, 100% { transform: translateY(0); opacity: 0.6; }
+    40%           { transform: translateY(-6px); opacity: 1; }
+  }
+
+  /* Escalation card */
+  .escalation-card {
+    background: #FEF9EE;
+    border: 1px solid rgba(201,168,76,0.4);
+    border-left: 3px solid var(--gold);
+    padding: 20px 24px;
+    margin-top: 12px;
+  }
+  .esc-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 12px;
+  }
+  .esc-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .esc-field label {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 5px;
+  }
+  .esc-field input,
+  .esc-field textarea {
+    width: 100%;
+    background: var(--white);
+    border: 1px solid var(--border);
+    color: var(--ink);
+    font-family: 'EB Garamond', serif;
+    font-size: 14px;
+    padding: 8px 12px;
+    outline: none;
+    resize: none;
+    transition: border-color 0.15s;
+  }
+  .esc-field input:focus,
+  .esc-field textarea:focus { border-color: var(--gold); }
+  .esc-full { grid-column: 1 / -1; }
+  .btn-escalate {
+    background: var(--navy);
+    color: var(--gold);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 11px 24px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .btn-escalate:hover    { background: var(--navy2); }
+  .btn-escalate:disabled { opacity: 0.5; cursor: default; }
+
+  /* ── Input area — fixed bottom ── */
+  .input-area {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--white);
+    border-top: 1px solid var(--border);
+    padding: 16px 48px 20px;
+    box-shadow: 0 -4px 24px rgba(10,14,26,0.06);
+  }
+  .input-inner {
+    max-width: 804px;  /* 900 - 48*2 + 48*2 padding adjusts */
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: end;
+  }
+  .input-wrap {
+    position: relative;
+  }
+  textarea#IDR_input {
+    width: 100%;
+    background: #FAFAF7;
+    border: 1px solid var(--border);
+    color: var(--ink);
+    font-family: 'EB Garamond', serif;
+    font-size: 15px;
+    padding: 13px 16px;
+    resize: none;
+    outline: none;
+    line-height: 1.6;
+    min-height: 52px;
+    max-height: 160px;
+    transition: border-color 0.15s;
+    overflow-y: auto;
+  }
+  textarea#IDR_input:focus { border-color: var(--gold); background: var(--white); }
+  textarea#IDR_input::placeholder { color: var(--ink-muted); }
+  .input-hint {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8px;
+    color: var(--ink-muted);
+    margin-top: 5px;
+    letter-spacing: 0.06em;
+  }
+  .btn-send {
+    background: var(--navy);
+    color: var(--gold);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 0 28px;
+    height: 52px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.15s;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .btn-send:hover    { background: var(--navy2); }
+  .btn-send:disabled { opacity: 0.45; cursor: default; }
+
+  /* ── Suggested questions ── */
+  .suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+  .suggestion-btn {
+    background: var(--white);
+    border: 1px solid var(--border);
+    color: var(--ink-soft);
+    font-family: 'EB Garamond', serif;
+    font-size: 13px;
+    font-style: italic;
+    padding: 7px 14px;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s, background 0.15s;
+    text-align: left;
+  }
+  .suggestion-btn:hover {
+    border-color: var(--gold);
+    color: var(--navy);
+    background: #FEFCF5;
+  }
+
+  /* ── Divider ── */
+  .thread-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 8px 0 28px;
+  }
+  .thread-divider::before,
+  .thread-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .thread-divider span {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    white-space: nowrap;
+  }
+
+  /* Confirmation toast */
+  #IDR_toast {
+    position: fixed;
+    bottom: 100px;
+    right: 32px;
+    background: var(--navy);
+    color: var(--cream);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    padding: 14px 22px;
+    border-left: 3px solid var(--gold);
+    box-shadow: var(--shadow-lg);
+    display: none;
+    z-index: 999;
+    animation: slideIn 0.3s ease;
+  }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  @media (max-width: 768px) {
+    .header, .input-area { padding: 0 16px; }
+    .hero, .convo-wrap   { padding-left: 16px; padding-right: 16px; }
+    .hero { grid-template-columns: 1fr; gap: 16px; }
+    .reid-seal { display: none; }
+    .guest-fields { grid-template-columns: 1fr; }
+    .esc-fields   { grid-template-columns: 1fr; }
+    .input-inner  { grid-template-columns: 1fr; }
+    .btn-send     { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <a href="https://idrshield.com" class="header-brand">
+    <span class="header-monogram">IDR</span>
+    <span class="header-divider"></span>
+    <span class="header-name">Support</span>
+  </a>
+  <div class="header-right">
+    <span class="header-session" id="IDR_headerSession"></span>
+    <a href="https://idrshield.com/portal" class="btn-portal">Member Portal →</a>
+  </div>
+</div>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="reid-seal">
+    <span class="reid-initial">R</span>
+    <div class="reid-status"></div>
+  </div>
+  <div class="hero-text">
+    <div class="hero-eyebrow">Institute of Digital Remediation</div>
+    <div class="hero-name">Reid</div>
+    <div class="hero-title">Compliance Support Specialist</div>
+    <div class="hero-bio">
+      I'm here to help with anything related to your IDR Shield membership — your compliance score,
+      open violations, badge installation, fix confirmations, rescans, and account questions.
+      Ask me anything and I'll give you a straight answer based on your actual account data.
+    </div>
+    <div class="hero-disclaimer">
+      <span class="disclaimer-icon">⚖</span>
+      <span class="disclaimer-text">
+        I do not handle legal matters. If you've received a demand letter, been contacted by an attorney,
+        or have any active legal concern — I will connect you with our legal team immediately.
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- Conversation area -->
+<div class="convo-wrap">
+
+  <!-- Guest intro (shown when not authenticated) -->
+  <div id="IDR_guestIntro" style="display:none;padding-top:32px;">
+    <div class="guest-intro">
+      <div class="guest-intro-title">Introduce yourself so Reid can pull your account</div>
+      <div class="guest-fields">
+        <div class="guest-field">
+          <label>Your Email</label>
+          <input type="email" id="IDR_guestEmail" placeholder="you@yourstore.com">
+        </div>
+        <div class="guest-field">
+          <label>Your Store Domain</label>
+          <input type="text" id="IDR_guestDomain" placeholder="yourstore.com">
+        </div>
+        <button class="btn-identify" onclick="IDR_identifyGuest()">Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Context bar (shown when account loaded) -->
+  <div id="IDR_contextBar" class="context-bar" style="display:none;margin-top:32px;">
+    <span class="ctx-label">Account</span>
+    <span class="ctx-item" id="IDR_ctxDomain"></span>
+    <span class="ctx-divider"></span>
+    <span class="ctx-item" id="IDR_ctxScore"></span>
+    <span class="ctx-divider"></span>
+    <span class="ctx-item" id="IDR_ctxStatus"></span>
+    <span class="ctx-divider"></span>
+    <span class="ctx-item" id="IDR_ctxCritical"></span>
+    <span class="ctx-divider"></span>
+    <span class="ctx-item" id="IDR_ctxScanned"></span>
+  </div>
+
+  <!-- Suggested questions -->
+  <div id="IDR_suggestions" class="suggestions" style="display:none;padding-top:8px;"></div>
+
+  <!-- Thread divider -->
+  <div id="IDR_threadStart" class="thread-divider" style="display:none;">
+    <span>Conversation</span>
+  </div>
+
+  <!-- Messages -->
+  <div class="messages" id="IDR_messages"></div>
+
+</div><!-- /convo-wrap -->
+
+<!-- Fixed input -->
+<div class="input-area">
+  <div class="input-inner">
+    <div class="input-wrap">
+      <textarea id="IDR_input"
+                placeholder="Ask Reid anything about your account, badge, violations, or membership…"
+                onkeydown="IDR_keyCheck(event)"
+                oninput="IDR_autoResize(this)"
+                disabled></textarea>
+      <div class="input-hint">Press Enter to send · Shift+Enter for new line</div>
+    </div>
+    <button class="btn-send" id="IDR_sendBtn" onclick="IDR_send()" disabled>Send</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="IDR_toast"></div>
+
+<script>
+'use strict';
+
+var BACKEND        = 'https://idr-backend-production.up.railway.app';
+var ESCALATION_EMAIL = 'support@idrshield.com';
+
+// State
+var IDR_session      = '';
+var IDR_userEmail    = '';
+var IDR_accountCtx   = null;   // full account context object
+var IDR_history      = [];     // conversation history [{role, content}]
+var IDR_isTyping     = false;
+var IDR_escalationPending = false;
+
+// ── Bootstrap ─────────────────────────────────────────────────────────────────
+
+window.addEventListener('DOMContentLoaded', function() {
+  var session = localStorage.getItem('idr_session');
+  var email   = localStorage.getItem('idr_email');
+
+  if (session && email) {
+    IDR_session   = session;
+    IDR_userEmail = email;
+    document.getElementById('IDR_headerSession').textContent = email;
+    IDR_loadMemberContext();
+  } else {
+    // Not logged in — show guest intro
+    document.getElementById('IDR_guestIntro').style.display = 'block';
+  }
+});
+
+// ── Load member context ───────────────────────────────────────────────────────
+
+function IDR_loadMemberContext() {
+  fetch(BACKEND + '/api/member/dashboard', {
+    headers: {
+      'Content-Type':  'application/json',
+      'Authorization': 'Bearer ' + IDR_session
+    }
+  })
+  .then(function(r) {
+    if (r.status === 401) {
+      // Session expired — treat as guest
+      IDR_session = '';
+      document.getElementById('IDR_guestIntro').style.display = 'block';
+      return null;
+    }
+    return r.json();
+  })
+  .then(function(d) {
+    if (!d || !d.domains || !d.domains.length) return;
+    // Use first domain as primary context
+    var dom = d.domains[0];
+    IDR_accountCtx = {
+      email:          d.email,
+      domain:         dom.domain,
+      registry_id:    dom.registry_id,
+      status:         dom.status,
+      latest_score:   dom.latest_score,
+      critical_count: dom.critical_count,
+      scan_count:     dom.scan_count,
+      last_scanned:   dom.last_scanned,
+      badge_active:   dom.badge_active,
+      scan_history:   dom.scan_history || [],
+      all_domains:    d.domains.map(function(x) { return x.domain; })
+    };
+    IDR_showContext();
+    IDR_enableInput();
+    IDR_showSuggestions(true);
+    IDR_showThreadStart();
+    IDR_reidGreeting();
+  })
+  .catch(function() {
+    // Fallback to guest
+    document.getElementById('IDR_guestIntro').style.display = 'block';
+  });
+}
+
+// ── Guest identification ──────────────────────────────────────────────────────
+
+function IDR_identifyGuest() {
+  var email  = document.getElementById('IDR_guestEmail').value.trim().toLowerCase();
+  var domain = document.getElementById('IDR_guestDomain').value.trim()
+               .replace(/^https?:\/\//, '').split('/')[0].replace('www.', '');
+
+  if (!email || !email.includes('@')) {
+    IDR_toast('Please enter a valid email address.'); return;
+  }
+  if (!domain) {
+    IDR_toast('Please enter your store domain.'); return;
+  }
+
+  IDR_userEmail = email;
+
+  // Try to pull public registry data
+  fetch(BACKEND + '/api/registry/' + encodeURIComponent(domain))
+  .then(function(r) { return r.json(); })
+  .then(function(d) {
+    if (d && d.domain) {
+      IDR_accountCtx = {
+        email:          email,
+        domain:         d.domain,
+        registry_id:    d.registry_id,
+        status:         d.status,
+        latest_score:   d.latest_score,
+        critical_count: d.critical_count,
+        scan_count:     d.scan_count,
+        last_scanned:   d.last_scanned,
+        badge_active:   d.badge_active,
+        scan_history:   [],
+        all_domains:    [d.domain],
+        is_guest:       true
+      };
+    } else {
+      // No registry record — set minimal context
+      IDR_accountCtx = {
+        email:    email,
+        domain:   domain,
+        is_guest: true,
+        no_record: true
+      };
+    }
+    document.getElementById('IDR_guestIntro').style.display = 'none';
+    IDR_showContext();
+    IDR_enableInput();
+    IDR_showSuggestions(false);
+    IDR_showThreadStart();
+    IDR_reidGreeting();
+  })
+  .catch(function() {
+    IDR_accountCtx = { email: email, domain: domain, is_guest: true, no_record: true };
+    document.getElementById('IDR_guestIntro').style.display = 'none';
+    IDR_showContext();
+    IDR_enableInput();
+    IDR_showSuggestions(false);
+    IDR_showThreadStart();
+    IDR_reidGreeting();
+  });
+}
+
+// ── Show context bar ──────────────────────────────────────────────────────────
+
+function IDR_showContext() {
+  if (!IDR_accountCtx) return;
+  var ctx = IDR_accountCtx;
+  var bar = document.getElementById('IDR_contextBar');
+  bar.style.display = 'flex';
+
+  document.getElementById('IDR_ctxDomain').innerHTML =
+    '<strong>' + IDR_esc(ctx.domain || '—') + '</strong>';
+
+  if (ctx.no_record) {
+    document.getElementById('IDR_ctxScore').innerHTML    = 'No registry record';
+    document.getElementById('IDR_ctxStatus').innerHTML   = '';
+    document.getElementById('IDR_ctxCritical').innerHTML = '';
+    document.getElementById('IDR_ctxScanned').innerHTML  = '';
+    return;
+  }
+
+  document.getElementById('IDR_ctxScore').innerHTML =
+    'Score <strong>' + (ctx.latest_score !== null ? ctx.latest_score : '—') + '/100</strong>';
+  document.getElementById('IDR_ctxStatus').innerHTML =
+    'Status <strong>' + IDR_esc(ctx.status || '—') + '</strong>';
+  document.getElementById('IDR_ctxCritical').innerHTML =
+    '<strong>' + (ctx.critical_count || 0) + '</strong> critical issues';
+  document.getElementById('IDR_ctxScanned').innerHTML =
+    'Last scanned <strong>' + (ctx.last_scanned ? IDR_fmtDate(ctx.last_scanned) : '—') + '</strong>';
+}
+
+// ── Suggested questions ───────────────────────────────────────────────────────
+
+function IDR_showSuggestions(isMember) {
+  var member_qs = [
+    'Why is my score low?',
+    'How do I install my badge on Shopify?',
+    'What does Monitoring status mean?',
+    'When is my next rescan?',
+    'How do I report a fix?',
+    'Can I add a second store?',
+  ];
+  var guest_qs = [
+    'What is IDR Shield?',
+    'What does my score mean?',
+    'How do I fix my violations?',
+    'What\'s included in the membership?',
+    'How does the badge work?',
+  ];
+  var qs  = isMember ? member_qs : guest_qs;
+  var el  = document.getElementById('IDR_suggestions');
+  el.style.display = 'flex';
+  el.innerHTML = qs.map(function(q) {
+    return '<button class="suggestion-btn" onclick="IDR_useSuggestion(\'' +
+      IDR_esc(q).replace(/'/g, "\\'") + '\')">' + IDR_esc(q) + '</button>';
+  }).join('');
+}
+
+function IDR_useSuggestion(q) {
+  document.getElementById('IDR_input').value = q;
+  document.getElementById('IDR_suggestions').style.display = 'none';
+  IDR_send();
+}
+
+function IDR_showThreadStart() {
+  document.getElementById('IDR_threadStart').style.display = 'flex';
+}
+
+// ── Reid greeting ─────────────────────────────────────────────────────────────
+
+function IDR_reidGreeting() {
+  var ctx = IDR_accountCtx;
+  var greeting = '';
+
+  if (ctx.no_record) {
+    greeting = "Hello — I'm Reid, IDR Shield's compliance support specialist. " +
+      "I don't have a registry record on file for " + ctx.domain + " yet, but I'm happy to help. " +
+      "If you've recently scanned, it may not have been saved to the registry. " +
+      "What can I help you with today?";
+  } else if (ctx.is_guest) {
+    var scoreWord = ctx.latest_score >= 80 ? 'strong' : ctx.latest_score >= 50 ? 'moderate' : 'low';
+    greeting = "Hello — I'm Reid. I can see your registry record for " + ctx.domain + ". " +
+      "Your current compliance score is " + ctx.latest_score + "/100 — that's a " + scoreWord + " result " +
+      "with " + ctx.critical_count + " critical issue" + (ctx.critical_count !== 1 ? 's' : '') + " open. " +
+      "What would you like to know?";
+  } else {
+    var firstName = ctx.email.split('@')[0];
+    var issues    = ctx.critical_count > 0
+      ? "You currently have " + ctx.critical_count + " critical issue" +
+        (ctx.critical_count !== 1 ? 's' : '') + " open on " + ctx.domain + "."
+      : "Your store looks clean — no critical issues currently open on " + ctx.domain + ".";
+    greeting = "Welcome back. I'm Reid. " + issues +
+      " Your score is " + ctx.latest_score + "/100 and your status is " + ctx.status + ". " +
+      "What can I help you with today?";
+  }
+
+  IDR_addMessage('reid', greeting);
+  IDR_history.push({ role: 'assistant', content: greeting });
+}
+
+// ── Send message ──────────────────────────────────────────────────────────────
+
+function IDR_keyCheck(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    IDR_send();
+  }
+}
+
+function IDR_autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 160) + 'px';
+}
+
+function IDR_send() {
+  var input = document.getElementById('IDR_input');
+  var text  = input.value.trim();
+  if (!text || IDR_isTyping) return;
+
+  input.value = '';
+  input.style.height = 'auto';
+  document.getElementById('IDR_suggestions').style.display = 'none';
+
+  // Add user message to UI
+  IDR_addMessage('user', text);
+  IDR_history.push({ role: 'user', content: text });
+
+  // Show typing
+  IDR_setTyping(true);
+
+  // Build context string for Claude
+  var ctxStr = IDR_buildContextString();
+
+  // Check if legal escalation needed (client-side pre-check)
+  var legalKeywords = ['demand letter', 'lawsuit', 'sued', 'attorney', 'lawyer',
+                       'legal action', 'court', 'litigation', 'settlement', 'plaintiff contacted'];
+  var isLegal = legalKeywords.some(function(kw) {
+    return text.toLowerCase().includes(kw);
+  });
+
+  if (isLegal) {
+    IDR_setTyping(false);
+    IDR_handleLegalEscalation(text);
+    return;
+  }
+
+  // Call Claude via Anthropic API
+  IDR_callClaude(ctxStr);
+}
+
+// ── Call Claude ───────────────────────────────────────────────────────────────
+
+function IDR_callClaude(contextString) {
+  var systemPrompt = IDR_buildSystemPrompt(contextString);
+
+  // Build messages for API — system + full history
+  var apiMessages = IDR_history.slice(); // copy
+
+  fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model:      'claude-sonnet-4-20250514',
+      max_tokens: 1000,
+      system:     systemPrompt,
+      messages:   apiMessages
+    })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    IDR_setTyping(false);
+    var reply = (data.content || [])
+      .filter(function(b) { return b.type === 'text'; })
+      .map(function(b) { return b.text; })
+      .join('\n');
+
+    if (!reply) {
+      reply = "I'm sorry, I had trouble processing that. Could you rephrase your question?";
+    }
+
+    // Check if Claude detected legal issue in its response
+    if (reply.toLowerCase().includes('[ESCALATE_LEGAL]')) {
+      reply = reply.replace('[ESCALATE_LEGAL]', '').trim();
+      IDR_addMessage('reid', reply);
+      IDR_history.push({ role: 'assistant', content: reply });
+      IDR_showEscalationForm();
+    } else {
+      IDR_addMessage('reid', reply);
+      IDR_history.push({ role: 'assistant', content: reply });
+    }
+  })
+  .catch(function(err) {
+    IDR_setTyping(false);
+    IDR_addMessage('reid',
+      "I'm having trouble connecting right now. Please try again in a moment, " +
+      "or email us directly at support@idrshield.com.");
+  });
+}
+
+// ── System prompt ─────────────────────────────────────────────────────────────
+
+function IDR_buildSystemPrompt(contextString) {
+  return [
+    "You are Reid, the compliance support specialist for IDR Shield (Institute of Digital Remediation).",
+    "IDR Shield is an ADA/WCAG accessibility compliance SaaS for e-commerce store owners.",
+    "",
+    "YOUR ROLE:",
+    "- Help members with everything related to their IDR Shield account and compliance",
+    "- Answer questions about scores, violations, badge installation, fix portal, rescans, membership, billing",
+    "- Be warm, precise, and direct. You sound like a knowledgeable senior colleague — not a chatbot",
+    "- Use the member's actual account data (provided below) in every response",
+    "- Give specific answers, not generic ones. If their score is 41, talk about 41. If they have 66 critical issues, acknowledge that",
+    "",
+    "YOUR PERSONALITY:",
+    "- Warm but professional. You take compliance seriously but you're not cold",
+    "- Direct and honest. Don't hedge unnecessarily",
+    "- Concise. Don't pad responses. Say what needs to be said",
+    "- Use plain English. No jargon unless the member uses it first",
+    "- Never say 'Great question!' or similar filler phrases",
+    "- You represent IDR Shield — speak as part of the team, not as an outside AI",
+    "",
+    "LEGAL ESCALATION RULE — CRITICAL:",
+    "If the member mentions: demand letters, lawsuits, being sued, attorneys contacting them,",
+    "legal action, court proceedings, litigation, settlements, or plaintiff firms —",
+    "you MUST add [ESCALATE_LEGAL] at the very end of your response.",
+    "Before that, acknowledge what they've shared warmly, tell them this needs immediate",
+    "human attention from our legal team, and reassure them they're in the right place.",
+    "Do NOT attempt to give legal advice under any circumstances.",
+    "",
+    "WHAT YOU CAN HELP WITH:",
+    "- Score explanation: what affects it, why it changed, how to improve it",
+    "- Violation details: what each category means, severity, fix options",
+    "- Badge and chip installation on any platform (Shopify, Squarespace, WooCommerce, Wix, HTML)",
+    "- Fix portal: how to submit fixes, what confirmation scans do, what statuses mean",
+    "- Rescan timing: weekly automated rescans, how to trigger a manual one via fix portal",
+    "- Membership: what founding member includes, what $29/month covers, registry benefits",
+    "- Account questions: registry ID, verify page, email changes, second stores",
+    "- Email sequences: what emails to expect and when",
+    "",
+    "WHAT YOU CANNOT DO:",
+    "- Give legal advice or opinions on legal matters",
+    "- Process refunds or cancel memberships (tell them to email support@idrshield.com)",
+    "- Make promises about legal outcomes or lawsuit protection",
+    "- Access or change their account settings directly",
+    "",
+    "MEMBER ACCOUNT CONTEXT:",
+    contextString,
+    "",
+    "Respond naturally in conversation. Do not use bullet points unless listing specific items.",
+    "Keep responses focused — typically 2-4 paragraphs unless detail is genuinely needed."
+  ].join('\n');
+}
+
+function IDR_buildContextString() {
+  if (!IDR_accountCtx) return "No account context available.";
+  var ctx = IDR_accountCtx;
+  var lines = [
+    "Email: " + (ctx.email || 'unknown'),
+    "Domain: " + (ctx.domain || 'unknown'),
+    "Registry ID: " + (ctx.registry_id || 'not registered'),
+    "Status: " + (ctx.status || 'unknown'),
+    "Current Score: " + (ctx.latest_score !== null && ctx.latest_score !== undefined ? ctx.latest_score + '/100' : 'no data'),
+    "Critical Issues: " + (ctx.critical_count || 0),
+    "Total Scans: " + (ctx.scan_count || 0),
+    "Last Scanned: " + (ctx.last_scanned ? IDR_fmtDate(ctx.last_scanned) : 'never'),
+    "Badge Active: " + (ctx.badge_active ? 'yes' : 'no'),
+    "Member Type: " + (ctx.is_guest ? 'non-member / free scanner' : 'paid member'),
+  ];
+  if (ctx.all_domains && ctx.all_domains.length > 1) {
+    lines.push("All Domains: " + ctx.all_domains.join(', '));
+  }
+  if (ctx.scan_history && ctx.scan_history.length) {
+    var hist = ctx.scan_history.slice(0,5).map(function(s) {
+      return IDR_fmtDate(s.scanned_at) + ': ' + s.score + '/100 (' + (s.critical_count || 0) + ' critical)';
+    });
+    lines.push("Score History (recent): " + hist.join(' | '));
+  }
+  if (ctx.no_record) {
+    lines = ["Email: " + ctx.email, "Domain: " + ctx.domain, "Registry record: not found"];
+  }
+  return lines.join('\n');
+}
+
+// ── Legal escalation ──────────────────────────────────────────────────────────
+
+function IDR_handleLegalEscalation(userMessage) {
+  var reply = "I want to make sure this gets the right attention immediately. " +
+    "Anything involving legal correspondence, demand letters, or attorney contact goes directly " +
+    "to our team — this isn't something I handle, and you deserve a real person on this. " +
+    "Please fill in your details below and we'll be in touch as soon as possible.";
+  IDR_addMessage('reid', reply);
+  IDR_history.push({ role: 'assistant', content: reply });
+  IDR_showEscalationForm(userMessage);
+}
+
+function IDR_showEscalationForm(prefillDesc) {
+  IDR_escalationPending = true;
+  var ctx    = IDR_accountCtx || {};
+  var formHtml =
+    '<div class="escalation-card" id="IDR_escForm">' +
+      '<div class="esc-title">Connect with Our Legal Team</div>' +
+      '<div class="esc-fields">' +
+        '<div class="esc-field">' +
+          '<label>Full Name</label>' +
+          '<input type="text" id="esc_name" placeholder="Your name">' +
+        '</div>' +
+        '<div class="esc-field">' +
+          '<label>Email Address</label>' +
+          '<input type="email" id="esc_email" value="' + IDR_esc(ctx.email || '') + '" placeholder="your@email.com">' +
+        '</div>' +
+        '<div class="esc-field">' +
+          '<label>Store Domain</label>' +
+          '<input type="text" id="esc_domain" value="' + IDR_esc(ctx.domain || '') + '" placeholder="yourstore.com">' +
+        '</div>' +
+        '<div class="esc-field">' +
+          '<label>Phone (optional)</label>' +
+          '<input type="tel" id="esc_phone" placeholder="+1 (555) 000-0000">' +
+        '</div>' +
+        '<div class="esc-field esc-full">' +
+          '<label>Brief description of the situation</label>' +
+          '<textarea id="esc_desc" rows="3" placeholder="Describe what you received or what happened…">' +
+            IDR_esc(prefillDesc || '') +
+          '</textarea>' +
+        '</div>' +
+      '</div>' +
+      '<button class="btn-escalate" onclick="IDR_submitEscalation()">Send to Legal Team</button>' +
+    '</div>';
+
+  // Append to last reid message
+  var msgs   = document.getElementById('IDR_messages');
+  var lastMsg = msgs.lastElementChild;
+  if (lastMsg) {
+    lastMsg.querySelector('.msg-body').insertAdjacentHTML('beforeend', formHtml);
+  }
+  IDR_scrollBottom();
+}
+
+function IDR_submitEscalation() {
+  var name   = document.getElementById('esc_name').value.trim();
+  var email  = document.getElementById('esc_email').value.trim();
+  var domain = document.getElementById('esc_domain').value.trim();
+  var phone  = document.getElementById('esc_phone').value.trim();
+  var desc   = document.getElementById('esc_desc').value.trim();
+
+  if (!name)  { IDR_toast('Please enter your name.');  return; }
+  if (!email) { IDR_toast('Please enter your email.'); return; }
+  if (!desc)  { IDR_toast('Please describe the situation.'); return; }
+
+  var btn = document.querySelector('.btn-escalate');
+  btn.disabled    = true;
+  btn.textContent = 'Sending…';
+
+  // Send to backend which emails support@idrshield.com
+  fetch(BACKEND + '/api/support/escalate', {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      name:    name,
+      email:   email,
+      domain:  domain,
+      phone:   phone,
+      description: desc,
+      conversation_summary: IDR_history.slice(-6).map(function(m) {
+        return m.role.toUpperCase() + ': ' + m.content;
+      }).join('\n\n')
+    })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(d) {
+    document.getElementById('IDR_escForm').remove();
+    var confirm = "Thank you, " + name + ". Your information has been sent to our team. " +
+      "Someone will be in touch at " + email + " — typically within one business day. " +
+      "In the meantime, do not respond to any legal correspondence without speaking to an attorney. " +
+      "Is there anything else I can help you with in the meantime?";
+    IDR_addMessage('reid', confirm);
+    IDR_history.push({ role: 'assistant', content: confirm });
+    IDR_escalationPending = false;
+  })
+  .catch(function() {
+    btn.disabled    = false;
+    btn.textContent = 'Send to Legal Team';
+    IDR_toast('Could not send — please email support@idrshield.com directly.');
+  });
+}
+
+// ── UI helpers ────────────────────────────────────────────────────────────────
+
+function IDR_addMessage(role, text) {
+  var msgs   = document.getElementById('IDR_messages');
+  var isReid = role === 'reid';
+
+  var avatarClass   = isReid ? 'reid-av'     : 'user-av';
+  var avatarInitial = isReid ? 'R'            : IDR_getUserInitial();
+  var senderClass   = isReid ? 'reid-sender'  : 'user-sender';
+  var senderName    = isReid ? 'Reid'         : 'You';
+  var contentClass  = isReid ? 'msg-content'  : 'msg-content user-content';
+
+  var div = document.createElement('div');
+  div.className = 'msg';
+  div.innerHTML =
+    '<div class="msg-avatar ' + avatarClass + '"><span>' + avatarInitial + '</span></div>' +
+    '<div class="msg-body">' +
+      '<div class="msg-sender ' + senderClass + '">' +
+        senderName +
+        '<span class="msg-time">' + IDR_fmtTime(new Date()) + '</span>' +
+      '</div>' +
+      '<div class="' + contentClass + '">' + IDR_formatText(text) + '</div>' +
+    '</div>';
+  msgs.appendChild(div);
+  IDR_scrollBottom();
+}
+
+function IDR_setTyping(on) {
+  IDR_isTyping = on;
+  var sendBtn = document.getElementById('IDR_sendBtn');
+  sendBtn.disabled = on;
+
+  var existing = document.getElementById('IDR_typingMsg');
+  if (on && !existing) {
+    var msgs = document.getElementById('IDR_messages');
+    var div  = document.createElement('div');
+    div.className = 'msg msg-typing';
+    div.id        = 'IDR_typingMsg';
+    div.innerHTML =
+      '<div class="msg-avatar reid-av"><span>R</span></div>' +
+      '<div class="msg-body">' +
+        '<div class="msg-sender reid-sender">Reid</div>' +
+        '<div class="msg-content"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>' +
+      '</div>';
+    msgs.appendChild(div);
+    IDR_scrollBottom();
+  } else if (!on && existing) {
+    existing.remove();
+  }
+}
+
+function IDR_enableInput() {
+  document.getElementById('IDR_input').disabled   = false;
+  document.getElementById('IDR_sendBtn').disabled = false;
+  document.getElementById('IDR_input').focus();
+}
+
+function IDR_scrollBottom() {
+  setTimeout(function() {
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  }, 50);
+}
+
+function IDR_getUserInitial() {
+  if (IDR_userEmail) return IDR_userEmail[0].toUpperCase();
+  return 'Y';
+}
+
+function IDR_formatText(text) {
+  // Convert markdown-ish to HTML safely
+  var escaped = IDR_esc(text);
+  // Bold **text**
+  escaped = escaped.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  // Paragraphs (double newline)
+  var paras = escaped.split(/\n\n+/);
+  if (paras.length > 1) {
+    return paras.map(function(p) {
+      return '<p>' + p.replace(/\n/g, '<br>') + '</p>';
+    }).join('');
+  }
+  // Single newlines
+  return '<p>' + escaped.replace(/\n/g, '<br>') + '</p>';
+}
+
+function IDR_esc(s) {
+  return String(s || '')
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+
+function IDR_fmtDate(iso) {
+  if (!iso) return '—';
+  var d = new Date(iso);
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+function IDR_fmtTime(d) {
+  return d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+}
+
+function IDR_toast(msg) {
+  var el = document.getElementById('IDR_toast');
+  el.textContent  = msg;
+  el.style.display = 'block';
+  setTimeout(function() { el.style.display = 'none'; }, 4000);
+}
+</script>
+</body>
+</html>
