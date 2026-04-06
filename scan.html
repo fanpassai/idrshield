@@ -563,7 +563,7 @@ const MSGS = [
 
 /* ── PAGE TRANSITIONS ── */
 function showInput() {
-  document.getElementById('page-input').style.display  = '';
+  document.getElementById('page-input').style.display = 'block';
   document.getElementById('page-results').style.display = 'none';
   document.getElementById('hdr-right').style.display   = '';
   document.getElementById('btn-new-scan').style.display = 'none';
@@ -571,7 +571,7 @@ function showInput() {
 }
 function showResults() {
   document.getElementById('page-input').style.display  = 'none';
-  document.getElementById('page-results').style.display = '';
+  document.getElementById('page-results').style.display = 'block';
   document.getElementById('hdr-right').style.display   = 'none';
   document.getElementById('btn-new-scan').style.display = '';
   window.scrollTo({top:0, behavior:'instant'});
@@ -730,7 +730,7 @@ function renderResults(r) {
       (c.issues || []).filter(i => i.severity === 'critical').map(i => ({...i, catName: c.name}))
     );
     if (crits.length > 0) {
-      document.getElementById('crit-panel').style.display = '';
+      document.getElementById('crit-panel').style.display = 'block';
       document.getElementById('crit-count').textContent = crits.length + ' Critical Finding' + (crits.length !== 1 ? 's' : '');
       document.getElementById('crit-list').innerHTML = crits.map(c => `
         <div class="crit-item">
@@ -869,7 +869,7 @@ function fmtDateFull(d) {
   return `${mo[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()} ${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}:${pad(d.getUTCSeconds())} UTC`;
 }
 function pad(n) { return String(n).padStart(2, '0'); }
-function show(id) { document.getElementById(id).style.display = ''; }
+function show(id) { document.getElementById(id).style.display = 'block'; }
 function hide(id) { document.getElementById(id).style.display = 'none'; }
 function dis(id, v) { document.getElementById(id).disabled = v; }
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
