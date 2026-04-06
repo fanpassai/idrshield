@@ -1,6 +1,7 @@
 {
   "rewrites": [
     { "source": "/scan", "destination": "/scan.html" },
+    { "source": "/thank-you", "destination": "/idrshield_thank_you.html" },
     { "source": "/admin", "destination": "/idrshield_admin.html" },
     { "source": "/verify/:domain*", "destination": "/idr_verify.html" },
     { "source": "/fix/:domain*", "destination": "/idrshield_fix.html" },
