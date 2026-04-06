@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IDR Registry Verification — Institute of Digital Remediation</title>
+<meta name="description" content="Public compliance verification record — Institute of Digital Remediation">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#0A0E1A; --navy2:#0D1526; --navy3:#162038;
+  --gold:#C9A84C; --gold2:#E2C97E; --gold3:#8A6F2E;
+  --cream:#F0E8D8;
+  --pass:#52B788; --pass-bg:rgba(82,183,136,0.1); --pass-bd:rgba(82,183,136,0.25);
+  --warn:#E9C46A; --warn-bg:rgba(233,196,106,0.1); --warn-bd:rgba(233,196,106,0.25);
+  --fail:#E63946; --fail-bg:rgba(230,57,70,0.1); --fail-bd:rgba(230,57,70,0.22);
+  --border:rgba(201,168,76,0.15); --border2:rgba(201,168,76,0.08);
+  --ease:cubic-bezier(0.16,1,0.3,1);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{font-size:16px;scroll-behavior:smooth;}
+body{font-family:'EB Garamond',Georgia,serif;background:var(--navy);color:var(--cream);min-height:100vh;}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:.025;pointer-events:none;z-index:9999;}
+
+/* HEADER */
+header{display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:68px;border-bottom:1px solid var(--border2);background:rgba(10,14,26,.97);backdrop-filter:blur(20px);}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.logo-seal{width:36px;height:36px;border:1.5px solid var(--gold3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:10px;font-weight:700;color:var(--gold);}
+.logo-text{display:flex;flex-direction:column;gap:1px;}
+.logo-name{font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:700;letter-spacing:.28em;color:rgba(201,168,76,.5);text-transform:uppercase;}
+.logo-sub{font-family:'EB Garamond',serif;font-size:13px;font-style:italic;color:rgba(240,232,216,.6);}
+.hdr-right{font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,168,76,.3);}
+
+/* LOADING */
+#state-loading{min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;}
+.load-ring{width:56px;height:56px;border-radius:50%;border:1.5px solid var(--gold3);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:12px;font-weight:700;color:var(--gold);letter-spacing:3px;position:relative;}
+.load-ring::before{content:'';position:absolute;inset:0;border-radius:50%;border:1px solid rgba(201,168,76,.2);animation:pulse 2s ease-out infinite;}
+@keyframes pulse{0%{transform:scale(1);opacity:.5;}100%{transform:scale(2);opacity:0;}}
+.load-txt{font-family:'Montserrat',sans-serif;font-size:8.5px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--gold3);}
+
+/* NOT FOUND */
+#state-notfound{display:none;min-height:60vh;display:none;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding:40px;}
+.nf-icon{font-size:40px;opacity:.4;}
+.nf-title{font-family:'Playfair Display',serif;font-size:28px;color:var(--cream);}
+.nf-sub{font-size:16px;color:rgba(240,232,216,.4);font-style:italic;max-width:440px;line-height:1.6;}
+.nf-cta{display:inline-block;margin-top:8px;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold3);border:1px solid var(--border);padding:10px 24px;text-decoration:none;transition:color .2s,border-color .2s;}
+.nf-cta:hover{color:var(--gold);border-color:var(--gold3);}
+
+/* MAIN CONTENT */
+#state-found{display:none;}
+.wrap{max-width:820px;margin:0 auto;padding:56px 32px 100px;}
+
+/* VERIFICATION STAMP */
+.stamp-row{display:flex;align-items:center;gap:28px;margin-bottom:44px;}
+.stamp-seal{width:100px;height:100px;border-radius:50%;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;position:relative;}
+.stamp-seal.active{border:2px solid var(--gold);background:rgba(201,168,76,.06);}
+.stamp-seal.monitoring{border:2px solid rgba(233,196,106,.5);background:rgba(233,196,106,.04);}
+.stamp-seal.expired{border:2px solid rgba(150,150,150,.3);background:rgba(150,150,150,.03);}
+.seal-idr{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;letter-spacing:4px;}
+.stamp-seal.active .seal-idr{color:var(--gold);}
+.stamp-seal.monitoring .seal-idr{color:var(--warn);}
+.stamp-seal.expired .seal-idr{color:rgba(240,232,216,.3);}
+.seal-line{width:40px;height:1px;}
+.stamp-seal.active .seal-line{background:var(--gold3);}
+.stamp-seal.monitoring .seal-line{background:rgba(233,196,106,.4);}
+.stamp-seal.expired .seal-line{background:rgba(150,150,150,.3);}
+.seal-status{font-family:'Montserrat',sans-serif;font-size:6px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;}
+.stamp-seal.active .seal-status{color:rgba(201,168,76,.6);}
+.stamp-seal.monitoring .seal-status{color:rgba(233,196,106,.5);}
+.stamp-seal.expired .seal-status{color:rgba(150,150,150,.3);}
+/* Pulse ring for active */
+.stamp-seal.active::before{content:'';position:absolute;inset:-6px;border-radius:50%;border:1px solid rgba(201,168,76,.2);animation:ring-pulse 2.5s ease-out infinite;}
+@keyframes ring-pulse{0%{transform:scale(1);opacity:.6;}100%{transform:scale(1.18);opacity:0;}}
+
+.stamp-meta{flex:1;}
+.stamp-kicker{font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--gold3);margin-bottom:8px;}
+.stamp-domain{font-family:'Playfair Display',serif;font-size:clamp(22px,4vw,34px);font-weight:700;color:var(--cream);margin-bottom:10px;word-break:break-all;}
+.stamp-pill{display:inline-flex;align-items:center;gap:7px;font-family:'Montserrat',sans-serif;font-size:8.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:6px 14px;border-radius:2px;}
+.stamp-pill.active{background:var(--pass-bg);color:var(--pass);border:1px solid var(--pass-bd);}
+.stamp-pill.monitoring{background:var(--warn-bg);color:var(--warn);border:1px solid var(--warn-bd);}
+.stamp-pill.expired{background:rgba(150,150,150,.08);color:rgba(240,232,216,.3);border:1px solid rgba(150,150,150,.2);}
+.sdot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.active .sdot{background:var(--pass);box-shadow:0 0 6px var(--pass);}
+.monitoring .sdot{background:var(--warn);box-shadow:0 0 5px var(--warn);animation:blink 1.4s ease-in-out infinite;}
+.expired .sdot{background:rgba(150,150,150,.4);}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.25;}}
+
+/* RECORD CARD */
+.record-card{background:rgba(13,21,38,.85);border:1px solid var(--border);border-radius:4px;padding:40px;margin-bottom:20px;position:relative;overflow:hidden;}
+.record-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.5;}
+.card-title{font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--gold3);margin-bottom:24px;}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:16px 36px;}
+.field label{display:block;font-family:'Montserrat',sans-serif;font-size:7px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold3);margin-bottom:4px;}
+.field span{font-family:'JetBrains Mono',monospace;font-size:12px;color:rgba(240,232,216,.75);word-break:break-all;line-height:1.5;}
+.field span.large{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--cream);font-style:normal;}
+.field span.large.score-pass{color:var(--pass);}
+.field span.large.score-warn{color:var(--warn);}
+.field span.large.score-fail{color:var(--fail);}
+
+/* SCORE GAUGE */
+.score-row{display:flex;align-items:center;gap:32px;padding:28px 0;border-top:1px solid var(--border2);border-bottom:1px solid var(--border2);margin:24px 0;}
+.score-circ{position:relative;width:110px;height:110px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.score-circ svg{position:absolute;inset:0;transform:rotate(-90deg);}
+.sc-track{fill:none;stroke:rgba(201,168,76,.06);stroke-width:6;}
+.sc-fill{fill:none;stroke-width:6;stroke-linecap:round;stroke-dasharray:314;stroke-dashoffset:314;transition:stroke-dashoffset 1.4s var(--ease) .3s;}
+.score-num{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:var(--cream);z-index:1;line-height:1;}
+.score-of{font-family:'Montserrat',sans-serif;font-size:7px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(201,168,76,.3);z-index:1;margin-top:2px;}
+.score-info{flex:1;}
+.score-label{font-family:'Montserrat',sans-serif;font-size:8.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:6px;}
+.score-label.active{color:var(--pass);}
+.score-label.monitoring{color:var(--warn);}
+.score-label.expired{color:rgba(240,232,216,.3);}
+.score-desc{font-size:15px;color:rgba(240,232,216,.45);line-height:1.55;font-style:italic;}
+.score-stats{display:flex;gap:24px;margin-top:14px;}
+.sc-stat .n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;line-height:1;}
+.sc-stat .n.crit{color:var(--fail);}
+.sc-stat .n.muted{color:rgba(240,232,216,.5);}
+.sc-stat .l{font-family:'Montserrat',sans-serif;font-size:7px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(240,232,216,.25);margin-top:2px;}
+
+/* EVIDENCE TIMELINE */
+.timeline{display:flex;flex-direction:column;gap:0;}
+.tl-item{display:flex;gap:16px;padding:14px 0;border-bottom:1px solid var(--border2);}
+.tl-item:last-child{border-bottom:none;}
+.tl-dot-col{display:flex;flex-direction:column;align-items:center;gap:0;width:12px;padding-top:4px;}
+.tl-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.tl-dot.scan{background:var(--gold3);}
+.tl-dot.activated{background:var(--pass);}
+.tl-dot.gumroad{background:var(--gold);}
+.tl-dot.fix{background:var(--warn);}
+.tl-dot.default{background:rgba(201,168,76,.25);}
+.tl-body{flex:1;}
+.tl-action{font-family:'Montserrat',sans-serif;font-size:8.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,232,216,.65);margin-bottom:3px;}
+.tl-detail{font-size:13px;color:rgba(240,232,216,.35);font-style:italic;line-height:1.4;}
+.tl-time{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:rgba(201,168,76,.3);white-space:nowrap;padding-top:4px;}
+
+/* VERIFICATION STATEMENT */
+.verify-statement{background:rgba(82,183,136,.06);border:1px solid var(--pass-bd);border-radius:4px;padding:28px 32px;margin-bottom:20px;}
+.vs-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--pass);margin-bottom:8px;}
+.vs-body{font-size:15px;color:rgba(240,232,216,.55);line-height:1.65;}
+
+/* EXPIRED STATE */
+.expired-warning{background:rgba(150,150,150,.06);border:1px solid rgba(150,150,150,.2);border-radius:4px;padding:28px 32px;margin-bottom:20px;}
+.ew-title{font-family:'Playfair Display',serif;font-size:18px;color:rgba(240,232,216,.4);margin-bottom:8px;}
+.ew-body{font-size:15px;color:rgba(240,232,216,.3);line-height:1.65;}
+
+/* FOOTER CTA */
+.verify-cta{text-align:center;padding:44px 32px;border:1px solid var(--border2);border-radius:4px;margin-bottom:20px;}
+.vc-kicker{font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--gold3);margin-bottom:12px;}
+.vc-title{font-family:'Playfair Display',serif;font-size:22px;color:var(--cream);margin-bottom:8px;}
+.vc-sub{font-size:15px;color:rgba(240,232,216,.4);font-style:italic;margin-bottom:24px;}
+.vc-btn{display:inline-block;background:var(--gold);color:var(--navy);font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:14px 36px;text-decoration:none;transition:background .2s;}
+.vc-btn:hover{background:var(--gold2);}
+
+footer{border-top:1px solid var(--border2);padding:20px 40px;display:flex;align-items:center;justify-content:space-between;}
+.ft-n{font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(201,168,76,.2);}
+.ft-t{font-family:'EB Garamond',serif;font-size:13px;font-style:italic;color:rgba(240,232,216,.15);}
+
+@media(max-width:640px){
+  header{padding:0 20px;}
+  .wrap{padding:36px 20px 80px;}
+  .stamp-row{flex-direction:column;align-items:flex-start;gap:20px;}
+  .fields{grid-template-columns:1fr;}
+  .score-row{flex-direction:column;align-items:flex-start;gap:20px;}
+  footer{flex-direction:column;gap:8px;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="https://idrshield.com" class="logo">
+    <div class="logo-seal">IDR</div>
+    <div class="logo-text">
+      <span class="logo-name">Institute of Digital Remediation</span>
+      <span class="logo-sub">Public Registry</span>
+    </div>
+  </a>
+  <span class="hdr-right">Verification Record</span>
+</header>
+
+<!-- LOADING -->
+<div id="state-loading">
+  <div class="load-ring">IDR</div>
+  <p class="load-txt">Retrieving registry record…</p>
+</div>
+
+<!-- NOT FOUND -->
+<div id="state-notfound">
+  <div class="wrap" style="text-align:center;padding-top:80px;">
+    <div class="nf-icon">◯</div>
+    <h1 class="nf-title">No Registry Record Found</h1>
+    <p class="nf-sub">This domain does not have an active record in the IDR Registry. If you recently activated, allow a few minutes for your record to propagate.</p>
+    <a href="https://idrshield.com/scan" class="nf-cta">Run a Free Scan →</a>
+  </div>
+</div>
+
+<!-- FOUND -->
+<div id="state-found">
+<div class="wrap">
+
+  <!-- Stamp -->
+  <div class="stamp-row">
+    <div class="stamp-seal" id="v-seal">
+      <span class="seal-idr">IDR</span>
+      <div class="seal-line"></div>
+      <span class="seal-status" id="v-seal-status">—</span>
+    </div>
+    <div class="stamp-meta">
+      <p class="stamp-kicker">IDR Registry — Public Verification Record</p>
+      <h1 class="stamp-domain" id="v-domain">—</h1>
+      <div class="stamp-pill" id="v-pill">
+        <span class="sdot"></span>
+        <span id="v-pill-txt">—</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Verification statement -->
+  <div id="v-statement"></div>
+
+  <!-- Record card -->
+  <div class="record-card">
+    <p class="card-title">Registry Record</p>
+    <div class="score-row">
+      <div class="score-circ">
+        <svg viewBox="0 0 110 110" width="110" height="110">
+          <circle class="sc-track" cx="55" cy="55" r="50"/>
+          <circle class="sc-fill" id="v-ring" cx="55" cy="55" r="50"/>
+        </svg>
+        <div style="display:flex;flex-direction:column;align-items:center;z-index:1;">
+          <span class="score-num" id="v-score">—</span>
+          <span class="score-of">/ 100</span>
+        </div>
+      </div>
+      <div class="score-info">
+        <p class="score-label" id="v-score-label">—</p>
+        <p class="score-desc" id="v-score-desc">—</p>
+        <div class="score-stats">
+          <div class="sc-stat">
+            <div class="n crit" id="v-critical">—</div>
+            <div class="l">Critical Issues</div>
+          </div>
+          <div class="sc-stat">
+            <div class="n muted" id="v-scans">—</div>
+            <div class="l">Total Scans</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fields">
+      <div class="field"><label>Registry ID</label><span id="v-registry-id">—</span></div>
+      <div class="field"><label>Status</label><span id="v-status-txt">—</span></div>
+      <div class="field"><label>Last Scanned</label><span id="v-last-scanned">—</span></div>
+      <div class="field"><label>Badge Active</label><span id="v-badge">—</span></div>
+      <div class="field" style="grid-column:1/-1;"><label>Public Registry URL</label><span id="v-reg-url" style="color:var(--gold3);">—</span></div>
+    </div>
+  </div>
+
+  <!-- Evidence timeline -->
+  <div class="record-card" id="v-timeline-card" style="display:none;">
+    <p class="card-title">Evidence Log</p>
+    <div class="timeline" id="v-timeline"></div>
+  </div>
+
+  <!-- Footer CTA -->
+  <div class="verify-cta" id="v-cta"></div>
+
+</div>
+</div>
+
+<footer>
+  <span class="ft-n">Institute of Digital Remediation · IDR-BRAND-2026-01 · Not a law firm</span>
+  <span class="ft-t">The record is the product.</span>
+</footer>
+
+<script>
+const API = 'https://idr-backend-production.up.railway.app';
+
+// Extract domain from URL path — /verify/example.com
+function getDomainFromPath() {
+  const path = window.location.pathname;
+  const match = path.match(/\/verify\/(.+)/);
+  return match ? match[1].replace(/\/$/, '') : null;
+}
+
+function fmtDate(iso) {
+  if (!iso) return '—';
+  const d = new Date(iso);
+  const mo = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${mo[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()} · ${String(d.getUTCHours()).padStart(2,'0')}:${String(d.getUTCMinutes()).padStart(2,'0')} UTC`;
+}
+
+function show(id) { document.getElementById(id).style.display = 'block'; }
+function hide(id) { document.getElementById(id).style.display = 'none'; }
+function flex(id) { document.getElementById(id).style.display = 'flex'; }
+
+async function loadRecord() {
+  const domain = getDomainFromPath();
+
+  if (!domain) {
+    hide('state-loading');
+    flex('state-notfound');
+    return;
+  }
+
+  // Update page title
+  document.title = `IDR Registry — ${domain}`;
+
+  try {
+    // Load registry + evidence in parallel
+    const [regRes, evRes] = await Promise.all([
+      fetch(`${API}/api/registry/${encodeURIComponent(domain)}`),
+      fetch(`${API}/api/evidence/${encodeURIComponent(domain)}`)
+    ]);
+
+    if (!regRes.ok) {
+      hide('state-loading');
+      flex('state-notfound');
+      return;
+    }
+
+    const reg = await regRes.json();
+    const ev  = evRes.ok ? await evRes.json() : { entries: [] };
+
+    hide('state-loading');
+    renderRecord(reg, ev.entries || []);
+    show('state-found');
+
+  } catch(e) {
+    hide('state-loading');
+    flex('state-notfound');
+  }
+}
+
+function renderRecord(reg, evidence) {
+  const st     = reg.status || 'monitoring';
+  const score  = reg.latest_score || 0;
+  const domain = reg.domain || '—';
+
+  // Seal
+  const seal = document.getElementById('v-seal');
+  seal.className = `stamp-seal ${st}`;
+  document.getElementById('v-seal-status').textContent =
+    st === 'active' ? 'ACTIVE' : st === 'monitoring' ? 'MONITORING' : 'UNVERIFIED';
+
+  // Domain + pill
+  document.getElementById('v-domain').textContent = domain;
+  const pill = document.getElementById('v-pill');
+  pill.className = `stamp-pill ${st}`;
+  document.getElementById('v-pill-txt').textContent =
+    st === 'active' ? 'ACTIVE — Registry Eligible'
+    : st === 'monitoring' ? 'MONITORING — Enrolled & Active'
+    : 'UNVERIFIED — Record Lapsed';
+
+  // Verification statement
+  const vstmt = document.getElementById('v-statement');
+  if (st === 'active') {
+    vstmt.innerHTML = `
+      <div class="verify-statement">
+        <h2 class="vs-title">✓ Verified — Active Compliance Record</h2>
+        <p class="vs-body">This store maintains an active IDR compliance record. Accessibility posture has been audited, documented, and verified against WCAG standards. This record is cryptographically signed and updates automatically after every weekly rescan.</p>
+      </div>`;
+  } else if (st === 'monitoring') {
+    vstmt.innerHTML = `
+      <div class="verify-statement" style="background:rgba(233,196,106,.05);border-color:var(--warn-bd);">
+        <h2 class="vs-title" style="color:var(--warn);">◉ Monitoring — Active Enrollment</h2>
+        <p class="vs-body">This store is enrolled in the IDR monitoring system and is actively working toward remediation. Open violations are documented. This record updates automatically as accessibility posture improves.</p>
+      </div>`;
+  } else {
+    vstmt.innerHTML = `
+      <div class="expired-warning">
+        <h2 class="ew-title">⊘ Record Lapsed</h2>
+        <p class="ew-body">This store's IDR membership has lapsed. The compliance record on file may be outdated. Reactivating membership restores the record instantly and resumes weekly monitoring.</p>
+      </div>`;
+  }
+
+  // Score ring
+  const circ = 2 * Math.PI * 50; // 314
+  const ring = document.getElementById('v-ring');
+  setTimeout(() => {
+    ring.style.strokeDashoffset = circ - (score / 100) * circ;
+    ring.style.stroke = st === 'active' ? '#52B788' : st === 'monitoring' ? '#E9C46A' : 'rgba(150,150,150,.4)';
+  }, 200);
+
+  document.getElementById('v-score').textContent = score;
+
+  const scoreLabel = document.getElementById('v-score-label');
+  scoreLabel.className = `score-label ${st}`;
+  scoreLabel.textContent = st === 'active' ? 'REGISTRY ELIGIBLE'
+    : st === 'monitoring' ? 'MONITORING STATUS' : 'RECORD LAPSED';
+
+  document.getElementById('v-score-desc').textContent = score >= 80
+    ? 'No critical violations detected. Store meets IDR threshold for active registry status.'
+    : score >= 50
+    ? 'Open violations documented. Store is enrolled and actively monitored.'
+    : 'Significant violations on record. Remediation in progress.';
+
+  document.getElementById('v-critical').textContent = reg.critical_count || 0;
+  document.getElementById('v-scans').textContent    = reg.scan_count || 0;
+
+  // Fields
+  document.getElementById('v-registry-id').textContent  = reg.registry_id || '—';
+  document.getElementById('v-status-txt').textContent   = st.toUpperCase();
+  document.getElementById('v-last-scanned').textContent = fmtDate(reg.last_scanned);
+  document.getElementById('v-badge').textContent        = reg.badge_active ? 'Yes — Live embed active' : 'Not installed';
+  document.getElementById('v-reg-url').textContent      = reg.registry_url || `https://idrshield.com/verify/${domain}`;
+
+  // Evidence timeline
+  if (evidence.length > 0) {
+    show('v-timeline-card');
+    const tl = document.getElementById('v-timeline');
+    // Show last 12 entries, most recent first
+    const entries = evidence.slice().reverse().slice(0, 12);
+    tl.innerHTML = entries.map(e => {
+      const type = (e.event_type || '').toLowerCase();
+      const dotClass = type.includes('scan') ? 'scan'
+        : type.includes('activ') ? 'activated'
+        : type.includes('gumroad') ? 'gumroad'
+        : type.includes('fix') ? 'fix' : 'default';
+      return `
+        <div class="tl-item">
+          <div class="tl-dot-col"><div class="tl-dot ${dotClass}"></div></div>
+          <div class="tl-body">
+            <div class="tl-action">${esc(e.event_type || '—')}</div>
+            <div class="tl-detail">${esc(e.notes || '')}</div>
+          </div>
+          <div class="tl-time">${fmtDate(e.logged_at || e.created_at || '')}</div>
+        </div>`;
+    }).join('');
+  }
+
+  // Footer CTA
+  const cta = document.getElementById('v-cta');
+  if (st === 'active' || st === 'monitoring') {
+    cta.innerHTML = `
+      <p class="vc-kicker">Protect Your Store</p>
+      <h3 class="vc-title">Is your store already on a plaintiff firm's list?</h3>
+      <p class="vc-sub">Free instant scan — no credit card required. Results in 60 seconds.</p>
+      <a href="https://idrshield.com/scan" class="vc-btn">Run a Free Scan →</a>`;
+  } else {
+    cta.innerHTML = `
+      <p class="vc-kicker">Reactivate Your Record</p>
+      <h3 class="vc-title">Restore your compliance record</h3>
+      <p class="vc-sub">Reactivating membership restores your full registry record, badge, and weekly monitoring instantly.</p>
+      <a href="https://idrshield.gumroad.com/l/oadcfq" class="vc-btn">Reactivate IDR Shield →</a>`;
+  }
+}
+
+function esc(s) {
+  const d = document.createElement('div');
+  d.textContent = String(s || '');
+  return d.innerHTML;
+}
+
+// Boot
+loadRecord();
+</script>
+</body>
+</html>
