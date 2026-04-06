@@ -202,11 +202,8 @@ footer{border-top:1px solid var(--border2);padding:20px 40px;display:flex;align-
 
   <!-- Stamp -->
   <div class="stamp-row">
-    <div class="stamp-seal" id="v-seal">
-      <span class="seal-idr">IDR</span>
-      <div class="seal-line"></div>
-      <span class="seal-status" id="v-seal-status">—</span>
-    </div>
+    <!-- Live badge.js embed — injected dynamically -->
+    <div id="v-badge-mount" style="flex-shrink:0;min-width:110px;display:flex;align-items:center;justify-content:center;"></div>
     <div class="stamp-meta">
       <p class="stamp-kicker">IDR Registry — Public Verification Record</p>
       <h1 class="stamp-domain" id="v-domain">—</h1>
@@ -339,11 +336,17 @@ function renderRecord(reg, evidence) {
   const score  = reg.latest_score || 0;
   const domain = reg.domain || '—';
 
-  // Seal
-  const seal = document.getElementById('v-seal');
-  seal.className = `stamp-seal ${st}`;
-  document.getElementById('v-seal-status').textContent =
-    st === 'active' ? 'ACTIVE' : st === 'monitoring' ? 'MONITORING' : 'UNVERIFIED';
+  // Inject real badge.js embed
+  const mount = document.getElementById('v-badge-mount');
+  mount.innerHTML = '';
+  const badgeScript = document.createElement('script');
+  badgeScript.src = 'https://idrshield.com/badge.js';
+  badgeScript.setAttribute('data-store', domain);
+  badgeScript.setAttribute('data-id', reg.registry_id || '');
+  badgeScript.setAttribute('data-theme', 'outline');
+  badgeScript.setAttribute('data-size', '100');
+  badgeScript.setAttribute('data-tier', 'founding');
+  mount.appendChild(badgeScript);
 
   // Domain + pill
   document.getElementById('v-domain').textContent = domain;
