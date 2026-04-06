@@ -449,71 +449,87 @@ function esc(s) {
 }
 
 // ── SVG SEAL BUILDER ─────────────────────────────────────────────────────────
-function buildSealSVG(status, score) {
-  const uid = 'seal_' + Math.random().toString(36).slice(2, 7);
-  const c = status === 'active'
-    ? { ring:'#C9A84C', ring2:'rgba(201,168,76,0.35)', idr:'#C9A84C', text:'rgba(201,168,76,0.72)', line:'#8A6F2E', fill:'rgba(201,168,76,0.05)' }
-    : status === 'monitoring'
-    ? { ring:'#8A8A9A', ring2:'rgba(138,138,154,0.25)', idr:'#B0B0C0', text:'rgba(160,160,176,0.7)', line:'#6A6A7A', fill:'rgba(138,138,154,0.06)' }
-    : { ring:'#4A4A5A', ring2:'rgba(74,74,90,0.2)',    idr:'#5A5A6A', text:'rgba(90,90,106,0.5)',   line:'#3A3A4A', fill:'rgba(74,74,90,0.04)' };
+// Arc geometry:
+//   viewBox "-20 -20 240 240" gives 20px bleed on all sides so letters
+//   curving around the left/right edges never clip.
+//   Top arc:    M 19,100 A 81,81 0 0,0 181,100  (CCW through top)
+//     → text appears OUTSIDE the arc = between outer ring and top of circle ✓
+//   Bottom arc: M 19,100 A 81,81 0 0,1 181,100  (CW through bottom)
+//     → text appears INSIDE the arc = between the arc and center
+//     → at the bottom this puts text between the outer ring and inner ring ✓
+//     → letters face outward, read left-to-right from outside ✓
+function buildSealSVG(status) {
+  const uid = 'idr_' + Math.random().toString(36).slice(2, 9);
 
-  const statusWord = status === 'active' ? 'ACTIVE' : status === 'monitoring' ? 'MONITORING' : 'UNVERIFIED';
+  const GOLD   = { ring:'#C9A84C', ring2:'rgba(201,168,76,0.28)', idr:'#C9A84C', txt:'rgba(201,168,76,0.78)', line:'#8A6F2E', fill:'rgba(201,168,76,0.05)' };
+  const SILVER = { ring:'#909098', ring2:'rgba(144,144,152,0.22)', idr:'#C0C0CC', txt:'rgba(168,168,180,0.80)', line:'#686870', fill:'rgba(144,144,152,0.05)' };
+  const GREY   = { ring:'#4A4A58', ring2:'rgba(74,74,88,0.18)',   idr:'#606068', txt:'rgba(90,90,104,0.55)',   line:'#3A3A48', fill:'rgba(74,74,88,0.04)' };
+
+  const c = status === 'active' ? GOLD : status === 'monitoring' ? SILVER : GREY;
+  const word = status === 'active' ? 'ACTIVE' : status === 'monitoring' ? 'MONITORING' : 'UNVERIFIED';
 
   const pulse = status === 'active' ? `
-    <circle cx="100" cy="100" r="97" fill="none" stroke="${c.ring}" stroke-width="0.8">
-      <animate attributeName="r" values="97;114" dur="2.6s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0.45;0" dur="2.6s" repeatCount="indefinite"/>
+    <circle cx="100" cy="100" r="93" fill="none" stroke="${c.ring}" stroke-width="1">
+      <animate attributeName="r"       values="93;110"  dur="2.6s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.5;0"   dur="2.6s" repeatCount="indefinite"/>
     </circle>
-    <circle cx="100" cy="100" r="97" fill="none" stroke="${c.ring}" stroke-width="0.5">
-      <animate attributeName="r" values="97;114" dur="2.6s" begin="1.3s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0.25;0" dur="2.6s" begin="1.3s" repeatCount="indefinite"/>
+    <circle cx="100" cy="100" r="93" fill="none" stroke="${c.ring}" stroke-width="0.5">
+      <animate attributeName="r"       values="93;110"  dur="2.6s" begin="1.3s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.3;0"   dur="2.6s" begin="1.3s" repeatCount="indefinite"/>
     </circle>` : '';
 
-  return `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"
-      style="width:130px;height:130px;display:block;overflow:visible;">
+  return `<svg viewBox="-20 -20 240 240" xmlns="http://www.w3.org/2000/svg"
+      style="width:140px;height:140px;display:block;overflow:visible;">
     <defs>
-      <path id="${uid}_top" d="M 16,100 A 84,84 0 0,0 184,100"/>
-      <path id="${uid}_bot" d="M 16,100 A 84,84 0 0,1 184,100"/>
+      <!-- CCW from left (19,100) through TOP to right (181,100) -->
+      <path id="${uid}T" d="M 19,100 A 81,81 0 0,0 181,100"/>
+      <!-- CW  from left (19,100) through BOTTOM to right (181,100) -->
+      <path id="${uid}B" d="M 19,100 A 81,81 0 0,1 181,100"/>
     </defs>
 
     ${pulse}
 
     <!-- Outer ring -->
-    <circle cx="100" cy="100" r="96" fill="none" stroke="${c.ring}" stroke-width="1.5" opacity="0.85"/>
+    <circle cx="100" cy="100" r="92" fill="none"
+            stroke="${c.ring}" stroke-width="1.5" opacity="0.88"/>
 
     <!-- Inner ring -->
-    <circle cx="100" cy="100" r="68" fill="${c.fill}" stroke="${c.ring2}" stroke-width="1"/>
+    <circle cx="100" cy="100" r="64" fill="${c.fill}"
+            stroke="${c.ring2}" stroke-width="1"/>
 
-    <!-- Top arc: INSTITUTE OF DIGITAL REMEDIATION -->
-    <text font-family="Montserrat,Arial,sans-serif" font-size="7" font-weight="700"
-          fill="${c.text}">
-      <textPath href="#${uid}_top" startOffset="50%" text-anchor="middle"
-                textLength="220" lengthAdjust="spacing">
+    <!-- TOP ARC TEXT: INSTITUTE OF DIGITAL REMEDIATION -->
+    <!-- font-size 7.5, letter-spacing 1.5 → ~192 SVG units total, arc=254 ✓ -->
+    <text font-family="Montserrat,Arial,sans-serif"
+          font-size="7.5" font-weight="700" letter-spacing="1.5" fill="${c.txt}">
+      <textPath href="#${uid}T" startOffset="50%" text-anchor="middle">
         INSTITUTE OF DIGITAL REMEDIATION
       </textPath>
     </text>
 
-    <!-- Bottom arc: FOUNDING MEMBER -->
-    <text font-family="Montserrat,Arial,sans-serif" font-size="7" font-weight="700"
-          fill="${c.text}">
-      <textPath href="#${uid}_bot" startOffset="50%" text-anchor="middle"
-                textLength="100" lengthAdjust="spacing">
+    <!-- BOTTOM ARC TEXT: FOUNDING MEMBER (between rings, curving along bottom) -->
+    <!-- CW path → text sits between arc baseline and center = between the two rings ✓ -->
+    <text font-family="Montserrat,Arial,sans-serif"
+          font-size="7.5" font-weight="700" letter-spacing="3" fill="${c.txt}">
+      <textPath href="#${uid}B" startOffset="50%" text-anchor="middle">
         FOUNDING MEMBER
       </textPath>
     </text>
 
     <!-- IDR monogram -->
-    <text x="100" y="94" font-family="Georgia,serif" font-size="29" font-weight="700"
-          fill="${c.idr}" text-anchor="middle" letter-spacing="5">IDR</text>
+    <text x="100" y="96"
+          font-family="Georgia,'Times New Roman',serif"
+          font-size="28" font-weight="700" letter-spacing="5"
+          fill="${c.idr}" text-anchor="middle">IDR</text>
 
     <!-- Divider line -->
-    <line x1="66" y1="103" x2="134" y2="103" stroke="${c.line}" stroke-width="0.8"/>
+    <line x1="68" y1="105" x2="132" y2="105"
+          stroke="${c.line}" stroke-width="0.8" opacity="0.9"/>
 
-    <!-- Status word inside inner ring -->
-    <text x="100" y="116" font-family="Montserrat,Arial,sans-serif" font-size="7.5"
-          font-weight="700" fill="${c.text}" text-anchor="middle" letter-spacing="2">
-      ${statusWord}
-    </text>
+    <!-- Status word — inside inner ring -->
+    <text x="100" y="117"
+          font-family="Montserrat,Arial,sans-serif"
+          font-size="7.5" font-weight="700" letter-spacing="2"
+          fill="${c.txt}" text-anchor="middle">${word}</text>
   </svg>`;
 }
 
