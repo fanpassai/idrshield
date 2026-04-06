@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Free Accessibility Scan — IDR Shield</title>
-<meta name="description" content="Find out if your store is already on a plaintiff firm's radar. Free instant accessibility scan — no credit card required.">
+<meta name="description" content="Find out if your store is already on a plaintiff firm's radar. Free instant accessibility scan.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
   --cream:#F0E8D8;
   --pass:#52B788; --pass-bg:rgba(82,183,136,0.1); --pass-bd:rgba(82,183,136,0.22);
   --warn:#E9C46A; --warn-bg:rgba(233,196,106,0.1); --warn-bd:rgba(233,196,106,0.22);
-  --fail:#E63946; --fail-bg:rgba(230,57,70,0.1);   --fail-bd:rgba(230,57,70,0.22);
+  --fail:#E63946; --fail-bg:rgba(230,57,70,0.1); --fail-bd:rgba(230,57,70,0.22);
   --border:rgba(201,168,76,0.15); --border2:rgba(201,168,76,0.08);
   --ease:cubic-bezier(0.16,1,0.3,1);
 }
@@ -24,26 +24,24 @@ html{font-size:16px;scroll-behavior:smooth;}
 body{font-family:'EB Garamond',Georgia,serif;background:var(--navy);color:var(--cream);min-height:100vh;overflow-x:hidden;}
 body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:.03;pointer-events:none;z-index:9999;}
 
-/* ── HEADER ── */
+/* HEADER */
 header{display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:72px;border-bottom:1px solid var(--border2);position:sticky;top:0;z-index:100;background:rgba(10,14,26,.97);backdrop-filter:blur(20px);}
 .logo{display:flex;align-items:center;gap:12px;text-decoration:none;cursor:pointer;}
 .logo-seal{width:40px;height:40px;border:1.5px solid var(--gold3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:11px;font-weight:700;color:var(--gold);flex-shrink:0;}
 .logo-text{display:flex;flex-direction:column;gap:1px;}
 .logo-name{font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:.28em;color:rgba(201,168,76,.5);text-transform:uppercase;}
 .logo-product{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--cream);}
-.header-right{display:flex;flex-direction:column;align-items:flex-end;gap:2px;}
+.hdr-right{display:flex;flex-direction:column;align-items:flex-end;gap:2px;}
 .hdr-p{font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:.2em;color:var(--gold3);text-transform:uppercase;}
-.hdr-s{font-family:'Montserrat',sans-serif;font-size:7px;font-weight:500;letter-spacing:.16em;color:rgba(201,168,76,.3);text-transform:uppercase;}
+.hdr-s{font-family:'Montserrat',sans-serif;font-size:7px;letter-spacing:.16em;color:rgba(201,168,76,.3);text-transform:uppercase;}
 #btn-new-scan{display:none;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold3);border:1px solid var(--border);padding:6px 14px;border-radius:2px;background:none;cursor:pointer;transition:border-color .2s,color .2s;}
 #btn-new-scan:hover{border-color:var(--gold3);color:var(--gold);}
 
-/* ═══════════════════════════════════════
-   PAGE 1 — SCAN INPUT
-═══════════════════════════════════════ */
+/* PAGE 1 — INPUT */
 #page-input{display:block;}
 .page-wrap{max-width:860px;margin:0 auto;padding:72px 32px 120px;}
 
-.hero{text-align:center;margin-bottom:52px;}
+.hero{text-align:center;margin-bottom:48px;}
 .hero-kicker{font-family:'Montserrat',sans-serif;font-size:8.5px;font-weight:700;letter-spacing:.38em;color:var(--gold3);text-transform:uppercase;margin-bottom:20px;}
 .hero h1{font-family:'Playfair Display',serif;font-size:clamp(36px,6vw,58px);font-weight:700;line-height:1.06;margin-bottom:18px;}
 .h1-a{display:block;color:#E8E0D0;}
@@ -56,20 +54,23 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 4
 .trust-line.r{background:linear-gradient(270deg,transparent,rgba(201,168,76,.2));}
 .trust-txt{font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:rgba(201,168,76,.38);white-space:nowrap;}
 
+/* SCAN BOX — email first */
 .scan-box{background:rgba(13,21,38,.85);border:1px solid var(--border);border-radius:4px;padding:36px;margin-bottom:36px;position:relative;overflow:hidden;}
 .scan-box::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.5;}
-.scan-lbl{font-family:'Montserrat',sans-serif;font-size:8.5px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--gold3);display:block;margin-bottom:12px;}
-.input-row{display:flex;gap:10px;}
-.url-inp{flex:1;background:rgba(10,14,26,.95);border:1px solid rgba(201,168,76,.18);border-radius:3px;padding:14px 18px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--cream);outline:none;transition:border-color .25s,box-shadow .25s;}
-.url-inp::placeholder{color:rgba(240,232,216,.22);}
-.url-inp:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.08);}
-.scan-btn{background:var(--gold);color:var(--navy);border:none;cursor:pointer;padding:14px 32px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;border-radius:3px;transition:background .2s,transform .15s,box-shadow .2s;white-space:nowrap;flex-shrink:0;}
+.scan-field{margin-bottom:18px;}
+.scan-lbl{font-family:'Montserrat',sans-serif;font-size:8.5px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--gold3);display:block;margin-bottom:10px;}
+.scan-lbl span{font-weight:400;color:rgba(201,168,76,.45);letter-spacing:.12em;text-transform:none;font-style:italic;}
+.field-inp{width:100%;background:rgba(10,14,26,.95);border:1px solid rgba(201,168,76,.18);border-radius:3px;padding:14px 18px;font-family:'EB Garamond',serif;font-size:16px;color:var(--cream);outline:none;transition:border-color .25s,box-shadow .25s;}
+.field-inp::placeholder{color:rgba(240,232,216,.22);}
+.field-inp:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.08);}
+#url-inp{font-family:'JetBrains Mono',monospace;font-size:13px;}
+.scan-btn{width:100%;margin-top:6px;background:var(--gold);color:var(--navy);border:none;cursor:pointer;padding:16px 32px;font-family:'Montserrat',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;border-radius:3px;transition:background .2s,transform .15s,box-shadow .2s;}
 .scan-btn:hover{background:var(--gold2);transform:translateY(-1px);box-shadow:0 4px 18px rgba(201,168,76,.22);}
 .scan-btn:active{transform:none;box-shadow:none;}
 .scan-btn:disabled{background:var(--gold3);cursor:not-allowed;opacity:.55;transform:none;box-shadow:none;}
-.scan-note{margin-top:14px;font-size:13px;line-height:1.5;color:rgba(240,232,216,.35);font-style:italic;}
-.scan-hint{font-family:'Montserrat',sans-serif;font-size:8px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(201,168,76,.28);margin-top:6px;}
+.scan-note{margin-top:14px;font-size:13px;line-height:1.5;color:rgba(240,232,216,.3);font-style:italic;text-align:center;}
 
+/* SCANNING PANEL */
 #scan-panel{display:none;background:rgba(13,21,38,.85);border:1px solid var(--border);border-radius:4px;padding:52px 36px;text-align:center;position:relative;overflow:hidden;}
 #scan-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.5;}
 .pulse-ring{width:76px;height:76px;border-radius:50%;border:1.5px solid var(--gold3);margin:0 auto 28px;position:relative;display:flex;align-items:center;justify-content:center;}
@@ -92,9 +93,13 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 4
 .err-t{font-family:'Playfair Display',serif;font-size:18px;color:var(--fail);margin-bottom:6px;}
 .err-b{font-size:14px;color:rgba(240,232,216,.5);font-style:italic;}
 
-/* ═══════════════════════════════════════
-   PAGE 2 — RESULTS
-═══════════════════════════════════════ */
+/* EMAIL SENT NOTICE */
+.email-sent-notice{background:rgba(82,183,136,.08);border:1px solid var(--pass-bd);border-radius:3px;padding:12px 18px;margin-bottom:20px;display:none;align-items:center;gap:10px;}
+.email-sent-notice.show{display:flex;}
+.esn-dot{width:7px;height:7px;border-radius:50%;background:var(--pass);flex-shrink:0;}
+.esn-txt{font-family:'Montserrat',sans-serif;font-size:8.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--pass);}
+
+/* PAGE 2 — RESULTS */
 #page-results{display:none;animation:fadeup .5s var(--ease);}
 @keyframes fadeup{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
 .results-wrap{max-width:920px;margin:0 auto;padding:48px 32px 120px;}
@@ -176,47 +181,23 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 4
 .crit-h{display:flex;align-items:center;gap:9px;margin-bottom:14px;width:100%;}
 .crit-dot{width:7px;height:7px;border-radius:50%;background:var(--fail);box-shadow:0 0 7px var(--fail);animation:blink 1.2s ease-in-out infinite;}
 .crit-title{font-family:'Montserrat',sans-serif;font-size:8.5px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--fail);}
+.crit-count{font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;background:rgba(230,57,70,.18);color:var(--fail);border:1px solid rgba(230,57,70,.25);padding:3px 10px;border-radius:2px;margin-left:auto;}
 .crit-list{display:flex;flex-direction:column;gap:10px;}
 .crit-item{display:flex;gap:10px;}
 .crit-bullet{color:var(--fail);flex-shrink:0;margin-top:1px;}
 .crit-body{font-size:15px;color:rgba(240,232,216,.82);line-height:1.5;}
 .crit-sub{font-size:12px;color:rgba(240,232,216,.32);font-style:italic;margin-top:2px;}
-.crit-count{font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;background:rgba(230,57,70,.18);color:var(--fail);border:1px solid rgba(230,57,70,.25);padding:3px 10px;border-radius:2px;margin-left:auto;}
 
-/* ═══════════════════════════════════════
-   EMAIL CAPTURE — post-results
-═══════════════════════════════════════ */
-.email-gate{background:rgba(13,21,38,.9);border:1px solid var(--border);border-radius:4px;padding:40px;margin-bottom:20px;position:relative;overflow:hidden;text-align:center;}
-.email-gate::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.6;}
-.eg-icon{font-size:28px;margin-bottom:14px;}
-.eg-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--cream);margin-bottom:8px;}
-.eg-sub{font-size:16px;color:rgba(240,232,216,.5);font-style:italic;max-width:480px;margin:0 auto 28px;}
-.eg-row{display:flex;gap:10px;max-width:500px;margin:0 auto;}
-.eg-inp{flex:1;background:rgba(10,14,26,.95);border:1px solid rgba(201,168,76,.18);border-radius:3px;padding:13px 18px;font-family:'EB Garamond',serif;font-size:15px;color:var(--cream);outline:none;transition:border-color .25s,box-shadow .25s;}
-.eg-inp::placeholder{color:rgba(240,232,216,.25);}
-.eg-inp:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.08);}
-.eg-btn{background:var(--gold);color:var(--navy);border:none;cursor:pointer;padding:13px 28px;font-family:'Montserrat',sans-serif;font-size:9.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;border-radius:3px;white-space:nowrap;transition:background .2s,transform .15s;}
-.eg-btn:hover{background:var(--gold2);transform:translateY(-1px);}
-.eg-btn:disabled{background:var(--gold3);cursor:not-allowed;opacity:.55;transform:none;}
-.eg-fine{font-family:'Montserrat',sans-serif;font-size:8px;font-weight:500;letter-spacing:.12em;color:rgba(240,232,216,.2);margin-top:14px;text-transform:uppercase;}
-/* Success state */
-.eg-success{display:none;text-align:center;padding:20px 0;}
-.eg-success-icon{font-size:32px;margin-bottom:12px;}
-.eg-success-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--pass);margin-bottom:6px;}
-.eg-success-sub{font-size:15px;color:rgba(240,232,216,.5);font-style:italic;}
-
-/* ═══════════════════════════════════════
-   SOCIAL SHARE
-═══════════════════════════════════════ */
+/* SOCIAL SHARE */
 .share-block{background:rgba(13,21,38,.6);border:1px solid var(--border2);border-radius:4px;padding:28px 32px;margin-bottom:20px;}
 .share-lbl{font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--gold3);margin-bottom:16px;}
 .share-btns{display:flex;gap:10px;flex-wrap:wrap;}
 .share-btn{display:inline-flex;align-items:center;gap:8px;font-family:'Montserrat',sans-serif;font-size:8.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:9px 18px;border-radius:3px;border:1px solid var(--border);background:rgba(13,21,38,.7);color:rgba(240,232,216,.55);cursor:pointer;text-decoration:none;transition:border-color .2s,color .2s,background .2s;}
 .share-btn:hover{border-color:var(--gold3);color:var(--gold);background:rgba(201,168,76,.06);}
 .share-btn svg{width:13px;height:13px;fill:currentColor;flex-shrink:0;}
-.share-copied{color:var(--pass) !important;border-color:var(--pass-bd) !important;}
+.share-copied{color:var(--pass)!important;border-color:var(--pass-bd)!important;}
 
-/* Receipt */
+/* RECEIPT */
 .receipt-box{background:rgba(13,21,38,.85);border:1px solid var(--border);border-radius:4px;padding:36px;margin-bottom:20px;position:relative;overflow:hidden;}
 .receipt-box::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.5;}
 .receipt-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;gap:16px;flex-wrap:wrap;}
@@ -237,7 +218,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 4
 .btn-g{background:transparent;color:var(--gold3);border:1px solid var(--border);cursor:pointer;padding:10px 20px;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;border-radius:3px;transition:border-color .2s,color .2s;}
 .btn-g:hover{border-color:var(--gold3);color:var(--gold);}
 
-/* Activation block */
+/* ACTIVATION BLOCK */
 .act-block{border:1px solid rgba(201,168,76,.3);border-radius:4px;padding:44px;margin-bottom:20px;position:relative;overflow:hidden;background:rgba(13,18,34,.9);}
 .act-block::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.65;}
 .act-block::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(201,168,76,.04),transparent 70%);pointer-events:none;}
@@ -252,7 +233,6 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 4
 .act-cta-row{display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
 .cta-btn{background:var(--gold);color:var(--navy);border:none;cursor:pointer;padding:16px 44px;font-family:'Montserrat',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;border-radius:3px;transition:background .2s,transform .15s,box-shadow .2s;text-decoration:none;display:inline-block;}
 .cta-btn:hover{background:var(--gold2);transform:translateY(-1px);box-shadow:0 6px 26px rgba(201,168,76,.25);}
-.cta-btn:active{transform:none;box-shadow:none;}
 .price-n{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--cream);}
 .price-s{font-family:'Montserrat',sans-serif;font-size:8.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,232,216,.3);margin-top:1px;}
 
@@ -275,7 +255,6 @@ footer{border-top:1px solid var(--border2);padding:24px 40px;display:flex;align-
 @media(max-width:640px){
   header{padding:0 18px;}
   .page-wrap,.results-wrap{padding:36px 18px 80px;}
-  .input-row{flex-direction:column;}
   .score-block{grid-template-columns:1fr;text-align:center;}
   .score-wrap{margin:0 auto;}
   .score-stats{justify-content:center;}
@@ -285,7 +264,6 @@ footer{border-top:1px solid var(--border2);padding:24px 40px;display:flex;align-
   .act-feats{grid-template-columns:1fr;}
   .act-cta-row{flex-wrap:wrap;}
   .badge-prev{flex-direction:column;text-align:center;}
-  .eg-row{flex-direction:column;}
   .share-btns{gap:8px;}
   footer{flex-direction:column;gap:8px;text-align:center;}
 }
@@ -294,21 +272,21 @@ footer{border-top:1px solid var(--border2);padding:24px 40px;display:flex;align-
 <body>
 
 <header>
-  <a href="#" class="logo" onclick="showInput();return false;" aria-label="IDR Shield — run a new scan">
+  <a href="#" class="logo" onclick="showInput();return false;" aria-label="IDR Shield — new scan">
     <div class="logo-seal" aria-hidden="true">IDR</div>
     <div class="logo-text">
       <span class="logo-name">Institute of Digital Remediation</span>
       <span class="logo-product">Accessibility Scanner</span>
     </div>
   </a>
-  <div id="hdr-protocol" class="header-right">
+  <div id="hdr-right" class="hdr-right">
     <span class="hdr-p">Protocol-Compliant Audit Engine</span>
     <span class="hdr-s">IDR Protocol · 2026 Edition</span>
   </div>
   <button id="btn-new-scan" onclick="showInput()">← New Scan</button>
 </header>
 
-<!-- ════════ PAGE 1 — INPUT ════════ -->
+<!-- PAGE 1 — INPUT -->
 <div id="page-input">
 <div class="page-wrap">
 
@@ -329,17 +307,32 @@ footer{border-top:1px solid var(--border2);padding:24px 40px;display:flex;align-
     <div class="trust-line r"></div>
   </div>
 
-  <section class="scan-box" aria-label="URL scanner">
-    <label class="scan-lbl" for="url-inp">Your Store URL</label>
-    <div class="input-row">
-      <input type="url" id="url-inp" class="url-inp"
+  <section class="scan-box" aria-label="Accessibility scanner">
+
+    <div class="scan-field">
+      <label class="scan-lbl" for="email-inp">
+        Your Email <span>— we'll send your full results here</span>
+      </label>
+      <input type="email" id="email-inp" class="field-inp"
+        placeholder="you@yourstore.com"
+        autocomplete="email"
+        aria-label="Email address to receive scan results">
+    </div>
+
+    <div class="scan-field">
+      <label class="scan-lbl" for="url-inp">Your Store URL</label>
+      <input type="url" id="url-inp" class="field-inp"
         placeholder="https://yourstore.myshopify.com"
         autocomplete="off" spellcheck="false"
-        aria-label="Enter your store URL to scan">
-      <button class="scan-btn" id="scan-btn" onclick="startScan()">Scan My Store</button>
+        aria-label="Store URL to scan">
     </div>
-    <p class="scan-note">This scan runs against your live URL in real time. No public record is created unless you activate.</p>
-    <p class="scan-hint">Enter your full store URL including https://</p>
+
+    <button class="scan-btn" id="scan-btn" onclick="startScan()">
+      Scan My Store — Free
+    </button>
+
+    <p class="scan-note">No public record is created unless you activate. Unsubscribe anytime.</p>
+
   </section>
 
   <section id="scan-panel" aria-live="polite">
@@ -382,12 +375,18 @@ footer{border-top:1px solid var(--border2);padding:24px 40px;display:flex;align-
 </div>
 </div>
 
-<!-- ════════ PAGE 2 — RESULTS ════════ -->
+<!-- PAGE 2 — RESULTS -->
 <div id="page-results">
 <div class="results-wrap">
 
+  <!-- Email sent confirmation -->
+  <div class="email-sent-notice" id="email-sent-notice">
+    <div class="esn-dot"></div>
+    <span class="esn-txt" id="esn-txt">Summary sent to your inbox</span>
+  </div>
+
   <!-- Banner -->
-  <div class="r-banner" id="r-banner">
+  <div class="r-banner">
     <div class="r-banner-icon" id="r-icon"></div>
     <div class="r-banner-left">
       <div class="r-banner-lbl">Scan Complete</div>
@@ -420,57 +419,42 @@ footer{border-top:1px solid var(--border2);padding:24px 40px;display:flex;align-
         <div class="stat"><span class="n t" id="s-dur">—</span><span class="l">Scan Time</span></div>
       </div>
       <p class="score-context">This score reflects structural accessibility posture across the five IDR audit categories — the same categories plaintiff firms prioritize.</p>
-      <p class="status-interp" id="status-interp"></p>
+      <span class="status-interp" id="status-interp"></span>
     </div>
   </div>
 
-  <!-- Category breakdown -->
+  <!-- Categories -->
   <p class="s-lbl">Category Breakdown</p>
   <div class="cats-grid" id="cats-grid"></div>
 
   <!-- Critical findings -->
   <div class="crit-panel" id="crit-panel" style="display:none;">
-    <div class="crit-h"><div class="crit-dot"></div><span class="crit-title">Critical Findings</span><span class="crit-count" id="crit-count"></span></div>
+    <div class="crit-h">
+      <div class="crit-dot"></div>
+      <span class="crit-title">Critical Findings</span>
+      <span class="crit-count" id="crit-count"></span>
+    </div>
     <div class="crit-list" id="crit-list"></div>
   </div>
 
-  <!-- ═══ EMAIL CAPTURE ═══ -->
-  <div class="email-gate" id="email-gate">
-    <div id="eg-form-wrap">
-      <div class="eg-icon">📋</div>
-      <h3 class="eg-title">Get your full summary by email</h3>
-      <p class="eg-sub">We'll send your complete scan results, what each finding means legally, and how to address it — plus the IDR 2026 Lawsuit Defense report.</p>
-      <div class="eg-row">
-        <input type="email" id="eg-email" class="eg-inp" placeholder="your@email.com" aria-label="Email address for scan summary">
-        <button class="eg-btn" id="eg-btn" onclick="sendSummaryEmail()">Email My Results</button>
-      </div>
-      <p class="eg-fine">No spam. Unsubscribe anytime. Your results are not shared.</p>
-    </div>
-    <div class="eg-success" id="eg-success">
-      <div class="eg-success-icon">✓</div>
-      <div class="eg-success-title">Summary sent.</div>
-      <p class="eg-success-sub">Check your inbox — your results and the 2026 Defense report are on their way.</p>
-    </div>
-  </div>
-
-  <!-- ═══ SOCIAL SHARE ═══ -->
+  <!-- Social share -->
   <div class="share-block">
     <p class="share-lbl">Share your scan</p>
     <div class="share-btns">
-      <a id="share-x" class="share-btn" href="#" target="_blank" rel="noopener" aria-label="Share on X / Twitter">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.258 5.63 5.907-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      <a id="share-x" class="share-btn" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.258 5.63 5.907-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
         Share on X
       </a>
-      <a id="share-fb" class="share-btn" href="#" target="_blank" rel="noopener" aria-label="Share on Facebook">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      <a id="share-fb" class="share-btn" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
         Share on Facebook
       </a>
-      <a id="share-email" class="share-btn" href="#" aria-label="Share via email">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      <a id="share-email-link" class="share-btn" href="#">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
         Email a Colleague
       </a>
-      <button id="share-copy" class="share-btn" onclick="copyLink(this)" aria-label="Copy link to results page">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+      <button class="share-btn" id="share-copy" onclick="copyLink(this)">
+        <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
         Copy Link
       </button>
     </div>
@@ -508,21 +492,23 @@ footer{border-top:1px solid var(--border2);padding:24px 40px;display:flex;align-
     </div>
   </div>
 
-  <!-- Activation block -->
+  <!-- Activation -->
   <div class="act-block">
     <p class="act-kicker">Registry Enrollment — Founding Access</p>
     <h2 class="act-title">Activate Your IDR Shield</h2>
-    <p class="act-sub">Lock in founding access before the window closes. Activate your registry record, your shield, and 30-day Pro access in one step.</p>
+    <p class="act-sub">Lock in founding access before the window closes. Your registry record, your shield, and 30-day Pro access — activated in one step.</p>
     <div class="act-feats">
-      <div class="feat"><span class="feat-ck" aria-hidden="true">✓</span><span class="feat-t"><strong>Public verification page</strong> — your record at idrshield.com/verify/yourstore</span></div>
-      <div class="feat"><span class="feat-ck" aria-hidden="true">✓</span><span class="feat-t"><strong>Tamper-proof receipt storage</strong> — SHA-256 hashed, immutable log</span></div>
-      <div class="feat"><span class="feat-ck" aria-hidden="true">✓</span><span class="feat-t"><strong>30-day Pro access included</strong> — full system from day one</span></div>
-      <div class="feat"><span class="feat-ck" aria-hidden="true">✓</span><span class="feat-t"><strong>2026 Lawsuit Defense report</strong> — The Accessibility Shield PDF included</span></div>
-      <div class="feat"><span class="feat-ck" aria-hidden="true">✓</span><span class="feat-t"><strong>IDR Trust Badge eligibility</strong> — display on your store footer</span></div>
-      <div class="feat"><span class="feat-ck" aria-hidden="true">✓</span><span class="feat-t"><strong>Founding price locked</strong> — $97 now vs. $127 standard after window closes</span></div>
+      <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>Public verification page</strong> — idrshield.com/verify/yourstore</span></div>
+      <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>Tamper-proof receipt storage</strong> — SHA-256 hashed, immutable log</span></div>
+      <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>30-day Pro access included</strong> — full system from day one</span></div>
+      <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>2026 Lawsuit Defense report PDF</strong> — included at activation</span></div>
+      <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>IDR Trust Badge eligibility</strong> — display on your store footer</span></div>
+      <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>Founding price locked</strong> — $97 now vs. $127 standard</span></div>
     </div>
     <div class="act-cta-row">
-      <a id="act-link" class="cta-btn" href="https://idrshield.gumroad.com/l/oadcfq" target="_blank" rel="noopener">Activate IDR Shield — $97</a>
+      <a id="act-link" class="cta-btn" href="https://idrshield.gumroad.com/l/oadcfq" target="_blank" rel="noopener">
+        Activate IDR Shield — $97
+      </a>
       <div>
         <div class="price-n">$97</div>
         <div class="price-s">Founding Access · First 500 Stores · Standard $127</div>
@@ -532,7 +518,7 @@ footer{border-top:1px solid var(--border2);padding:24px 40px;display:flex;align-
 
   <!-- Badge preview -->
   <div class="badge-prev">
-    <div class="bp-seal" role="img" aria-label="IDR Institutional Seal">
+    <div class="bp-seal" role="img" aria-label="IDR Seal">
       <span class="bp-idr">IDR</span>
       <div class="bp-line"></div>
       <span class="bp-sub" id="bp-status">Monitoring</span>
@@ -556,9 +542,11 @@ footer{border-top:1px solid var(--border2);padding:24px 40px;display:flex;align-
 </footer>
 
 <script>
-const API = 'https://idr-backend-production.up.railway.app';
+const API     = 'https://idr-backend-production.up.railway.app';
 const GUMROAD = 'https://idrshield.gumroad.com/l/oadcfq';
-let receipt = null;
+
+let receipt     = null;
+let visitorEmail = '';
 
 const CATS = [
   {slug:'alt_text',            bar:'cb-alt',  label:'Image Alt Text'},
@@ -567,44 +555,51 @@ const CATS = [
   {slug:'heading_structure',   bar:'cb-hdg',  label:'Heading Structure'},
   {slug:'aria_links_contrast', bar:'cb-aria', label:'ARIA & Links'},
 ];
-
-const MSGS = ['Rendering page…','Auditing image alt text…','Checking form labels…',
+const MSGS = [
+  'Rendering page…','Auditing image alt text…','Checking form labels…',
   'Testing keyboard navigation…','Validating heading structure…',
-  'Verifying ARIA & link integrity…','Generating receipt…'];
+  'Verifying ARIA & link integrity…','Generating receipt…'
+];
 
+/* ── PAGE TRANSITIONS ── */
 function showInput() {
-  document.getElementById('page-input').style.display = '';
+  document.getElementById('page-input').style.display  = '';
   document.getElementById('page-results').style.display = 'none';
-  document.getElementById('hdr-protocol').style.display = '';
+  document.getElementById('hdr-right').style.display   = '';
   document.getElementById('btn-new-scan').style.display = 'none';
-  // Reset email gate
-  document.getElementById('eg-form-wrap').style.display = '';
-  document.getElementById('eg-success').style.display = 'none';
-  document.getElementById('eg-email').value = '';
-  document.getElementById('eg-btn').disabled = false;
-  window.scrollTo({top:0,behavior:'smooth'});
+  window.scrollTo({top:0, behavior:'smooth'});
 }
-
 function showResults() {
-  document.getElementById('page-input').style.display = 'none';
+  document.getElementById('page-input').style.display  = 'none';
   document.getElementById('page-results').style.display = '';
-  document.getElementById('hdr-protocol').style.display = 'none';
+  document.getElementById('hdr-right').style.display   = 'none';
   document.getElementById('btn-new-scan').style.display = '';
-  window.scrollTo({top:0,behavior:'instant'});
+  window.scrollTo({top:0, behavior:'instant'});
 }
 
+/* ── START SCAN ── */
 async function startScan() {
-  const url = document.getElementById('url-inp').value.trim();
+  const email = document.getElementById('email-inp').value.trim();
+  const url   = document.getElementById('url-inp').value.trim();
+
+  if (!email || !email.includes('@')) {
+    document.getElementById('email-inp').focus();
+    document.getElementById('email-inp').style.borderColor = 'var(--fail)';
+    setTimeout(() => document.getElementById('email-inp').style.borderColor = '', 2000);
+    return;
+  }
   if (!url) { document.getElementById('url-inp').focus(); return; }
   if (!url.startsWith('http')) { showErr('URL must start with https://'); return; }
+
+  visitorEmail = email;
 
   hide('err-panel');
   show('scan-panel');
   dis('scan-btn', true);
   resetBars();
 
-  const lbl = document.getElementById('scan-status');
-  const scanP = runScan(url);
+  const lbl  = document.getElementById('scan-status');
+  const scanP = runScan(url, email);
 
   for (let i = 0; i < CATS.length; i++) {
     lbl.textContent = MSGS[i + 1];
@@ -620,104 +615,198 @@ async function startScan() {
   if (!r) return;
 
   for (const c of CATS) {
-    const d = r.scan.categories.find(x => x.slug === c.slug);
-    finBar(c.bar, d?.score ?? 0, d?.status ?? 'fail');
+    const d = (r.scan && r.scan.categories || []).find(x => x.slug === c.slug);
+    finBar(c.bar, d ? d.score : 0, d ? d.status : 'fail');
   }
 
   receipt = r;
   renderResults(r);
   buildShareLinks(r);
   showResults();
+
+  // Auto-send summary email
+  if (visitorEmail && r) {
+    sendSummaryEmail(visitorEmail, r);
+  }
 }
 
-async function runScan(url) {
+/* ── API CALL ── */
+async function runScan(url, email) {
   try {
+    const body = { url };
+    if (email) body.email = email;
     const res = await fetch(`${API}/api/scan`, {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({url})
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(body)
     });
     if (!res.ok) {
-      const e = await res.json().catch(()=>({error:'Error'}));
-      showErr(e.error||`HTTP ${res.status}`);
+      const e = await res.json().catch(() => ({error: 'Error'}));
+      showErr(e.error || `HTTP ${res.status}`);
       return null;
     }
     return await res.json();
   } catch(e) {
-    if (e.message && (e.message.includes('fetch') || e.message.includes('Failed') || e.message.includes('Network')))
-      return buildDemo(url);
-    showErr(e.message);
-    return null;
+    // Network error — fall back to demo
+    return buildDemo(url);
   }
 }
 
-// ═══ EMAIL SUMMARY ═══
-async function sendSummaryEmail() {
-  if (!receipt) return;
-  const email = document.getElementById('eg-email').value.trim();
-  if (!email || !email.includes('@')) {
-    document.getElementById('eg-email').focus();
-    return;
-  }
-  const btn = document.getElementById('eg-btn');
-  btn.disabled = true;
-  btn.textContent = 'Sending…';
-
+/* ── AUTO SUMMARY EMAIL ── */
+async function sendSummaryEmail(email, r) {
   try {
     const res = await fetch(`${API}/api/scan/summary-email`, {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ email, receipt })
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ email, receipt: r })
     });
     if (res.ok) {
-      document.getElementById('eg-form-wrap').style.display = 'none';
-      document.getElementById('eg-success').style.display = 'block';
-    } else {
-      btn.disabled = false;
-      btn.textContent = 'Email My Results';
-      // Still show success to avoid frustrating the user if backend glitches
-      document.getElementById('eg-form-wrap').style.display = 'none';
-      document.getElementById('eg-success').style.display = 'block';
+      const notice = document.getElementById('email-sent-notice');
+      document.getElementById('esn-txt').textContent = `Summary sent to ${email}`;
+      notice.classList.add('show');
     }
   } catch(e) {
-    btn.disabled = false;
-    btn.textContent = 'Email My Results';
+    // Silent fail — don't interrupt the results experience
+    console.warn('Summary email failed:', e.message);
   }
 }
 
-// ═══ SHARE LINKS ═══
+/* ── RENDER RESULTS ── */
+function renderResults(r) {
+  try {
+    const sc = r.scan || {};
+    const st = sc.overall_status || 'warning';
+
+    // Banner
+    const ic = document.getElementById('r-icon');
+    ic.className = `r-banner-icon ${st}`;
+    ic.textContent = st === 'pass' ? '✓' : st === 'warning' ? '⚠' : '✗';
+    document.getElementById('r-domain').textContent = sc.domain || '—';
+
+    const pill = document.getElementById('r-status-pill');
+    pill.className = `status-pill ${st}`;
+    document.getElementById('r-status-txt').textContent =
+      st === 'pass' ? 'REGISTRY ELIGIBLE' : st === 'warning' ? 'MONITORING STATUS' : 'REMEDIATION REQUIRED';
+
+    const ts = r.timestamp_utc ? new Date(r.timestamp_utc) : new Date();
+    document.getElementById('r-time').textContent = fmtDate(ts);
+
+    // Score ring
+    const circ = 2 * Math.PI * 80;
+    const score = sc.overall_score || 0;
+    const ring = document.getElementById('s-ring');
+    setTimeout(() => {
+      ring.style.strokeDashoffset = circ - (score / 100) * circ;
+      ring.style.stroke = st === 'pass' ? '#52B788' : st === 'warning' ? '#E9C46A' : '#E63946';
+    }, 100);
+
+    document.getElementById('s-num').textContent  = score;
+    document.getElementById('s-page').textContent = sc.page_title || sc.domain || '—';
+    document.getElementById('s-crit').textContent = sc.critical_count  || 0;
+    document.getElementById('s-total').textContent = sc.total_issues   || 0;
+
+    const ms = sc.scan_duration_ms || 0;
+    document.getElementById('s-dur').textContent = ms < 1000 ? `${ms}ms` : `${(ms/1000).toFixed(1)}s`;
+
+    const interp = document.getElementById('status-interp');
+    interp.textContent = st === 'pass'
+      ? 'This store is currently eligible for Active registry status.'
+      : st === 'warning'
+      ? 'This store may qualify for Monitoring status after enrollment.'
+      : 'This store requires remediation before Active status can be achieved.';
+    interp.className = `status-interp ${st}`;
+
+    // Category cards
+    const grid = document.getElementById('cats-grid');
+    grid.innerHTML = '';
+    const cats = sc.categories || [];
+    for (const cat of cats) grid.appendChild(buildCard(cat));
+    setTimeout(() => {
+      document.querySelectorAll('.cat-bar-f').forEach(el => el.style.width = el.dataset.w);
+    }, 150);
+
+    // Critical findings
+    const crits = cats.flatMap(c =>
+      (c.issues || []).filter(i => i.severity === 'critical').map(i => ({...i, catName: c.name}))
+    );
+    if (crits.length > 0) {
+      document.getElementById('crit-panel').style.display = '';
+      document.getElementById('crit-count').textContent = crits.length + ' Critical Finding' + (crits.length !== 1 ? 's' : '');
+      document.getElementById('crit-list').innerHTML = crits.map(c => `
+        <div class="crit-item">
+          <span class="crit-bullet">•</span>
+          <div>
+            <div class="crit-body">${esc(c.description || '')}</div>
+            <div class="crit-sub">${esc(c.catName || '')} · WCAG ${c.wcag || '—'} · ${esc(c.impact || '')}</div>
+          </div>
+        </div>`).join('');
+    } else {
+      document.getElementById('crit-panel').style.display = 'none';
+    }
+
+    // Receipt fields
+    document.getElementById('rf-rid').textContent   = r.receipt_id   || '—';
+    document.getElementById('rf-reg').textContent   = r.registry_id  || '—';
+    document.getElementById('rf-ts').textContent    = fmtDateFull(ts);
+    document.getElementById('rf-dom').textContent   = sc.domain      || '—';
+    document.getElementById('rf-op').textContent    = r.operator     || '—';
+    document.getElementById('rf-proto').textContent = r.idr_protocol || '—';
+    document.getElementById('rf-hash').textContent  = (r.hash && r.hash.value) || '—';
+
+    // Badge
+    document.getElementById('bp-status').textContent = st === 'pass' ? 'Active' : 'Monitoring';
+    document.getElementById('bp-url').textContent     = r.registry_url || `idrshield.com/verify/${sc.domain || 'yourstore'}`;
+
+  } catch(err) {
+    console.error('renderResults error:', err);
+  }
+}
+
+function buildCard(cat) {
+  const el = document.createElement('article');
+  el.className = `cat-card ${cat.status || 'warning'}`;
+  const issues = (cat.issues || []).length === 0
+    ? `<p class="no-issues">✓ No issues detected</p>`
+    : (cat.issues || []).map(i => `
+        <div class="issue">
+          <span class="sev ${i.severity || 'minor'}">${i.severity || ''}</span>
+          <span class="i-txt">${esc(i.description || '')}${i.count > 1 ? ` <span style="font-size:10px;color:rgba(240,232,216,.35)">(×${i.count})</span>` : ''}<span class="i-wcag">WCAG ${i.wcag || ''}</span></span>
+        </div>`).join('');
+  el.innerHTML = `
+    <div class="cat-h">
+      <span class="cat-nm">${esc(cat.name || '')}</span>
+      <span class="cat-sc ${cat.status || 'warning'}">${cat.score || 0}/100</span>
+    </div>
+    <div class="cat-bar"><div class="cat-bar-f" data-w="${cat.score || 0}%" style="width:0%"></div></div>
+    <div class="issues">${issues}</div>`;
+  return el;
+}
+
+/* ── SHARE LINKS ── */
 function buildShareLinks(r) {
-  const sc = r.scan;
-  const score = sc.overall_score;
-  const domain = sc.domain;
-  const critCount = sc.critical_count;
-  const status = sc.overall_status;
+  const sc     = r.scan || {};
+  const score  = sc.overall_score || 0;
+  const domain = sc.domain || '';
+  const crits  = sc.critical_count || 0;
+  const st     = sc.overall_status || 'warning';
   const pageUrl = encodeURIComponent('https://idrshield.com/scan');
 
-  let xText = '';
-  if (status === 'pass') {
-    xText = `Just scanned ${domain} for ADA accessibility. Score: ${score}/100 — currently eligible for registry status. Run your own free scan:`;
-  } else if (status === 'warning') {
-    xText = `Just scanned ${domain} with IDR Shield. Score: ${score}/100 — ${critCount} critical accessibility issues found. Free instant scan:`;
-  } else {
-    xText = `Just scanned ${domain} — ${critCount} critical ADA accessibility violations found (Score: ${score}/100). Plaintiff firms run these same scanners. Free scan:`;
-  }
+  const xText = st === 'pass'
+    ? `Just scanned ${domain} for ADA accessibility. Score: ${score}/100 — currently registry eligible. Free scan:`
+    : st === 'warning'
+    ? `Just scanned ${domain} with IDR Shield. Score: ${score}/100 — ${crits} critical issues found. Free scan:`
+    : `${domain} scored ${score}/100 on ADA accessibility — ${crits} critical violations. Plaintiff firms run these same scanners. Free scan:`;
 
-  const emailSubject = encodeURIComponent(`ADA Accessibility Scan Results — ${domain}`);
-  let emailBody = '';
-  if (status === 'fail') {
-    emailBody = encodeURIComponent(`I just scanned ${domain} for ADA accessibility issues. The score came back ${score}/100 with ${critCount} critical findings — the same violations plaintiff firms target.\n\nRun a free scan on your store: https://idrshield.com/scan`);
-  } else {
-    emailBody = encodeURIComponent(`I just scanned ${domain} for ADA accessibility issues. Score: ${score}/100.\n\nRun a free scan on your store: https://idrshield.com/scan`);
-  }
+  const emailSubj = encodeURIComponent(`ADA Accessibility Scan Results — ${domain}`);
+  const emailBody = encodeURIComponent(
+    `I just scanned ${domain} for ADA accessibility issues.\n\nScore: ${score}/100 · Critical findings: ${crits}\n\nRun a free scan on your store: https://idrshield.com/scan`
+  );
 
-  document.getElementById('share-x').href =
-    `https://twitter.com/intent/tweet?text=${encodeURIComponent(xText)}&url=${pageUrl}`;
-  document.getElementById('share-fb').href =
-    `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
-  document.getElementById('share-email').href =
-    `mailto:?subject=${emailSubject}&body=${emailBody}`;
+  document.getElementById('share-x').href        = `https://twitter.com/intent/tweet?text=${encodeURIComponent(xText)}&url=${pageUrl}`;
+  document.getElementById('share-fb').href        = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
+  document.getElementById('share-email-link').href = `mailto:?subject=${emailSubj}&body=${emailBody}`;
 
-  // Wire activation link with receipt ref
+  // Activation link with receipt ref
   const ref = r.registry_id || '';
   document.getElementById('act-link').href = `${GUMROAD}?ref=${encodeURIComponent(ref)}`;
 }
@@ -725,188 +814,108 @@ function buildShareLinks(r) {
 function copyLink(btn) {
   navigator.clipboard.writeText('https://idrshield.com/scan').then(() => {
     btn.classList.add('share-copied');
-    btn.innerHTML = `<svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Copied!`;
+    btn.innerHTML = `<svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Copied!`;
     setTimeout(() => {
       btn.classList.remove('share-copied');
-      btn.innerHTML = `<svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Copy Link`;
+      btn.innerHTML = `<svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg> Copy Link`;
     }, 2500);
   });
 }
 
-function renderResults(r) {
-  const sc = r.scan;
-  const st = sc.overall_status;
-
-  const ic = document.getElementById('r-icon');
-  ic.className = `r-banner-icon ${st}`;
-  ic.textContent = st==='pass'?'✓':st==='warning'?'⚠':'✗';
-  document.getElementById('r-domain').textContent = sc.domain;
-  const pill = document.getElementById('r-status-pill');
-  pill.className = `status-pill ${st}`;
-  document.getElementById('r-status-txt').textContent =
-    st==='pass'?'REGISTRY ELIGIBLE':st==='warning'?'MONITORING STATUS':'REMEDIATION REQUIRED';
-  document.getElementById('r-time').textContent = fmtDate(new Date(r.timestamp_utc));
-
-  const circ = 2 * Math.PI * 80;
-  const ring = document.getElementById('s-ring');
-  setTimeout(()=>{
-    ring.style.strokeDashoffset = circ - (sc.overall_score / 100) * circ;
-    ring.style.stroke = st==='pass'?'#52B788':st==='warning'?'#E9C46A':'#E63946';
-  }, 100);
-  document.getElementById('s-num').textContent = sc.overall_score;
-  document.getElementById('s-page').textContent = sc.page_title || sc.domain;
-
-  const interp = document.getElementById('status-interp');
-  if (interp) {
-    interp.textContent = st==='pass'
-      ? 'This store is currently eligible for Active registry status.'
-      : st==='warning'
-      ? 'This store may qualify for Monitoring status after enrollment.'
-      : 'This store requires remediation before Active status can be achieved.';
-    interp.className = 'status-interp ' + st;
-  }
-  document.getElementById('s-crit').textContent = sc.critical_count;
-  document.getElementById('s-total').textContent = sc.total_issues;
-  document.getElementById('s-dur').textContent = sc.scan_duration_ms < 1000
-    ? `${sc.scan_duration_ms}ms` : `${(sc.scan_duration_ms/1000).toFixed(1)}s`;
-
-  const grid = document.getElementById('cats-grid');
-  grid.innerHTML = '';
-  for (const cat of sc.categories) grid.appendChild(buildCard(cat));
-  setTimeout(()=>{
-    document.querySelectorAll('.cat-bar-f').forEach(el => el.style.width = el.dataset.w);
-  }, 150);
-
-  const crits = sc.categories.flatMap(c =>
-    c.issues.filter(i => i.severity==='critical').map(i=>({...i, catName:c.name})));
-  if (crits.length > 0) {
-    document.getElementById('crit-panel').style.display = '';
-    document.getElementById('crit-count').textContent = crits.length + ' Critical Finding' + (crits.length!==1?'s':'');
-    document.getElementById('crit-list').innerHTML = crits.map(c=>`
-      <div class="crit-item">
-        <span class="crit-bullet" aria-hidden="true">•</span>
-        <div>
-          <div class="crit-body">${esc(c.description)}</div>
-          <div class="crit-sub">${esc(c.catName)} · WCAG ${c.wcag} · ${esc(c.impact)}</div>
-        </div>
-      </div>`).join('');
-  } else {
-    document.getElementById('crit-panel').style.display = 'none';
-  }
-
-  document.getElementById('rf-rid').textContent = r.receipt_id;
-  document.getElementById('rf-reg').textContent = r.registry_id;
-  document.getElementById('rf-ts').textContent = fmtDateFull(new Date(r.timestamp_utc));
-  document.getElementById('rf-dom').textContent = sc.domain;
-  document.getElementById('rf-op').textContent = r.operator;
-  document.getElementById('rf-proto').textContent = r.idr_protocol;
-  document.getElementById('rf-hash').textContent = r.hash?.value || '—';
-
-  document.getElementById('bp-status').textContent = st==='pass'?'Active':'Monitoring';
-  document.getElementById('bp-url').textContent = r.registry_url || `idrshield.com/verify/${sc.domain}`;
+/* ── BAR HELPERS ── */
+function resetBars() {
+  CATS.forEach(c => {
+    const b = document.getElementById(c.bar);
+    b.className = 'cbar';
+    b.querySelector('.cbar-f').style.width = '0%';
+    b.querySelector('.cbar-i').textContent = '';
+  });
+}
+function actBar(id) { document.getElementById(id).className = 'cbar on scanning'; }
+function finBar(id, score, st) {
+  const b = document.getElementById(id);
+  b.className = 'cbar done';
+  b.querySelector('.cbar-f').style.width = `${score}%`;
+  const ic = b.querySelector('.cbar-i');
+  ic.textContent = st === 'pass' ? '✓' : st === 'warning' ? '⚠' : '✗';
+  ic.style.color = st === 'pass' ? '#52B788' : st === 'warning' ? '#E9C46A' : '#E63946';
 }
 
-function buildCard(cat) {
-  const el = document.createElement('article');
-  el.className = `cat-card ${cat.status}`;
-  const issues = cat.issues.length === 0
-    ? `<p class="no-issues">✓ No issues detected</p>`
-    : cat.issues.map(i=>`
-        <div class="issue">
-          <span class="sev ${i.severity}">${i.severity}</span>
-          <span class="i-txt">${esc(i.description)}${i.count>1?` <span style="font-size:10px;color:rgba(240,232,216,.35)">(×${i.count})</span>`:''}<span class="i-wcag">WCAG ${i.wcag}</span></span>
-        </div>`).join('');
-  el.innerHTML = `
-    <div class="cat-h">
-      <span class="cat-nm">${esc(cat.name)}</span>
-      <span class="cat-sc ${cat.status}">${cat.score}/100</span>
-    </div>
-    <div class="cat-bar"><div class="cat-bar-f" data-w="${cat.score}%" style="width:0%"></div></div>
-    <div class="issues">${issues}</div>`;
-  return el;
+/* ── ACTIONS ── */
+function dlReceipt() {
+  if (!receipt) return;
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(receipt, null, 2)], {type: 'application/json'}));
+  a.download = `IDR-Receipt-${receipt.receipt_id || 'scan'}.json`;
+  a.click();
+}
+function cpHash(btn) {
+  const h = receipt && receipt.hash && receipt.hash.value;
+  if (!h) return;
+  navigator.clipboard.writeText(h).then(() => {
+    const o = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = o, 2000);
+  });
 }
 
-function resetBars(){CATS.forEach(c=>{const b=document.getElementById(c.bar);b.className='cbar';b.querySelector('.cbar-f').style.width='0%';b.querySelector('.cbar-i').textContent='';})}
-function actBar(id){document.getElementById(id).className='cbar on scanning';}
-function finBar(id,score,st){
-  const b=document.getElementById(id);b.className='cbar done';
-  b.querySelector('.cbar-f').style.width=`${score}%`;
-  const ic=b.querySelector('.cbar-i');
-  ic.textContent=st==='pass'?'✓':st==='warning'?'⚠':'✗';
-  ic.style.color=st==='pass'?'#52B788':st==='warning'?'#E9C46A':'#E63946';
+/* ── UTILS ── */
+function fmtDate(d) {
+  const mo = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${mo[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()} — ${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())} UTC`;
 }
+function fmtDateFull(d) {
+  const mo = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${mo[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()} ${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}:${pad(d.getUTCSeconds())} UTC`;
+}
+function pad(n) { return String(n).padStart(2, '0'); }
+function show(id) { document.getElementById(id).style.display = ''; }
+function hide(id) { document.getElementById(id).style.display = 'none'; }
+function dis(id, v) { document.getElementById(id).disabled = v; }
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+function showErr(msg) { hide('scan-panel'); dis('scan-btn', false); document.getElementById('err-msg').textContent = msg; show('err-panel'); }
 
-function dlReceipt(){
-  if(!receipt)return;
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob([JSON.stringify(receipt,null,2)],{type:'application/json'}));
-  a.download=`IDR-Receipt-${receipt.receipt_id}.json`;a.click();
-}
-function cpHash(btn){
-  const h=receipt?.hash?.value;if(!h)return;
-  navigator.clipboard.writeText(h).then(()=>{const o=btn.textContent;btn.textContent='Copied!';setTimeout(()=>btn.textContent=o,2000);});
-}
-
-function fmtDate(d){
-  const mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  return mo[d.getUTCMonth()]+' '+d.getUTCDate()+', '+d.getUTCFullYear()+' — '+
-    String(d.getUTCHours()).padStart(2,'0')+':'+String(d.getUTCMinutes()).padStart(2,'0')+' UTC';
-}
-function fmtDateFull(d){
-  const mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  return mo[d.getUTCMonth()]+' '+d.getUTCDate()+', '+d.getUTCFullYear()+' '+
-    String(d.getUTCHours()).padStart(2,'0')+':'+String(d.getUTCMinutes()).padStart(2,'0')+':'+
-    String(d.getUTCSeconds()).padStart(2,'0')+' UTC';
-}
-
-function show(id){document.getElementById(id).style.display='';}
-function hide(id){document.getElementById(id).style.display='none';}
-function dis(id,v){document.getElementById(id).disabled=v;}
-function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
-function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
-function showErr(msg){hide('scan-panel');dis('scan-btn',false);document.getElementById('err-msg').textContent=msg;show('err-panel');}
-
-// Demo mode (API down / network fail)
-function buildDemo(url){
-  const dom=url.replace(/^https?:\/\/(www\.)?/,'').split('/')[0]||'demo-store.com';
-  var uid='';for(var i=0;i<32;i++){uid+=Math.floor(Math.random()*16).toString(16);if(i===7||i===11||i===15||i===19)uid+='-';}
-  var id=uid.toUpperCase();
-  var hash='';for(var hi=0;hi<64;hi++)hash+='0123456789abcdef'[Math.floor(Math.random()*16)];
-  return{
-    receipt_id:id,registry_id:'IDR-REG-2026-'+id.substring(0,8),
-    timestamp_utc:new Date().toISOString(),
-    operator:'IDR_SCANNER_v1',idr_protocol:'IDR-BRAND-2026-01',
-    verified_by:'Institute of Digital Remediation',
-    registry_url:'https://idrshield.com/verify/'+dom,
-    hash:{algorithm:'SHA-256',value:hash,input_bytes:4821},
-    scan:{
-      url,domain:dom,page_title:dom,scan_duration_ms:5847,
-      overall_score:58,overall_status:'warning',total_issues:14,critical_count:4,
-      categories:[
-        {name:'Image Alt Text',slug:'alt_text',score:35,status:'fail',passed:3,failed:5,issues:[
-          {severity:'critical',rule:'image-alt',description:'5 product images are missing alt attributes entirely.',element:'img',impact:'Screen reader users receive no information about product visuals.',wcag:'1.1.1',count:5},
-          {severity:'serious',rule:'image-link-alt',description:'Hero banner link contains an image with empty alt text.',element:'a > img',impact:'Keyboard and screen reader users cannot determine where this link navigates.',wcag:'1.1.1',count:1}
+/* ── DEMO FALLBACK ── */
+function buildDemo(url) {
+  const dom = url.replace(/^https?:\/\/(www\.)?/, '').split('/')[0] || 'demo-store.com';
+  let uid = ''; for (let i = 0; i < 32; i++) { uid += Math.floor(Math.random()*16).toString(16); if ([7,11,15,19].includes(i)) uid += '-'; }
+  let hash = ''; for (let i = 0; i < 64; i++) hash += '0123456789abcdef'[Math.floor(Math.random()*16)];
+  return {
+    receipt_id: uid.toUpperCase(), registry_id: 'IDR-REG-2026-' + uid.substring(0,8).toUpperCase(),
+    timestamp_utc: new Date().toISOString(), operator: 'IDR_SCANNER_v1',
+    idr_protocol: 'IDR-BRAND-2026-01', verified_by: 'Institute of Digital Remediation',
+    registry_url: `https://idrshield.com/verify/${dom}`,
+    hash: {algorithm:'SHA-256', value: hash, input_bytes: 4821},
+    scan: {
+      url, domain: dom, page_title: dom, scan_duration_ms: 5847,
+      overall_score: 58, overall_status: 'warning', total_issues: 14, critical_count: 4,
+      categories: [
+        {name:'Image Alt Text', slug:'alt_text', score:35, status:'fail', issues:[
+          {severity:'critical', rule:'image-alt', description:'5 product images are missing alt attributes entirely.', element:'img', impact:'Screen reader users receive no information about product visuals.', wcag:'1.1.1', count:5},
+          {severity:'serious', rule:'image-link-alt', description:'Hero banner link contains an image with empty alt text.', element:'a > img', impact:'Keyboard users cannot determine where this link navigates.', wcag:'1.1.1', count:1}
         ]},
-        {name:'Form Labels',slug:'form_labels',score:55,status:'fail',passed:2,failed:2,issues:[
-          {severity:'critical',rule:'label',description:'Email and password fields in the checkout form have no accessible label.',element:'input[type=email]',impact:'Screen reader users cannot identify the purpose of these fields. This directly blocks checkout completion.',wcag:'1.3.1',count:2}
+        {name:'Form Labels', slug:'form_labels', score:55, status:'fail', issues:[
+          {severity:'critical', rule:'label', description:'Email and password fields in checkout have no accessible label.', element:'input', impact:'Screen reader users cannot identify these fields — blocks checkout completion.', wcag:'1.3.1', count:2}
         ]},
-        {name:'Keyboard Navigation',slug:'keyboard_nav',score:75,status:'warning',passed:3,failed:1,issues:[
-          {severity:'serious',rule:'skip-link',description:'No skip navigation link is present on any page template.',element:'body',impact:'Keyboard-only users must tab through the full navigation menu on every page.',wcag:'2.4.1',count:1}
+        {name:'Keyboard Navigation', slug:'keyboard_nav', score:75, status:'warning', issues:[
+          {severity:'serious', rule:'skip-link', description:'No skip navigation link present.', element:'body', impact:'Keyboard-only users must tab through full navigation on every page.', wcag:'2.4.1', count:1}
         ]},
-        {name:'Heading Structure',slug:'heading_structure',score:80,status:'warning',passed:4,failed:1,issues:[
-          {severity:'moderate',rule:'heading-order',description:'Heading levels skip from H2 to H4 in the product description section.',element:'h2, h4',impact:'Screen reader users navigating by heading encounter a disjointed content outline.',wcag:'1.3.1',count:2}
+        {name:'Heading Structure', slug:'heading_structure', score:80, status:'warning', issues:[
+          {severity:'moderate', rule:'heading-order', description:'Heading levels skip from H2 to H4 in product description.', element:'h2, h4', impact:'Screen reader users navigating by heading encounter disjointed outline.', wcag:'1.3.1', count:2}
         ]},
-        {name:'ARIA & Links',slug:'aria_links_contrast',score:50,status:'fail',passed:2,failed:3,issues:[
-          {severity:'critical',rule:'button-name',description:'2 icon buttons in the navigation menu have no accessible name.',element:'button',impact:'Screen reader users cannot determine what these buttons do.',wcag:'4.1.2',count:2},
-          {severity:'serious',rule:'link-generic-text',description:'4 links use non-descriptive text: "shop now", "click here", "read more", "learn more".',element:'a[href]',impact:'When screen reader users scan links out of context, these convey nothing about their destination.',wcag:'2.4.4',count:4}
+        {name:'ARIA & Links', slug:'aria_links_contrast', score:50, status:'fail', issues:[
+          {severity:'critical', rule:'button-name', description:'2 icon buttons in navigation have no accessible name.', element:'button', impact:'Screen reader users cannot determine what these buttons do.', wcag:'4.1.2', count:2},
+          {severity:'serious', rule:'link-generic-text', description:'4 links use non-descriptive text: "shop now", "click here", "read more".', element:'a', impact:'Links convey nothing about their destination out of context.', wcag:'2.4.4', count:4}
         ]}
       ]
     }
   };
 }
 
-document.getElementById('url-inp').addEventListener('keydown', e=>{ if(e.key==='Enter') startScan(); });
-document.getElementById('eg-email').addEventListener('keydown', e=>{ if(e.key==='Enter') sendSummaryEmail(); });
+document.getElementById('url-inp').addEventListener('keydown', e => { if (e.key === 'Enter') startScan(); });
+document.getElementById('email-inp').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('url-inp').focus(); });
+document.getElementById('email-inp').addEventListener('input', function() { this.style.borderColor = ''; });
 </script>
 </body>
 </html>
