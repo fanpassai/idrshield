@@ -203,7 +203,7 @@ footer{border-top:1px solid var(--border2);padding:20px 40px;display:flex;align-
   <!-- Stamp -->
   <div class="stamp-row">
     <!-- Live badge.js embed — injected dynamically -->
-    <div id="v-badge-mount" style="line-height:0;"></div>
+    <div id="v-badge-mount"></div>
     <div class="stamp-meta">
       <p class="stamp-kicker">IDR Registry — Public Verification Record</p>
       <h1 class="stamp-domain" id="v-domain">—</h1>
@@ -336,17 +336,8 @@ function renderRecord(reg, evidence) {
   const score  = reg.latest_score || 0;
   const domain = reg.domain || '—';
 
-  // Inject real badge.js embed
-  const mount = document.getElementById('v-badge-mount');
-  mount.innerHTML = '';
-  const badgeScript = document.createElement('script');
-  badgeScript.src = 'https://idrshield.com/badge.js';
-  badgeScript.setAttribute('data-store', domain);
-  badgeScript.setAttribute('data-id', reg.registry_id || '');
-  badgeScript.setAttribute('data-theme', 'outline');
-  badgeScript.setAttribute('data-size', '72');
-  badgeScript.setAttribute('data-tier', 'founding');
-  mount.appendChild(badgeScript);
+  // Inject purpose-built SVG seal
+  document.getElementById('v-badge-mount').innerHTML = buildSealSVG(st, score);
 
   // Domain + pill
   document.getElementById('v-domain').textContent = domain;
@@ -455,6 +446,75 @@ function esc(s) {
   const d = document.createElement('div');
   d.textContent = String(s || '');
   return d.innerHTML;
+}
+
+// ── SVG SEAL BUILDER ─────────────────────────────────────────────────────────
+function buildSealSVG(status, score) {
+  const uid = 'seal_' + Math.random().toString(36).slice(2, 7);
+  const c = status === 'active'
+    ? { ring:'#C9A84C', ring2:'rgba(201,168,76,0.35)', idr:'#C9A84C', text:'rgba(201,168,76,0.72)', line:'#8A6F2E', fill:'rgba(201,168,76,0.05)' }
+    : status === 'monitoring'
+    ? { ring:'#8A8A9A', ring2:'rgba(138,138,154,0.25)', idr:'#B0B0C0', text:'rgba(160,160,176,0.7)', line:'#6A6A7A', fill:'rgba(138,138,154,0.06)' }
+    : { ring:'#4A4A5A', ring2:'rgba(74,74,90,0.2)',    idr:'#5A5A6A', text:'rgba(90,90,106,0.5)',   line:'#3A3A4A', fill:'rgba(74,74,90,0.04)' };
+
+  const statusWord = status === 'active' ? 'ACTIVE' : status === 'monitoring' ? 'MONITORING' : 'UNVERIFIED';
+
+  const pulse = status === 'active' ? `
+    <circle cx="100" cy="100" r="97" fill="none" stroke="${c.ring}" stroke-width="0.8">
+      <animate attributeName="r" values="97;114" dur="2.6s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.45;0" dur="2.6s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="100" cy="100" r="97" fill="none" stroke="${c.ring}" stroke-width="0.5">
+      <animate attributeName="r" values="97;114" dur="2.6s" begin="1.3s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.25;0" dur="2.6s" begin="1.3s" repeatCount="indefinite"/>
+    </circle>` : '';
+
+  return `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"
+      style="width:130px;height:130px;display:block;overflow:visible;">
+    <defs>
+      <path id="${uid}_top" d="M 16,100 A 84,84 0 0,0 184,100"/>
+      <path id="${uid}_bot" d="M 16,100 A 84,84 0 0,1 184,100"/>
+    </defs>
+
+    ${pulse}
+
+    <!-- Outer ring -->
+    <circle cx="100" cy="100" r="96" fill="none" stroke="${c.ring}" stroke-width="1.5" opacity="0.85"/>
+
+    <!-- Inner ring -->
+    <circle cx="100" cy="100" r="68" fill="${c.fill}" stroke="${c.ring2}" stroke-width="1"/>
+
+    <!-- Top arc: INSTITUTE OF DIGITAL REMEDIATION -->
+    <text font-family="Montserrat,Arial,sans-serif" font-size="7" font-weight="700"
+          fill="${c.text}">
+      <textPath href="#${uid}_top" startOffset="50%" text-anchor="middle"
+                textLength="220" lengthAdjust="spacing">
+        INSTITUTE OF DIGITAL REMEDIATION
+      </textPath>
+    </text>
+
+    <!-- Bottom arc: FOUNDING MEMBER -->
+    <text font-family="Montserrat,Arial,sans-serif" font-size="7" font-weight="700"
+          fill="${c.text}">
+      <textPath href="#${uid}_bot" startOffset="50%" text-anchor="middle"
+                textLength="100" lengthAdjust="spacing">
+        FOUNDING MEMBER
+      </textPath>
+    </text>
+
+    <!-- IDR monogram -->
+    <text x="100" y="94" font-family="Georgia,serif" font-size="29" font-weight="700"
+          fill="${c.idr}" text-anchor="middle" letter-spacing="5">IDR</text>
+
+    <!-- Divider line -->
+    <line x1="66" y1="103" x2="134" y2="103" stroke="${c.line}" stroke-width="0.8"/>
+
+    <!-- Status word inside inner ring -->
+    <text x="100" y="116" font-family="Montserrat,Arial,sans-serif" font-size="7.5"
+          font-weight="700" fill="${c.text}" text-anchor="middle" letter-spacing="2">
+      ${statusWord}
+    </text>
+  </svg>`;
 }
 
 // Boot
