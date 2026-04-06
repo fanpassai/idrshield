@@ -2,7 +2,7 @@
   "rewrites": [
     { "source": "/scan", "destination": "/scan.html" },
     { "source": "/admin", "destination": "/idrshield_admin.html" },
-    { "source": "/verify/:domain*", "destination": "/idr_verify_sample.html" },
+    { "source": "/verify/:domain*", "destination": "/idr_verify.html" },
     { "source": "/fix/:domain*", "destination": "/idrshield_fix.html" },
     { "source": "/badge", "destination": "/idrshield_badge.html" },
     { "source": "/login", "destination": "/idrshield_login.html" },
