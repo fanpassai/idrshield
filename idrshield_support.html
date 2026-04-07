@@ -625,6 +625,10 @@
     .input-inner  { grid-template-columns: 1fr; }
     .btn-send     { width: 100%; }
   }
+
+.ft-links{display:flex;gap:20px;align-items:center;}
+.ft-link{font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(201,168,76,.25);text-decoration:none;transition:color .2s;}
+.ft-link:hover{color:rgba(201,168,76,.55);}
 </style>
 </head>
 <body>
@@ -1152,7 +1156,15 @@ function IDR_buildSystemPrompt(contextString) {
     "  - Their personalised badge.js embed code — pre-filled with their domain and registry ID",
     "  - Their personalised chip.js embed code — pre-filled",
     "  - COPY CODE buttons for each",
-    "  - Platform guides: Shopify (theme.liquid before </body>), Squarespace (Settings > Advanced >",
+    "  - Platform guides: Shopify (theme.liquid before 
+<footer style="border-top:1px solid rgba(201,168,76,0.08);padding:16px 40px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,14,26,0.97);">
+  <span style="font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(201,168,76,.2);">Institute of Digital Remediation · IDR-BRAND-2026-01</span>
+  <div style="display:flex;gap:20px;">
+    <a href="/privacy" style="font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(201,168,76,.25);text-decoration:none;">Privacy</a>
+    <a href="/terms" style="font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(201,168,76,.25);text-decoration:none;">Terms</a>
+  </div>
+</footer>
+</body>), Squarespace (Settings > Advanced >",
     "    Code Injection > Footer), WooCommerce (footer.php before </body>),",
     "    Wix (Settings > Custom Code > Footer > All Pages), Any HTML (before </body>)",
     "",
