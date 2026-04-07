@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy & Terms of Service — IDR Shield</title>
+<meta name="description" content="Privacy Policy and Terms of Service for IDR Shield — Institute of Digital Remediation.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" href="/favicon.svg">
+<meta name="theme-color" content="#0A0E1A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#0A0E1A; --navy2:#0D1526;
+  --gold:#C9A84C; --gold2:#E2C97E; --gold3:#8A6F2E;
+  --cream:#F0E8D8;
+  --border:rgba(201,168,76,0.15); --border2:rgba(201,168,76,0.08);
+  --text:rgba(240,232,216,0.75);
+  --ease:cubic-bezier(0.16,1,0.3,1);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{font-size:16px;scroll-behavior:smooth;}
+body{font-family:'EB Garamond',Georgia,serif;background:var(--navy);color:var(--cream);min-height:100vh;}
+
+/* HEADER */
+header{display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:68px;border-bottom:1px solid var(--border2);background:rgba(10,14,26,.97);backdrop-filter:blur(20px);position:sticky;top:0;z-index:100;}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.logo-seal{width:36px;height:36px;border:1.5px solid var(--gold3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:10px;font-weight:700;color:var(--gold);}
+.logo-text{display:flex;flex-direction:column;gap:1px;}
+.logo-name{font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:700;letter-spacing:.28em;color:rgba(201,168,76,.5);text-transform:uppercase;}
+.logo-sub{font-family:'EB Garamond',serif;font-size:13px;font-style:italic;color:rgba(240,232,216,.5);}
+.hdr-right{font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,168,76,.3);}
+
+/* TABS */
+.tab-bar{border-bottom:1px solid var(--border2);background:rgba(10,14,26,.95);padding:0 40px;display:flex;gap:0;}
+.tab{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:16px 24px;color:rgba(240,232,216,.35);cursor:pointer;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;background:none;border-top:none;border-left:none;border-right:none;}
+.tab:hover{color:rgba(240,232,216,.6);}
+.tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+
+/* CONTENT */
+.wrap{max-width:760px;margin:0 auto;padding:56px 32px 100px;}
+
+.panel{display:none;}
+.panel.active{display:block;}
+
+/* DOCUMENT STYLES */
+.doc-kicker{font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--gold3);margin-bottom:12px;}
+.doc-title{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,40px);font-weight:700;color:var(--cream);margin-bottom:8px;line-height:1.1;}
+.doc-date{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(201,168,76,.35);margin-bottom:40px;}
+
+.doc-lead{font-size:18px;line-height:1.72;color:rgba(240,232,216,.6);font-style:italic;padding:24px 28px;border-left:2px solid var(--gold3);margin-bottom:40px;}
+
+h2{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--cream);margin:40px 0 14px;padding-top:8px;border-top:1px solid var(--border2);}
+h2:first-of-type{border-top:none;margin-top:0;}
+
+p{font-size:16px;line-height:1.78;color:var(--text);margin-bottom:16px;}
+p:last-child{margin-bottom:0;}
+
+ul{padding-left:0;margin-bottom:16px;list-style:none;}
+ul li{font-size:16px;line-height:1.72;color:var(--text);padding:6px 0 6px 20px;position:relative;}
+ul li::before{content:'—';position:absolute;left:0;color:var(--gold3);font-family:'Montserrat',sans-serif;font-size:12px;}
+
+strong{color:rgba(240,232,216,.88);font-weight:600;}
+
+.highlight{background:rgba(201,168,76,.06);border:1px solid var(--border2);border-radius:3px;padding:20px 24px;margin:24px 0;}
+.highlight p{color:rgba(240,232,216,.6);margin-bottom:0;}
+
+.contact-block{background:rgba(13,21,38,.85);border:1px solid var(--border);border-radius:4px;padding:28px 32px;margin-top:40px;position:relative;overflow:hidden;}
+.contact-block::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.4;}
+.contact-title{font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--gold3);margin-bottom:12px;}
+.contact-block p{font-size:15px;color:rgba(240,232,216,.5);margin-bottom:6px;}
+.contact-block a{color:var(--gold3);text-decoration:none;}
+.contact-block a:hover{color:var(--gold);}
+
+footer{border-top:1px solid var(--border2);padding:20px 40px;display:flex;align-items:center;justify-content:space-between;}
+.ft-n{font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(201,168,76,.2);}
+.ft-t{font-family:'EB Garamond',serif;font-size:13px;font-style:italic;color:rgba(240,232,216,.15);}
+
+@media(max-width:600px){
+  header{padding:0 20px;}
+  .tab-bar{padding:0 20px;}
+  .wrap{padding:36px 20px 80px;}
+  footer{flex-direction:column;gap:8px;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="https://idrshield.com" class="logo">
+    <div class="logo-seal">IDR</div>
+    <div class="logo-text">
+      <span class="logo-name">Institute of Digital Remediation</span>
+      <span class="logo-sub">Legal</span>
+    </div>
+  </a>
+  <span class="hdr-right">IDR Shield</span>
+</header>
+
+<div class="tab-bar">
+  <button class="tab active" onclick="switchTab('privacy', this)">Privacy Policy</button>
+  <button class="tab" onclick="switchTab('terms', this)">Terms of Service</button>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PRIVACY POLICY
+═══════════════════════════════════════ -->
+<div id="panel-privacy" class="panel active">
+<div class="wrap">
+
+  <p class="doc-kicker">Institute of Digital Remediation</p>
+  <h1 class="doc-title">Privacy Policy</h1>
+  <p class="doc-date">Effective Date: April 6, 2026 · Last Updated: April 6, 2026</p>
+
+  <div class="doc-lead">
+    IDR Shield is a compliance documentation system. We collect only what we need to operate the service, we do not sell your data, and we do not share it with third parties except as required to operate the platform.
+  </div>
+
+  <h2>1. Who We Are</h2>
+  <p>IDR Shield is operated by the Institute of Digital Remediation ("IDR," "we," "us," or "our"). We provide accessibility compliance documentation, monitoring, and evidence management services for e-commerce merchants. We are not a law firm and do not provide legal advice.</p>
+  <p>For privacy-related questions, contact us at <strong>privacy@idrshield.com</strong>.</p>
+
+  <h2>2. Information We Collect</h2>
+  <p><strong>Information you provide directly:</strong></p>
+  <ul>
+    <li>Email address — collected when you run a free scan or activate a membership</li>
+    <li>Store URL — collected to perform accessibility scans on your behalf</li>
+    <li>Payment information — processed by Gumroad; we do not store payment card details</li>
+  </ul>
+  <p><strong>Information collected automatically:</strong></p>
+  <ul>
+    <li>Scan results — accessibility audit data generated from your store URL</li>
+    <li>IP address — logged at the time of scanning for evidence integrity purposes</li>
+    <li>Timestamps — all scan events are timestamped in UTC and stored immutably</li>
+    <li>Badge API calls — domain, timestamp, and status are logged when your badge loads</li>
+  </ul>
+
+  <h2>3. How We Use Your Information</h2>
+  <ul>
+    <li>To perform accessibility scans and generate your compliance receipt</li>
+    <li>To create and maintain your public registry record at idrshield.com/verify/[domain]</li>
+    <li>To deliver your scan results, Defense Package PDF, and badge embed codes by email</li>
+    <li>To send compliance monitoring alerts and membership communications</li>
+    <li>To operate the IDR evidence log — an immutable record of scan activity for your domain</li>
+    <li>To improve the accuracy and coverage of our scanning protocol</li>
+  </ul>
+
+  <h2>4. Your Public Registry Record</h2>
+  <p>When you activate IDR Shield membership, a public verification page is created at <strong>idrshield.com/verify/[yourdomain]</strong>. This page displays your domain, compliance status, last scan date, and Registry ID. It is intentionally public — its purpose is to provide verifiable proof of your compliance posture to any third party who checks.</p>
+  <p>If you cancel your membership, your registry record transitions to "Expired" status. It is not deleted, as it forms part of your historical compliance evidence record.</p>
+
+  <h2>5. Email Communications</h2>
+  <p>By providing your email address, you consent to receive transactional and membership communications from IDR Shield, including scan results, compliance alerts, and membership updates. We use SendGrid to deliver these emails from hello@idrshield.com.</p>
+  <p>You may unsubscribe from non-transactional emails at any time by clicking the unsubscribe link in any email or contacting us directly. Transactional emails related to your active membership cannot be disabled while your membership is active.</p>
+
+  <h2>6. Data Sharing</h2>
+  <p>We do not sell, rent, or trade your personal information. We share data only with the following service providers who help us operate the platform:</p>
+  <ul>
+    <li><strong>Railway</strong> — cloud infrastructure and database hosting</li>
+    <li><strong>Vercel</strong> — frontend hosting</li>
+    <li><strong>SendGrid</strong> — email delivery</li>
+    <li><strong>Gumroad</strong> — payment processing</li>
+  </ul>
+  <p>Each provider is contractually bound to protect your data and use it only to provide their services to us.</p>
+
+  <h2>7. Data Retention</h2>
+  <p>Scan receipts and evidence logs are retained indefinitely as part of your compliance record — this is a core feature of the service, not a limitation. Your email address and membership data are retained for the duration of your membership and for a reasonable period after cancellation for record-keeping purposes.</p>
+  <p>If you wish to request deletion of your personal data, contact privacy@idrshield.com. Note that scan receipts and registry records cannot be deleted as they form cryptographically signed immutable records.</p>
+
+  <h2>8. Security</h2>
+  <p>All scan receipts are SHA-256 hashed and stored immutably. Data in transit is encrypted via TLS. We do not store payment card information. Access to member data is restricted to authenticated users via time-limited magic link tokens.</p>
+
+  <h2>9. Your Rights</h2>
+  <p>Depending on your location, you may have rights to access, correct, or request deletion of your personal data. To exercise any of these rights, contact us at privacy@idrshield.com. We will respond within 30 days.</p>
+
+  <h2>10. Cookies</h2>
+  <p>IDR Shield does not use tracking cookies or advertising cookies. We use session tokens stored in your browser's local storage solely to maintain your authenticated portal session. These are not used for tracking or advertising purposes.</p>
+
+  <h2>11. Children's Privacy</h2>
+  <p>IDR Shield is a business-to-business service. We do not knowingly collect personal information from anyone under 18. If you believe a minor has provided us with personal information, contact privacy@idrshield.com.</p>
+
+  <h2>12. Changes to This Policy</h2>
+  <p>We may update this Privacy Policy as our services evolve. Material changes will be communicated to active members by email. Continued use of the service after such notification constitutes acceptance of the updated policy.</p>
+
+  <div class="contact-block">
+    <p class="contact-title">Privacy Contact</p>
+    <p>Institute of Digital Remediation</p>
+    <p>Email: <a href="mailto:privacy@idrshield.com">privacy@idrshield.com</a></p>
+    <p>Website: <a href="https://idrshield.com">idrshield.com</a></p>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     TERMS OF SERVICE
+═══════════════════════════════════════ -->
+<div id="panel-terms" class="panel">
+<div class="wrap">
+
+  <p class="doc-kicker">Institute of Digital Remediation</p>
+  <h1 class="doc-title">Terms of Service</h1>
+  <p class="doc-date">Effective Date: April 6, 2026 · Last Updated: April 6, 2026</p>
+
+  <div class="doc-lead">
+    By using IDR Shield, you agree to these terms. Please read them carefully. IDR Shield is a compliance documentation system — not a law firm, not legal counsel, and not a guarantee of legal protection.
+  </div>
+
+  <h2>1. The Service</h2>
+  <p>IDR Shield is an accessibility compliance documentation and monitoring service operated by the Institute of Digital Remediation. The service includes automated accessibility scanning, SHA-256 signed scan receipts, a public registry record, weekly monitoring, and a Defense Package PDF.</p>
+  <p><strong>IDR Shield is not a law firm and does not provide legal advice.</strong> The documentation and evidence records generated by IDR Shield are compliance tools intended to support your defensible posture — they are not a legal guarantee of any outcome in any legal proceeding.</p>
+
+  <h2>2. Eligibility</h2>
+  <p>You must be at least 18 years old and authorized to bind your business to these terms. By using IDR Shield, you represent that you are the owner or authorized representative of the store domain you submit for scanning.</p>
+
+  <h2>3. Account and Membership</h2>
+  <p>Membership is activated upon payment of the applicable fee through our payment processor. Your membership entitles you to the features described at the time of purchase, including your registry record, Defense Package PDF, badge embed code, and monitoring services.</p>
+  <p><strong>Founding Member status</strong> is permanent and non-transferable. The $29/month rate locked in at founding activation applies for as long as your membership remains continuously active. Cancellation forfeits the founding rate.</p>
+
+  <h2>4. Acceptable Use</h2>
+  <p>You agree to use IDR Shield only for your own store domains or domains you are explicitly authorized to represent. You may not:</p>
+  <ul>
+    <li>Submit competitor domains for scanning without authorization</li>
+    <li>Use IDR Shield data to generate legal threats or demand letters against other merchants</li>
+    <li>Misrepresent your compliance status or alter scan receipts</li>
+    <li>Display the IDR Verified badge without an active membership</li>
+    <li>Attempt to reverse-engineer, scrape, or reproduce the IDR scanning protocol</li>
+  </ul>
+
+  <h2>5. The Badge and Registry</h2>
+  <p>Your IDR Verified badge is a live embed that calls our API on every page load. Displaying the badge requires an active membership. If your membership lapses, the badge automatically displays "UNVERIFIED" status.</p>
+  <p>Your public registry record at idrshield.com/verify/[domain] remains accessible after cancellation in "Expired" status. This is by design — the historical record is part of your compliance evidence.</p>
+
+  <h2>6. Scan Results and Documentation</h2>
+  <p>Scan results reflect the accessibility state of your store at the moment of scanning. IDR Shield uses axe-core, an industry-standard accessibility evaluation engine maintained by Deque Systems. Results are not legal opinions and do not constitute certification of compliance with any law or regulation.</p>
+  <p>Scan receipts are SHA-256 hashed and stored immutably. Once generated, a receipt cannot be altered, deleted, or reissued with different content.</p>
+
+  <div class="highlight">
+    <p><strong>Important:</strong> Accessibility compliance is a complex, evolving legal area. IDR Shield's documentation is designed to support your compliance posture — not to guarantee immunity from legal action. We strongly recommend consulting qualified legal counsel regarding your specific obligations under applicable accessibility laws.</p>
+  </div>
+
+  <h2>7. Payment and Refunds</h2>
+  <p>Founding Membership activation fees are non-refundable after your store has been scanned and your registry record has been created. Monthly subscription fees are billed in advance and are non-refundable for the current billing period. You may cancel at any time and your membership will remain active through the end of the current billing period.</p>
+
+  <h2>8. Limitation of Liability</h2>
+  <p>To the fullest extent permitted by law, IDR Shield and the Institute of Digital Remediation shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including but not limited to lost profits, loss of data, or any legal costs or settlements arising from accessibility claims against your store.</p>
+  <p>Our total liability to you for any claim arising from your use of the service shall not exceed the amount you paid us in the 12 months preceding the claim.</p>
+
+  <h2>9. Disclaimers</h2>
+  <p>IDR Shield is provided "as is" without warranties of any kind. We do not warrant that the service will be uninterrupted, error-free, or that scan results will be exhaustive or legally sufficient for any particular purpose. Settlement ranges referenced in our marketing materials reflect publicly available historical case data and are not predictions of any specific legal outcome.</p>
+
+  <h2>10. Intellectual Property</h2>
+  <p>The IDR Shield brand, badge design, scanning protocol, and all associated documentation are proprietary to the Institute of Digital Remediation. Your scan receipts and registry record are yours — you own the compliance documentation generated for your domain. You may not reproduce, distribute, or commercially exploit the IDR brand, badge design, or protocol without written permission.</p>
+
+  <h2>11. Termination</h2>
+  <p>We reserve the right to suspend or terminate your membership if you violate these terms, misrepresent your compliance status, or use the service in a manner that harms other members or the integrity of the IDR Registry. In such cases, no refund will be issued.</p>
+
+  <h2>12. Governing Law</h2>
+  <p>These terms are governed by the laws of the State of Florida, United States. Any disputes arising from these terms shall be resolved in the courts of Florida.</p>
+
+  <h2>13. Changes to These Terms</h2>
+  <p>We may update these Terms of Service as the service evolves. Material changes will be communicated to active members by email at least 14 days before taking effect. Continued use of the service after the effective date constitutes acceptance of the updated terms.</p>
+
+  <div class="contact-block">
+    <p class="contact-title">Legal Contact</p>
+    <p>Institute of Digital Remediation</p>
+    <p>Email: <a href="mailto:legal@idrshield.com">legal@idrshield.com</a></p>
+    <p>Website: <a href="https://idrshield.com">idrshield.com</a></p>
+  </div>
+
+</div>
+</div>
+
+<footer>
+  <span class="ft-n">Institute of Digital Remediation · IDR-BRAND-2026-01 · Not a law firm</span>
+  <span class="ft-t">The record is the product.</span>
+</footer>
+
+<script>
+function switchTab(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+</script>
+</body>
+</html>
