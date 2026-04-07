@@ -203,6 +203,10 @@
     text-decoration: none;
   }
   .footer a:hover { color: var(--gold); }
+
+.ft-links{display:flex;gap:20px;align-items:center;}
+.ft-link{font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(201,168,76,.25);text-decoration:none;transition:color .2s;}
+.ft-link:hover{color:rgba(201,168,76,.55);}
 </style>
 </head>
 <body>
@@ -399,5 +403,13 @@ function IDR_hideError() {
   document.getElementById('IDR_errorMsg').style.display = 'none';
 }
 </script>
+
+<footer style="border-top:1px solid rgba(201,168,76,0.08);padding:16px 40px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,14,26,0.97);">
+  <span style="font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(201,168,76,.2);">Institute of Digital Remediation · IDR-BRAND-2026-01</span>
+  <div style="display:flex;gap:20px;">
+    <a href="/privacy" style="font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(201,168,76,.25);text-decoration:none;">Privacy</a>
+    <a href="/terms" style="font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(201,168,76,.25);text-decoration:none;">Terms</a>
+  </div>
+</footer>
 </body>
 </html>
