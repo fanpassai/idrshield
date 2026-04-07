@@ -1,6 +1,8 @@
 {
   "rewrites": [
     { "source": "/scan", "destination": "/scan.html" },
+    { "source": "/privacy", "destination": "/idrshield_legal.html" },
+    { "source": "/terms", "destination": "/idrshield_legal.html" },
     { "source": "/thank-you", "destination": "/idrshield_thank_you.html" },
     { "source": "/admin", "destination": "/idrshield_admin.html" },
     { "source": "/verify/:domain*", "destination": "/idr_verify.html" },
