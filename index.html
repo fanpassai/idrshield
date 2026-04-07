@@ -1210,6 +1210,29 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--gold2); outline
   <a href="/scan" class="mobile-cta-btn">Scan Free Now</a>
 </div>
 
+<!-- ══ MOBILE DRAWER ══ -->
+<div class="nav-drawer" id="navDrawer" role="dialog" aria-label="Navigation menu" aria-hidden="true">
+  <div class="drawer-header">
+    <div class="drawer-seal" aria-hidden="true">IDR</div>
+    <button class="drawer-close" id="drawerClose" aria-label="Close navigation menu">✕</button>
+  </div>
+  <div class="drawer-links">
+    <a href="/scan" class="drawer-link">Free Scan</a>
+    <a href="/portal" class="drawer-link">Member Portal</a>
+    <a href="/login" class="drawer-link">Member Login</a>
+    <a href="/badge" class="drawer-link">Badge Guide</a>
+    <a href="/support" class="drawer-link">Support</a>
+    <a href="mailto:support@idrshield.com" class="drawer-link">Contact</a>
+    <a href="/privacy" class="drawer-link drawer-link-sm">Privacy Policy</a>
+    <a href="/terms" class="drawer-link drawer-link-sm">Terms of Service</a>
+  </div>
+  <a href="https://idrshield.gumroad.com/l/oadcfq"
+     class="drawer-cta" target="_blank" rel="noopener">
+    Become a Founding Member — $97
+  </a>
+</div>
+<div class="nav-overlay" id="navOverlay" aria-hidden="true">
+
 <script>
 // ── NAV SCROLL ──
 const nav = document.getElementById('nav');
@@ -1363,26 +1386,5 @@ if (mobileCta) {
 }
 </script>
 
-<!-- ══ MOBILE DRAWER ══ -->
-<div class="nav-drawer" id="navDrawer" role="dialog" aria-label="Navigation menu" aria-hidden="true">
-  <div class="drawer-header">
-    <div class="drawer-seal" aria-hidden="true">IDR</div>
-    <button class="drawer-close" id="drawerClose" aria-label="Close navigation menu">✕</button>
-  </div>
-  <div class="drawer-links">
-    <a href="/scan" class="drawer-link">Free Scan</a>
-    <a href="/portal" class="drawer-link">Member Portal</a>
-    <a href="/login" class="drawer-link">Member Login</a>
-    <a href="/badge" class="drawer-link">Badge Guide</a>
-    <a href="/support" class="drawer-link">Support</a>
-    <a href="mailto:support@idrshield.com" class="drawer-link">Contact</a>
-    <a href="/privacy" class="drawer-link drawer-link-sm">Privacy Policy</a>
-    <a href="/terms" class="drawer-link drawer-link-sm">Terms of Service</a>
-  </div>
-  <a href="https://idrshield.gumroad.com/l/oadcfq"
-     class="drawer-cta" target="_blank" rel="noopener">
-    Become a Founding Member — $97
-  </a>
-</div>
-<div class="nav-overlay" id="navOverlay" aria-hidden="true"></div></body>
+</div></body>
 </html>
