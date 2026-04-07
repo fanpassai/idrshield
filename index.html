@@ -192,15 +192,20 @@ nav.scrolled {
 
 /* MOBILE DRAWER */
 .nav-drawer {
-  position: fixed; top: 0; right: -100%;
+  position: fixed; top: 0; right: 0;
   width: min(300px, 85vw); height: 100vh;
   background: var(--navy2); border-left: 1px solid var(--border);
   z-index: 9000;
   display: flex; flex-direction: column;
-  transition: right 0.35s var(--ease);
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
   overflow-y: auto;
+  visibility: hidden;
 }
-.nav-drawer.open { right: 0; }
+.nav-drawer.open {
+  transform: translateX(0);
+  visibility: visible;
+}
 .nav-overlay {
   position: fixed; inset: 0;
   background: rgba(0,0,0,0.65);
@@ -1364,7 +1369,7 @@ if (mobileCta) {
     <div class="drawer-seal" aria-hidden="true">IDR</div>
     <button class="drawer-close" id="drawerClose" aria-label="Close navigation menu">✕</button>
   </div>
-  <nav class="drawer-links">
+  <div class="drawer-links">
     <a href="/scan" class="drawer-link">Free Scan</a>
     <a href="/portal" class="drawer-link">Member Portal</a>
     <a href="/login" class="drawer-link">Member Login</a>
@@ -1373,7 +1378,7 @@ if (mobileCta) {
     <a href="mailto:support@idrshield.com" class="drawer-link">Contact</a>
     <a href="/privacy" class="drawer-link drawer-link-sm">Privacy Policy</a>
     <a href="/terms" class="drawer-link drawer-link-sm">Terms of Service</a>
-  </nav>
+  </div>
   <a href="https://idrshield.gumroad.com/l/oadcfq"
      class="drawer-cta" target="_blank" rel="noopener">
     Become a Founding Member — $97
