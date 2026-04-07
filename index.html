@@ -520,6 +520,85 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--gold2); outline
   .final-cta-inner { padding: 0 24px; }
   footer { padding: 32px 24px; }
 }
+
+/* ══ NAV SEAL ══ */
+.nav-brand { display: flex; flex-direction: row; align-items: center; gap: 10px; text-decoration: none; }
+.nav-seal {
+  width: 36px; height: 36px; border: 1.5px solid var(--gold3); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  font-family: 'Playfair Display', serif; font-size: 10px; font-weight: 700; color: var(--gold);
+}
+.nav-brand-text { display: flex; flex-direction: column; gap: 1px; }
+
+/* ══ HAMBURGER ══ */
+.nav-hamburger {
+  display: none; flex-direction: column; justify-content: center; gap: 5px;
+  width: 36px; height: 36px; background: none; border: 1px solid rgba(201,168,76,0.2);
+  cursor: pointer; padding: 8px; flex-shrink: 0;
+}
+.nav-hamburger span { display: block; height: 1px; background: var(--gold); transition: all 0.25s; }
+.nav-hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); }
+
+/* ══ DRAWER ══ */
+.nav-drawer {
+  position: fixed; top: 0; right: -100%; width: min(320px, 85vw); height: 100vh;
+  background: var(--navy2); border-left: 1px solid var(--border);
+  z-index: 2000; display: flex; flex-direction: column;
+  transition: right 0.35s cubic-bezier(0.16,1,0.3,1);
+  padding: 0 0 32px;
+}
+.nav-drawer.open { right: 0; }
+.nav-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+  z-index: 1999; opacity: 0; pointer-events: none;
+  transition: opacity 0.3s;
+}
+.nav-overlay.open { opacity: 1; pointer-events: all; }
+.drawer-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 24px; border-bottom: 1px solid var(--border);
+}
+.drawer-seal {
+  width: 36px; height: 36px; border: 1.5px solid var(--gold3); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif; font-size: 10px; font-weight: 700; color: var(--gold);
+}
+.drawer-close {
+  background: none; border: none; color: rgba(201,168,76,0.4); cursor: pointer;
+  font-size: 18px; padding: 4px; transition: color 0.2s;
+}
+.drawer-close:hover { color: var(--gold); }
+.drawer-links {
+  display: flex; flex-direction: column; flex: 1; padding: 24px 0; overflow-y: auto;
+}
+.drawer-link {
+  font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase; color: rgba(240,232,216,0.7);
+  text-decoration: none; padding: 14px 24px; border-bottom: 1px solid rgba(201,168,76,0.06);
+  transition: color 0.2s, background 0.2s;
+}
+.drawer-link:hover { color: var(--gold); background: rgba(201,168,76,0.04); }
+.drawer-link-sm { font-size: 9px; color: rgba(240,232,216,0.35); }
+.drawer-cta {
+  margin: 0 24px; padding: 14px 20px; background: var(--gold); color: var(--navy);
+  font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none;
+  text-align: center; display: block; transition: background 0.2s;
+}
+.drawer-cta:hover { background: var(--gold2); }
+
+@media (max-width: 1024px) {
+  .nav-hamburger { display: flex; }
+  .nav-founding { display: none; }
+  .nav-login { display: none; }
+}
+@media (max-width: 480px) {
+  .nav-brand-name { font-size: 9px; letter-spacing: 0.12em; }
+  .nav-brand-sub { display: none; }
+}
+
 </style>
 </head>
 <body>
@@ -530,8 +609,11 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--gold2); outline
 <nav id="nav" role="navigation" aria-label="Site navigation">
   <div class="nav-left">
     <a href="https://idrshield.com" class="nav-brand">
-      <span class="nav-brand-name">Institute of Digital Remediation</span>
-      <span class="nav-brand-sub">IDR Protocol Series · 2026 Edition</span>
+      <div class="nav-seal" aria-hidden="true">IDR</div>
+      <div class="nav-brand-text">
+        <span class="nav-brand-name">Institute of Digital Remediation</span>
+        <span class="nav-brand-sub">IDR Protocol Series · 2026 Edition</span>
+      </div>
     </a>
     <ul class="nav-links" role="list">
       <li><a href="/scan">Free Scan</a></li>
@@ -543,6 +625,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--gold2); outline
   <div class="nav-right">
     <a href="/login" class="nav-login">Member Login</a>
     <a href="https://idrshield.gumroad.com/l/oadcfq" class="nav-founding" target="_blank">Become a Founding Member</a>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
@@ -1025,7 +1110,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--gold2); outline
       <a href="/scan">Free Scan</a>
       <a href="/portal">Member Portal</a>
       <a href="/support">Support</a>
-      <a href="#sources">Sources</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
       <a href="mailto:support@idrshield.com">Contact</a>
     </div>
     <div class="footer-right">
@@ -1152,6 +1238,39 @@ const countObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.5 });
 statNums.forEach(el => countObserver.observe(el));
 
+
+// ── MOBILE DRAWER ──
+const hamburger = document.getElementById('navHamburger');
+const drawer    = document.getElementById('navDrawer');
+const overlay   = document.getElementById('navOverlay');
+const drawerClose = document.getElementById('drawerClose');
+
+function openDrawer() {
+  drawer.classList.add('open');
+  overlay.classList.add('open');
+  hamburger.classList.add('open');
+  hamburger.setAttribute('aria-expanded', 'true');
+  document.body.style.overflow = 'hidden';
+}
+function closeDrawer() {
+  drawer.classList.remove('open');
+  overlay.classList.remove('open');
+  hamburger.classList.remove('open');
+  hamburger.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}
+
+if (hamburger) hamburger.addEventListener('click', openDrawer);
+if (drawerClose) drawerClose.addEventListener('click', closeDrawer);
+if (overlay) overlay.addEventListener('click', closeDrawer);
+
+// Close on escape
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+// Close drawer on nav link click
+document.querySelectorAll('.drawer-link, .drawer-cta').forEach(el => {
+  el.addEventListener('click', closeDrawer);
+});
+
 // ── MOBILE CTA ──
 const mobileCta = document.getElementById('mobileCta');
 if (mobileCta) {
@@ -1164,5 +1283,25 @@ if (mobileCta) {
   }
 }
 </script>
+
+<!-- ══ MOBILE DRAWER ══ -->
+<div class="nav-drawer" id="navDrawer" aria-hidden="true">
+  <div class="drawer-header">
+    <div class="drawer-seal">IDR</div>
+    <button class="drawer-close" id="drawerClose" aria-label="Close menu">✕</button>
+  </div>
+  <nav class="drawer-links">
+    <a href="/scan" class="drawer-link">Free Scan</a>
+    <a href="/portal" class="drawer-link">Member Portal</a>
+    <a href="/login" class="drawer-link">Member Login</a>
+    <a href="/badge" class="drawer-link">Badge Guide</a>
+    <a href="/support" class="drawer-link">Support</a>
+    <a href="mailto:support@idrshield.com" class="drawer-link">Contact</a>
+    <a href="/privacy" class="drawer-link drawer-link-sm">Privacy Policy</a>
+    <a href="/terms" class="drawer-link drawer-link-sm">Terms of Service</a>
+  </nav>
+  <a href="https://idrshield.gumroad.com/l/oadcfq" class="drawer-cta" target="_blank">Become a Founding Member — $97</a>
+</div>
+<div class="nav-overlay" id="navOverlay"></div>
 </body>
 </html>
