@@ -1,0 +1,24 @@
+# IDR Shield — robots.txt
+# Institute of Digital Remediation · idrshield.com
+
+User-agent: *
+
+# Allow all public pages
+Allow: /
+Allow: /scan
+Allow: /badge
+Allow: /support
+Allow: /privacy
+Allow: /terms
+Allow: /verify/
+
+# Block internal/auth pages from indexing
+Disallow: /admin
+Disallow: /login
+Disallow: /portal
+Disallow: /fix/
+Disallow: /thank-you
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://idrshield.com/sitemap.xml
