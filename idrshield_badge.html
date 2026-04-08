@@ -283,7 +283,7 @@ footer{text-align:center;padding:22px 28px 40px;border-top:1px solid rgba(240,23
     <div class="protect-grid">
       <div class="protect-card"><div class="protect-icon">⚡</div><h3 class="protect-title">Live API on every load</h3><p class="protect-body">The badge calls our API every time the page loads. If the domain isn't registered, it renders grey and says UNVERIFIED. An unauthorized store gets a badge that exposes rather than protects them.</p></div>
       <div class="protect-card"><div class="protect-icon">🔗</div><h3 class="protect-title">Domain-locked registry link</h3><p class="protect-body">Every badge links to idrshield.com/verify/[domain]. If someone copies another store's badge code, clicking it shows the wrong store's registry — immediately exposing the fraud to any visitor who checks.</p></div>
-      <div class="protect-card"><div class="protect-icon">🖼</div><h3 class="protect-title">Domain-watermarked image</h3><p class="protect-body">Drag-and-drop platforms (Wix, Webflow) can use our backend badge image at api/badge-image/[domain]. Each image is generated fresh for that domain — not a static file anyone can download and reuse.</p></div>
+      <div class="protect-card"><div class="protect-icon">🖼</div><h3 class="protect-title">Screenshot-protected install</h3><p class="protect-body">Wix and Webflow users install their badge as a screenshot from their live verify page, linked back to idrshield.com/verify/theirdomain. Anyone who clicks it sees the real registry record — misuse is immediately visible.</p></div>
     </div>
   </div>
 </section>
@@ -333,20 +333,7 @@ footer{text-align:center;padding:22px 28px 40px;border-top:1px solid rgba(240,23
           <div class="embed-code" id="ec-chip"></div>
           <button class="copy-btn" onclick="IDR_copy('ec-chip','chip',this)">✍ Copy Code</button>
         </div>
-        <div class="embed-group" style="margin-top:22px;padding-top:20px;border-top:1px solid rgba(201,168,76,.12);">
-          <div class="embed-group-title">Badge Image URL (Wix / Webflow / drag-and-drop)</div>
-          <p style="font-family:EB Garamond,serif;font-size:15px;color:#C4B8A0;margin:0 0 10px;line-height:1.65;">For platforms that don't support JavaScript. This URL serves your badge as a live image — status updates automatically, no reinstall needed.</p>
-          <p style="font-family:Montserrat,sans-serif;font-size:8.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);opacity:.75;margin:0 0 8px;">How to install:</p>
-          <ol style="font-family:EB Garamond,serif;font-size:14px;color:#C4B8A0;line-height:1.8;margin:0 0 14px;padding-left:18px;">
-            <li>Copy the URL below</li>
-            <li>In your platform, add an <strong style="color:#F0E8D4;">Image element</strong> to your footer</li>
-            <li>Set the image <strong style="color:#F0E8D4;">source</strong> to this URL</li>
-            <li>Add a <strong style="color:#F0E8D4;">link</strong> on the image pointing to <code style="font-family:Courier New,monospace;font-size:11px;color:var(--gold);background:rgba(201,168,76,.08);padding:1px 4px;">https://idrshield.com/verify/yourdomain</code></li>
-            <li>Save — badge is live and updates automatically</li>
-          </ol>
-          <div class="embed-code" id="ec-img"></div>
-          <button class="copy-btn" onclick="IDR_copy('ec-img','img',this)">✍ Copy URL</button>
-        </div>
+
       </div>
     </div>
 
@@ -360,7 +347,7 @@ footer{text-align:center;padding:22px 28px 40px;border-top:1px solid rgba(240,23
     <div class="pg show" id="pg-shopify"><div class="guide-card"><div class="step"><span class="step-n">1</span><span class="step-t">Shopify Admin → <strong>Online Store → Themes → Actions → Edit Code</strong></span></div><div class="step"><span class="step-n">2</span><span class="step-t">Open <strong>Layout → theme.liquid</strong></span></div><div class="step"><span class="step-n">3</span><span class="step-t">Find the closing <code>&lt;/body&gt;</code> tag. Paste your footer badge code directly above it.</span></div><div class="step"><span class="step-n">4</span><span class="step-t">For the chip: find your product form section → locate the Add to Cart button → paste the chip code directly after it.</span></div><div class="step"><span class="step-n">5</span><span class="step-t">Click <strong>Save</strong>. Visit your store. Click the badge — it should open your registry at idrshield.com/verify/yourdomain.</span></div><div class="step"><span class="step-n">6</span><span class="step-t"><strong>Done.</strong> The badge updates automatically when your compliance status changes. No reinstall needed.</span></div></div></div>
     <div class="pg" id="pg-squarespace"><div class="guide-card"><div class="step"><span class="step-n">1</span><span class="step-t">Squarespace → <strong>Settings → Advanced → Code Injection</strong></span></div><div class="step"><span class="step-n">2</span><span class="step-t">Paste your footer badge code in the <strong>Footer</strong> field. Click Save.</span></div><div class="step"><span class="step-n">3</span><span class="step-t">For the chip: edit your product page → add a <strong>Code Block</strong> below the Add to Cart button → paste the chip code.</span></div><div class="step"><span class="step-n">4</span><span class="step-t">Save and verify the badge renders and links to your registry correctly.</span></div></div></div>
     <div class="pg" id="pg-woo"><div class="guide-card"><div class="step"><span class="step-n">1</span><span class="step-t">WordPress Admin → <strong>Appearance → Theme File Editor → footer.php</strong></span></div><div class="step"><span class="step-n">2</span><span class="step-t">Paste the footer badge code above the closing <code>&lt;/body&gt;</code> tag. Click <strong>Update File</strong>.</span></div><div class="step"><span class="step-n">3</span><span class="step-t">Simpler option: <strong>Appearance → Widgets</strong> → add a <strong>Custom HTML widget</strong> to your footer → paste the code there.</span></div><div class="step"><span class="step-n">4</span><span class="step-t">For the chip: use the WooCommerce hook <code>woocommerce_after_add_to_cart_button</code> or paste directly in your product template.</span></div></div></div>
-    <div class="pg" id="pg-wix"><div class="guide-card"><div class="step"><span class="step-n">1</span><span class="step-t">Wix and Webflow don't support external JavaScript. Use the <strong>badge image URL</strong> from the generator above instead.</span></div><div class="step"><span class="step-n">2</span><span class="step-t">In Wix: add an <strong>Image element</strong> to your footer → click Change Image → paste the badge image URL as the source.</span></div><div class="step"><span class="step-n">3</span><span class="step-t">Add a <strong>link</strong> to the image pointing to <code>https://idrshield.com/verify/yourdomain</code> so visitors can verify it.</span></div><div class="step"><span class="step-n">4</span><span class="step-t">The image is domain-watermarked and cannot be reused by another store. Our backend validates the domain on every request.</span></div></div></div>
+    <div class="pg" id="pg-wix"><div class="guide-card"><div class="step"><span class="step-n">1</span><span class="step-t">Visit <code>https://idrshield.com/verify/yourdomain</code> in your browser — this is your live public registry page.</span></div><div class="step"><span class="step-n">2</span><span class="step-t">Take a screenshot of the IDR seal at the top of the page. Crop tightly around the badge.</span></div><div class="step"><span class="step-n">3</span><span class="step-t">In Wix or Webflow: add an <strong>Image element</strong> to your footer → upload the cropped badge image.</span></div><div class="step"><span class="step-n">4</span><span class="step-t">Add a <strong>link</strong> on the image pointing to <code>https://idrshield.com/verify/yourdomain</code> so any visitor can verify it.</span></div><div class="step"><span class="step-n">5</span><span class="step-t"><strong>Note:</strong> this is a static image. If your status changes (e.g. from Monitoring to Active), retake the screenshot from your verify page.</span></div></div></div>
     <div class="pg" id="pg-html"><div class="guide-card"><div class="step"><span class="step-n">1</span><span class="step-t">Open your HTML template or layout file.</span></div><div class="step"><span class="step-n">2</span><span class="step-t">Paste the footer badge code above the closing <code>&lt;/body&gt;</code> tag.</span></div><div class="step"><span class="step-n">3</span><span class="step-t">Paste the chip code wherever you want the inline badge — below price, below Add to Cart, or in checkout.</span></div><div class="step"><span class="step-n">4</span><span class="step-t">Both scripts load asynchronously and will not affect your page performance score.</span></div></div></div>
   </div>
 </section>
@@ -409,12 +396,12 @@ function IDR_generate(){
     IDR_codes['dark']='<'+'script src="https://idrshield.com/badge.js"\n        data-store="'+raw+'"\n        data-id="'+rid+'"\n        data-theme="dark"\n        data-size="52"\n        data-tier="founding"><'+'/script>';
     IDR_codes['outline']='<'+'script src="https://idrshield.com/badge.js"\n        data-store="'+raw+'"\n        data-id="'+rid+'"\n        data-theme="outline"\n        data-size="52"\n        data-tier="founding"><'+'/script>';
     IDR_codes['chip']='<'+'script src="https://idrshield.com/chip.js"\n        data-store="'+raw+'"\n        data-id="'+rid+'"\n        data-format="pill"\n        data-theme="dark"\n        data-tier="founding"><'+'/script>';
-    IDR_codes['img']='https://idrshield.com/api/badge-image/'+raw+'?theme=dark&size=104';
+
     function fmt(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/(&lt;(?:\/)?script)/g,'<span class="ct">$1</span>').replace(/(data-[\w]+)=/g,'<span class="ca">$1</span>=').replace(/="([^"]+)"/g,'="<span class="cv">$1</span>"');}
     document.getElementById('ec-dark').innerHTML=fmt(IDR_codes['dark']);
     document.getElementById('ec-outline').innerHTML=fmt(IDR_codes['outline']);
     document.getElementById('ec-chip').innerHTML=fmt(IDR_codes['chip']);
-    document.getElementById('ec-img').textContent=IDR_codes['img'];
+
     var results=document.getElementById('embedResults');
     results.classList.add('show');
     btn.textContent='\u2713 Generated';
