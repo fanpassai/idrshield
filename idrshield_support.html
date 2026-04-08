@@ -2,9 +2,6 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="alternate icon" href="/favicon.svg">
-  <meta name="theme-color" content="#0A0E1A">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Reid — IDR Support Specialist</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -625,10 +622,6 @@
     .input-inner  { grid-template-columns: 1fr; }
     .btn-send     { width: 100%; }
   }
-
-.ft-links{display:flex;gap:20px;align-items:center;}
-.ft-link{font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(201,168,76,.25);text-decoration:none;transition:color .2s;}
-.ft-link:hover{color:rgba(201,168,76,.55);}
 </style>
 </head>
 <body>
@@ -758,15 +751,35 @@ window.addEventListener('DOMContentLoaded', function() {
   var email   = localStorage.getItem('idr_email');
 
   if (session && email) {
+    // Logged-in member — load their account context silently
     IDR_session   = session;
     IDR_userEmail = email;
     document.getElementById('IDR_headerSession').textContent = email;
     IDR_loadMemberContext();
   } else {
-    // Not logged in — show guest intro
-    document.getElementById('IDR_guestIntro').style.display = 'block';
+    // Visitor — start Reid immediately, no gate
+    IDR_startVisitorSession();
   }
 });
+
+// ── Visitor session (no login required) ──────────────────────────────────────
+
+function IDR_startVisitorSession() {
+  // No account context — Reid operates in general support mode
+  IDR_accountCtx = { is_visitor: true };
+  IDR_enableInput();
+  IDR_showSuggestions(false);
+  IDR_showThreadStart();
+
+  var greeting = "I'm Reid — compliance support specialist at the Institute of Digital Remediation. " +
+    "I can answer questions about IDR Shield, how ADA accessibility lawsuits work, what your scan results mean, " +
+    "how the badge system works, or anything else about the product. " +
+    "If you're an existing member and want me to pull your account data, just let me know your store domain and email.\n\n" +
+    "What can I help you with?";
+
+  IDR_addMessage('reid', greeting);
+  IDR_history.push({ role: 'assistant', content: greeting });
+}
 
 // ── Load member context ───────────────────────────────────────────────────────
 
@@ -1156,15 +1169,7 @@ function IDR_buildSystemPrompt(contextString) {
     "  - Their personalised badge.js embed code — pre-filled with their domain and registry ID",
     "  - Their personalised chip.js embed code — pre-filled",
     "  - COPY CODE buttons for each",
-    "  - Platform guides: Shopify (theme.liquid before 
-<footer style="border-top:1px solid rgba(201,168,76,0.08);padding:16px 40px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,14,26,0.97);">
-  <span style="font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(201,168,76,.2);">Institute of Digital Remediation · IDR-BRAND-2026-01</span>
-  <div style="display:flex;gap:20px;">
-    <a href="/privacy" style="font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(201,168,76,.25);text-decoration:none;">Privacy</a>
-    <a href="/terms" style="font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(201,168,76,.25);text-decoration:none;">Terms</a>
-  </div>
-</footer>
-</body>), Squarespace (Settings > Advanced >",
+    "  - Platform guides: Shopify (theme.liquid before </body>), Squarespace (Settings > Advanced >",
     "    Code Injection > Footer), WooCommerce (footer.php before </body>),",
     "    Wix (Settings > Custom Code > Footer > All Pages), Any HTML (before </body>)",
     "",
@@ -1275,11 +1280,16 @@ function IDR_buildSystemPrompt(contextString) {
     "",
     "Use this data in every response. This is their actual account — not hypothetical.",
     "If their score is in the red, be honest about the urgency. If they're improving, acknowledge it.",
-    "Always end with the specific action they should take next and exactly where to take it."
+    "Always end with the specific action they should take next and exactly where to take it.",
+    "",
+    "VISITOR MODE: If this is a visitor (no account), answer any general question about IDR Shield freely.",
+    "You do NOT need to know their account to explain pricing, how scans work, what violations mean,",
+    "how the badge works, or what the membership includes. Answer these directly and completely.",
+    "Only say you need their domain/email when they ask something account-specific like their score or badge status."
   ].join("\n");
 }
 function IDR_buildContextString() {
-  if (!IDR_accountCtx) return "No account context available.";
+  if (!IDR_accountCtx || IDR_accountCtx.is_visitor) return "Session type: visitor (no account). Answer general questions freely.";
   var ctx = IDR_accountCtx;
   var lines = [
     "Email: " + (ctx.email || 'unknown'),
