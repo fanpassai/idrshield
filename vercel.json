@@ -1,5 +1,6 @@
 {
   "rewrites": [
+    { "source": "/api/:path*", "destination": "https://idr-backend-production.up.railway.app/api/:path*" },
     { "source": "/scan", "destination": "/scan.html" },
     { "source": "/privacy", "destination": "/idrshield_legal.html" },
     { "source": "/terms", "destination": "/idrshield_legal.html" },
