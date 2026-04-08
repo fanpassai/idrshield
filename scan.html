@@ -229,6 +229,18 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 4
 .receipt-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;gap:16px;flex-wrap:wrap;}
 .receipt-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--cream);}
 .receipt-sub{font-size:13px;color:rgba(240,232,216,.35);font-style:italic;margin-top:3px;}
+.risk-snap{margin-bottom:24px;}
+.risk-grid{background:rgba(10,14,26,.55);border:1px solid rgba(201,168,76,.15);border-left:3px solid var(--fail);padding:0;margin-bottom:10px;}
+.risk-row{display:flex;align-items:center;justify-content:space-between;padding:11px 18px;border-bottom:1px solid rgba(240,232,216,.05);}
+.risk-row:last-child{border-bottom:none;}
+.risk-label{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(240,232,216,.45);}
+.risk-val{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;}
+.risk-val.high{color:var(--fail);}
+.risk-val.moderate{color:var(--warn);}
+.risk-val.low{color:var(--pass);}
+.risk-val.present{color:var(--fail);}
+.risk-val.none{color:var(--pass);}
+.risk-note{font-family:'EB Garamond',Georgia,serif;font-size:13px;font-style:italic;color:rgba(240,232,216,.35);line-height:1.55;padding:0 4px;}
 .not-activated{display:inline-flex;align-items:center;gap:6px;font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:6px 12px;border-radius:2px;background:var(--warn-bg);color:var(--warn);border:1px solid var(--warn-bd);}
 .r-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px 28px;padding:20px 0;border-top:1px solid var(--border2);border-bottom:1px solid var(--border2);margin-bottom:18px;}
 .rf label{display:block;font-family:'Montserrat',sans-serif;font-size:7px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold3);margin-bottom:3px;}
@@ -453,7 +465,7 @@ footer{border-top:1px solid var(--border2);padding:24px 40px;display:flex;align-
         <div class="stat"><span class="n w" id="s-total">0</span><span class="l">Total Issues</span></div>
         <div class="stat"><span class="n t" id="s-dur">—</span><span class="l">Scan Time</span></div>
       </div>
-      <p class="score-context">This score reflects structural accessibility posture across the five IDR audit categories — the same categories plaintiff firms prioritize.</p>
+      <p class="score-context">This is the same scan automated plaintiff systems run before a demand letter is sent. Your score reflects how exposed your store is — right now.</p>
       <span class="status-interp" id="status-interp"></span>
     </div>
   </div>
@@ -461,6 +473,26 @@ footer{border-top:1px solid var(--border2);padding:24px 40px;display:flex;align-
   <!-- Categories -->
   <p class="s-lbl">Category Breakdown</p>
   <div class="cats-grid" id="cats-grid"></div>
+
+  <!-- Plaintiff Risk Snapshot -->
+  <div class="risk-snap" id="risk-snap" style="display:none;">
+    <p class="s-lbl">⚖ Plaintiff Risk Snapshot</p>
+    <div class="risk-grid">
+      <div class="risk-row">
+        <span class="risk-label">Likelihood of targeting</span>
+        <span class="risk-val" id="risk-target">—</span>
+      </div>
+      <div class="risk-row">
+        <span class="risk-label">Demand letter vulnerability</span>
+        <span class="risk-val" id="risk-vuln">—</span>
+      </div>
+      <div class="risk-row">
+        <span class="risk-label">Documentation defense</span>
+        <span class="risk-val" id="risk-defense">—</span>
+      </div>
+    </div>
+    <p class="risk-note" id="risk-note"></p>
+  </div>
 
   <!-- Critical findings -->
   <div class="crit-panel" id="crit-panel" style="display:none;">
@@ -527,7 +559,7 @@ footer{border-top:1px solid var(--border2);padding:24px 40px;display:flex;align-
       <div class="hash-note">Any change to this receipt — score, issues, domain, or timestamp — produces a different hash. Tamper-evident by design.</div>
     </div>
     <div class="activate-teaser">
-      <p>This scan is not yet recorded in the IDR Registry. <strong>Activate your IDR Shield for $97</strong> — founding access, first 500 stores. Includes The 2026 Accessibility Shield report, registry listing, badge, and 30-day Pro access. Standard price $127 after founding window closes.</p>
+      <p>This scan exists — but it is not on record. <strong>Without activation, there is no documented proof you ever ran it.</strong> Activate your IDR Shield for $97 to create your official compliance record, enter the public registry, and build the evidence log that protects you if you're ever challenged.</p>
     </div>
     <div class="btn-row">
       <button class="btn-g" onclick="dlReceipt()">Download Receipt JSON</button>
@@ -539,14 +571,14 @@ footer{border-top:1px solid var(--border2);padding:24px 40px;display:flex;align-
   <div class="act-block">
     <p class="act-kicker">Registry Enrollment — Founding Access</p>
     <h2 class="act-title">Activate Your IDR Shield</h2>
-    <p class="act-sub">Lock in founding access before the window closes. Your registry record, your shield, and 30-day Pro access — activated in one step.</p>
+    <p class="act-sub">Right now, your store has no public compliance record. That means if a demand letter lands tomorrow, you have nothing to show. Activation changes that — immediately.</p>
     <div class="act-feats">
-      <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>Public verification page</strong> — idrshield.com/verify/yourstore</span></div>
-      <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>Tamper-proof receipt storage</strong> — SHA-256 hashed, immutable log</span></div>
-      <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>30-day Pro access included</strong> — full system from day one</span></div>
-      <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>2026 Lawsuit Defense report PDF</strong> — included at activation</span></div>
-      <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>IDR Trust Badge eligibility</strong> — display on your store footer</span></div>
-      <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>Founding price locked</strong> — $97 now vs. $127 standard</span></div>
+      <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>Public registry record</strong> — timestamped proof of enrollment, visible to anyone who checks</span></div>
+      <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>SHA-256 Scan Receipt</strong> — cryptographic evidence that cannot be altered or backdated</span></div>
+      <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>Defense Package PDF</strong> — the document your attorney shows if a demand letter arrives</span></div>
+      <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>Weekly automated rescans</strong> — continuous monitoring with real-time alerts if your score drops</span></div>
+      <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>IDR Verified badge</strong> — signals active monitoring to every customer and plaintiff system that checks</span></div>
+      <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>Founding price: $97</strong> — locks at $29/month permanently. Standard price $127 after 500 stores.</span></div>
     </div>
     <div class="act-cta-row">
       <a id="act-link" class="cta-btn" href="https://idrshield.gumroad.com/l/oadcfq" target="_blank" rel="noopener">
@@ -567,9 +599,9 @@ footer{border-top:1px solid var(--border2);padding:24px 40px;display:flex;align-
       <span class="bp-sub" id="bp-status">Monitoring</span>
     </div>
     <div>
-      <p class="bp-lbl">Your Store Badge — After Activation</p>
+      <p class="bp-lbl" style="color:var(--fail);letter-spacing:.14em;">⚠ NOT ACTIVE ON YOUR STORE</p>
       <h3 class="bp-title">IDR Verified</h3>
-      <p class="bp-txt">This goes in your store footer once activated. Every visitor sees it. Every click verifies your live compliance record.</p>
+      <p class="bp-txt">This badge is not active on your store. Activate to convert this scan into a verified compliance record — and display the mark that tells every visitor, and every plaintiff system, that your store is documented and monitored.</p>
       <p style="font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(201,168,76,.4);margin-top:10px;">Public Verification Record</p>
       <p class="bp-url" id="bp-url">idrshield.com/verify/yourstore →</p>
     </div>
@@ -757,11 +789,37 @@ function renderResults(r) {
 
     const interp = document.getElementById('status-interp');
     interp.textContent = st === 'pass'
-      ? 'This store is currently eligible for Active registry status.'
+      ? 'Low plaintiff risk — this store is not a priority target.'
       : st === 'warning'
-      ? 'This store may qualify for Monitoring status after enrollment.'
-      : 'This store requires remediation before Active status can be achieved.';
+      ? 'Moderate risk — open violations visible to plaintiff scanners.'
+      : 'High risk — this store matches the profile plaintiff firms target first.';
     interp.className = `status-interp ${st}`;
+
+    // Plaintiff Risk Snapshot
+    const riskSnap = document.getElementById('risk-snap');
+    const rTarget  = document.getElementById('risk-target');
+    const rVuln    = document.getElementById('risk-vuln');
+    const rDefense = document.getElementById('risk-defense');
+    const rNote    = document.getElementById('risk-note');
+    riskSnap.style.display = 'block';
+    if (sc.overall_score >= 80) {
+      rTarget.textContent  = 'LOW';    rTarget.className  = 'risk-val low';
+      rVuln.textContent    = 'MINIMAL'; rVuln.className   = 'risk-val low';
+      rDefense.textContent = 'NONE';   rDefense.className = 'risk-val present';
+      rNote.textContent    = 'Your score is clean — but a passing scan with no documentation record is still vulnerable. Plaintiff systems scan continuously. Your record today is a single snapshot with no proof of ongoing monitoring.';
+      document.querySelector('.risk-grid').style.borderLeftColor = 'var(--pass)';
+    } else if (sc.overall_score >= 60) {
+      rTarget.textContent  = 'MODERATE'; rTarget.className  = 'risk-val moderate';
+      rVuln.textContent    = 'PRESENT';  rVuln.className    = 'risk-val present';
+      rDefense.textContent = 'NONE';     rDefense.className = 'risk-val present';
+      rNote.textContent    = 'Open violations are visible to the same automated systems plaintiff firms use. Without a documented remediation record, you have no evidence of compliance effort if a demand letter arrives.';
+      document.querySelector('.risk-grid').style.borderLeftColor = 'var(--warn)';
+    } else {
+      rTarget.textContent  = 'HIGH';    rTarget.className  = 'risk-val high';
+      rVuln.textContent    = 'PRESENT'; rVuln.className    = 'risk-val present';
+      rDefense.textContent = 'NONE';    rDefense.className = 'risk-val present';
+      rNote.textContent    = 'This violation profile matches the stores plaintiff firms target first. Automated demand letter systems flag stores like this before any attorney reviews the case manually.';
+    }
 
     // Category cards
     const grid = document.getElementById('cats-grid');
