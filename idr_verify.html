@@ -486,9 +486,9 @@ function renderRecord(reg, evidence) {
           <div class="tl-dot-col"><div class="tl-dot ${dotClass}"></div></div>
           <div class="tl-body">
             <div class="tl-action">${esc(e.event_type || '—')}</div>
-            <div class="tl-detail">${esc(e.notes || '')}</div>
+            <div class="tl-detail">${esc(e.detail || e.event_detail || e.notes || '')}</div>
           </div>
-          <div class="tl-time">${fmtDate(e.logged_at || e.created_at || '')}</div>
+          <div class="tl-time">${fmtDate(e.timestamp || e.logged_at || e.created_at || '')}</div>
         </div>`;
     }).join('');
   }
