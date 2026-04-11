@@ -1380,19 +1380,18 @@ const BACKEND = 'https://idr-backend-production.up.railway.app';
 const FOUNDING_TOTAL = 500;
 
 function IDR_loadCounter() {
-  fetch(BACKEND + '/api/admin/members?key=IDR-ADMIN-2026')
+  fetch(BACKEND + '/api/stats')
     .then(r => r.json())
     .then(data => {
-      const count = data.stats?.total_members || 0;
-      const left  = Math.max(0, FOUNDING_TOTAL - count);
+      const count = data.total_members   || 0;
+      const left  = data.spots_remaining || FOUNDING_TOTAL;
       const pct   = Math.min(100, (count / FOUNDING_TOTAL) * 100);
 
       document.getElementById('IDR_memberCount').textContent = count;
       document.getElementById('IDR_spotsLeft').textContent   = left + ' spots';
       document.getElementById('IDR_counterBar').style.width  = pct + '%';
 
-      // If sold out — switch to standard pricing
-      if (count >= FOUNDING_TOTAL) {
+      if (!data.founding_open) {
         IDR_switchToStandardPricing();
       }
     })
