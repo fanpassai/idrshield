@@ -11,6 +11,7 @@
     { "source": "/badge", "destination": "/idrshield_badge.html" },
     { "source": "/login", "destination": "/idrshield_login.html" },
     { "source": "/portal", "destination": "/idrshield_portal.html" },
-    { "source": "/support", "destination": "/idrshield_support.html" }
+    { "source": "/support", "destination": "/idrshield_support.html" },
+    { "source": "/registry", "destination": "/idrshield_registry.html" }
   ]
 }
