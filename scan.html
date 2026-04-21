@@ -218,6 +218,15 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 4
 .share-block{background:rgba(13,21,38,.6);border:1px solid var(--border2);border-radius:4px;padding:28px 32px;margin-bottom:20px;}
 .share-lbl{font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--gold3);margin-bottom:16px;}
 .share-btns{display:flex;gap:10px;flex-wrap:wrap;}
+.card-preview-wrap{margin-bottom:20px;border-radius:6px;overflow:hidden;border:1px solid rgba(201,168,76,.2);display:none;}
+.card-preview-wrap canvas{width:100%;height:auto;display:block;}
+.share-card-btns{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;}
+.btn-card{display:inline-flex;align-items:center;gap:8px;font-family:'Montserrat',sans-serif;font-size:8.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:11px 20px;border-radius:3px;border:none;cursor:pointer;transition:all .2s;}
+.btn-card-share{background:var(--gold);color:var(--navy);}
+.btn-card-share:hover{background:var(--gold2);}
+.btn-card-dl{background:rgba(201,168,76,.12);color:var(--gold);border:1px solid rgba(201,168,76,.3);}
+.btn-card-dl:hover{background:rgba(201,168,76,.2);}
+.btn-card svg{width:14px;height:14px;fill:currentColor;flex-shrink:0;}
 .share-btn{display:inline-flex;align-items:center;gap:8px;font-family:'Montserrat',sans-serif;font-size:8.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:9px 18px;border-radius:3px;border:1px solid var(--border);background:rgba(13,21,38,.7);color:rgba(240,232,216,.55);cursor:pointer;text-decoration:none;transition:border-color .2s,color .2s,background .2s;}
 .share-btn:hover{border-color:var(--gold3);color:var(--gold);background:rgba(201,168,76,.06);}
 .share-btn svg{width:13px;height:13px;fill:currentColor;flex-shrink:0;}
@@ -507,6 +516,24 @@ footer{border-top:1px solid var(--border2);padding:24px 40px;display:flex;align-
   <!-- Social share -->
   <div class="share-block">
     <p class="share-lbl">Share your scan</p>
+
+    <!-- Card preview -->
+    <div class="card-preview-wrap" id="card-preview-wrap">
+      <canvas id="share-card-canvas" width="1200" height="630"></canvas>
+    </div>
+
+    <!-- Card action buttons -->
+    <div class="share-card-btns" id="share-card-btns" style="display:none;">
+      <button class="btn-card btn-card-share" id="btn-share-card" onclick="shareCard()">
+        <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
+        Share Card
+      </button>
+      <button class="btn-card btn-card-dl" onclick="downloadCard()">
+        <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+        Download Card
+      </button>
+    </div>
+
     <div class="share-btns">
       <a id="share-x" class="share-btn" href="#" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.258 5.63 5.907-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
@@ -784,6 +811,9 @@ function renderResults(r) {
     document.getElementById('s-crit').textContent = sc.critical_count  || 0;
     document.getElementById('s-total').textContent = sc.total_issues   || 0;
 
+    // Generate share card
+    generateShareCard(sc.domain || '', score, sc.critical_count || 0, sc.total_issues || 0);
+
     const ms = sc.scan_duration_ms || 0;
     document.getElementById('s-dur').textContent = ms < 1000 ? `${ms}ms` : `${(ms/1000).toFixed(1)}s`;
 
@@ -1012,6 +1042,173 @@ function hide(id) { document.getElementById(id).style.display = 'none'; }
 function dis(id, v) { document.getElementById(id).disabled = v; }
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+// ── Share Card Generator ──────────────────────────────────────────────────────
+
+var _cardDomain = '';
+var _cardScore  = 0;
+var _cardCrits  = 0;
+var _cardTotal  = 0;
+
+function generateShareCard(domain, score, crits, total) {
+  _cardDomain = domain;
+  _cardScore  = score;
+  _cardCrits  = crits;
+  _cardTotal  = total;
+
+  const canvas = document.getElementById('share-card-canvas');
+  const ctx    = canvas.getContext('2d');
+  const W = 1200, H = 630;
+  canvas.width = W; canvas.height = H;
+
+  const scoreColor  = score >= 80 ? '#27AE60' : score >= 60 ? '#E9A030' : '#E05252';
+  const statusLabel = score >= 80 ? 'PASS' : score >= 60 ? 'MONITORING' : 'FAIL';
+
+  // Background
+  ctx.fillStyle = '#060A14';
+  ctx.fillRect(0, 0, W, H);
+
+  // Noise texture
+  for (let i = 0; i < 2000; i++) {
+    ctx.fillStyle = 'rgba(201,168,76,' + (Math.random() * 0.025) + ')';
+    ctx.fillRect(Math.random() * W, Math.random() * H, 1.5, 1.5);
+  }
+
+  // Gold top + bottom rule
+  ctx.fillStyle = '#C9A84C';
+  ctx.fillRect(0, 0, W, 5);
+  ctx.fillRect(0, H - 5, W, 5);
+
+  // Left score-colored accent
+  ctx.fillStyle = scoreColor;
+  ctx.globalAlpha = 0.7;
+  ctx.fillRect(0, 5, 5, H - 10);
+  ctx.globalAlpha = 1;
+
+  // IDR Seal
+  const sx = 72, sy = 72, sr = 40;
+  ctx.beginPath(); ctx.arc(sx, sy, sr, 0, Math.PI * 2);
+  ctx.strokeStyle = '#C9A84C'; ctx.lineWidth = 2.5; ctx.stroke();
+  ctx.beginPath(); ctx.arc(sx, sy, sr * 0.65, 0, Math.PI * 2);
+  ctx.strokeStyle = 'rgba(201,168,76,0.22)'; ctx.lineWidth = 1; ctx.stroke();
+  ctx.font = 'bold 20px Georgia,serif';
+  ctx.fillStyle = '#C9A84C'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText('IDR', sx, sy);
+
+  // Wordmark
+  ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+  ctx.font = '700 10px Arial,sans-serif';
+  ctx.fillStyle = 'rgba(201,168,76,0.65)';
+  ctx.fillText('INSTITUTE OF DIGITAL REMEDIATION', 128, 44);
+  ctx.font = '400 12px Georgia,serif';
+  ctx.fillStyle = 'rgba(201,168,76,0.35)';
+  ctx.fillText('IDR Protocol Series · 2026 Edition', 128, 63);
+
+  // Divider
+  ctx.strokeStyle = 'rgba(201,168,76,0.1)'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(72, 128); ctx.lineTo(W - 72, 128); ctx.stroke();
+
+  // Domain name
+  ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+  ctx.font = '700 54px Georgia,serif'; ctx.fillStyle = '#F0E8D4';
+  let d = domain;
+  while (ctx.measureText(d).width > 640 && d.length > 8) d = d.slice(0,-4) + '...';
+  ctx.fillText(d, 72, 152);
+
+  // Status badge
+  ctx.font = '700 11px Arial,sans-serif';
+  const bw = ctx.measureText(statusLabel).width + 44;
+  ctx.fillStyle = scoreColor + '1A'; ctx.strokeStyle = scoreColor; ctx.lineWidth = 1.5;
+  ctx.fillRect(72, 228, bw, 30); ctx.strokeRect(72, 228, bw, 30);
+  ctx.fillStyle = scoreColor; ctx.textAlign = 'center';
+  ctx.fillText(statusLabel, 72 + bw / 2, 243);
+
+  // Ghost score (decorative)
+  ctx.textAlign = 'right'; ctx.textBaseline = 'top';
+  ctx.font = '700 210px Georgia,serif';
+  ctx.fillStyle = scoreColor; ctx.globalAlpha = 0.07;
+  ctx.fillText(String(score), W - 36, 90);
+  ctx.globalAlpha = 1;
+
+  // Real score
+  ctx.font = '700 148px Georgia,serif'; ctx.fillStyle = scoreColor;
+  ctx.fillText(String(score), W - 72, 140);
+  ctx.font = '300 26px Georgia,serif'; ctx.fillStyle = 'rgba(240,232,212,0.3)';
+  ctx.fillText('/ 100', W - 72, 300);
+
+  // Stats
+  const sy2 = 316;
+  ctx.textAlign = 'left';
+  ctx.font = '700 72px Georgia,serif';
+  ctx.fillStyle = crits > 0 ? '#E05252' : '#52B788';
+  ctx.fillText(String(crits), 72, sy2);
+  ctx.font = '700 10px Arial,sans-serif'; ctx.fillStyle = 'rgba(240,232,212,0.3)';
+  ctx.fillText('CRITICAL VIOLATIONS', 72, sy2 + 86);
+
+  ctx.strokeStyle = 'rgba(240,232,212,0.07)'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(282, sy2 + 8); ctx.lineTo(282, sy2 + 78); ctx.stroke();
+
+  ctx.font = '700 72px Georgia,serif'; ctx.fillStyle = 'rgba(240,232,212,0.55)';
+  ctx.fillText(String(total), 312, sy2);
+  ctx.font = '700 10px Arial,sans-serif'; ctx.fillStyle = 'rgba(240,232,212,0.3)';
+  ctx.fillText('TOTAL ISSUES', 312, sy2 + 86);
+
+  // Threat line
+  ctx.font = 'italic 21px Georgia,serif'; ctx.fillStyle = 'rgba(240,232,212,0.4)';
+  const threat = score >= 80
+    ? 'Clean score — no documentation record exists yet.'
+    : score >= 60
+    ? 'Open violations visible to plaintiff scanning systems.'
+    : 'Matches the profile plaintiff firms target first.';
+  ctx.fillText(threat, 72, 502);
+
+  // CTA pill
+  ctx.font = '600 14px Arial,sans-serif';
+  const ctaStr = 'Scan your store free  →  idrshield.com/scan';
+  const ctaW   = ctx.measureText(ctaStr).width + 52;
+  ctx.fillStyle = 'rgba(201,168,76,0.09)'; ctx.strokeStyle = 'rgba(201,168,76,0.32)'; ctx.lineWidth = 1;
+  ctx.fillRect(72, 540, ctaW, 40); ctx.strokeRect(72, 540, ctaW, 40);
+  ctx.fillStyle = '#C9A84C'; ctx.textAlign = 'left';
+  ctx.fillText(ctaStr, 98, 560);
+
+  document.getElementById('card-preview-wrap').style.display = 'block';
+  document.getElementById('share-card-btns').style.display   = 'flex';
+}
+
+function downloadCard() {
+  const canvas = document.getElementById('share-card-canvas');
+  const a = document.createElement('a');
+  a.download = 'idr-scan-' + (_cardDomain || 'result').replace(/\./g, '-') + '.png';
+  a.href = canvas.toDataURL('image/png');
+  a.click();
+}
+
+function shareCard() {
+  const crits  = _cardCrits;
+  const score  = _cardScore;
+  const domain = _cardDomain;
+
+  const txt = score >= 80
+    ? domain + ' passed ADA accessibility — ' + score + '/100, zero critical violations. Most e-commerce stores can\'t say that. Free scan: idrshield.com/scan'
+    : crits > 0
+    ? 'Scanned ' + domain + ' — ' + score + '/100, ' + crits + ' critical ADA violation' + (crits !== 1 ? 's' : '') + '. Plaintiff firms use this same scanner. Check yours before they do: idrshield.com/scan'
+    : 'Scanned ' + domain + ' — ' + score + '/100. ADA violations present. Free scan: idrshield.com/scan';
+
+  const canvas = document.getElementById('share-card-canvas');
+  canvas.toBlob(function(blob) {
+    const file = new File([blob], 'idr-scan-' + domain + '.png', { type: 'image/png' });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      navigator.share({ files: [file], text: txt })
+        .catch(function() { downloadCard(); });
+    } else if (navigator.share) {
+      navigator.share({ text: txt, url: 'https://idrshield.com/scan' })
+        .catch(function() { downloadCard(); });
+    } else {
+      downloadCard();
+    }
+  }, 'image/png');
+}
+
 function showErr(msg) { hide('scan-panel'); dis('scan-btn', false); document.getElementById('err-msg').textContent = msg; show('err-panel'); }
 
 /* ── DEMO FALLBACK ── */
