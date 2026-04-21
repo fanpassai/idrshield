@@ -930,25 +930,25 @@ function buildShareLinks(r) {
 
   // ── X / Twitter ──
   const xText = st === 'pass'
-    ? `Just ran an ADA accessibility scan on ${domain} using IDR Shield. Score: ${score}/100 — zero critical violations. Most e-commerce stores aren't this clean. See what plaintiff firms see on your store (free):`
+    ? `We scanned ${domain} — ${score}/100. Clean score. But no compliance record exists. A passing scan with no documentation is still vulnerable if a demand letter arrives. What does your store look like?`
     : crits > 0
     ? `Scanned ${domain} for ADA accessibility violations. Score: ${score}/100 — ${crits} critical issue${crits !== 1 ? 's' : ''} flagged. The same automated scanners plaintiff firms use found these. Check yours before they do:`
     : `Ran an ADA accessibility audit on ${domain} — scored ${score}/100. ${total} issues found. Plaintiff firms run these same scans daily. Free check for your store:`;
 
   // ── Email ──
   const emailSubj = st === 'pass'
-    ? `ADA Accessibility Scan — ${domain} passed (${score}/100)`
+    ? `${domain} scored ${score}/100 — but has no compliance record yet`
     : `ADA Risk Alert — ${domain} scored ${score}/100 with ${crits} critical issues`;
 
   const emailBodyLines = [
     `I just ran a free ADA accessibility audit on ${domain} using IDR Shield.`,
     ``,
-    `RESULT: ${score}/100 — ${st === 'pass' ? 'Registry Eligible' : st === 'warning' ? 'Monitoring Status' : 'Remediation Required'}`,
+    `RESULT: ${score}/100 — ${st === 'pass' ? 'Passing Score · No Compliance Record' : st === 'warning' ? 'Monitoring Status' : 'Remediation Required'}`,
     `Critical violations: ${crits}`,
     `Total issues flagged: ${total}`,
     ``,
     st === 'pass'
-      ? `The site has no critical accessibility violations — which puts it ahead of most e-commerce stores. Worth knowing what your own store looks like before a plaintiff firm does.`
+      ? `The score is clean — but a passing scan with no documentation record offers no legal protection. Plaintiff firms scan continuously. If a demand letter arrives tomorrow, the score alone isn't evidence. A timestamped compliance record is.`
       : `These are the same violation patterns that automated plaintiff scanners flag when building demand letter queues. ${crits > 0 ? `The ${crits} critical issue${crits !== 1 ? 's' : ''} are the highest-priority exposure.` : ''}`,
     ``,
     `Run a free scan on your store — takes 60 seconds, no credit card:`,
@@ -960,19 +960,71 @@ function buildShareLinks(r) {
 
   // ── LinkedIn ──
   const liText = st === 'pass'
-    ? `Just audited ${domain} for ADA/WCAG accessibility compliance using IDR Shield. Score: ${score}/100 — registry eligible with zero critical violations.\n\nMost e-commerce stores can't say that. Automated plaintiff scanners run these same checks every day, building claim queues before store owners know they're exposed.\n\nIDR Shield runs the same scan — and gives you a cryptographically signed receipt as your compliance record. Free for any store:\n${pageUrl}`
+    ? `We scanned ${domain} for ADA accessibility compliance — ${score}/100, no critical violations.\n\nBut here's what most people miss: a passing score with no documentation record provides no legal protection. Plaintiff firms scan continuously. Your score today is a single snapshot. If a demand letter arrives, the question won't be your score — it will be whether you have a timestamped compliance record proving ongoing monitoring.\n\nIDR Shield creates that record. Free scan for your store:\n${pageUrl}`
     : `Just ran an ADA accessibility audit on ${domain} — scored ${score}/100 with ${crits} critical violation${crits !== 1 ? 's' : ''} flagged.\n\nThis isn't theoretical risk. ADA accessibility lawsuits against e-commerce sites have exceeded 5,000 filings per year, concentrated among a small number of plaintiff firms using automated scanning. The violations IDR Shield found on ${domain} are exactly the patterns those firms target.\n\nIDR Shield runs the same audit — free, 60 seconds, no credit card:\n${pageUrl}`;
 
   // ── WhatsApp ──
   const waText = st === 'pass'
-    ? `Scanned ${domain} for ADA accessibility — scored ${score}/100, no critical issues. Most stores fail this. Check yours free (60 seconds): ${pageUrl}`
+    ? `Scanned ${domain} — ${score}/100, passing score. But no compliance record exists yet. A clean scan with no documentation is still vulnerable if challenged. Plaintiff firms scan continuously — your record needs to exist before they do. Free scan: ${pageUrl}`
     : `Just scanned ${domain} — scored ${score}/100 with ${crits} critical ADA violation${crits !== 1 ? 's' : ''}. Plaintiff firms use the same scanner to find targets. Check your store free before they do: ${pageUrl}`;
 
-  document.getElementById('share-x').href  = `https://twitter.com/intent/tweet?text=${encodeURIComponent(xText)}&url=${pageUrlEnc}`;
-  document.getElementById('share-fb').href  = `https://www.facebook.com/sharer/sharer.php?u=${pageUrlEnc}`;
+  // Store fallback URLs
+  const fallbacks = {
+    x:  `https://twitter.com/intent/tweet?text=${encodeURIComponent(xText)}&url=${pageUrlEnc}`,
+    fb: `https://www.facebook.com/sharer/sharer.php?u=${pageUrlEnc}`,
+    li: `https://www.linkedin.com/sharing/share-offsite/?url=${pageUrlEnc}&summary=${encodeURIComponent(liText)}`,
+    wa: `https://wa.me/?text=${encodeURIComponent(waText)}`
+  };
+
+  // Store share text per platform
+  const shareCopy = { x: xText + ' ' + pageUrl, fb: pageUrl, li: liText, wa: waText };
+
+  // Helper: try Web Share with image, fall back to URL intent
+  function makeShareHandler(platform, fallbackUrl) {
+    return function(e) {
+      e.preventDefault();
+      const canvas = document.getElementById('share-card-canvas');
+      const txt    = shareCopy[platform] || pageUrl;
+
+      // If card has been generated and Web Share files supported — use it
+      if (canvas && canvas.width > 10 && navigator.canShare) {
+        canvas.toBlob(function(blob) {
+          const file = new File([blob], 'idr-scan-' + (domain || 'result') + '.png', {type:'image/png'});
+          if (navigator.canShare({files:[file]})) {
+            navigator.share({files:[file], text: txt})
+              .catch(function() { window.open(fallbackUrl, '_blank'); });
+          } else {
+            // Web Share without files
+            navigator.share({text: txt, url: pageUrl})
+              .catch(function() { window.open(fallbackUrl, '_blank'); });
+          }
+        }, 'image/png');
+      } else {
+        // Desktop or no Web Share — open platform URL
+        window.open(fallbackUrl, '_blank');
+      }
+    };
+  }
+
+  // Wire up platform buttons with image-first share
+  const sx = document.getElementById('share-x');
+  const sf = document.getElementById('share-fb');
+  const sl = document.getElementById('share-li');
+  const sw = document.getElementById('share-wa');
+
+  // Remove old handlers by cloning
+  [sx, sf, sl, sw].forEach(el => {
+    const clone = el.cloneNode(true);
+    el.parentNode.replaceChild(clone, el);
+  });
+
+  document.getElementById('share-x').addEventListener('click',  makeShareHandler('x',  fallbacks.x));
+  document.getElementById('share-fb').addEventListener('click', makeShareHandler('fb', fallbacks.fb));
+  document.getElementById('share-li').addEventListener('click', makeShareHandler('li', fallbacks.li));
+  document.getElementById('share-wa').addEventListener('click', makeShareHandler('wa', fallbacks.wa));
+
+  // Email stays as mailto
   document.getElementById('share-email-link').href = `mailto:?subject=${encodeURIComponent(emailSubj)}&body=${emailBody}`;
-  document.getElementById('share-li').href  = `https://www.linkedin.com/sharing/share-offsite/?url=${pageUrlEnc}&summary=${encodeURIComponent(liText)}`;
-  document.getElementById('share-wa').href  = `https://wa.me/?text=${encodeURIComponent(waText)}`;
 
   // Activation link with receipt ref
   const ref = r.registry_id || '';
