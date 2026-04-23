@@ -795,6 +795,27 @@ body {
 }
 .btn-back:hover { color:var(--gold); }
 
+/* Hero CTA anchor */
+.hero-cta {
+  display:inline-flex; align-items:center; gap:8px;
+  background:transparent;
+  border:1px solid rgba(201,168,76,.35);
+  border-radius:4px;
+  padding:12px 28px;
+  font-family:var(--mono);
+  font-size:11px; font-weight:500;
+  letter-spacing:2.5px; text-transform:uppercase;
+  color:var(--gold);
+  text-decoration:none;
+  margin-top:6px;
+  transition:all .18s;
+}
+.hero-cta:hover {
+  background:rgba(201,168,76,.08);
+  border-color:var(--gold);
+  box-shadow:0 4px 20px rgba(201,168,76,.15);
+}
+
 /* Fade */
 .fade { animation:fadeUp .3s ease both; }
 @keyframes fadeUp {
@@ -854,11 +875,12 @@ body {
     <div class="proto-line">
       IDR Protocol Engine <span>·</span> WCAG 2.1 AA <span>·</span> Section 504 / 1557 <span>·</span> Real-Time Audit
     </div>
+    <a href="#scan-card" class="hero-cta">⚡&nbsp;&nbsp;Run HHS Readiness Check</a>
   </div>
 
   <!-- SCAN CARD -->
   <div class="scan-wrap">
-    <div class="scan-card fade">
+    <div class="scan-card fade" id="scan-card">
 
       <div class="field">
         <label class="field-label">Organization Domain <span class="hint">— we'll run the check here</span></label>
@@ -903,7 +925,7 @@ body {
   <!-- BELOW FOLD -->
   <div class="below-fold">
     <div class="bf-section">
-      <div class="bf-eyebrow">What This Check Detects</div>
+      <div class="bf-eyebrow">Detection Categories</div>
       <div class="bf-title">Three failure categories. One verdict.</div>
       <div class="detect-cols">
         <div class="detect-col">
@@ -922,16 +944,16 @@ body {
     </div>
 
     <div class="bf-section">
-      <div class="bf-eyebrow">Why This Matters Right Now</div>
+      <div class="bf-eyebrow">Enforcement Context</div>
       <div class="bf-title">The deadline you heard about isn't yours.</div>
-      <p class="bf-body">Most healthcare providers are aware of "ADA accessibility requirements." Many have seen recent headlines about extended deadlines.</p>
+      <p class="bf-body">Awareness of accessibility requirements is widespread. Accurate interpretation of enforcement timelines is not.</p>
       <p class="bf-body"><strong>Those headlines refer to DOJ Title II — government entities only.</strong></p>
       <p class="bf-body">They do not apply to healthcare providers governed by HHS Section 504 and Section 1557.</p>
       <div class="gap-rule">
         For organizations with 15 or more employees receiving federal funding:<br>
         The compliance date remains May 11, 2026.
       </div>
-      <p class="bf-body">The question is not whether your site is perfect. The question is whether you have a record of what you've done.</p>
+      <p class="bf-body">Perfection is not evaluated.<br>Recorded action is.</p>
     </div>
 
     <div class="final-line">
