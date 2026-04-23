@@ -1141,7 +1141,6 @@ body {
 </div>
 
 <script>
-const BACKEND       = 'https://idr-backend-production.up.railway.app';
 const STRIPE_AUDIT  = 'https://buy.stripe.com/REPLACE_AUDIT_LINK';
 const STRIPE_CONT   = 'https://buy.stripe.com/REPLACE_CONTINUITY_LINK';
 
@@ -1202,17 +1201,18 @@ async function attemptScan() {
   try {
     const ctrl = new AbortController();
     const t    = setTimeout(()=>ctrl.abort(),25000);
-    const r    = await fetch(`${BACKEND}/scan`,{
+    const r    = await fetch(`/api/scan`,{
       method:'POST', headers:{'Content-Type':'application/json'},
       body:JSON.stringify({url}), signal:ctrl.signal
     });
     clearTimeout(t);
     if(!r.ok) throw new Error();
     const d = await r.json();
+    const sc = d.scan || {};
     S.result = {
-      score:    d.score    ?? d.total_score          ?? 0,
-      critical: d.critical_count ?? d.critical       ?? 0,
-      total:    d.total_issues   ?? d.issues?.length ?? 0,
+      score:    sc.overall_score    ?? 0,
+      critical: sc.critical_count   ?? 0,
+      total:    sc.total_issues     ?? 0,
     };
     hide('view-scanning'); renderResults(); show('view-results');
   } catch(_) {
