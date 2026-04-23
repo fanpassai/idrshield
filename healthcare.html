@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>HHS Compliance Check — Institute of Digital Remediation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg:      #0A0E1A;
+  --card:    #0D1526;
+  --border:  rgba(201,168,76,.14);
+  --gold:    #C9A84C;
+  --gold-lt: #E2C060;
+  --cream:   #FAF7F2;
+  --dim:     rgba(250,247,242,.45);
+  --faint:   rgba(250,247,242,.2);
+  --red:     #E05555;
+  --amber:   #E8B84B;
+  --green:   #52C48A;
+  --mono:    'DM Mono', monospace;
+  --serif:   'Playfair Display', serif;
+  --sans:    'DM Sans', sans-serif;
+}
+
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+
+body {
+  background: var(--bg);
+  color: var(--cream);
+  font-family: var(--sans);
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+.hdr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 36px;
+}
+.hdr-left { display:flex; align-items:center; gap:14px; text-decoration:none; }
+.seal {
+  width:42px; height:42px;
+  border:1.5px solid var(--gold);
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(201,168,76,.06);
+  flex-shrink:0;
+}
+.seal span {
+  font-family: var(--serif);
+  font-size:11px; font-weight:700;
+  color:var(--gold); letter-spacing:.5px;
+}
+.hdr-org {
+  font-size:9px; font-weight:600;
+  letter-spacing:3px; text-transform:uppercase;
+  color:var(--dim); margin-bottom:3px;
+  font-family: var(--sans);
+}
+.hdr-product {
+  font-family: var(--sans);
+  font-size:15px; font-weight:500;
+  color:var(--cream);
+}
+.hdr-right { text-align:right; }
+.hdr-right-top {
+  font-size:9px; font-weight:600;
+  letter-spacing:3px; text-transform:uppercase;
+  color:var(--dim); font-family:var(--mono);
+  margin-bottom:3px;
+}
+.hdr-right-sub {
+  font-size:11px; color:var(--faint);
+  font-family:var(--mono); letter-spacing:1px;
+}
+
+/* ── HERO ── */
+.hero {
+  text-align: center;
+  padding: 56px 24px 48px;
+}
+.alert-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(224,85,85,.1);
+  border:1px solid rgba(224,85,85,.28);
+  border-radius:2px;
+  padding:6px 16px;
+  font-family:var(--mono);
+  font-size:10px; letter-spacing:2.5px;
+  color:#F87171; text-transform:uppercase;
+  margin-bottom:32px;
+}
+.alert-dot {
+  width:6px; height:6px;
+  background:#F87171; border-radius:50%;
+  animation:blink 1.3s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(40px, 7vw, 68px);
+  line-height: 1.1;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 10px;
+  letter-spacing: -.5px;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--gold);
+  display: block;
+}
+
+.hero-sub {
+  font-size: 15px;
+  color: var(--dim);
+  line-height: 1.7;
+  max-width: 520px;
+  margin: 0 auto 6px;
+}
+.hero-clarify {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--amber);
+  letter-spacing: .5px;
+  margin: 0 auto 32px;
+  line-height: 1.8;
+  max-width: 480px;
+}
+
+/* ── COUNTDOWN ── */
+.countdown-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+.countdown {
+  display: inline-flex;
+  align-items: stretch;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.cd-tag {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--faint);
+  text-transform: uppercase;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  border-right: 1px solid var(--border);
+  background: rgba(255,255,255,.02);
+  white-space: nowrap;
+}
+.cd-blocks { display:flex; }
+.cd-block {
+  padding: 10px 18px;
+  text-align: center;
+  border-right: 1px solid var(--border);
+}
+.cd-block:last-child { border-right: none; }
+.cd-val {
+  display: block;
+  font-family: var(--mono);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--gold);
+  line-height: 1;
+}
+.cd-unit {
+  display: block;
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  color: var(--faint);
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.proto-line {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  color: var(--faint);
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 48px;
+}
+.proto-line span { color: rgba(201,168,76,.3); margin: 0 8px; }
+
+/* ── SCAN CARD ── */
+.scan-wrap {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 20px 80px;
+}
+
+.scan-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 36px;
+}
+
+/* Field */
+.field { margin-bottom: 24px; }
+.field-label {
+  display: block;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.field-label .hint {
+  color: var(--faint);
+  font-style: italic;
+  letter-spacing: 1px;
+  margin-left: 8px;
+}
+.field-input {
+  width: 100%;
+  background: rgba(255,255,255,.035);
+  border: 1px solid rgba(201,168,76,.12);
+  border-radius: 4px;
+  padding: 15px 18px;
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--cream);
+  outline: none;
+  letter-spacing: .3px;
+  transition: border-color .15s, background .15s;
+}
+.field-input::placeholder { color: var(--faint); }
+.field-input:focus {
+  border-color: rgba(201,168,76,.4);
+  background: rgba(201,168,76,.03);
+}
+
+/* Qualifier row */
+.qualifier-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-bottom: 28px;
+}
+@media(max-width:480px) { .qualifier-row { grid-template-columns:1fr; } }
+
+.q-label {
+  display: block;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.q-pills { display:flex; gap:6px; flex-wrap:wrap; }
+.q-pill {
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(201,168,76,.12);
+  border-radius: 3px;
+  padding: 8px 14px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--dim);
+  cursor: pointer;
+  transition: all .14s;
+  white-space: nowrap;
+  flex: 1;
+  text-align: center;
+  min-width: 60px;
+}
+.q-pill:hover { border-color:rgba(201,168,76,.3); color:var(--cream); }
+.q-pill.on {
+  background: rgba(201,168,76,.1);
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* Scan button */
+.btn-scan {
+  width: 100%;
+  background: var(--gold);
+  border: none;
+  border-radius: 4px;
+  padding: 17px 24px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--bg);
+  cursor: pointer;
+  transition: all .18s;
+  display: block;
+  margin-bottom: 18px;
+}
+.btn-scan:hover:not(:disabled) {
+  background: var(--gold-lt);
+  box-shadow: 0 4px 24px rgba(201,168,76,.25);
+}
+.btn-scan:disabled { opacity:.3; cursor:not-allowed; }
+
+.card-footer {
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--faint);
+  font-style: italic;
+  letter-spacing: .5px;
+  line-height: 1.6;
+}
+
+/* ── BELOW FOLD ── */
+.below-fold {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 20px 80px;
+  border-top: 1px solid var(--border);
+}
+.bf-section { padding: 52px 0; border-bottom: 1px solid var(--border); }
+.bf-section:last-child { border-bottom: none; }
+
+.bf-eyebrow {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.bf-title {
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--cream);
+  margin-bottom: 16px;
+  line-height: 1.25;
+}
+.bf-body {
+  font-size: 14px;
+  color: var(--dim);
+  line-height: 1.8;
+  margin-bottom: 12px;
+}
+.bf-body:last-child { margin-bottom: 0; }
+.bf-body strong { color: var(--cream); font-weight: 500; }
+
+.detect-cols {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 12px;
+  margin-top: 20px;
+}
+@media(max-width:480px){ .detect-cols{grid-template-columns:1fr;} }
+
+.detect-col {
+  border-top: 2px solid var(--border);
+  padding-top: 14px;
+}
+.detect-col-title {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.detect-col-body {
+  font-size: 12px;
+  color: var(--dim);
+  line-height: 1.6;
+}
+
+.gap-rule {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: .5px;
+  color: var(--amber);
+  border-left: 2px solid var(--amber);
+  padding: 12px 16px;
+  margin: 20px 0;
+  line-height: 1.65;
+  background: rgba(232,184,75,.04);
+}
+
+.final-line {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--faint);
+  text-align: center;
+  margin-top: 48px;
+}
+
+/* ── STATES ── */
+.state { display:none; }
+
+/* Scanning */
+.scanning-wrap {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  text-align: center;
+}
+.scan-ring {
+  width:48px; height:48px;
+  border:2px solid var(--border);
+  border-top-color:var(--gold);
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+  margin:0 auto 24px;
+}
+@keyframes spin { to{transform:rotate(360deg)} }
+.scan-domain-txt {
+  font-family:var(--mono); font-size:13px;
+  color:var(--gold); margin-bottom:8px; letter-spacing:.5px;
+}
+.scan-status-txt {
+  font-family:var(--mono); font-size:9px;
+  letter-spacing:2.5px; text-transform:uppercase;
+  color:var(--faint);
+}
+
+/* Manual */
+.manual-wrap {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+.manual-card {
+  background: var(--card);
+  border: 1px solid rgba(232,184,75,.2);
+  border-radius: 6px;
+  padding: 32px 36px;
+}
+.manual-eyebrow {
+  font-family:var(--mono); font-size:9px;
+  letter-spacing:2.5px; text-transform:uppercase;
+  color:var(--amber); margin-bottom:14px;
+}
+.manual-note {
+  font-size:13px; color:var(--dim);
+  line-height:1.6; margin-bottom:22px;
+}
+.manual-note a { color:var(--gold); }
+.manual-inputs {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:12px; margin-bottom:20px;
+}
+@media(max-width:480px){ .manual-inputs{grid-template-columns:1fr;} }
+.m-input {
+  width:100%;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(201,168,76,.12);
+  border-radius:4px;
+  padding:12px 14px;
+  font-family:var(--mono); font-size:15px;
+  color:var(--cream); outline:none;
+}
+.m-input:focus { border-color:rgba(201,168,76,.4); }
+
+/* ── RESULTS ── */
+.results-wrap {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+}
+
+/* Score card */
+.score-card {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:6px;
+  overflow:hidden;
+  margin-bottom:10px;
+}
+.score-card-hdr {
+  background:rgba(255,255,255,.02);
+  border-bottom:1px solid var(--border);
+  padding:11px 24px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.score-card-domain {
+  font-family:var(--mono); font-size:11px;
+  letter-spacing:1px; color:var(--gold);
+}
+.score-card-ts {
+  font-family:var(--mono); font-size:9px;
+  letter-spacing:.5px; color:var(--faint);
+}
+.score-card-body {
+  padding:28px 24px;
+  display:flex; align-items:flex-end;
+  justify-content:space-between; flex-wrap:wrap; gap:16px;
+}
+.score-left {}
+.score-eyebrow {
+  font-family:var(--mono); font-size:9px;
+  letter-spacing:2px; text-transform:uppercase;
+  color:var(--faint); margin-bottom:4px;
+}
+.score-num {
+  font-family:var(--serif);
+  font-size:76px; font-weight:700;
+  line-height:1;
+}
+.score-num.fail    { color:#F87171; }
+.score-num.monitor { color:#FCD34D; }
+.score-num.pass    { color:#6EE7B7; }
+.score-right { text-align:right; }
+.score-pill {
+  display:inline-block;
+  border-radius:3px; padding:5px 14px;
+  font-family:var(--mono); font-size:10px;
+  font-weight:500; letter-spacing:2px; text-transform:uppercase;
+  margin-bottom:10px;
+}
+.score-pill.fail    { background:rgba(248,113,113,.1); border:1px solid rgba(248,113,113,.3); color:#F87171; }
+.score-pill.monitor { background:rgba(252,211,77,.08); border:1px solid rgba(252,211,77,.3);  color:#FCD34D; }
+.score-pill.pass    { background:rgba(110,231,183,.08);border:1px solid rgba(110,231,183,.3); color:#6EE7B7; }
+.score-sector {
+  font-family:var(--mono); font-size:8px;
+  letter-spacing:2px; text-transform:uppercase;
+  color:var(--faint); display:block;
+}
+
+/* Data row */
+.data-row {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:6px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  background-clip:padding-box;
+  overflow:hidden;
+  margin-bottom:10px;
+}
+.data-row::before {
+  content:'';
+  position:absolute;
+}
+.data-cell {
+  background:var(--card);
+  padding:16px 20px;
+  text-align:center;
+}
+.data-cell + .data-cell { border-left:1px solid var(--border); }
+.data-val {
+  font-family:var(--serif);
+  font-size:32px; font-weight:700;
+  color:var(--cream); line-height:1; margin-bottom:5px;
+}
+.data-val.red { color:#F87171; }
+.data-lbl {
+  font-family:var(--mono); font-size:8px;
+  letter-spacing:2px; text-transform:uppercase; color:var(--faint);
+}
+
+/* Classification */
+.class-card {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:6px;
+  overflow:hidden;
+  margin-bottom:10px;
+}
+.class-row {
+  display:flex; align-items:center;
+  justify-content:space-between;
+  padding:13px 24px;
+  border-bottom:1px solid var(--border);
+}
+.class-row:last-child { border-bottom:none; }
+.class-key {
+  font-family:var(--mono); font-size:9px;
+  letter-spacing:2px; text-transform:uppercase; color:var(--faint);
+}
+.class-val {
+  font-family:var(--mono); font-size:11px;
+  letter-spacing:1px; font-weight:500;
+}
+.cv-red   { color:#F87171; }
+.cv-amber { color:var(--amber); }
+.cv-green { color:var(--green); }
+.cv-gold  { color:var(--gold); }
+.cv-faint { color:var(--faint); }
+
+/* HHS statement */
+.hhs-stmt {
+  background:rgba(255,255,255,.02);
+  border:1px solid var(--border);
+  border-left:3px solid var(--gold);
+  border-radius:0 6px 6px 0;
+  padding:16px 20px;
+  margin-bottom:10px;
+  font-family:var(--mono);
+  font-size:10px; letter-spacing:.3px;
+  color:var(--faint); line-height:1.75;
+  font-style:italic;
+}
+
+/* Deadline */
+.dl-card {
+  border:1px solid;
+  border-radius:6px;
+  padding:20px 24px;
+  margin-bottom:10px;
+}
+.dl-card.urgent { background:rgba(224,85,85,.05); border-color:rgba(224,85,85,.22); }
+.dl-card.watch  { background:rgba(232,184,75,.05); border-color:rgba(232,184,75,.22); }
+.dl-eyebrow {
+  font-family:var(--mono); font-size:9px;
+  letter-spacing:2.5px; text-transform:uppercase; margin-bottom:8px;
+}
+.dl-card.urgent .dl-eyebrow { color:var(--red); }
+.dl-card.watch  .dl-eyebrow { color:var(--amber); }
+.dl-date {
+  font-family:var(--serif);
+  font-size:24px; font-weight:700;
+  color:var(--cream); margin-bottom:8px;
+}
+.dl-body {
+  font-family:var(--mono); font-size:11px;
+  letter-spacing:.3px; color:var(--dim); line-height:1.7;
+}
+
+/* Registry */
+.reg-card {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:6px;
+  overflow:hidden;
+  margin-bottom:10px;
+}
+.reg-bar {
+  background:rgba(255,255,255,.02);
+  border-bottom:1px solid var(--border);
+  padding:10px 24px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.reg-bar-lbl {
+  font-family:var(--mono); font-size:8px;
+  letter-spacing:2px; text-transform:uppercase; color:var(--faint);
+}
+.reg-bar-dot { width:6px; height:6px; background:var(--red); border-radius:50%; }
+.reg-row {
+  display:flex; align-items:center;
+  justify-content:space-between;
+  padding:12px 24px;
+  border-bottom:1px solid var(--border);
+}
+.reg-row:last-child { border-bottom:none; }
+.reg-key {
+  font-family:var(--mono); font-size:9px;
+  letter-spacing:1.5px; text-transform:uppercase; color:var(--faint);
+}
+.reg-val {
+  font-family:var(--mono); font-size:10px; letter-spacing:.5px;
+}
+.rv-red   { color:var(--red); }
+.rv-gold  { color:var(--gold); }
+.rv-faint { color:var(--faint); }
+
+/* CTA */
+.cta-card {
+  background:var(--card);
+  border:1px solid rgba(201,168,76,.3);
+  border-radius:6px;
+  overflow:hidden;
+  margin-bottom:10px;
+}
+.cta-bar {
+  background:rgba(201,168,76,.06);
+  border-bottom:1px solid rgba(201,168,76,.15);
+  padding:10px 24px;
+  font-family:var(--mono); font-size:9px;
+  letter-spacing:2px; text-transform:uppercase; color:var(--gold);
+}
+.cta-body { padding:28px 24px; }
+.cta-title {
+  font-family:var(--serif);
+  font-size:22px; font-weight:600;
+  color:var(--cream); margin-bottom:6px;
+}
+.cta-sub {
+  font-family:var(--mono);
+  font-size:11px; letter-spacing:.3px;
+  color:var(--dim); line-height:1.65;
+  margin-bottom:24px;
+}
+.cta-price-row { margin-bottom:6px; }
+.cta-price {
+  font-family:var(--serif);
+  font-size:48px; font-weight:700;
+  color:var(--gold); line-height:1;
+}
+.cta-price-note {
+  font-family:var(--mono); font-size:9px;
+  letter-spacing:2px; text-transform:uppercase;
+  color:var(--faint); margin-bottom:22px;
+}
+.btn-activate {
+  display:block; width:100%;
+  background:var(--gold); border:none;
+  border-radius:4px; padding:17px;
+  font-family:var(--mono); font-size:12px;
+  font-weight:500; letter-spacing:3px;
+  text-transform:uppercase; color:var(--bg);
+  cursor:pointer; text-decoration:none;
+  text-align:center; margin-bottom:10px;
+  transition:all .18s;
+}
+.btn-activate:hover {
+  background:var(--gold-lt);
+  box-shadow:0 4px 24px rgba(201,168,76,.25);
+}
+.includes {
+  display:flex; flex-direction:column; gap:8px;
+  padding-top:20px; border-top:1px solid var(--border);
+}
+.inc-row {
+  display:flex; align-items:center; gap:10px;
+  font-family:var(--mono); font-size:10px;
+  letter-spacing:.3px; color:var(--dim);
+}
+.inc-chk { color:var(--gold); flex-shrink:0; }
+
+/* Continuity */
+.cont-card {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:22px 24px;
+  margin-bottom:16px;
+}
+.cont-top {
+  display:flex; align-items:center;
+  justify-content:space-between; margin-bottom:10px;
+}
+.cont-label {
+  font-family:var(--mono); font-size:9px;
+  letter-spacing:2px; text-transform:uppercase; color:var(--gold);
+}
+.cont-price {
+  font-family:var(--mono); font-size:13px;
+  color:var(--cream); font-weight:500;
+}
+.cont-desc {
+  font-family:var(--mono); font-size:11px;
+  letter-spacing:.3px; color:var(--dim);
+  line-height:1.65; margin-bottom:14px;
+}
+.btn-cont {
+  display:block; width:100%;
+  background:transparent;
+  border:1px solid rgba(201,168,76,.3);
+  border-radius:4px; padding:13px;
+  font-family:var(--mono); font-size:11px;
+  letter-spacing:2px; text-transform:uppercase;
+  color:var(--gold); cursor:pointer;
+  text-decoration:none; text-align:center;
+  transition:all .15s;
+}
+.btn-cont:hover { background:rgba(201,168,76,.07); border-color:var(--gold); }
+
+.btn-reset {
+  background:none; border:none;
+  font-family:var(--mono); font-size:9px;
+  letter-spacing:2px; text-transform:uppercase;
+  color:var(--faint); cursor:pointer;
+  display:block; margin:16px auto 0;
+  text-align:center;
+}
+.btn-reset:hover { color:var(--gold); }
+.btn-back {
+  background:none; border:none;
+  font-family:var(--mono); font-size:9px;
+  letter-spacing:2px; text-transform:uppercase;
+  color:var(--faint); cursor:pointer;
+  display:flex; align-items:center; gap:6px;
+  margin-bottom:18px; padding:0;
+}
+.btn-back:hover { color:var(--gold); }
+
+/* Fade */
+.fade { animation:fadeUp .3s ease both; }
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(8px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<header class="hdr">
+  <a href="https://idrshield.com" class="hdr-left" style="text-decoration:none;">
+    <div class="seal"><span>IDR</span></div>
+    <div>
+      <div class="hdr-org">Institute of Digital Remediation</div>
+      <div class="hdr-product">HHS Compliance Check</div>
+    </div>
+  </a>
+  <div class="hdr-right">
+    <div class="hdr-right-top">Protocol-Compliant Audit Engine</div>
+    <div class="hdr-right-sub">45 C.F.R. §84 &middot; 89 FR 40066</div>
+  </div>
+</header>
+
+<!-- ══ DEFAULT VIEW ══ -->
+<div id="view-default">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="alert-badge"><div class="alert-dot"></div>HHS Enforcement Window Active</div>
+
+    <h1>Your HHS Deadline<br>
+      <em>Was Not Extended.</em>
+    </h1>
+
+    <p class="hero-sub">
+      Healthcare organizations receiving federal funding are required to meet WCAG 2.1 AA accessibility standards under Section 504 and Section 1557.
+    </p>
+    <p class="hero-clarify">
+      The DOJ extension to 2027 applies to government entities only.<br>
+      Healthcare providers remain on the May 11, 2026 timeline.
+    </p>
+
+    <div class="countdown-wrap">
+      <div class="countdown">
+        <div class="cd-tag">May 11, 2026 &mdash; Active Deadline</div>
+        <div class="cd-blocks">
+          <div class="cd-block"><span class="cd-val" id="cd-d">19</span><span class="cd-unit">Days</span></div>
+          <div class="cd-block"><span class="cd-val" id="cd-h">00</span><span class="cd-unit">Hrs</span></div>
+          <div class="cd-block"><span class="cd-val" id="cd-m">00</span><span class="cd-unit">Min</span></div>
+          <div class="cd-block"><span class="cd-val" id="cd-s">00</span><span class="cd-unit">Sec</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="proto-line">
+      IDR Protocol Engine <span>·</span> WCAG 2.1 AA <span>·</span> Section 504 / 1557 <span>·</span> Real-Time Audit
+    </div>
+  </div>
+
+  <!-- SCAN CARD -->
+  <div class="scan-wrap">
+    <div class="scan-card fade">
+
+      <div class="field">
+        <label class="field-label">Organization Domain <span class="hint">— we'll run the check here</span></label>
+        <input class="field-input" type="url" id="domain-input"
+          placeholder="https://yourclinic.com"
+          oninput="onDomain()"
+          onkeydown="if(event.key==='Enter') attemptScan()" />
+      </div>
+
+      <div class="qualifier-row">
+        <div>
+          <span class="q-label">HHS / Federal Funding</span>
+          <div class="q-pills">
+            <button class="q-pill" data-g="funding" data-v="yes"    onclick="selectQ(this)">Yes</button>
+            <button class="q-pill" data-g="funding" data-v="no"     onclick="selectQ(this)">No</button>
+            <button class="q-pill" data-g="funding" data-v="unsure" onclick="selectQ(this)">Not Sure</button>
+          </div>
+        </div>
+        <div>
+          <span class="q-label">Employee Count</span>
+          <div class="q-pills">
+            <button class="q-pill" data-g="emp" data-v="15plus"  onclick="selectQ(this)">15+</button>
+            <button class="q-pill" data-g="emp" data-v="under15" onclick="selectQ(this)">Under 15</button>
+            <button class="q-pill" data-g="emp" data-v="unsure"  onclick="selectQ(this)">Not Sure</button>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-scan" id="scan-btn" onclick="attemptScan()" disabled>
+        ⚡&nbsp;&nbsp;Run HHS Readiness Check
+      </button>
+
+      <div class="card-footer">
+        The same automated accessibility scans used in litigation are run here.
+        This check reflects what external auditors and plaintiff firms can already detect.<br>
+        No public record is created unless you activate your Registry. This check is informational and does not constitute legal advice.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- BELOW FOLD -->
+  <div class="below-fold">
+    <div class="bf-section">
+      <div class="bf-eyebrow">What This Check Detects</div>
+      <div class="bf-title">Three failure categories. One verdict.</div>
+      <div class="detect-cols">
+        <div class="detect-col">
+          <div class="detect-col-title">Code Structure</div>
+          <div class="detect-col-body">Missing ARIA roles, improper hierarchy, duplicate IDs</div>
+        </div>
+        <div class="detect-col">
+          <div class="detect-col-title">Accessibility Failures</div>
+          <div class="detect-col-body">Color contrast violations, missing alt-text, broken labels</div>
+        </div>
+        <div class="detect-col">
+          <div class="detect-col-title">User Barriers</div>
+          <div class="detect-col-body">Navigation gaps, form errors, inaccessible actions</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bf-section">
+      <div class="bf-eyebrow">Why This Matters Right Now</div>
+      <div class="bf-title">The deadline you heard about isn't yours.</div>
+      <p class="bf-body">Most healthcare providers are aware of "ADA accessibility requirements." Many have seen recent headlines about extended deadlines.</p>
+      <p class="bf-body"><strong>Those headlines refer to DOJ Title II — government entities only.</strong></p>
+      <p class="bf-body">They do not apply to healthcare providers governed by HHS Section 504 and Section 1557.</p>
+      <div class="gap-rule">
+        For organizations with 15 or more employees receiving federal funding:<br>
+        The compliance date remains May 11, 2026.
+      </div>
+      <p class="bf-body">The question is not whether your site is perfect. The question is whether you have a record of what you've done.</p>
+    </div>
+
+    <div class="final-line">
+      This check shows what exists today — not what can be fixed later.
+    </div>
+  </div>
+
+</div><!-- /view-default -->
+
+<!-- ══ SCANNING STATE ══ -->
+<div id="view-scanning" class="state">
+  <div class="scanning-wrap fade">
+    <div class="scan-ring"></div>
+    <div class="scan-domain-txt" id="scan-url-txt"></div>
+    <div class="scan-status-txt">Running WCAG 2.1 AA Protocol &middot; Please Wait</div>
+  </div>
+</div>
+
+<!-- ══ MANUAL FALLBACK ══ -->
+<div id="view-manual" class="state">
+  <div class="manual-wrap">
+    <div class="manual-card fade">
+      <button class="btn-back" onclick="showDefault()">← Back</button>
+      <div class="manual-eyebrow">Manual Entry &mdash; Scanner Unavailable From This Context</div>
+      <p class="manual-note">
+        Run a quick scan at <a href="https://idrshield.com/scan" target="_blank">idrshield.com/scan</a> then enter the results below to continue with your HHS report.
+      </p>
+      <div class="manual-inputs">
+        <div>
+          <label class="field-label">Score (0–100)</label>
+          <input class="m-input" type="text" id="m-score" placeholder="68" oninput="checkManual()"/>
+        </div>
+        <div>
+          <label class="field-label">Critical Issues</label>
+          <input class="m-input" type="text" id="m-crit" placeholder="8" oninput="checkManual()"/>
+        </div>
+        <div>
+          <label class="field-label">Total Issues</label>
+          <input class="m-input" type="text" id="m-total" placeholder="14" oninput="checkManual()"/>
+        </div>
+      </div>
+      <button class="btn-scan" id="manual-btn" onclick="submitManual()" disabled>
+        Generate HHS Report →
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ RESULTS ══ -->
+<div id="view-results" class="state">
+  <div class="results-wrap">
+
+    <!-- Score -->
+    <div class="score-card fade">
+      <div class="score-card-hdr">
+        <div class="score-card-domain" id="r-domain"></div>
+        <div class="score-card-ts" id="r-ts"></div>
+      </div>
+      <div class="score-card-body">
+        <div class="score-left">
+          <div class="score-eyebrow">Accessibility Score</div>
+          <div class="score-num" id="r-score"></div>
+        </div>
+        <div class="score-right">
+          <div class="score-pill" id="r-pill"></div>
+          <span class="score-sector">Healthcare &middot; HHS / WCAG 2.1</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Data row -->
+    <div class="data-row">
+      <div class="data-cell">
+        <div class="data-val red" id="r-crit"></div>
+        <div class="data-lbl">Critical Issues</div>
+      </div>
+      <div class="data-cell">
+        <div class="data-val" id="r-total"></div>
+        <div class="data-lbl">Total Issues</div>
+      </div>
+      <div class="data-cell">
+        <div class="data-val" style="font-size:16px;padding-top:8px;">WCAG 2.1 AA</div>
+        <div class="data-lbl">Standard Applied</div>
+      </div>
+    </div>
+
+    <!-- Classification -->
+    <div class="class-card">
+      <div class="class-row">
+        <span class="class-key">Registry Status</span>
+        <span class="class-val cv-red">NOT FOUND</span>
+      </div>
+      <div class="class-row">
+        <span class="class-key">Readiness Class</span>
+        <span class="class-val" id="r-class"></span>
+      </div>
+      <div class="class-row">
+        <span class="class-key">Documented Record</span>
+        <span class="class-val cv-red">ABSENT</span>
+      </div>
+      <div class="class-row">
+        <span class="class-key">HHS Exposure</span>
+        <span class="class-val" id="r-exposure"></span>
+      </div>
+      <div class="class-row">
+        <span class="class-key">Regulation</span>
+        <span class="class-val cv-gold">45 C.F.R. §84 &middot; 89 FR 40066</span>
+      </div>
+    </div>
+
+    <!-- HHS Statement -->
+    <div class="hhs-stmt">
+      "Organizations receiving HHS funding may be required to meet WCAG 2.1 Level AA accessibility standards under federal law (45 C.F.R. Part 84 / 89 FR 40066). This scan was conducted on <span id="r-date"></span> and reflects the current accessibility posture of the identified domain."
+    </div>
+
+    <!-- Deadline -->
+    <div class="dl-card" id="r-dl">
+      <div class="dl-eyebrow" id="r-dl-key"></div>
+      <div class="dl-date" id="r-dl-date"></div>
+      <div class="dl-body" id="r-dl-body"></div>
+    </div>
+
+    <!-- Registry -->
+    <div class="reg-card">
+      <div class="reg-bar">
+        <div class="reg-bar-lbl">IDR Global Registry &mdash; idr.io/verify</div>
+        <div class="reg-bar-dot"></div>
+      </div>
+      <div class="reg-row">
+        <span class="reg-key">Domain</span>
+        <span class="reg-val rv-gold" id="r-reg"></span>
+      </div>
+      <div class="reg-row">
+        <span class="reg-key">Status</span>
+        <span class="reg-val rv-red">NOT FOUND</span>
+      </div>
+      <div class="reg-row">
+        <span class="reg-key">Verified Record</span>
+        <span class="reg-val rv-faint">NONE ON FILE</span>
+      </div>
+      <div class="reg-row">
+        <span class="reg-key">Last Audit</span>
+        <span class="reg-val rv-faint">NO PRIOR RECORD</span>
+      </div>
+    </div>
+
+    <!-- $497 CTA -->
+    <div class="cta-card">
+      <div class="cta-bar">Activation Available &mdash; 48-Hour HHS Readiness Audit</div>
+      <div class="cta-body">
+        <div class="cta-title">Generate Your HHS Readiness Record</div>
+        <div class="cta-sub">From zero documentation to a defensible compliance record in 48 hours.<br>Human-verified. Timestamped. Registry-linked.</div>
+        <div class="cta-price-row"><div class="cta-price">$497</div></div>
+        <div class="cta-price-note">One-time &middot; 48-hour delivery &middot; Human verified</div>
+        <a id="stripe-audit" href="#" target="_blank" class="btn-activate">
+          Activate HHS Readiness Record &mdash; $497
+        </a>
+        <div class="includes">
+          <div class="inc-row"><span class="inc-chk">✓</span> Automated WCAG 2.1 scan + 20-min manual human verification</div>
+          <div class="inc-row"><span class="inc-chk">✓</span> SHA-256 timestamped compliance receipt — tamper-proof</div>
+          <div class="inc-row"><span class="inc-chk">✓</span> IDR Registry upgraded to "Manual Verified" status</div>
+          <div class="inc-row"><span class="inc-chk">✓</span> Screenshot evidence with annotated failure points</div>
+          <div class="inc-row"><span class="inc-chk">✓</span> Defense positioning summary — ready for legal use</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- $49/mo Continuity -->
+    <div class="cont-card">
+      <div class="cont-top">
+        <span class="cont-label">Ongoing Compliance Monitoring</span>
+        <span class="cont-price">$49 / month</span>
+      </div>
+      <div class="cont-desc">
+        Your HHS obligations don't end on May 11. The IDR Continuity Plan keeps your registry record active, monitors for new violations, and maintains your documented compliance posture month over month.
+      </div>
+      <a id="stripe-cont" href="#" target="_blank" class="btn-cont">
+        Add Continuity Plan &mdash; $49/mo
+      </a>
+    </div>
+
+    <button class="btn-reset" onclick="resetAll()">↩ Check another organization</button>
+
+  </div>
+</div>
+
+<script>
+const BACKEND       = 'https://idr-backend-production.up.railway.app';
+const STRIPE_AUDIT  = 'https://buy.stripe.com/REPLACE_AUDIT_LINK';
+const STRIPE_CONT   = 'https://buy.stripe.com/REPLACE_CONTINUITY_LINK';
+
+let S = { domain:'', funding:null, emp:null, result:null };
+
+/* ── COUNTDOWN ── */
+(function run() {
+  const dl = new Date('2026-05-11T23:59:59');
+  function tick() {
+    const diff = dl - new Date();
+    if (diff <= 0) { ['cd-d','cd-h','cd-m','cd-s'].forEach(id=>set(id,'00')); return; }
+    const pad = n => String(n).padStart(2,'0');
+    set('cd-d', pad(Math.floor(diff/86400000)));
+    set('cd-h', pad(Math.floor((diff%86400000)/3600000)));
+    set('cd-m', pad(Math.floor((diff%3600000)/60000)));
+    set('cd-s', pad(Math.floor((diff%60000)/1000)));
+  }
+  tick(); setInterval(tick,1000);
+})();
+
+/* ── UTILS ── */
+function set(id,v){ const e=document.getElementById(id); if(e) e.textContent=v; }
+function show(id){
+  const e=document.getElementById(id);
+  if(!e) return;
+  e.style.display='block';
+  e.classList.remove('fade');
+  void e.offsetWidth;
+  e.classList.add('fade');
+}
+function hide(id){ const e=document.getElementById(id); if(e) e.style.display='none'; }
+function showDefault(){ show('view-default'); hide('view-scanning'); hide('view-manual'); hide('view-results'); }
+
+/* ── QUALIFIERS ── */
+function selectQ(btn) {
+  const g = btn.dataset.g;
+  document.querySelectorAll(`.q-pill[data-g="${g}"]`).forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  S[g] = btn.dataset.v;
+  checkReady();
+}
+function onDomain() {
+  S.domain = document.getElementById('domain-input').value.trim();
+  checkReady();
+}
+function checkReady() {
+  document.getElementById('scan-btn').disabled = !(S.domain.length >= 4 && S.funding && S.emp);
+}
+
+/* ── SCAN ── */
+async function attemptScan() {
+  if (!S.domain || !S.funding || !S.emp) return;
+  const raw = S.domain;
+  const url = /^https?:\/\//i.test(raw) ? raw : `https://${raw}`;
+  S.domain  = raw.replace(/^https?:\/\/(www\.)?/i,'').replace(/\/$/,'').toLowerCase();
+  set('scan-url-txt', S.domain);
+  hide('view-default'); show('view-scanning'); hide('view-manual'); hide('view-results');
+  try {
+    const ctrl = new AbortController();
+    const t    = setTimeout(()=>ctrl.abort(),25000);
+    const r    = await fetch(`${BACKEND}/scan`,{
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({url}), signal:ctrl.signal
+    });
+    clearTimeout(t);
+    if(!r.ok) throw new Error();
+    const d = await r.json();
+    S.result = {
+      score:    d.score    ?? d.total_score          ?? 0,
+      critical: d.critical_count ?? d.critical       ?? 0,
+      total:    d.total_issues   ?? d.issues?.length ?? 0,
+    };
+    hide('view-scanning'); renderResults(); show('view-results');
+  } catch(_) {
+    hide('view-scanning'); show('view-manual');
+  }
+}
+
+/* ── MANUAL ── */
+function checkManual(){
+  const ok = document.getElementById('m-score').value.trim()
+          && document.getElementById('m-crit').value.trim()
+          && document.getElementById('m-total').value.trim();
+  document.getElementById('manual-btn').disabled = !ok;
+}
+function submitManual(){
+  S.result = {
+    score:    parseInt(document.getElementById('m-score').value)||0,
+    critical: parseInt(document.getElementById('m-crit').value) ||0,
+    total:    parseInt(document.getElementById('m-total').value)||0,
+  };
+  hide('view-manual'); renderResults(); show('view-results');
+}
+
+/* ── RESULTS ── */
+function renderResults(){
+  const {score,critical,total} = S.result;
+  const domain = S.domain||'organization.com';
+  const emp    = S.emp;
+  const now    = new Date();
+  const cls    = score<60?'fail':score<80?'monitor':'pass';
+  const lbl    = score<60?'FAIL':score<80?'MONITORING':'PASS';
+  let rc, rcc, exp, exc;
+  if(score<60){  rc='HIGH EXPOSURE';     rcc='cv-red';   exp='ACTIVE';   exc='cv-red';   }
+  else if(score<80){ rc='MODERATE EXPOSURE'; rcc='cv-amber'; exp='ELEVATED';  exc='cv-amber'; }
+  else{          rc='LOW EXPOSURE';      rcc='cv-green'; exp='MONITORED'; exc='cv-green'; }
+
+  set('r-domain',   domain.toUpperCase());
+  set('r-ts',       now.toISOString().replace('T',' ').slice(0,19)+' UTC');
+  set('r-score',    score);
+  set('r-crit',     critical);
+  set('r-total',    total);
+  set('r-date',     now.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}));
+  set('r-reg',      `idr.io/verify/${domain}`);
+
+  const sn=document.getElementById('r-score');   if(sn) sn.className=`score-num ${cls}`;
+  const pl=document.getElementById('r-pill');    if(pl){ pl.className=`score-pill ${cls}`; pl.textContent=lbl; }
+  const rc2=document.getElementById('r-class');  if(rc2){ rc2.className=`class-val ${rcc}`; rc2.textContent=rc; }
+  const ex=document.getElementById('r-exposure');if(ex){ ex.className=`class-val ${exc}`; ex.textContent=exp; }
+
+  const db=document.getElementById('r-dl');
+  if(db){
+    if(emp==='under15'){
+      db.className='dl-card watch';
+      set('r-dl-key','Your HHS Compliance Deadline');
+      set('r-dl-date','May 10, 2027');
+      set('r-dl-body','Organizations with fewer than 15 employees have until May 10, 2027. Documenting your compliance effort now establishes a record that cannot be created retroactively.');
+    } else {
+      db.className='dl-card urgent';
+      set('r-dl-key','Your HHS Compliance Deadline — Active');
+      set('r-dl-date','May 11, 2026');
+      set('r-dl-body', emp==='unsure'
+        ? 'If your organization has 15 or more employees receiving HHS funding, this deadline is yours — not the 2027 DOJ extension. The DOJ extension applies only to government entities. Assume this deadline applies until confirmed otherwise.'
+        : 'Organizations with 15 or more employees receiving HHS funding must meet WCAG 2.1 AA standards by May 11, 2026. This is the federal HHS rule under Section 504 and Section 1557 — separate from and unaffected by the 2027 DOJ extension.'
+      );
+    }
+  }
+
+  const sa=document.getElementById('stripe-audit');
+  if(sa) sa.href=`${STRIPE_AUDIT}?client_reference_id=${encodeURIComponent(domain)}`;
+  const sc=document.getElementById('stripe-cont');
+  if(sc) sc.href=`${STRIPE_CONT}?client_reference_id=${encodeURIComponent(domain)}`;
+}
+
+/* ── RESET ── */
+function resetAll(){
+  S={domain:'',funding:null,emp:null,result:null};
+  document.getElementById('domain-input').value='';
+  ['m-score','m-crit','m-total'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
+  document.querySelectorAll('.q-pill').forEach(b=>b.classList.remove('on'));
+  document.getElementById('scan-btn').disabled=true;
+  document.getElementById('manual-btn').disabled=true;
+  hide('view-scanning'); hide('view-manual'); hide('view-results');
+  showDefault();
+}
+
+showDefault();
+</script>
+</body>
+</html>
