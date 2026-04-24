@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="theme-color" content="#0A0E1A">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="IDR HHS Compliance Registry — Public Verification Record">
+<meta name="robots" content="index, follow">
+<title>HHS Compliance Verification — Institute of Digital Remediation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0A0E1A;--navy2:#0D1526;--gold:#C9A84C;--gold2:#E2C97E;--gold3:#8A6F2E;--cream:#F0E8D8;--pass:#52B788;--warn:#E9C46A;--fail:#E63946;--border:rgba(201,168,76,0.15);--border2:rgba(201,168,76,0.08);--ease:cubic-bezier(0.16,1,0.3,1);}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{font-size:16px;scroll-behavior:smooth;}
+body{font-family:'Montserrat',sans-serif;background:var(--navy);color:var(--cream);min-height:100vh;}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:.03;pointer-events:none;z-index:9999;}
+
+/* HEADER */
+header{display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:72px;border-bottom:1px solid var(--border2);background:rgba(10,14,26,.97);backdrop-filter:blur(20px);position:sticky;top:0;z-index:100;}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.logo-seal{width:40px;height:40px;border:1.5px solid var(--gold3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:11px;font-weight:700;color:var(--gold);flex-shrink:0;}
+.logo-text{display:flex;flex-direction:column;gap:1px;}
+.logo-org{font-size:8px;font-weight:700;letter-spacing:.28em;color:rgba(201,168,76,.5);text-transform:uppercase;}
+.logo-product{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--cream);}
+.hdr-r{text-align:right;}
+.hdr-r-top{font-size:8px;font-weight:700;letter-spacing:.2em;color:var(--gold3);text-transform:uppercase;}
+.hdr-r-sub{font-size:7px;letter-spacing:.16em;color:rgba(201,168,76,.3);text-transform:uppercase;margin-top:2px;}
+
+/* LOADING */
+#state-loading{display:flex;align-items:center;justify-content:center;min-height:60vh;flex-direction:column;gap:20px;}
+.load-ring{width:48px;height:48px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.load-txt{font-size:9px;font-weight:700;letter-spacing:3px;color:rgba(201,168,76,.4);text-transform:uppercase;}
+
+/* SEARCH BAR */
+.search-wrap{max-width:800px;margin:0 auto;padding:32px 32px 0;}
+.search-box{background:rgba(13,21,38,.85);border:1px solid var(--border);border-radius:4px;padding:18px 22px;display:flex;gap:10px;align-items:center;margin-bottom:32px;}
+.search-inp{flex:1;background:rgba(10,14,26,.9);border:1px solid rgba(201,168,76,.18);border-radius:3px;padding:11px 16px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--cream);outline:none;transition:border-color .2s;}
+.search-inp::placeholder{color:rgba(240,232,216,.22);}
+.search-inp:focus{border-color:var(--gold);}
+.search-btn{background:var(--gold);color:var(--navy);border:none;border-radius:3px;padding:11px 18px;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:background .18s;white-space:nowrap;}
+.search-btn:hover{background:var(--gold2);}
+
+/* ALL CONTENT STATES */
+#state-search,#state-not-monitored,#state-verified,#state-monitoring,#state-notfound{display:none;}
+
+.verify-wrap{max-width:800px;margin:0 auto;padding:0 32px 80px;}
+
+/* STATUS BAND */
+.status-band{border-radius:4px;padding:28px 36px;margin-bottom:18px;position:relative;overflow:hidden;}
+.status-band::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;}
+.band-none{background:rgba(80,10,10,.18);border:1px solid rgba(230,57,70,.2);}
+.band-none::before{background:linear-gradient(90deg,transparent,var(--fail),transparent);opacity:.4;}
+.band-verified{background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.22);}
+.band-verified::before{background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.5;}
+.band-monitoring{background:rgba(82,183,136,.05);border:1px solid rgba(82,183,136,.2);}
+.band-monitoring::before{background:linear-gradient(90deg,transparent,var(--pass),transparent);opacity:.5;}
+
+.status-eyebrow{font-size:8px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;margin-bottom:10px;}
+.band-none       .status-eyebrow{color:var(--fail);}
+.band-verified   .status-eyebrow{color:var(--gold3);}
+.band-monitoring .status-eyebrow{color:var(--pass);}
+.status-headline{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:var(--cream);margin-bottom:6px;letter-spacing:-.3px;}
+.status-domain-lbl{font-family:'JetBrains Mono',monospace;font-size:13px;color:rgba(201,168,76,.5);}
+
+/* STATEMENT */
+.statement-block{background:rgba(13,21,38,.7);border:1px solid var(--border2);border-radius:4px;padding:26px 30px;margin-bottom:18px;}
+.stmt-para{font-family:'Playfair Display',serif;font-size:15px;color:rgba(240,232,216,.72);line-height:1.8;font-style:italic;margin-bottom:16px;}
+.stmt-list{display:flex;flex-direction:column;gap:8px;}
+.stmt-item{display:flex;align-items:center;gap:10px;font-size:11px;letter-spacing:.04em;color:rgba(240,232,216,.38);}
+.stmt-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+.dot-red{background:var(--fail);}
+.dot-gold{background:var(--gold);}
+.dot-green{background:var(--pass);}
+
+/* REGISTRY DATA */
+.reg-card{background:rgba(13,21,38,.85);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:18px;}
+.reg-card-hdr{background:rgba(255,255,255,.025);border-bottom:1px solid var(--border2);padding:11px 22px;display:flex;align-items:center;justify-content:space-between;}
+.reg-hdr-lbl{font-size:8px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:rgba(201,168,76,.4);}
+.reg-hdr-id{font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(201,168,76,.25);}
+.reg-row{display:flex;align-items:center;justify-content:space-between;padding:13px 22px;border-bottom:1px solid rgba(240,232,216,.04);}
+.reg-row:last-child{border-bottom:none;}
+.reg-key{font-size:8px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(240,232,216,.32);}
+.reg-val{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(240,232,216,.68);}
+.rv-red{color:var(--fail);}
+.rv-gold{color:var(--gold);}
+.rv-green{color:var(--pass);}
+.rv-amber{color:var(--warn);}
+
+/* BADGE SECTION */
+.badge-section{display:grid;grid-template-columns:160px 1fr;gap:36px;align-items:center;background:rgba(13,21,38,.7);border:1px solid var(--border2);border-radius:4px;padding:30px 36px;margin-bottom:18px;}
+
+/* GRAY BADGE */
+.b-gray{width:96px;height:96px;border-radius:50%;border:1.5px solid rgba(120,120,130,.25);background:rgba(120,120,130,.04);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;}
+.b-gray .b-idr{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:rgba(140,140,150,.28);letter-spacing:4px;}
+.b-gray .b-line{width:36px;height:1px;background:rgba(120,120,130,.18);}
+.b-gray .b-sub{font-size:4.5px;font-weight:700;letter-spacing:.1em;color:rgba(120,120,130,.28);text-transform:uppercase;text-align:center;padding:0 6px;line-height:1.5;}
+.b-gray-lbl{font-size:8px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(140,140,150,.3);text-align:center;margin-top:8px;}
+
+/* GOLD STATIC BADGE */
+.b-gold{width:96px;height:96px;border-radius:50%;border:1.5px solid var(--gold3);background:rgba(201,168,76,.05);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;}
+.b-gold .b-idr{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--gold);letter-spacing:4px;}
+.b-gold .b-line{width:36px;height:1px;background:var(--gold3);}
+.b-gold .b-sub{font-size:4.5px;font-weight:700;letter-spacing:.1em;color:rgba(201,168,76,.5);text-transform:uppercase;text-align:center;padding:0 6px;line-height:1.5;}
+.b-gold-lbl{font-size:8px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold3);text-align:center;margin-top:8px;}
+
+/* GOLD PULSE BADGE */
+.b-pulse-wrap{position:relative;display:flex;flex-direction:column;align-items:center;}
+.b-pulse-wrap::before,.b-pulse-wrap::after{content:'';position:absolute;border-radius:50%;border:1px solid rgba(82,183,136,.2);animation:pulse-ring 2.4s ease-out infinite;width:120px;height:120px;top:-12px;left:-12px;}
+.b-pulse-wrap::after{animation-delay:.9s;}
+@keyframes pulse-ring{0%{opacity:.55;transform:scale(.92);}100%{opacity:0;transform:scale(1.08);}}
+.b-pulse{width:96px;height:96px;border-radius:50%;border:1.5px solid var(--gold3);background:rgba(82,183,136,.04);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;position:relative;z-index:1;}
+.b-pulse .b-idr{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--gold);letter-spacing:4px;}
+.b-pulse .b-line{width:36px;height:1px;background:var(--gold3);}
+.b-pulse .b-sub{font-size:4.5px;font-weight:700;letter-spacing:.1em;color:rgba(201,168,76,.5);text-transform:uppercase;text-align:center;padding:0 6px;line-height:1.5;}
+.b-pulse-lbl{font-size:8px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--pass);text-align:center;margin-top:8px;position:relative;z-index:1;}
+
+.badge-info{}
+.badge-info-eyebrow{font-size:8px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:rgba(201,168,76,.35);margin-bottom:8px;}
+.badge-info-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--cream);margin-bottom:8px;}
+.badge-info-body{font-size:12px;color:rgba(240,232,216,.38);font-style:italic;line-height:1.7;}
+.badge-info-url{font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(201,168,76,.3);margin-top:10px;}
+
+/* INTEGRITY */
+.integrity-block{background:rgba(13,21,38,.85);border:1px solid var(--border);border-radius:4px;padding:26px 30px;margin-bottom:18px;position:relative;overflow:hidden;}
+.integrity-block::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.35;}
+.integrity-eyebrow{font-size:8px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--gold3);margin-bottom:12px;}
+.integrity-para{font-family:'Playfair Display',serif;font-size:14px;color:rgba(240,232,216,.45);font-style:italic;line-height:1.75;margin-bottom:14px;}
+.hash-block{background:rgba(10,14,26,.8);border:1px solid var(--border2);border-radius:3px;padding:12px 16px;}
+.hash-lbl{font-size:7px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--gold3);margin-bottom:6px;}
+.hash-val{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(201,168,76,.45);word-break:break-all;line-height:1.7;}
+.hash-note{font-size:11px;color:rgba(240,232,216,.18);font-style:italic;margin-top:6px;}
+
+/* CTA (State 1 only) */
+.cta-block{background:rgba(13,18,34,.9);border:1px solid rgba(201,168,76,.2);border-radius:4px;padding:30px 36px;margin-bottom:18px;position:relative;overflow:hidden;}
+.cta-block::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.5;}
+.cta-eyebrow{font-size:8px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--gold3);margin-bottom:10px;}
+.cta-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--cream);margin-bottom:6px;}
+.cta-para{font-size:13px;color:rgba(240,232,216,.38);font-style:italic;line-height:1.65;margin-bottom:20px;}
+.cta-steps{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
+.cta-step{display:flex;align-items:flex-start;gap:12px;font-size:12px;color:rgba(240,232,216,.45);line-height:1.5;}
+.cta-step-n{font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(201,168,76,.45);background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.14);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.cta-row{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:16px;}
+.cta-btn{display:inline-flex;align-items:center;justify-content:center;background:var(--gold);color:var(--navy);border:none;border-radius:3px;padding:14px 32px;font-family:'Montserrat',sans-serif;font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:background .18s,transform .15s;}
+.cta-btn:hover{background:var(--gold2);transform:translateY(-1px);}
+.cta-price-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--cream);}
+.cta-price-s{font-size:8.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(240,232,216,.28);margin-top:2px;}
+.cta-secondary{background:rgba(13,21,38,.5);border:1px solid var(--border2);border-radius:3px;padding:12px 18px;}
+.cta-sec-lbl{font-size:8px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(201,168,76,.28);margin-bottom:4px;}
+.cta-sec-body{font-size:12px;color:rgba(240,232,216,.28);font-style:italic;line-height:1.55;}
+
+/* HHS CITATION */
+.hhs-cite{background:rgba(255,255,255,.02);border:1px solid var(--border2);border-left:3px solid rgba(201,168,76,.2);border-radius:0 4px 4px 0;padding:14px 18px;margin-bottom:18px;}
+.hhs-cite-body{font-family:'JetBrains Mono',monospace;font-size:8.5px;color:rgba(201,168,76,.28);line-height:1.85;letter-spacing:.02em;}
+
+/* NOT FOUND */
+.notfound-wrap{max-width:800px;margin:0 auto;padding:80px 32px;text-align:center;}
+.notfound-eyebrow{font-size:8px;font-weight:700;letter-spacing:.3em;color:rgba(201,168,76,.3);text-transform:uppercase;margin-bottom:12px;}
+.notfound-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--cream);margin-bottom:10px;}
+.notfound-body{font-size:14px;color:rgba(240,232,216,.4);font-style:italic;margin-bottom:32px;line-height:1.65;}
+
+/* SEARCH HERO */
+.search-hero{text-align:center;padding:56px 0 36px;}
+.search-hero-eyebrow{font-size:8px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:rgba(201,168,76,.4);margin-bottom:12px;}
+.search-hero-title{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:var(--cream);margin-bottom:10px;}
+.search-hero-body{font-size:14px;color:rgba(240,232,216,.4);font-style:italic;max-width:500px;margin:0 auto;}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border2);padding:22px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.ft-l{font-size:7.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(201,168,76,.2);}
+.ft-r{font-family:'Playfair Display',serif;font-size:12px;font-style:italic;color:rgba(240,232,216,.15);}
+.ft-links{display:flex;gap:18px;}
+.ft-link{font-size:7.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(201,168,76,.2);text-decoration:none;transition:color .2s;}
+.ft-link:hover{color:rgba(201,168,76,.5);}
+
+@media(max-width:640px){
+  header{padding:0 18px;}
+  .verify-wrap,.search-wrap,.notfound-wrap{padding-left:18px;padding-right:18px;}
+  .badge-section{grid-template-columns:1fr;text-align:center;}
+  .b-pulse-wrap,.b-gray,.b-gold{margin:0 auto;}
+  .search-box{flex-direction:column;}
+  .cta-row{flex-direction:column;gap:10px;}
+  footer{flex-direction:column;gap:8px;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="https://idrshield.com" class="logo">
+    <div class="logo-seal">IDR</div>
+    <div class="logo-text">
+      <span class="logo-org">Institute of Digital Remediation</span>
+      <span class="logo-product">HHS Compliance Registry</span>
+    </div>
+  </a>
+  <div class="hdr-r">
+    <div class="hdr-r-top">Public Verification Record</div>
+    <div class="hdr-r-sub">45 C.F.R. §84 · 89 FR 40066</div>
+  </div>
+</header>
+
+<!-- LOADING -->
+<div id="state-loading">
+  <div class="load-ring"></div>
+  <div class="load-txt">Querying Registry</div>
+</div>
+
+<!-- SEARCH (no domain in URL) -->
+<div id="state-search">
+  <div class="search-wrap">
+    <div class="search-hero">
+      <div class="search-hero-eyebrow">IDR HHS Registry</div>
+      <div class="search-hero-title">Verify HHS Compliance Status</div>
+      <div class="search-hero-body">Enter any domain to check its current IDR registry status under Section 504 and Section 1557. This record is public and may be referenced by regulatory bodies, legal counsel, or compliance officers.</div>
+    </div>
+    <div class="search-box">
+      <input class="search-inp" type="text" id="s-inp-0" placeholder="yourclinic.com" onkeydown="if(event.key==='Enter')nav(this.value)">
+      <button class="search-btn" onclick="nav(document.getElementById('s-inp-0').value)">Check Status →</button>
+    </div>
+  </div>
+</div>
+
+<!-- STATE 1: NOT MONITORED -->
+<div id="state-not-monitored">
+  <div class="search-wrap">
+    <div class="search-box">
+      <input class="search-inp" type="text" id="s-inp-1" placeholder="Check another domain" onkeydown="if(event.key==='Enter')nav(this.value)">
+      <button class="search-btn" onclick="nav(document.getElementById('s-inp-1').value)">Check Status →</button>
+    </div>
+  </div>
+  <div class="verify-wrap">
+
+    <div class="status-band band-none">
+      <div class="status-eyebrow">Registry Status</div>
+      <div class="status-headline">Not Monitored</div>
+      <div class="status-domain-lbl" id="nm-domain"></div>
+    </div>
+
+    <div class="statement-block band-none">
+      <div class="stmt-para">This domain has been scanned, but no active compliance record exists. No monitoring is in place. No remediation activity is documented. This scan exists — but it is not on record.</div>
+      <div class="stmt-list">
+        <div class="stmt-item"><div class="stmt-dot dot-red"></div><span>No enrollment in the IDR Registry</span></div>
+        <div class="stmt-item"><div class="stmt-dot dot-red"></div><span>No active monitoring record</span></div>
+        <div class="stmt-item"><div class="stmt-dot dot-red"></div><span>No remediation activity documented</span></div>
+        <div class="stmt-item"><div class="stmt-dot dot-red"></div><span>No verified compliance position established</span></div>
+      </div>
+    </div>
+
+    <div class="reg-card">
+      <div class="reg-card-hdr">
+        <span class="reg-hdr-lbl">Scan Record — Unenrolled</span>
+        <span class="reg-hdr-id" id="nm-rid"></span>
+      </div>
+      <div class="reg-row"><span class="reg-key">Domain</span><span class="reg-val" id="nm-reg-dom"></span></div>
+      <div class="reg-row"><span class="reg-key">Accessibility Score</span><span class="reg-val" id="nm-score"></span></div>
+      <div class="reg-row"><span class="reg-key">Critical Issues</span><span class="reg-val rv-red" id="nm-crits"></span></div>
+      <div class="reg-row"><span class="reg-key">Scan Timestamp</span><span class="reg-val" id="nm-ts"></span></div>
+      <div class="reg-row"><span class="reg-key">Registry Enrollment</span><span class="reg-val rv-red">NOT ENROLLED</span></div>
+      <div class="reg-row"><span class="reg-key">Compliance Record</span><span class="reg-val rv-red">ABSENT</span></div>
+      <div class="reg-row"><span class="reg-key">Protocol Standard</span><span class="reg-val">WCAG 2.1 AA</span></div>
+    </div>
+
+    <div class="badge-section band-none">
+      <div>
+        <div class="b-gray">
+          <span class="b-idr">IDR</span>
+          <div class="b-line"></div>
+          <span class="b-sub">NOT<br>MONITORED</span>
+        </div>
+        <div class="b-gray-lbl">Badge Inactive</div>
+      </div>
+      <div class="badge-info">
+        <div class="badge-info-eyebrow">Badge Status</div>
+        <div class="badge-info-title">No Active Badge</div>
+        <div class="badge-info-body">No IDR verification badge is active for this domain. A badge is issued only upon creation of a verified compliance record. Until then, no status signal exists for this organization.</div>
+        <div class="badge-info-url" id="nm-badge-url"></div>
+      </div>
+    </div>
+
+    <div class="integrity-block band-none">
+      <div class="integrity-eyebrow">Record Integrity</div>
+      <div class="integrity-para">A scan was performed, but no verified record has been created. No compliance position has been formally documented. The scan data reflects a point-in-time observation that carries no legal standing without activation.</div>
+      <div class="hash-block">
+        <div class="hash-lbl">Scan Hash (SHA-256)</div>
+        <div class="hash-val" id="nm-hash"></div>
+        <div class="hash-note">Hash reflects scan data only. No registry record is associated with this hash. Activation creates a new cryptographically sealed record.</div>
+      </div>
+    </div>
+
+    <div class="cta-block">
+      <div class="cta-eyebrow">To Establish a Verified Record</div>
+      <div class="cta-title">Create Your HHS Readiness Record</div>
+      <div class="cta-para">Until a verified record is established, this page will continue to reflect: Not Monitored. The following steps are required to create a formal compliance position under HHS Section 504 and Section 1557.</div>
+      <div class="cta-steps">
+        <div class="cta-step"><div class="cta-step-n">1</div><span>A timestamped HHS accessibility audit must be performed and documented by a human auditor</span></div>
+        <div class="cta-step"><div class="cta-step-n">2</div><span>Findings must be reviewed, annotated, and formally recorded with screenshot evidence</span></div>
+        <div class="cta-step"><div class="cta-step-n">3</div><span>A registry record must be created, cryptographically sealed, and linked to this domain</span></div>
+      </div>
+      <div class="cta-row">
+        <a class="cta-btn" id="nm-cta-link" href="https://buy.stripe.com/REPLACE_AUDIT_LINK" target="_blank" rel="noopener">Activate Record — $497 →</a>
+        <div>
+          <div class="cta-price-n">$497</div>
+          <div class="cta-price-s">One-time · Human verified · 48-hour delivery</div>
+        </div>
+      </div>
+      <div class="cta-secondary">
+        <div class="cta-sec-lbl">Ongoing Monitoring — $49/month</div>
+        <div class="cta-sec-body">Keeps your registry record active and continuously dated. Available after audit activation. A static audit can be challenged. A continuously dated record is far harder to dispute.</div>
+      </div>
+    </div>
+
+    <div class="hhs-cite">
+      <div class="hhs-cite-body">
+        REGULATORY BASIS: Section 504 of the Rehabilitation Act · Section 1557 of the Affordable Care Act<br>
+        FINAL RULE CITATION: 89 FR 40066 · REGULATION: 45 C.F.R. Part 84<br>
+        COMPLIANCE STANDARD: WCAG 2.1 Level AA · ENFORCEMENT AGENCY: U.S. Dept. of Health and Human Services<br>
+        COMPLIANCE DEADLINE: May 11, 2026 (15+ employees) · May 10, 2027 (under 15 employees)<br>
+        IDR is a compliance documentation system. This record does not constitute legal advice.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- STATE 2: MANUAL VERIFIED -->
+<div id="state-verified">
+  <div class="search-wrap">
+    <div class="search-box">
+      <input class="search-inp" type="text" id="s-inp-2" placeholder="Check another domain" onkeydown="if(event.key==='Enter')nav(this.value)">
+      <button class="search-btn" onclick="nav(document.getElementById('s-inp-2').value)">Check Status →</button>
+    </div>
+  </div>
+  <div class="verify-wrap">
+
+    <div class="status-band band-verified">
+      <div class="status-eyebrow">Registry Status</div>
+      <div class="status-headline">Manual Verified</div>
+      <div class="status-domain-lbl" id="v-domain"></div>
+    </div>
+
+    <div class="statement-block band-verified">
+      <div class="stmt-para">A verified compliance record has been established for this domain. This record reflects the accessibility posture at the time of audit. Findings have been documented, reviewed by a human auditor, and timestamped. This establishes a defensible record of action taken prior to enforcement exposure.</div>
+      <div class="stmt-list">
+        <div class="stmt-item"><div class="stmt-dot dot-gold"></div><span>Enrolled in the IDR Registry</span></div>
+        <div class="stmt-item"><div class="stmt-dot dot-gold"></div><span>Human-verified audit completed and documented</span></div>
+        <div class="stmt-item"><div class="stmt-dot dot-gold"></div><span>Accessibility posture recorded at time of audit</span></div>
+        <div class="stmt-item"><div class="stmt-dot dot-gold"></div><span>Defensible record of action established</span></div>
+      </div>
+    </div>
+
+    <div class="reg-card">
+      <div class="reg-card-hdr">
+        <span class="reg-hdr-lbl">IDR Registry — Manual Verified</span>
+        <span class="reg-hdr-id" id="v-reg-id"></span>
+      </div>
+      <div class="reg-row"><span class="reg-key">Domain</span><span class="reg-val" id="v-domain-row"></span></div>
+      <div class="reg-row"><span class="reg-key">Accessibility Score</span><span class="reg-val" id="v-score"></span></div>
+      <div class="reg-row"><span class="reg-key">Critical Issues</span><span class="reg-val" id="v-crits"></span></div>
+      <div class="reg-row"><span class="reg-key">Audit Timestamp</span><span class="reg-val" id="v-ts"></span></div>
+      <div class="reg-row"><span class="reg-key">Registry Enrollment</span><span class="reg-val rv-gold">ENROLLED</span></div>
+      <div class="reg-row"><span class="reg-key">Verification Type</span><span class="reg-val rv-gold">MANUAL VERIFIED</span></div>
+      <div class="reg-row"><span class="reg-key">Protocol Standard</span><span class="reg-val">WCAG 2.1 AA</span></div>
+      <div class="reg-row"><span class="reg-key">Scan Count</span><span class="reg-val" id="v-scan-ct"></span></div>
+    </div>
+
+    <div class="badge-section band-verified">
+      <div>
+        <div class="b-gold">
+          <span class="b-idr">IDR</span>
+          <div class="b-line"></div>
+          <span class="b-sub">ACCESSIBILITY<br>MONITORED</span>
+        </div>
+        <div class="b-gold-lbl">Verified</div>
+      </div>
+      <div class="badge-info">
+        <div class="badge-info-eyebrow">Badge Status</div>
+        <div class="badge-info-title">IDR Verified — Active</div>
+        <div class="badge-info-body">A valid IDR verification badge is active for this domain, reflecting Manual Verified status. This badge is cryptographically linked to the registry record and reflects the documented compliance posture under HHS Section 504 and Section 1557.</div>
+        <div class="badge-info-url" id="v-badge-url"></div>
+      </div>
+    </div>
+
+    <div class="integrity-block band-verified">
+      <div class="integrity-eyebrow">Record Integrity</div>
+      <div class="integrity-para">This record is cryptographically sealed and cannot be altered retroactively. All findings, timestamps, and values are locked at the time of verification. Any subsequent change to accessibility status does not modify this record — it creates a new timestamped entry in the evidence log.</div>
+      <div class="hash-block">
+        <div class="hash-lbl">SHA-256 Integrity Hash</div>
+        <div class="hash-val" id="v-hash"></div>
+        <div class="hash-note">Any change to this record — score, issues, domain, or timestamp — produces a different hash. Tamper-evident by design.</div>
+      </div>
+    </div>
+
+    <div class="hhs-cite">
+      <div class="hhs-cite-body">
+        REGULATORY BASIS: Section 504 of the Rehabilitation Act · Section 1557 of the Affordable Care Act<br>
+        FINAL RULE CITATION: 89 FR 40066 · REGULATION: 45 C.F.R. Part 84<br>
+        COMPLIANCE STANDARD: WCAG 2.1 AA · ENFORCEMENT AGENCY: U.S. Dept. of Health and Human Services<br>
+        IDR is a compliance documentation system. This record does not constitute legal advice.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- STATE 3: MONITORING ACTIVE -->
+<div id="state-monitoring">
+  <div class="search-wrap">
+    <div class="search-box">
+      <input class="search-inp" type="text" id="s-inp-3" placeholder="Check another domain" onkeydown="if(event.key==='Enter')nav(this.value)">
+      <button class="search-btn" onclick="nav(document.getElementById('s-inp-3').value)">Check Status →</button>
+    </div>
+  </div>
+  <div class="verify-wrap">
+
+    <div class="status-band band-monitoring">
+      <div class="status-eyebrow">Registry Status</div>
+      <div class="status-headline">Monitoring Active</div>
+      <div class="status-domain-lbl" id="m-domain"></div>
+    </div>
+
+    <div class="statement-block band-monitoring">
+      <div class="stmt-para">This domain is actively monitored under the IDR compliance protocol. Accessibility status is continuously evaluated, and all remediation activity is logged in real time. This creates an ongoing, time-based record of compliance effort — not a snapshot, but a living defense.</div>
+      <div class="stmt-list">
+        <div class="stmt-item"><div class="stmt-dot dot-green"></div><span>Enrolled and actively monitored</span></div>
+        <div class="stmt-item"><div class="stmt-dot dot-green"></div><span>Continuous accessibility evaluation in progress</span></div>
+        <div class="stmt-item"><div class="stmt-dot dot-green"></div><span>All remediation activity logged and timestamped</span></div>
+        <div class="stmt-item"><div class="stmt-dot dot-green"></div><span>Living compliance record — continuously updated</span></div>
+      </div>
+    </div>
+
+    <div class="reg-card">
+      <div class="reg-card-hdr">
+        <span class="reg-hdr-lbl">IDR Registry — Monitoring Active</span>
+        <span class="reg-hdr-id" id="m-reg-id"></span>
+      </div>
+      <div class="reg-row"><span class="reg-key">Domain</span><span class="reg-val" id="m-domain-row"></span></div>
+      <div class="reg-row"><span class="reg-key">Current Score</span><span class="reg-val" id="m-score"></span></div>
+      <div class="reg-row"><span class="reg-key">Critical Issues</span><span class="reg-val" id="m-crits"></span></div>
+      <div class="reg-row"><span class="reg-key">Last Scan</span><span class="reg-val" id="m-last-scan"></span></div>
+      <div class="reg-row"><span class="reg-key">Total Scans</span><span class="reg-val" id="m-scan-ct"></span></div>
+      <div class="reg-row"><span class="reg-key">Scan Frequency</span><span class="reg-val rv-green">Weekly — Automated</span></div>
+      <div class="reg-row"><span class="reg-key">Registry Status</span><span class="reg-val rv-green">MONITORING ACTIVE</span></div>
+      <div class="reg-row"><span class="reg-key">Protocol Standard</span><span class="reg-val">WCAG 2.1 AA</span></div>
+    </div>
+
+    <div class="badge-section band-monitoring">
+      <div>
+        <div class="b-pulse-wrap">
+          <div class="b-pulse">
+            <span class="b-idr">IDR</span>
+            <div class="b-line"></div>
+            <span class="b-sub">ACCESSIBILITY<br>MONITORED</span>
+          </div>
+        </div>
+        <div class="b-pulse-lbl">Active Monitoring</div>
+      </div>
+      <div class="badge-info">
+        <div class="badge-info-eyebrow">Badge Status</div>
+        <div class="badge-info-title">IDR Verified — Monitoring Active</div>
+        <div class="badge-info-body">A live IDR monitoring badge is deployed and synchronized with this registry record. Status updates automatically after every weekly rescan. This badge reflects not a point-in-time snapshot, but an active, ongoing compliance posture under HHS Section 504 and Section 1557.</div>
+        <div class="badge-info-url" id="m-badge-url"></div>
+      </div>
+    </div>
+
+    <div class="integrity-block band-monitoring">
+      <div class="integrity-eyebrow">Record Integrity</div>
+      <div class="integrity-para">This record is continuously updated and timestamped. Any change in accessibility status is recorded as part of an ongoing evidence log. Each entry is cryptographically sealed at the time of creation. The cumulative record represents a documented history of compliance effort — the strongest possible defense posture.</div>
+      <div class="hash-block">
+        <div class="hash-lbl">Latest Scan Hash (SHA-256)</div>
+        <div class="hash-val" id="m-hash"></div>
+        <div class="hash-note">Hash reflects the most recent scan. All prior scan hashes are preserved in the immutable evidence log.</div>
+      </div>
+    </div>
+
+    <div class="hhs-cite">
+      <div class="hhs-cite-body">
+        REGULATORY BASIS: Section 504 of the Rehabilitation Act · Section 1557 of the Affordable Care Act<br>
+        FINAL RULE CITATION: 89 FR 40066 · REGULATION: 45 C.F.R. Part 84<br>
+        COMPLIANCE STANDARD: WCAG 2.1 AA · ENFORCEMENT AGENCY: U.S. Dept. of Health and Human Services<br>
+        IDR is a compliance documentation system. This record does not constitute legal advice.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- NOT FOUND -->
+<div id="state-notfound">
+  <div class="notfound-wrap">
+    <div class="notfound-eyebrow">Registry Query</div>
+    <div class="notfound-title">No Record Found</div>
+    <div class="notfound-body" id="notfound-body">This domain has no scan record in the IDR system. Run a free HHS compliance check to create one.</div>
+    <div class="search-box" style="max-width:500px;margin:0 auto 24px;">
+      <input class="search-inp" type="text" id="s-inp-4" placeholder="Try another domain" onkeydown="if(event.key==='Enter')nav(this.value)">
+      <button class="search-btn" onclick="nav(document.getElementById('s-inp-4').value)">Check →</button>
+    </div>
+    <a href="https://idrshield.com/healthcare" style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold3);text-decoration:none;border:1px solid var(--border);padding:10px 20px;border-radius:3px;display:inline-block;">Run HHS Check → idrshield.com/healthcare</a>
+  </div>
+</div>
+
+<footer>
+  <span class="ft-l">Institute of Digital Remediation · IDR-BRAND-2026-01</span>
+  <div class="ft-links">
+    <a href="/privacy" class="ft-link">Privacy</a>
+    <a href="/terms" class="ft-link">Terms</a>
+    <a href="https://idrshield.com/healthcare" class="ft-link">HHS Check</a>
+  </div>
+  <span class="ft-r">The record is the product.</span>
+</footer>
+
+<script>
+/* ─── ROUTING ─────────────────────────────────────────── */
+function getDomain() {
+  const path = window.location.pathname;
+  // Handles /hhs-verify/domain.com or /verify/domain.com
+  const m = path.match(/\/(?:hhs-)?verify\/(.+)/);
+  return m ? decodeURIComponent(m[1]).replace(/\/$/, '').toLowerCase() : null;
+}
+
+async function init() {
+  const domain = getDomain();
+  if (!domain) { hide('state-loading'); show('state-search'); return; }
+  await loadRegistry(domain);
+}
+
+async function loadRegistry(domain) {
+  ['state-search','state-not-monitored','state-verified','state-monitoring','state-notfound']
+    .forEach(hide);
+  show('state-loading');
+
+  try {
+    const res = await fetch('/api/registry/' + encodeURIComponent(domain));
+    hide('state-loading');
+
+    if (res.status === 404) {
+      // Domain in system but not registered — show not-monitored with minimal data
+      renderNotMonitored(domain, null);
+      return;
+    }
+    if (!res.ok) throw new Error('err');
+
+    const d = await res.json();
+    const st = (d.status || '').toLowerCase();
+
+    if (st === 'active' || st === 'monitoring') renderMonitoring(domain, d);
+    else if (st === 'manual_verified' || st === 'verified') renderVerified(domain, d);
+    else renderNotMonitored(domain, d);
+
+  } catch(_) {
+    hide('state-loading');
+    renderNotMonitored(domain, null);
+  }
+}
+
+/* ─── STATE RENDERERS ─────────────────────────────────── */
+function renderNotMonitored(domain, d) {
+  const score = d && d.latest_score != null ? d.latest_score + '/100' : '—';
+  const crits = d && d.critical_count != null ? String(d.critical_count) : '—';
+  const ts    = d && d.last_scanned ? fmtDate(new Date(d.last_scanned)) : 'No scan on record';
+  const rid   = d && d.receipt_id  ? d.receipt_id.substring(0,24) + '…' : '—';
+  const hash  = d && d.hash        ? d.hash : 'No hash on file';
+
+  set('nm-domain',    domain);
+  set('nm-rid',       rid);
+  set('nm-reg-dom',   domain);
+  set('nm-score',     score);
+  set('nm-crits',     crits);
+  set('nm-ts',        ts);
+  set('nm-hash',      hash);
+  set('nm-badge-url', 'idr.io/verify/' + domain);
+  inp('s-inp-1',      domain);
+
+  const link = document.getElementById('nm-cta-link');
+  if (link) link.href = 'https://buy.stripe.com/REPLACE_AUDIT_LINK?client_reference_id=' + encodeURIComponent(domain);
+
+  show('state-not-monitored');
+}
+
+function renderVerified(domain, d) {
+  const score  = d.latest_score != null ? d.latest_score + '/100' : '—';
+  const crits  = d.critical_count != null ? String(d.critical_count) : '—';
+  const ts     = d.last_scanned ? fmtDate(new Date(d.last_scanned)) : '—';
+  const rid    = d.registry_id  || '—';
+  const sc     = d.scan_count   ? String(d.scan_count) : '1';
+  const hash   = d.hash         || '—';
+
+  set('v-domain',     domain);
+  set('v-reg-id',     rid);
+  set('v-domain-row', domain);
+  set('v-score',      score);
+  set('v-crits',      crits);
+  set('v-ts',         ts);
+  set('v-scan-ct',    sc);
+  set('v-hash',       hash);
+  set('v-badge-url',  'idr.io/verify/' + domain);
+  inp('s-inp-2',      domain);
+
+  show('state-verified');
+}
+
+function renderMonitoring(domain, d) {
+  const score  = d.latest_score != null ? d.latest_score + '/100' : '—';
+  const crits  = d.critical_count != null ? String(d.critical_count) : '—';
+  const ts     = d.last_scanned ? fmtDate(new Date(d.last_scanned)) : '—';
+  const rid    = d.registry_id  || '—';
+  const sc     = d.scan_count   ? String(d.scan_count) : '—';
+  const hash   = d.hash         || '—';
+
+  set('m-domain',     domain);
+  set('m-reg-id',     rid);
+  set('m-domain-row', domain);
+  set('m-score',      score);
+  set('m-crits',      crits);
+  set('m-last-scan',  ts);
+  set('m-scan-ct',    sc);
+  set('m-hash',       hash);
+  set('m-badge-url',  'idr.io/verify/' + domain);
+  inp('s-inp-3',      domain);
+
+  show('state-monitoring');
+}
+
+function renderNotFound(domain) {
+  set('notfound-body', '"' + domain + '" has no scan record in the IDR system. Run a free HHS compliance check at idrshield.com/healthcare to create one.');
+  show('state-notfound');
+}
+
+/* ─── NAV ─────────────────────────────────────────────── */
+function nav(raw) {
+  if (!raw || !raw.trim()) return;
+  const d = raw.trim().replace(/^https?:\/\/(www\.)?/i,'').replace(/\/$/,'').toLowerCase();
+  window.location.href = '/hhs-verify/' + d;
+}
+
+/* ─── UTILS ───────────────────────────────────────────── */
+function set(id, v) { const e=document.getElementById(id); if(e) e.textContent=v; }
+function inp(id, v) { const e=document.getElementById(id); if(e) e.value=v; }
+function show(id)   { const e=document.getElementById(id); if(e) e.style.display='block'; }
+function hide(id)   { const e=document.getElementById(id); if(e) e.style.display='none'; }
+function fmtDate(d) {
+  const mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const p=n=>String(n).padStart(2,'0');
+  return mo[d.getUTCMonth()]+' '+d.getUTCDate()+', '+d.getUTCFullYear()+' — '+p(d.getUTCHours())+':'+p(d.getUTCMinutes())+' UTC';
+}
+
+init();
+</script>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="theme-color" content="#0A0E1A">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Record Activated — Institute of Digital Remediation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0A0E1A;--gold:#C9A84C;--gold2:#E2C97E;--gold3:#8A6F2E;--cream:#F0E8D8;--pass:#52B788;--border:rgba(201,168,76,0.15);--border2:rgba(201,168,76,0.08);--ease:cubic-bezier(0.16,1,0.3,1);}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{font-size:16px;}
+body{font-family:'Montserrat',sans-serif;background:var(--navy);color:var(--cream);min-height:100vh;display:flex;flex-direction:column;}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:.03;pointer-events:none;z-index:9999;}
+
+header{display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:72px;border-bottom:1px solid var(--border2);background:rgba(10,14,26,.97);}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.seal{width:40px;height:40px;border:1.5px solid var(--gold3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:11px;font-weight:700;color:var(--gold);}
+.logo-text{display:flex;flex-direction:column;gap:1px;}
+.logo-org{font-size:8px;font-weight:700;letter-spacing:.28em;color:rgba(201,168,76,.5);text-transform:uppercase;}
+.logo-product{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--cream);}
+
+main{flex:1;max-width:680px;margin:0 auto;padding:60px 32px 80px;width:100%;}
+
+/* HERO */
+.hero{text-align:center;margin-bottom:48px;}
+.confirm-seal{width:84px;height:84px;border-radius:50%;border:2px solid var(--gold3);background:rgba(201,168,76,.06);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;margin:0 auto 20px;animation:seal-pop .6s var(--ease) both;}
+@keyframes seal-pop{0%{opacity:0;transform:scale(.6);}70%{transform:scale(1.08);}100%{opacity:1;transform:scale(1);}}
+.cs-idr{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--gold);letter-spacing:3px;}
+.cs-line{width:32px;height:1px;background:var(--gold3);}
+.cs-sub{font-size:4.5px;font-weight:700;letter-spacing:.1em;color:rgba(201,168,76,.5);text-transform:uppercase;text-align:center;padding:0 4px;line-height:1.6;}
+.h-eyebrow{font-size:8px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--gold3);margin-bottom:10px;animation:fu .5s .3s var(--ease) both;}
+.h-title{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:var(--cream);line-height:1.2;margin-bottom:10px;animation:fu .5s .4s var(--ease) both;}
+.h-sub{font-size:14px;color:rgba(240,232,216,.38);font-style:italic;line-height:1.7;animation:fu .5s .5s var(--ease) both;}
+@keyframes fu{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+/* CARDS */
+.card{background:rgba(13,21,38,.85);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:16px;}
+.card.anim1{animation:fu .5s .6s var(--ease) both;}
+.card.anim2{animation:fu .5s .7s var(--ease) both;}
+.card-hdr{background:rgba(255,255,255,.025);border-bottom:1px solid var(--border2);padding:11px 24px;}
+.card-hdr-lbl{font-size:8px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:rgba(201,168,76,.4);}
+.card-body{padding:24px;}
+
+/* DELIVERABLES */
+.del-list{display:flex;flex-direction:column;gap:16px;}
+.del-item{display:flex;gap:14px;align-items:flex-start;}
+.del-icon{width:24px;height:24px;border:1px solid rgba(201,168,76,.22);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;font-size:10px;color:var(--gold);}
+.del-title{font-size:13px;font-weight:600;color:var(--cream);margin-bottom:3px;}
+.del-body{font-size:12px;color:rgba(240,232,216,.36);line-height:1.6;font-style:italic;}
+
+/* TIMELINE */
+.tl{display:flex;flex-direction:column;}
+.tl-row{display:flex;gap:16px;padding:14px 0;border-bottom:1px solid rgba(240,232,216,.04);}
+.tl-row:last-child{border-bottom:none;}
+.tl-col{display:flex;flex-direction:column;align-items:center;flex-shrink:0;}
+.tl-dot{width:10px;height:10px;border-radius:50%;}
+.tl-dot.now{background:var(--gold);box-shadow:0 0 8px rgba(201,168,76,.35);}
+.tl-dot.soon{background:rgba(201,168,76,.22);border:1px solid rgba(201,168,76,.3);}
+.tl-dot.later{background:rgba(240,232,216,.06);border:1px solid rgba(240,232,216,.1);}
+.tl-line{width:1px;flex:1;background:rgba(240,232,216,.06);min-height:20px;margin-top:4px;}
+.tl-info{}
+.tl-when{font-size:8px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(201,168,76,.38);margin-bottom:4px;}
+.tl-what{font-size:13px;color:rgba(240,232,216,.68);margin-bottom:3px;line-height:1.45;}
+.tl-note{font-size:11px;color:rgba(240,232,216,.28);font-style:italic;line-height:1.5;}
+
+/* MONITORING CTA */
+.mon-block{background:rgba(13,21,38,.7);border:1px solid rgba(201,168,76,.2);border-radius:4px;padding:28px 30px;margin-bottom:16px;position:relative;overflow:hidden;animation:fu .5s .8s var(--ease) both;}
+.mon-block::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.45;}
+.mon-eyebrow{font-size:8px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--gold3);margin-bottom:10px;}
+.mon-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--cream);margin-bottom:6px;}
+.mon-body{font-size:13px;color:rgba(240,232,216,.38);font-style:italic;line-height:1.65;margin-bottom:8px;}
+.mon-killer{font-size:12px;font-weight:600;color:rgba(240,232,216,.52);line-height:1.6;border-left:2px solid rgba(201,168,76,.22);padding-left:12px;margin-bottom:22px;}
+.mon-cta-row{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:18px;}
+.mon-btn{display:inline-flex;align-items:center;justify-content:center;background:var(--gold);color:var(--navy);border:none;border-radius:3px;padding:13px 26px;font-family:'Montserrat',sans-serif;font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:background .18s,transform .15s;}
+.mon-btn:hover{background:var(--gold2);transform:translateY(-1px);}
+.mon-price{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--cream);}
+.mon-price-note{font-size:8px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(240,232,216,.25);margin-top:2px;}
+.mon-list{display:flex;flex-direction:column;gap:8px;padding-top:16px;border-top:1px solid var(--border2);}
+.mon-li{display:flex;gap:8px;align-items:center;font-size:11px;color:rgba(240,232,216,.32);}
+.mon-dot{width:4px;height:4px;border-radius:50%;background:var(--gold3);flex-shrink:0;}
+
+/* VERIFY */
+.verify-row{display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(13,21,38,.5);border:1px solid var(--border2);border-radius:4px;padding:16px 20px;margin-bottom:16px;flex-wrap:wrap;animation:fu .5s .9s var(--ease) both;}
+.verify-lbl{font-size:8px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,168,76,.3);margin-bottom:4px;}
+.verify-url{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(201,168,76,.45);}
+.verify-link{font-family:'Montserrat',sans-serif;font-size:8.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold3);text-decoration:none;border:1px solid var(--border);padding:8px 14px;border-radius:3px;white-space:nowrap;transition:color .2s,border-color .2s;}
+.verify-link:hover{color:var(--gold);border-color:rgba(201,168,76,.3);}
+
+.help{text-align:center;padding:12px;animation:fu .5s 1s var(--ease) both;}
+.help p{font-size:11px;color:rgba(240,232,216,.2);font-style:italic;line-height:1.7;}
+.help a{color:rgba(201,168,76,.35);text-decoration:none;}
+.help a:hover{color:var(--gold);}
+
+footer{border-top:1px solid var(--border2);padding:20px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.ft-l{font-size:7.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(201,168,76,.2);}
+.ft-r{font-family:'Playfair Display',serif;font-size:12px;font-style:italic;color:rgba(240,232,216,.15);}
+@media(max-width:600px){header,footer{padding:0 18px;} main{padding:36px 18px 60px;} .mon-cta-row{flex-direction:column;} footer{flex-direction:column;gap:8px;text-align:center;}}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="https://idrshield.com" class="logo">
+    <div class="seal">IDR</div>
+    <div class="logo-text">
+      <span class="logo-org">Institute of Digital Remediation</span>
+      <span class="logo-product">HHS Compliance Registry</span>
+    </div>
+  </a>
+</header>
+
+<main>
+
+  <div class="hero">
+    <div class="confirm-seal">
+      <span class="cs-idr">IDR</span>
+      <div class="cs-line"></div>
+      <span class="cs-sub">MANUAL<br>VERIFIED</span>
+    </div>
+    <div class="h-eyebrow">HHS Readiness Audit — Activated</div>
+    <div class="h-title">Your record is now being created.</div>
+    <div class="h-sub">Payment received. Your HHS Readiness Audit is now in progress. A confirmation email will arrive within 5 minutes. Your complete compliance record will be delivered within 48 hours.</div>
+  </div>
+
+  <div class="card anim1">
+    <div class="card-hdr"><div class="card-hdr-lbl">What You Have Activated</div></div>
+    <div class="card-body">
+      <div class="del-list">
+        <div class="del-item"><div class="del-icon">✓</div><div><div class="del-title">Full WCAG 2.1 AA Accessibility Audit</div><div class="del-body">Automated detection across 5 protocol categories, followed by a human validation sprint covering keyboard navigation, screen reader pass, form completion, PDF accessibility, and visual stress testing.</div></div></div>
+        <div class="del-item"><div class="del-icon">✓</div><div><div class="del-title">SHA-256 Timestamped Scan Receipt</div><div class="del-body">A cryptographically sealed, tamper-proof record of your accessibility posture at the time of audit. Immutable by design. This is the legal artifact.</div></div></div>
+        <div class="del-item"><div class="del-icon">✓</div><div><div class="del-title">IDR Registry Entry — Manual Verified</div><div class="del-body">Your organization will be publicly listed in the IDR HHS Compliance Registry. Accessible to HHS auditors, legal counsel, and compliance officers.</div></div></div>
+        <div class="del-item"><div class="del-icon">✓</div><div><div class="del-title">Screenshot Evidence Package</div><div class="del-body">Annotated screenshots of all identified failure points with plain-language explanation of user impact for each finding.</div></div></div>
+        <div class="del-item"><div class="del-icon">✓</div><div><div class="del-title">Defense Positioning Summary</div><div class="del-body">A formal statement confirming your organization has initiated active accessibility monitoring and remediation. Ready for legal use if compliance is challenged under Section 504 or Section 1557.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card anim2">
+    <div class="card-hdr"><div class="card-hdr-lbl">What Happens Next</div></div>
+    <div class="card-body">
+      <div class="tl">
+        <div class="tl-row">
+          <div class="tl-col"><div class="tl-dot now"></div><div class="tl-line"></div></div>
+          <div class="tl-info"><div class="tl-when">Now — Within 5 Minutes</div><div class="tl-what">Confirmation email sent to your inbox</div><div class="tl-note">Includes your receipt ID, registry ID, and full audit timeline.</div></div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-col"><div class="tl-dot soon"></div><div class="tl-line"></div></div>
+          <div class="tl-info"><div class="tl-when">Within 24 Hours</div><div class="tl-what">Human validation audit completed</div><div class="tl-note">All five manual checks run against your website. Findings documented, annotated, added to your record.</div></div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-col"><div class="tl-dot soon"></div><div class="tl-line"></div></div>
+          <div class="tl-info"><div class="tl-when">Within 48 Hours</div><div class="tl-what">Complete HHS Readiness Record delivered by email</div><div class="tl-note">Registry status updates to Manual Verified. Your public verification page goes live.</div></div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-col"><div class="tl-dot later"></div></div>
+          <div class="tl-info"><div class="tl-when">After Delivery</div><div class="tl-what">Your record exists — but it is a snapshot</div><div class="tl-note">One audit documents where you stood. Ongoing monitoring documents that you kept going.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mon-block">
+    <div class="mon-eyebrow">One Step Further</div>
+    <div class="mon-title">Maintain Your Record After Delivery</div>
+    <div class="mon-body">Your audit documents where you stood on the day it was conducted. HHS compliance is an ongoing obligation, not a one-time event.</div>
+    <div class="mon-killer">A static audit can be challenged. A continuously dated record is far harder to dispute. Ongoing monitoring converts your snapshot into a living defense.</div>
+    <div class="mon-cta-row">
+      <a class="mon-btn" id="cont-link" href="https://buy.stripe.com/REPLACE_CONTINUITY_LINK" target="_blank" rel="noopener">Activate Ongoing Monitoring →</a>
+      <div>
+        <div class="mon-price">$49<span style="font-size:14px;font-weight:400;color:rgba(240,232,216,.3);">/mo</span></div>
+        <div class="mon-price-note">Cancel anytime</div>
+      </div>
+    </div>
+    <div class="mon-list">
+      <div class="mon-li"><div class="mon-dot"></div><span>Weekly automated WCAG 2.1 AA rescans — continuous monitoring</span></div>
+      <div class="mon-li"><div class="mon-dot"></div><span>Registry status upgrades to "Monitoring Active"</span></div>
+      <div class="mon-li"><div class="mon-dot"></div><span>Real-time alerts if your score drops or new violations appear</span></div>
+      <div class="mon-li"><div class="mon-dot"></div><span>HHS Accessibility Monitored badge — live on your website</span></div>
+      <div class="mon-li"><div class="mon-dot"></div><span>Cumulative evidence log — every scan timestamped and sealed</span></div>
+    </div>
+  </div>
+
+  <div class="verify-row">
+    <div>
+      <div class="verify-lbl">Your Public Verification Record</div>
+      <div class="verify-url" id="verify-url">idrshield.com/hhs-verify/yourorganization</div>
+    </div>
+    <a class="verify-link" id="verify-link" href="https://idrshield.com/hhs-verify/" target="_blank" rel="noopener">View Record →</a>
+  </div>
+
+  <div class="help">
+    <p>Questions? Email us at <a href="mailto:hello@idrshield.com">hello@idrshield.com</a><br>
+    Check your spam folder if the confirmation email doesn't arrive within 5 minutes.</p>
+  </div>
+
+</main>
+
+<footer>
+  <span class="ft-l">Institute of Digital Remediation · IDR-BRAND-2026-01</span>
+  <span class="ft-r">The record is the product.</span>
+</footer>
+
+<script>
+(function(){
+  const p = new URLSearchParams(window.location.search);
+  const domain = p.get('client_reference_id') || p.get('domain') || '';
+  if (!domain) return;
+  const u = 'idrshield.com/hhs-verify/' + domain;
+  const el = document.getElementById('verify-url');
+  const lk = document.getElementById('verify-link');
+  const cb = document.getElementById('cont-link');
+  if (el) el.textContent = u;
+  if (lk) lk.href = 'https://' + u;
+  if (cb) cb.href = 'https://buy.stripe.com/REPLACE_CONTINUITY_LINK?client_reference_id=' + encodeURIComponent(domain);
+})();
+</script>
+</body>
+</html>
