@@ -13,6 +13,8 @@
     { "source": "/portal", "destination": "/idrshield_portal.html" },
     { "source": "/support", "destination": "/idrshield_support.html" },
     { "source": "/registry", "destination": "/idrshield_registry.html" },
-    { "source": "/healthcare", "destination": "/healthcare.html" }
+    { "source": "/healthcare", "destination": "/healthcare.html" },
+    { "source": "/hhs-verify/:domain*", "destination": "/hhs_verify.html" },
+    { "source": "/hhs-success", "destination": "/hhs_success.html" }
   ]
 }
