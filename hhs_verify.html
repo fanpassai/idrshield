@@ -253,32 +253,6 @@ footer{border-top:1px solid var(--border2);padding:22px 48px;display:flex;align-
       <div class="status-eyebrow">Registry Status</div>
       <div class="status-headline">Not Monitored</div>
       <div class="status-domain-lbl" id="nm-domain"></div>
-    </div>
-
-    <div class="statement-block band-none">
-      <div class="stmt-para">This domain has been scanned, but no active compliance record exists. No monitoring is in place. No remediation activity is documented. This scan exists — but it is not on record.</div>
-      <div class="stmt-list">
-        <div class="stmt-item"><div class="stmt-dot dot-red"></div><span>No enrollment in the IDR Registry</span></div>
-        <div class="stmt-item"><div class="stmt-dot dot-red"></div><span>No active monitoring record</span></div>
-        <div class="stmt-item"><div class="stmt-dot dot-red"></div><span>No remediation activity documented</span></div>
-        <div class="stmt-item"><div class="stmt-dot dot-red"></div><span>No verified compliance position established</span></div>
-      </div>
-    </div>
-
-    <div class="reg-card">
-      <div class="reg-card-hdr">
-        <span class="reg-hdr-lbl">Scan Record — Unenrolled</span>
-        <span class="reg-hdr-id" id="nm-rid"></span>
-      </div>
-      <div class="reg-row"><span class="reg-key">Domain</span><span class="reg-val" id="nm-reg-dom"></span></div>
-      <div class="reg-row"><span class="reg-key">Accessibility Score</span><span class="reg-val" id="nm-score"></span></div>
-      <div class="reg-row"><span class="reg-key">Critical Issues</span><span class="reg-val rv-red" id="nm-crits"></span></div>
-      <div class="reg-row"><span class="reg-key">Scan Timestamp</span><span class="reg-val" id="nm-ts"></span></div>
-      <div class="reg-row"><span class="reg-key">Registry Enrollment</span><span class="reg-val rv-red">NOT ENROLLED</span></div>
-      <div class="reg-row"><span class="reg-key">Compliance Record</span><span class="reg-val rv-red">ABSENT</span></div>
-      <div class="reg-row"><span class="reg-key">Protocol Standard</span><span class="reg-val">WCAG 2.1 AA</span></div>
-    </div>
-
     <div class="badge-section band-none">
       <div class="hhs-badge-display">
         <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96" role="img" aria-label="IDR HHS badge — INACTIVE">
@@ -308,6 +282,33 @@ footer{border-top:1px solid var(--border2);padding:22px 48px;display:flex;align-
         <div class="badge-info-url" id="nm-badge-url"></div>
       </div>
     </div>
+
+    </div>
+
+    <div class="statement-block band-none">
+      <div class="stmt-para">This domain has been scanned, but no active compliance record exists. No monitoring is in place. No remediation activity is documented. This scan exists — but it is not on record.</div>
+      <div class="stmt-list">
+        <div class="stmt-item"><div class="stmt-dot dot-red"></div><span>No enrollment in the IDR Registry</span></div>
+        <div class="stmt-item"><div class="stmt-dot dot-red"></div><span>No active monitoring record</span></div>
+        <div class="stmt-item"><div class="stmt-dot dot-red"></div><span>No remediation activity documented</span></div>
+        <div class="stmt-item"><div class="stmt-dot dot-red"></div><span>No verified compliance position established</span></div>
+      </div>
+    </div>
+
+    <div class="reg-card">
+      <div class="reg-card-hdr">
+        <span class="reg-hdr-lbl">Scan Record — Unenrolled</span>
+        <span class="reg-hdr-id" id="nm-rid"></span>
+      </div>
+      <div class="reg-row"><span class="reg-key">Domain</span><span class="reg-val" id="nm-reg-dom"></span></div>
+      <div class="reg-row"><span class="reg-key">Accessibility Score</span><span class="reg-val" id="nm-score"></span></div>
+      <div class="reg-row"><span class="reg-key">Critical Issues</span><span class="reg-val rv-red" id="nm-crits"></span></div>
+      <div class="reg-row"><span class="reg-key">Scan Timestamp</span><span class="reg-val" id="nm-ts"></span></div>
+      <div class="reg-row"><span class="reg-key">Registry Enrollment</span><span class="reg-val rv-red">NOT ENROLLED</span></div>
+      <div class="reg-row"><span class="reg-key">Compliance Record</span><span class="reg-val rv-red">ABSENT</span></div>
+      <div class="reg-row"><span class="reg-key">Protocol Standard</span><span class="reg-val">WCAG 2.1 AA</span></div>
+    </div>
+
 
     <div class="integrity-block band-none">
       <div class="integrity-eyebrow">Record Integrity</div>
@@ -368,33 +369,6 @@ footer{border-top:1px solid var(--border2);padding:22px 48px;display:flex;align-
       <div class="status-eyebrow">Registry Status</div>
       <div class="status-headline">Manual Verified</div>
       <div class="status-domain-lbl" id="v-domain"></div>
-    </div>
-
-    <div class="statement-block band-verified">
-      <div class="stmt-para">A verified compliance record has been established for this domain. This record reflects the accessibility posture at the time of audit. Findings have been documented, reviewed by a human auditor, and timestamped. This establishes a defensible record of action taken prior to enforcement exposure.</div>
-      <div class="stmt-list">
-        <div class="stmt-item"><div class="stmt-dot dot-gold"></div><span>Enrolled in the IDR Registry</span></div>
-        <div class="stmt-item"><div class="stmt-dot dot-gold"></div><span>Human-verified audit completed and documented</span></div>
-        <div class="stmt-item"><div class="stmt-dot dot-gold"></div><span>Accessibility posture recorded at time of audit</span></div>
-        <div class="stmt-item"><div class="stmt-dot dot-gold"></div><span>Defensible record of action established</span></div>
-      </div>
-    </div>
-
-    <div class="reg-card">
-      <div class="reg-card-hdr">
-        <span class="reg-hdr-lbl">IDR Registry — Manual Verified</span>
-        <span class="reg-hdr-id" id="v-reg-id"></span>
-      </div>
-      <div class="reg-row"><span class="reg-key">Domain</span><span class="reg-val" id="v-domain-row"></span></div>
-      <div class="reg-row"><span class="reg-key">Accessibility Score</span><span class="reg-val" id="v-score"></span></div>
-      <div class="reg-row"><span class="reg-key">Critical Issues</span><span class="reg-val" id="v-crits"></span></div>
-      <div class="reg-row"><span class="reg-key">Audit Timestamp</span><span class="reg-val" id="v-ts"></span></div>
-      <div class="reg-row"><span class="reg-key">Registry Enrollment</span><span class="reg-val rv-gold">ENROLLED</span></div>
-      <div class="reg-row"><span class="reg-key">Verification Type</span><span class="reg-val rv-gold">MANUAL VERIFIED</span></div>
-      <div class="reg-row"><span class="reg-key">Protocol Standard</span><span class="reg-val">WCAG 2.1 AA</span></div>
-      <div class="reg-row"><span class="reg-key">Scan Count</span><span class="reg-val" id="v-scan-ct"></span></div>
-    </div>
-
     <div class="badge-section band-verified">
       <div class="hhs-badge-display">
         <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96" role="img" aria-label="IDR HHS badge — ON RECORD">
@@ -424,6 +398,34 @@ footer{border-top:1px solid var(--border2);padding:22px 48px;display:flex;align-
         <div class="badge-info-url" id="v-badge-url"></div>
       </div>
     </div>
+
+    </div>
+
+    <div class="statement-block band-verified">
+      <div class="stmt-para">A verified compliance record has been established for this domain. This record reflects the accessibility posture at the time of audit. Findings have been documented, reviewed by a human auditor, and timestamped. This establishes a defensible record of action taken prior to enforcement exposure.</div>
+      <div class="stmt-list">
+        <div class="stmt-item"><div class="stmt-dot dot-gold"></div><span>Enrolled in the IDR Registry</span></div>
+        <div class="stmt-item"><div class="stmt-dot dot-gold"></div><span>Human-verified audit completed and documented</span></div>
+        <div class="stmt-item"><div class="stmt-dot dot-gold"></div><span>Accessibility posture recorded at time of audit</span></div>
+        <div class="stmt-item"><div class="stmt-dot dot-gold"></div><span>Defensible record of action established</span></div>
+      </div>
+    </div>
+
+    <div class="reg-card">
+      <div class="reg-card-hdr">
+        <span class="reg-hdr-lbl">IDR Registry — Manual Verified</span>
+        <span class="reg-hdr-id" id="v-reg-id"></span>
+      </div>
+      <div class="reg-row"><span class="reg-key">Domain</span><span class="reg-val" id="v-domain-row"></span></div>
+      <div class="reg-row"><span class="reg-key">Accessibility Score</span><span class="reg-val" id="v-score"></span></div>
+      <div class="reg-row"><span class="reg-key">Critical Issues</span><span class="reg-val" id="v-crits"></span></div>
+      <div class="reg-row"><span class="reg-key">Audit Timestamp</span><span class="reg-val" id="v-ts"></span></div>
+      <div class="reg-row"><span class="reg-key">Registry Enrollment</span><span class="reg-val rv-gold">ENROLLED</span></div>
+      <div class="reg-row"><span class="reg-key">Verification Type</span><span class="reg-val rv-gold">MANUAL VERIFIED</span></div>
+      <div class="reg-row"><span class="reg-key">Protocol Standard</span><span class="reg-val">WCAG 2.1 AA</span></div>
+      <div class="reg-row"><span class="reg-key">Scan Count</span><span class="reg-val" id="v-scan-ct"></span></div>
+    </div>
+
 
     <div class="integrity-block band-verified">
       <div class="integrity-eyebrow">Record Integrity</div>
@@ -461,33 +463,6 @@ footer{border-top:1px solid var(--border2);padding:22px 48px;display:flex;align-
       <div class="status-eyebrow">Registry Status</div>
       <div class="status-headline">Monitoring Active</div>
       <div class="status-domain-lbl" id="m-domain"></div>
-    </div>
-
-    <div class="statement-block band-monitoring">
-      <div class="stmt-para">This domain is actively monitored under the IDR compliance protocol. Accessibility status is continuously evaluated, and all remediation activity is logged in real time. This creates an ongoing, time-based record of compliance effort — not a snapshot, but a living defense.</div>
-      <div class="stmt-list">
-        <div class="stmt-item"><div class="stmt-dot dot-green"></div><span>Enrolled and actively monitored</span></div>
-        <div class="stmt-item"><div class="stmt-dot dot-green"></div><span>Continuous accessibility evaluation in progress</span></div>
-        <div class="stmt-item"><div class="stmt-dot dot-green"></div><span>All remediation activity logged and timestamped</span></div>
-        <div class="stmt-item"><div class="stmt-dot dot-green"></div><span>Living compliance record — continuously updated</span></div>
-      </div>
-    </div>
-
-    <div class="reg-card">
-      <div class="reg-card-hdr">
-        <span class="reg-hdr-lbl">IDR Registry — Monitoring Active</span>
-        <span class="reg-hdr-id" id="m-reg-id"></span>
-      </div>
-      <div class="reg-row"><span class="reg-key">Domain</span><span class="reg-val" id="m-domain-row"></span></div>
-      <div class="reg-row"><span class="reg-key">Current Score</span><span class="reg-val" id="m-score"></span></div>
-      <div class="reg-row"><span class="reg-key">Critical Issues</span><span class="reg-val" id="m-crits"></span></div>
-      <div class="reg-row"><span class="reg-key">Last Scan</span><span class="reg-val" id="m-last-scan"></span></div>
-      <div class="reg-row"><span class="reg-key">Total Scans</span><span class="reg-val" id="m-scan-ct"></span></div>
-      <div class="reg-row"><span class="reg-key">Scan Frequency</span><span class="reg-val rv-green">Weekly — Automated</span></div>
-      <div class="reg-row"><span class="reg-key">Registry Status</span><span class="reg-val rv-green">MONITORING ACTIVE</span></div>
-      <div class="reg-row"><span class="reg-key">Protocol Standard</span><span class="reg-val">WCAG 2.1 AA</span></div>
-    </div>
-
     <div class="badge-section band-monitoring">
       <div>
       <div class="hhs-badge-display">
@@ -523,6 +498,34 @@ footer{border-top:1px solid var(--border2);padding:22px 48px;display:flex;align-
         <div class="badge-info-url" id="m-badge-url"></div>
       </div>
     </div>
+
+    </div>
+
+    <div class="statement-block band-monitoring">
+      <div class="stmt-para">This domain is actively monitored under the IDR compliance protocol. Accessibility status is continuously evaluated, and all remediation activity is logged in real time. This creates an ongoing, time-based record of compliance effort — not a snapshot, but a living defense.</div>
+      <div class="stmt-list">
+        <div class="stmt-item"><div class="stmt-dot dot-green"></div><span>Enrolled and actively monitored</span></div>
+        <div class="stmt-item"><div class="stmt-dot dot-green"></div><span>Continuous accessibility evaluation in progress</span></div>
+        <div class="stmt-item"><div class="stmt-dot dot-green"></div><span>All remediation activity logged and timestamped</span></div>
+        <div class="stmt-item"><div class="stmt-dot dot-green"></div><span>Living compliance record — continuously updated</span></div>
+      </div>
+    </div>
+
+    <div class="reg-card">
+      <div class="reg-card-hdr">
+        <span class="reg-hdr-lbl">IDR Registry — Monitoring Active</span>
+        <span class="reg-hdr-id" id="m-reg-id"></span>
+      </div>
+      <div class="reg-row"><span class="reg-key">Domain</span><span class="reg-val" id="m-domain-row"></span></div>
+      <div class="reg-row"><span class="reg-key">Current Score</span><span class="reg-val" id="m-score"></span></div>
+      <div class="reg-row"><span class="reg-key">Critical Issues</span><span class="reg-val" id="m-crits"></span></div>
+      <div class="reg-row"><span class="reg-key">Last Scan</span><span class="reg-val" id="m-last-scan"></span></div>
+      <div class="reg-row"><span class="reg-key">Total Scans</span><span class="reg-val" id="m-scan-ct"></span></div>
+      <div class="reg-row"><span class="reg-key">Scan Frequency</span><span class="reg-val rv-green">Weekly — Automated</span></div>
+      <div class="reg-row"><span class="reg-key">Registry Status</span><span class="reg-val rv-green">MONITORING ACTIVE</span></div>
+      <div class="reg-row"><span class="reg-key">Protocol Standard</span><span class="reg-val">WCAG 2.1 AA</span></div>
+    </div>
+
 
     <div class="integrity-block band-monitoring">
       <div class="integrity-eyebrow">Record Integrity</div>
