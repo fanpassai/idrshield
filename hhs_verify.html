@@ -594,7 +594,7 @@ async function loadRegistry(domain) {
   show('state-loading');
 
   try {
-    const res = await fetch('/api/registry/' + encodeURIComponent(domain));
+    const res = await fetch('/api/hhs/registry/' + encodeURIComponent(domain));
     hide('state-loading');
 
     if (res.status === 404) {
