@@ -573,10 +573,25 @@ footer{border-top:1px solid var(--border2);padding:24px 40px;display:flex;align-
   </div>
 
   <div class="badge-prev">
-    <div class="bp-seal">
-      <span class="bp-idr">IDR</span>
-      <div class="bp-line"></div>
-      <span class="bp-sub">ACCESSIBILITY<br>MONITORED</span>
+    <div class="bp-seal" style="background:none;border:none;width:96px;height:96px;flex-shrink:0;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96" role="img" aria-label="IDR HHS badge preview — ON RECORD">
+        <defs>
+          <path id="hcT" d="M 8.32,48 A 39.68,39.68 0 0,1 87.68,48"/>
+          <path id="hcB" d="M 8.32,48 A 39.68,39.68 0 0,0 87.68,48"/>
+        </defs>
+        <circle cx="48" cy="48" r="47.5" fill="#0A0E1A"/>
+        <circle cx="48" cy="48" r="45.6" fill="none" stroke="#C9A84C" stroke-width="1.5" opacity="0.80"/>
+        <circle cx="48" cy="48" r="34.6" fill="none" stroke="#C9A84C" stroke-width="0.65" opacity="0.17"/>
+        <text font-family="Montserrat,Arial,sans-serif" font-size="4.2" font-weight="700" letter-spacing="0.48" fill="#C9A84C" opacity="0.76">
+          <textPath href="#hcT" startOffset="50%" text-anchor="middle" dy="-3.8">INSTITUTE OF DIGITAL REMEDIATION</textPath>
+        </text>
+        <text font-family="Montserrat,Arial,sans-serif" font-size="3.8" font-weight="600" letter-spacing="0.77" fill="#C9A84C" opacity="0.38">
+          <textPath href="#hcB" startOffset="50%" text-anchor="middle" dy="8">HHS · SECTION 504</textPath>
+        </text>
+        <text x="48" y="45.3" font-family="'Playfair Display',Georgia,serif" font-size="27" font-weight="700" fill="#C9A84C" opacity="0.86" text-anchor="middle" dominant-baseline="middle">IDR</text>
+        <line x1="22.3" y1="55.3" x2="73.7" y2="55.3" stroke="#8A6F2E" stroke-width="0.75" opacity="0.58"/>
+        <text x="48" y="66.8" font-family="Montserrat,Arial,sans-serif" font-size="7.3" font-weight="600" fill="#C9A84C" text-anchor="middle" letter-spacing="0.77" opacity="0.68">ON RECORD</text>
+      </svg>
     </div>
     <div>
       <p class="bp-lbl" style="color:var(--fail);letter-spacing:.14em;">⚠ Not Active On Your Site</p>
