@@ -598,7 +598,7 @@ footer{border-top:1px solid var(--border2);padding:24px 40px;display:flex;align-
       <h3 class="bp-title">HHS Accessibility Monitored</h3>
       <p class="bp-txt">This badge is not active. Activate to display the signal that this organization maintains a documented, continuously updated compliance record under HHS Section 504 and Section 1557.</p>
       <p style="font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(201,168,76,.4);margin-top:10px;">HHS · Section 504 / 1557 · Public Registry</p>
-      <p class="bp-url" id="bp-url">idrshield.com/verify/yourorganization →</p>
+      <p class="bp-url" id="bp-url">idrshield.com/hhs-verify/yourorganization →</p>
     </div>
   </div>
 
@@ -780,7 +780,7 @@ function renderResults(r){
     document.getElementById('rf-hash').textContent=(r.hash&&r.hash.value)||'—';
 
     renderDeadline();
-    document.getElementById('bp-url').textContent=r.registry_url||'idrshield.com/verify/'+(sc.domain||'yourorg');
+    document.getElementById('bp-url').textContent=r.registry_url||'idrshield.com/hhs-verify/'+(sc.domain||'yourorg');
 
     const domain=sc.domain||'';
     document.getElementById('act-link').href='https://buy.stripe.com/REPLACE_AUDIT_LINK?client_reference_id='+encodeURIComponent(domain);
@@ -935,7 +935,7 @@ function buildDemo(url){
   return{
     receipt_id:uid.toUpperCase(),registry_id:'IDR-REG-2026-'+uid.substring(0,8).toUpperCase(),
     timestamp_utc:new Date().toISOString(),operator:'IDR_SCANNER_v1',idr_protocol:'IDR-BRAND-2026-01',
-    registry_url:'https://idrshield.com/verify/'+dom,
+    registry_url:'https://idrshield.com/hhs-verify/'+dom,
     hash:{algorithm:'SHA-256',value:hash,input_bytes:4821},
     scan:{url,domain:dom,page_title:dom,scan_duration_ms:5214,overall_score:46,overall_status:'fail',total_issues:67,critical_count:15,
       categories:[
