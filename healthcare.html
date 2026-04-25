@@ -155,6 +155,12 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 4
 .status-interp.pass{background:var(--pass-bg);color:var(--pass);border:1px solid var(--pass-bd);}
 .status-interp.warning{background:var(--warn-bg);color:var(--warn);border:1px solid var(--warn-bd);}
 .status-interp.fail{background:var(--fail-bg);color:var(--fail);border:1px solid var(--fail-bd);}
+.pub-rec{margin-top:20px;padding:14px 16px;background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.12);border-radius:3px;}
+.pub-rec-eyebrow{font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(201,168,76,.45);margin-bottom:6px;}
+.pub-rec-body{font-family:'Montserrat',sans-serif;font-size:12px;color:rgba(240,232,216,.45);line-height:1.55;margin-bottom:9px;}
+.pub-rec-link{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--gold3);text-decoration:none;display:inline-block;border-bottom:1px solid rgba(201,168,76,.25);padding-bottom:1px;transition:color .18s,border-color .18s;}
+.pub-rec-link:hover{color:var(--gold);border-color:rgba(201,168,76,.6);}
+.pub-rec-empty{font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(220,80,80,.55);margin-top:8px;}
 .s-lbl{font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--gold3);margin:32px 0 14px;}
 
 /* CATS */
@@ -291,7 +297,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 4
 .bp-lbl{font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold3);margin-bottom:5px;}
 .bp-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--cream);margin-bottom:5px;}
 .bp-txt{font-size:13px;color:rgba(240,232,216,.42);font-style:italic;line-height:1.5;}
-.bp-url{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--gold3);margin-top:7px;}
+.bp-url{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--gold3);margin-top:7px;text-decoration:none;display:inline-block;border-bottom:1px solid rgba(201,168,76,.2);transition:color .18s;}
 
 footer{border-top:1px solid var(--border2);padding:24px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
 .ft-n{font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:rgba(201,168,76,.2);}
@@ -457,6 +463,12 @@ footer{border-top:1px solid var(--border2);padding:24px 40px;display:flex;align-
       </div>
       <p class="score-context">This check applies the WCAG 2.1 AA standard required under federal HHS enforcement. Your score reflects the current accessibility posture of this organization — visible to any audit system running today.</p>
       <span class="status-interp" id="status-interp"></span>
+      <div class="pub-rec" id="pub-rec" style="display:none;">
+        <div class="pub-rec-eyebrow">HHS · Section 504 / 1557 · Public Registry</div>
+        <div class="pub-rec-body">This URL is public. Anyone — regulators, plaintiffs, patients — can check it. Right now, it shows no active compliance monitoring for this organization.</div>
+        <a class="pub-rec-link" id="pub-rec-link" href="#" target="_blank" rel="noopener">idrshield.com/hhs-verify/yourorganization</a>
+        <div class="pub-rec-empty">● No active record found</div>
+      </div>
     </div>
   </div>
 
@@ -598,7 +610,7 @@ footer{border-top:1px solid var(--border2);padding:24px 40px;display:flex;align-
       <h3 class="bp-title">HHS Accessibility Monitored</h3>
       <p class="bp-txt">This badge is not active. Activate to display the signal that this organization maintains a documented, continuously updated compliance record under HHS Section 504 and Section 1557.</p>
       <p style="font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(201,168,76,.4);margin-top:10px;">HHS · Section 504 / 1557 · Public Registry</p>
-      <p class="bp-url" id="bp-url">idrshield.com/hhs-verify/yourorganization →</p>
+      <a class="bp-url" id="bp-url" href="#" target="_blank" rel="noopener">idrshield.com/hhs-verify/yourorganization →</a>
     </div>
   </div>
 
@@ -780,9 +792,29 @@ function renderResults(r){
     document.getElementById('rf-hash').textContent=(r.hash&&r.hash.value)||'—';
 
     renderDeadline();
-    document.getElementById('bp-url').textContent=r.registry_url||'idrshield.com/hhs-verify/'+(sc.domain||'yourorg');
 
+    /* Always construct HHS verify URL from domain — never use r.registry_url
+       which points to the e-commerce /verify/ route */
     const domain=sc.domain||'';
+    const hhsVerifyUrl='https://idrshield.com/hhs-verify/'+domain;
+    const hhsVerifyDisplay='idrshield.com/hhs-verify/'+domain;
+
+    /* Wire pub-rec block — visible inside score-block immediately after verdict */
+    const pubRec=document.getElementById('pub-rec');
+    const pubRecLink=document.getElementById('pub-rec-link');
+    if(pubRec&&domain){
+      pubRecLink.href=hhsVerifyUrl;
+      pubRecLink.textContent=hhsVerifyDisplay;
+      pubRec.style.display='block';
+    }
+
+    /* Wire badge-prev URL — clickable anchor */
+    const bpUrlEl=document.getElementById('bp-url');
+    if(bpUrlEl){
+      bpUrlEl.textContent=hhsVerifyDisplay+' →';
+      bpUrlEl.href=hhsVerifyUrl;
+    }
+
     document.getElementById('act-link').href='https://buy.stripe.com/REPLACE_AUDIT_LINK?client_reference_id='+encodeURIComponent(domain);
     document.getElementById('cont-link').href='https://buy.stripe.com/REPLACE_CONTINUITY_LINK?client_reference_id='+encodeURIComponent(domain);
 
