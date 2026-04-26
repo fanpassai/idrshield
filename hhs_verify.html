@@ -134,23 +134,12 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 4
 .hash-val{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(201,168,76,.45);word-break:break-all;line-height:1.7;}
 .hash-note{font-size:11px;color:rgba(240,232,216,.18);font-style:italic;margin-top:6px;}
 
-/* CTA (State 1 only) */
-.cta-block{background:rgba(13,18,34,.9);border:1px solid rgba(201,168,76,.2);border-radius:4px;padding:30px 36px;margin-bottom:18px;position:relative;overflow:hidden;}
-.cta-block::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.5;}
-.cta-eyebrow{font-size:8px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--gold3);margin-bottom:10px;}
-.cta-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--cream);margin-bottom:6px;}
-.cta-para{font-size:13px;color:rgba(240,232,216,.38);font-style:italic;line-height:1.65;margin-bottom:20px;}
-.cta-steps{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
-.cta-step{display:flex;align-items:flex-start;gap:12px;font-size:12px;color:rgba(240,232,216,.45);line-height:1.5;}
-.cta-step-n{font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(201,168,76,.45);background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.14);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
-.cta-row{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:16px;}
-.cta-btn{display:inline-flex;align-items:center;justify-content:center;background:var(--gold);color:var(--navy);border:none;border-radius:3px;padding:14px 32px;font-family:'Montserrat',sans-serif;font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:background .18s,transform .15s;}
-.cta-btn:hover{background:var(--gold2);transform:translateY(-1px);}
-.cta-price-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--cream);}
-.cta-price-s{font-size:8.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(240,232,216,.28);margin-top:2px;}
-.cta-secondary{background:rgba(13,21,38,.5);border:1px solid var(--border2);border-radius:3px;padding:12px 18px;}
-.cta-sec-lbl{font-size:8px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(201,168,76,.28);margin-bottom:4px;}
-.cta-sec-body{font-size:12px;color:rgba(240,232,216,.28);font-style:italic;line-height:1.55;}
+/* NEUTRAL REFERRAL BLOCK (Not Monitored only) */
+.referral-block{background:rgba(13,21,38,.5);border:1px solid var(--border2);border-left:3px solid rgba(230,57,70,.25);border-radius:0 4px 4px 0;padding:20px 24px;margin-bottom:18px;}
+.referral-lbl{font-size:8px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:rgba(240,232,216,.25);margin-bottom:8px;}
+.referral-body{font-family:'Playfair Display',serif;font-size:13px;font-style:italic;color:rgba(240,232,216,.35);line-height:1.7;}
+.referral-body a{color:rgba(201,168,76,.45);text-decoration:none;}
+.referral-body a:hover{color:rgba(201,168,76,.7);}
 
 /* HHS CITATION */
 .hhs-cite{background:rgba(255,255,255,.02);border:1px solid var(--border2);border-left:3px solid rgba(201,168,76,.2);border-radius:0 4px 4px 0;padding:14px 18px;margin-bottom:18px;}
@@ -182,10 +171,9 @@ footer{border-top:1px solid var(--border2);padding:22px 48px;display:flex;align-
   .badge-section{grid-template-columns:1fr;text-align:center;}
   .b-pulse-wrap,.b-gray,.b-gold{margin:0 auto;}
   .search-box{flex-direction:column;}
-  .cta-row{flex-direction:column;gap:10px;}
   footer{flex-direction:column;gap:8px;text-align:center;}
 }
-/* ── Real HHS Badge — inline display (no link, this IS the verify page) ── */
+/* ── Real HHS Badge — inline display ── */
 .hhs-badge-display{display:flex;flex-direction:column;align-items:center;gap:8px;}
 .hhs-badge-display svg{display:block;flex-shrink:0;}
 .hhs-badge-pulse-wrap{position:relative;display:flex;align-items:center;justify-content:center;overflow:visible;}
@@ -218,7 +206,6 @@ footer{border-top:1px solid var(--border2);padding:22px 48px;display:flex;align-
   </div>
 </header>
 
-<!-- LOADING -->
 <div id="state-loading">
   <div class="load-ring"></div>
   <div class="load-txt">Querying Registry</div>
@@ -251,95 +238,36 @@ footer{border-top:1px solid var(--border2);padding:22px 48px;display:flex;align-
 
     <div class="status-band band-none">
       <div class="status-eyebrow">Registry Status</div>
-      <div class="status-headline">Not Monitored</div>
+      <div class="status-headline">No Compliance Record</div>
       <div class="status-domain-lbl" id="nm-domain"></div>
-    <div class="badge-section band-none">
-      <div class="hhs-badge-display">
-        <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96" role="img" aria-label="IDR HHS badge — INACTIVE">
-          <defs>
-            <path id="vnT" d="M 8.32,48 A 39.68,39.68 0 0,1 87.68,48"/>
-            <path id="vnB" d="M 8.32,48 A 39.68,39.68 0 0,0 87.68,48"/>
-          </defs>
-          <circle cx="48" cy="48" r="47.5" fill="#0A0E1A"/>
-          <circle cx="48" cy="48" r="45.6" fill="none" stroke="#4E4E60" stroke-width="1.2" opacity="0.24"/>
-          <circle cx="48" cy="48" r="34.6" fill="none" stroke="#4E4E60" stroke-width="0.65" opacity="0.10"/>
-          <text font-family="Montserrat,Arial,sans-serif" font-size="4.2" font-weight="700" letter-spacing="0.48" fill="#4E4E60" opacity="0.20">
-            <textPath href="#vnT" startOffset="50%" text-anchor="middle" dy="-3.8">INSTITUTE OF DIGITAL REMEDIATION</textPath>
-          </text>
-          <text font-family="Montserrat,Arial,sans-serif" font-size="3.8" font-weight="600" letter-spacing="0.77" fill="#4E4E60" opacity="0.15">
-            <textPath href="#vnB" startOffset="50%" text-anchor="middle" dy="8">NOT MONITORED</textPath>
-          </text>
-          <text x="48" y="45.3" font-family="'Playfair Display',Georgia,serif" font-size="27" font-weight="700" fill="#4E4E60" opacity="0.26" text-anchor="middle" dominant-baseline="middle">IDR</text>
-          <line x1="22.3" y1="55.3" x2="73.7" y2="55.3" stroke="#303040" stroke-width="0.75" opacity="0.40"/>
-          <text x="48" y="66.8" font-family="Montserrat,Arial,sans-serif" font-size="7.3" font-weight="600" fill="#4E4E60" text-anchor="middle" letter-spacing="2.11" opacity="0.26">INACTIVE</text>
-        </svg>
-        <div class="hhs-state-lbl hhs-lbl-inactive">INACTIVE</div>
-      </div>
-      <div class="badge-info">
-        <div class="badge-info-eyebrow">Badge Status</div>
-        <div class="badge-info-title">No Active Badge</div>
-        <div class="badge-info-body">No IDR verification badge is active for this domain. A badge is issued only upon creation of a verified compliance record. Until then, no status signal exists for this organization.</div>
-        <div class="badge-info-url" id="nm-badge-url"></div>
-      </div>
     </div>
 
-    </div>
-
-    <div class="statement-block band-none">
-      <div class="stmt-para">This domain has been scanned, but no active compliance record exists. No monitoring is in place. No remediation activity is documented. This scan exists — but it is not on record.</div>
+    <div class="statement-block">
+      <div class="stmt-para">No HHS compliance record exists for this domain in the IDR Registry. This organization has not established a documented accessibility posture under Section 504 of the Rehabilitation Act or Section 1557 of the Affordable Care Act.</div>
       <div class="stmt-list">
-        <div class="stmt-item"><div class="stmt-dot dot-red"></div><span>No enrollment in the IDR Registry</span></div>
-        <div class="stmt-item"><div class="stmt-dot dot-red"></div><span>No active monitoring record</span></div>
-        <div class="stmt-item"><div class="stmt-dot dot-red"></div><span>No remediation activity documented</span></div>
-        <div class="stmt-item"><div class="stmt-dot dot-red"></div><span>No verified compliance position established</span></div>
+        <div class="stmt-item"><div class="stmt-dot dot-red"></div><span>No enrollment in the IDR HHS Compliance Registry</span></div>
+        <div class="stmt-item"><div class="stmt-dot dot-red"></div><span>No verified accessibility audit on record</span></div>
+        <div class="stmt-item"><div class="stmt-dot dot-red"></div><span>No documented remediation activity</span></div>
+        <div class="stmt-item"><div class="stmt-dot dot-red"></div><span>No defensible compliance position established</span></div>
       </div>
     </div>
 
     <div class="reg-card">
       <div class="reg-card-hdr">
-        <span class="reg-hdr-lbl">Scan Record — Unenrolled</span>
+        <span class="reg-hdr-lbl">Registry Query Result</span>
         <span class="reg-hdr-id" id="nm-rid"></span>
       </div>
       <div class="reg-row"><span class="reg-key">Domain</span><span class="reg-val" id="nm-reg-dom"></span></div>
-      <div class="reg-row"><span class="reg-key">Accessibility Score</span><span class="reg-val" id="nm-score"></span></div>
-      <div class="reg-row"><span class="reg-key">Critical Issues</span><span class="reg-val rv-red" id="nm-crits"></span></div>
-      <div class="reg-row"><span class="reg-key">Scan Timestamp</span><span class="reg-val" id="nm-ts"></span></div>
-      <div class="reg-row"><span class="reg-key">Registry Enrollment</span><span class="reg-val rv-red">NOT ENROLLED</span></div>
+      <div class="reg-row"><span class="reg-key">Registry Status</span><span class="reg-val rv-red">NOT ENROLLED</span></div>
       <div class="reg-row"><span class="reg-key">Compliance Record</span><span class="reg-val rv-red">ABSENT</span></div>
-      <div class="reg-row"><span class="reg-key">Protocol Standard</span><span class="reg-val">WCAG 2.1 AA</span></div>
+      <div class="reg-row"><span class="reg-key">Monitoring Status</span><span class="reg-val rv-red">NONE</span></div>
+      <div class="reg-row"><span class="reg-key">Protocol Standard</span><span class="reg-val">WCAG 2.1 AA · 45 C.F.R. §84</span></div>
+      <div class="reg-row"><span class="reg-key">Enforcement Deadline</span><span class="reg-val rv-amber">May 11, 2026 (15+ employees)</span></div>
     </div>
 
-
-    <div class="integrity-block band-none">
-      <div class="integrity-eyebrow">Record Integrity</div>
-      <div class="integrity-para">A scan was performed, but no verified record has been created. No compliance position has been formally documented. The scan data reflects a point-in-time observation that carries no legal standing without activation.</div>
-      <div class="hash-block">
-        <div class="hash-lbl">Scan Hash (SHA-256)</div>
-        <div class="hash-val" id="nm-hash"></div>
-        <div class="hash-note">Hash reflects scan data only. No registry record is associated with this hash. Activation creates a new cryptographically sealed record.</div>
-      </div>
-    </div>
-
-    <div class="cta-block">
-      <div class="cta-eyebrow">To Establish a Verified Record</div>
-      <div class="cta-title">Create Your HHS Readiness Record</div>
-      <div class="cta-para">Until a verified record is established, this page will continue to reflect: Not Monitored. The following steps are required to create a formal compliance position under HHS Section 504 and Section 1557.</div>
-      <div class="cta-steps">
-        <div class="cta-step"><div class="cta-step-n">1</div><span>A timestamped HHS accessibility audit must be performed and documented by a human auditor</span></div>
-        <div class="cta-step"><div class="cta-step-n">2</div><span>Findings must be reviewed, annotated, and formally recorded with screenshot evidence</span></div>
-        <div class="cta-step"><div class="cta-step-n">3</div><span>A registry record must be created, cryptographically sealed, and linked to this domain</span></div>
-      </div>
-      <div class="cta-row">
-        <a class="cta-btn" id="nm-cta-link" href="https://buy.stripe.com/14A00i4QX9so6UF11q2sM01" target="_blank" rel="noopener">Activate Record — $497 →</a>
-        <div>
-          <div class="cta-price-n">$497</div>
-          <div class="cta-price-s">One-time · Human verified · 48-hour delivery</div>
-        </div>
-      </div>
-      <div class="cta-secondary">
-        <div class="cta-sec-lbl">Ongoing Monitoring — $49/month</div>
-        <div class="cta-sec-body">Keeps your registry record active and continuously dated. Available after audit activation. A static audit can be challenged. A continuously dated record is far harder to dispute.</div>
-      </div>
+    <div class="referral-block">
+      <div class="referral-lbl">Registry Notice</div>
+      <div class="referral-body">If you represent this organization and wish to establish a compliance record, visit <a href="https://idrshield.com/healthcare" target="_blank" rel="noopener">idrshield.com/healthcare</a> to initiate an HHS accessibility audit. This record will update upon enrollment.</div>
     </div>
 
     <div class="hhs-cite">
@@ -393,21 +321,20 @@ footer{border-top:1px solid var(--border2);padding:22px 48px;display:flex;align-
       </div>
       <div class="badge-info">
         <div class="badge-info-eyebrow">Badge Status</div>
-        <div class="badge-info-title">IDR Verified — Active</div>
-        <div class="badge-info-body">A valid IDR verification badge is active for this domain, reflecting Manual Verified status. This badge is cryptographically linked to the registry record and reflects the documented compliance posture under HHS Section 504 and Section 1557.</div>
+        <div class="badge-info-title">IDR Verified — On Record</div>
+        <div class="badge-info-body">A verified compliance record is on file for this domain. This badge is cryptographically linked to the registry record and reflects the documented accessibility posture under HHS Section 504 and Section 1557 at the time of audit.</div>
         <div class="badge-info-url" id="v-badge-url"></div>
       </div>
     </div>
-
     </div>
 
     <div class="statement-block band-verified">
-      <div class="stmt-para">A verified compliance record has been established for this domain. This record reflects the accessibility posture at the time of audit. Findings have been documented, reviewed by a human auditor, and timestamped. This establishes a defensible record of action taken prior to enforcement exposure.</div>
+      <div class="stmt-para">A verified compliance record has been established for this domain. Findings have been documented, reviewed by a human auditor, and timestamped. This establishes a defensible record of action taken prior to enforcement exposure.</div>
       <div class="stmt-list">
-        <div class="stmt-item"><div class="stmt-dot dot-gold"></div><span>Enrolled in the IDR Registry</span></div>
+        <div class="stmt-item"><div class="stmt-dot dot-gold"></div><span>Enrolled in the IDR HHS Compliance Registry</span></div>
         <div class="stmt-item"><div class="stmt-dot dot-gold"></div><span>Human-verified audit completed and documented</span></div>
-        <div class="stmt-item"><div class="stmt-dot dot-gold"></div><span>Accessibility posture recorded at time of audit</span></div>
-        <div class="stmt-item"><div class="stmt-dot dot-gold"></div><span>Defensible record of action established</span></div>
+        <div class="stmt-item"><div class="stmt-dot dot-gold"></div><span>Accessibility posture recorded and timestamped at time of audit</span></div>
+        <div class="stmt-item"><div class="stmt-dot dot-gold"></div><span>Defensible record of action established under 45 C.F.R. §84</span></div>
       </div>
     </div>
 
@@ -425,7 +352,6 @@ footer{border-top:1px solid var(--border2);padding:22px 48px;display:flex;align-
       <div class="reg-row"><span class="reg-key">Protocol Standard</span><span class="reg-val">WCAG 2.1 AA</span></div>
       <div class="reg-row"><span class="reg-key">Scan Count</span><span class="reg-val" id="v-scan-ct"></span></div>
     </div>
-
 
     <div class="integrity-block band-verified">
       <div class="integrity-eyebrow">Record Integrity</div>
@@ -494,20 +420,19 @@ footer{border-top:1px solid var(--border2);padding:22px 48px;display:flex;align-
       <div class="badge-info">
         <div class="badge-info-eyebrow">Badge Status</div>
         <div class="badge-info-title">IDR Verified — Monitoring Active</div>
-        <div class="badge-info-body">A live IDR monitoring badge is deployed and synchronized with this registry record. Status updates automatically after every weekly rescan. This badge reflects not a point-in-time snapshot, but an active, ongoing compliance posture under HHS Section 504 and Section 1557.</div>
+        <div class="badge-info-body">A live IDR monitoring badge is active for this domain. Status updates automatically after every weekly rescan. This badge reflects an active, ongoing compliance posture — not a point-in-time snapshot — under HHS Section 504 and Section 1557.</div>
         <div class="badge-info-url" id="m-badge-url"></div>
       </div>
     </div>
-
     </div>
 
     <div class="statement-block band-monitoring">
-      <div class="stmt-para">This domain is actively monitored under the IDR compliance protocol. Accessibility status is continuously evaluated, and all remediation activity is logged in real time. This creates an ongoing, time-based record of compliance effort — not a snapshot, but a living defense.</div>
+      <div class="stmt-para">This domain is actively monitored under the IDR compliance protocol. Accessibility status is continuously evaluated, and all remediation activity is logged and timestamped. This creates an ongoing, time-based record of compliance effort — the strongest possible defense posture under HHS enforcement.</div>
       <div class="stmt-list">
-        <div class="stmt-item"><div class="stmt-dot dot-green"></div><span>Enrolled and actively monitored</span></div>
-        <div class="stmt-item"><div class="stmt-dot dot-green"></div><span>Continuous accessibility evaluation in progress</span></div>
-        <div class="stmt-item"><div class="stmt-dot dot-green"></div><span>All remediation activity logged and timestamped</span></div>
-        <div class="stmt-item"><div class="stmt-dot dot-green"></div><span>Living compliance record — continuously updated</span></div>
+        <div class="stmt-item"><div class="stmt-dot dot-green"></div><span>Enrolled and actively monitored in the IDR Registry</span></div>
+        <div class="stmt-item"><div class="stmt-dot dot-green"></div><span>Continuous accessibility evaluation — weekly automated rescans</span></div>
+        <div class="stmt-item"><div class="stmt-dot dot-green"></div><span>All remediation activity logged, sealed, and timestamped</span></div>
+        <div class="stmt-item"><div class="stmt-dot dot-green"></div><span>Living compliance record — continuously updated evidence log</span></div>
       </div>
     </div>
 
@@ -526,10 +451,9 @@ footer{border-top:1px solid var(--border2);padding:22px 48px;display:flex;align-
       <div class="reg-row"><span class="reg-key">Protocol Standard</span><span class="reg-val">WCAG 2.1 AA</span></div>
     </div>
 
-
     <div class="integrity-block band-monitoring">
       <div class="integrity-eyebrow">Record Integrity</div>
-      <div class="integrity-para">This record is continuously updated and timestamped. Any change in accessibility status is recorded as part of an ongoing evidence log. Each entry is cryptographically sealed at the time of creation. The cumulative record represents a documented history of compliance effort — the strongest possible defense posture.</div>
+      <div class="integrity-para">This record is continuously updated and timestamped. Any change in accessibility status is recorded as part of an ongoing evidence log. Each entry is cryptographically sealed at the time of creation. The cumulative record represents a documented history of compliance effort.</div>
       <div class="hash-block">
         <div class="hash-lbl">Latest Scan Hash (SHA-256)</div>
         <div class="hash-val" id="m-hash"></div>
@@ -554,12 +478,12 @@ footer{border-top:1px solid var(--border2);padding:22px 48px;display:flex;align-
   <div class="notfound-wrap">
     <div class="notfound-eyebrow">Registry Query</div>
     <div class="notfound-title">No Record Found</div>
-    <div class="notfound-body" id="notfound-body">This domain has no scan record in the IDR system. Run a free HHS compliance check to create one.</div>
+    <div class="notfound-body" id="notfound-body">This domain has no record in the IDR HHS Compliance Registry.</div>
     <div class="search-box" style="max-width:500px;margin:0 auto 24px;">
       <input class="search-inp" type="text" id="s-inp-4" placeholder="Try another domain" onkeydown="if(event.key==='Enter')nav(this.value)">
       <button class="search-btn" onclick="nav(document.getElementById('s-inp-4').value)">Check →</button>
     </div>
-    <a href="https://idrshield.com/healthcare" style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold3);text-decoration:none;border:1px solid var(--border);padding:10px 20px;border-radius:3px;display:inline-block;">Run HHS Check → idrshield.com/healthcare</a>
+    <a href="https://idrshield.com/healthcare" style="font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold3);text-decoration:none;border:1px solid var(--border);padding:10px 20px;border-radius:3px;display:inline-block;">Run HHS Compliance Check →</a>
   </div>
 </div>
 
@@ -574,10 +498,8 @@ footer{border-top:1px solid var(--border2);padding:22px 48px;display:flex;align-
 </footer>
 
 <script>
-/* ─── ROUTING ─────────────────────────────────────────── */
 function getDomain() {
   const path = window.location.pathname;
-  // Handles /hhs-verify/domain.com or /verify/domain.com
   const m = path.match(/\/(?:hhs-)?verify\/(.+)/);
   return m ? decodeURIComponent(m[1]).replace(/\/$/, '').toLowerCase() : null;
 }
@@ -589,66 +511,39 @@ async function init() {
 }
 
 async function loadRegistry(domain) {
-  ['state-search','state-not-monitored','state-verified','state-monitoring','state-notfound']
-    .forEach(hide);
+  ['state-search','state-not-monitored','state-verified','state-monitoring','state-notfound'].forEach(hide);
   show('state-loading');
-
   try {
     const res = await fetch('/api/hhs/registry/' + encodeURIComponent(domain));
     hide('state-loading');
-
-    if (res.status === 404) {
-      // Domain in system but not registered — show not-monitored with minimal data
-      renderNotMonitored(domain, null);
-      return;
-    }
+    if (res.status === 404) { renderNotMonitored(domain, null); return; }
     if (!res.ok) throw new Error('err');
-
     const d = await res.json();
     const st = (d.status || '').toLowerCase();
-
     if (st === 'active' || st === 'monitoring') renderMonitoring(domain, d);
     else if (st === 'manual_verified' || st === 'verified' || st === 'on_record') renderVerified(domain, d);
     else renderNotMonitored(domain, d);
-
   } catch(_) {
     hide('state-loading');
     renderNotMonitored(domain, null);
   }
 }
 
-/* ─── STATE RENDERERS ─────────────────────────────────── */
 function renderNotMonitored(domain, d) {
-  const score = d && d.latest_score != null ? d.latest_score + '/100' : '—';
-  const crits = d && d.critical_count != null ? String(d.critical_count) : '—';
-  const ts    = d && d.last_scanned ? fmtDate(new Date(d.last_scanned)) : 'No scan on record';
-  const rid   = d && d.receipt_id  ? d.receipt_id.substring(0,24) + '…' : '—';
-  const hash  = d && d.hash        ? d.hash : 'No hash on file';
-
-  set('nm-domain',    domain);
-  set('nm-rid',       rid);
-  set('nm-reg-dom',   domain);
-  set('nm-score',     score);
-  set('nm-crits',     crits);
-  set('nm-ts',        ts);
-  set('nm-hash',      hash);
-  set('nm-badge-url', 'idr.io/verify/' + domain);
-  inp('s-inp-1',      domain);
-
-  const link = document.getElementById('nm-cta-link');
-  if (link) link.href = 'https://buy.stripe.com/REPLACE_AUDIT_LINK?client_reference_id=' + encodeURIComponent(domain);
-
+  set('nm-domain',  domain);
+  set('nm-rid',     '—');
+  set('nm-reg-dom', domain);
+  inp('s-inp-1',    domain);
   show('state-not-monitored');
 }
 
 function renderVerified(domain, d) {
-  const score  = d.latest_score != null ? d.latest_score + '/100' : '—';
-  const crits  = d.critical_count != null ? String(d.critical_count) : '—';
-  const ts     = d.last_scanned ? fmtDate(new Date(d.last_scanned)) : '—';
-  const rid    = d.registry_id  || '—';
-  const sc     = d.scan_count   ? String(d.scan_count) : '1';
-  const hash   = d.hash         || '—';
-
+  const score = d.latest_score != null ? d.latest_score + '/100' : '—';
+  const crits = d.critical_count != null ? String(d.critical_count) : '—';
+  const ts    = d.last_scanned ? fmtDate(new Date(d.last_scanned)) : '—';
+  const rid   = d.registry_id  || '—';
+  const sc    = d.scan_count   ? String(d.scan_count) : '1';
+  const hash  = d.hash         || '—';
   set('v-domain',     domain);
   set('v-reg-id',     rid);
   set('v-domain-row', domain);
@@ -657,20 +552,18 @@ function renderVerified(domain, d) {
   set('v-ts',         ts);
   set('v-scan-ct',    sc);
   set('v-hash',       hash);
-  set('v-badge-url',  'idr.io/verify/' + domain);
+  set('v-badge-url',  'idrshield.com/hhs-verify/' + domain);
   inp('s-inp-2',      domain);
-
   show('state-verified');
 }
 
 function renderMonitoring(domain, d) {
-  const score  = d.latest_score != null ? d.latest_score + '/100' : '—';
-  const crits  = d.critical_count != null ? String(d.critical_count) : '—';
-  const ts     = d.last_scanned ? fmtDate(new Date(d.last_scanned)) : '—';
-  const rid    = d.registry_id  || '—';
-  const sc     = d.scan_count   ? String(d.scan_count) : '—';
-  const hash   = d.hash         || '—';
-
+  const score = d.latest_score != null ? d.latest_score + '/100' : '—';
+  const crits = d.critical_count != null ? String(d.critical_count) : '—';
+  const ts    = d.last_scanned ? fmtDate(new Date(d.last_scanned)) : '—';
+  const rid   = d.registry_id  || '—';
+  const sc    = d.scan_count   ? String(d.scan_count) : '—';
+  const hash  = d.hash         || '—';
   set('m-domain',     domain);
   set('m-reg-id',     rid);
   set('m-domain-row', domain);
@@ -679,25 +572,17 @@ function renderMonitoring(domain, d) {
   set('m-last-scan',  ts);
   set('m-scan-ct',    sc);
   set('m-hash',       hash);
-  set('m-badge-url',  'idr.io/verify/' + domain);
+  set('m-badge-url',  'idrshield.com/hhs-verify/' + domain);
   inp('s-inp-3',      domain);
-
   show('state-monitoring');
 }
 
-function renderNotFound(domain) {
-  set('notfound-body', '"' + domain + '" has no scan record in the IDR system. Run a free HHS compliance check at idrshield.com/healthcare to create one.');
-  show('state-notfound');
-}
-
-/* ─── NAV ─────────────────────────────────────────────── */
 function nav(raw) {
   if (!raw || !raw.trim()) return;
   const d = raw.trim().replace(/^https?:\/\/(www\.)?/i,'').replace(/\/$/,'').toLowerCase();
   window.location.href = '/hhs-verify/' + d;
 }
 
-/* ─── UTILS ───────────────────────────────────────────── */
 function set(id, v) { const e=document.getElementById(id); if(e) e.textContent=v; }
 function inp(id, v) { const e=document.getElementById(id); if(e) e.value=v; }
 function show(id)   { const e=document.getElementById(id); if(e) e.style.display='block'; }
