@@ -608,7 +608,7 @@ async function loadRegistry(domain) {
     const st = (d.status || '').toLowerCase();
 
     if (st === 'active' || st === 'monitoring') renderMonitoring(domain, d);
-    else if (st === 'manual_verified' || st === 'verified') renderVerified(domain, d);
+    else if (st === 'manual_verified' || st === 'verified' || st === 'on_record') renderVerified(domain, d);
     else renderNotMonitored(domain, d);
 
   } catch(_) {
