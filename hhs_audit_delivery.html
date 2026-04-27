@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HHS Audit Delivery — IDR Shield Admin</title>
+<style>
+  :root {
+    --navy:      #0A0E1A;
+    --navy-mid:  #14213D;
+    --gold:      #C9A84C;
+    --gold-dark: #8A6F2E;
+    --cream:     #FAF8F4;
+    --cream-mid: #F2EFE9;
+    --cream-dark:#E2DDD5;
+    --charcoal:  #1A1A2E;
+    --gray:      #7A7A8A;
+    --gray-lt:   #B0B0C0;
+    --red:       #B8280A;
+    --green:     #1A7A3C;
+    --amber:     #C47F00;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--navy);
+    color: var(--cream);
+    font-family: 'Georgia', serif;
+    min-height: 100vh;
+  }
+
+  /* ── Top bar ── */
+  .topbar {
+    background: var(--navy);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+    padding: 16px 40px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .topbar-logo {
+    font-family: Georgia, serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .topbar-sep { width: 1px; height: 20px; background: rgba(201,168,76,0.2); }
+  .topbar-title { font-size: 12px; color: rgba(201,168,76,0.5); letter-spacing: 0.12em; text-transform: uppercase; }
+  .topbar-badge {
+    margin-left: auto;
+    background: rgba(201,168,76,0.12);
+    border: 1px solid rgba(201,168,76,0.3);
+    color: var(--gold);
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 2px;
+  }
+
+  /* ── Layout ── */
+  .wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* ── Page header ── */
+  .page-hdr {
+    margin-bottom: 40px;
+  }
+  .page-eyebrow {
+    font-family: Arial, sans-serif;
+    font-size: 7.5px;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 10px;
+  }
+  .page-title {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .page-sub {
+    font-style: italic;
+    color: var(--gray);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .gold-rule {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, var(--gold) 0%, rgba(201,168,76,0.1) 100%);
+    margin: 28px 0;
+  }
+
+  /* ── Sections ── */
+  .section {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(201,168,76,0.12);
+    border-radius: 4px;
+    margin-bottom: 24px;
+    overflow: hidden;
+  }
+  .section-hdr {
+    background: var(--navy-mid);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-num {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+  .section-label {
+    font-family: Arial, sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .section-desc {
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    color: var(--gray);
+    margin-left: auto;
+  }
+  .section-body {
+    padding: 24px;
+  }
+
+  /* ── Form elements ── */
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .field-row.full { grid-template-columns: 1fr; }
+  .field-row.three { grid-template-columns: 1fr 1fr 1fr; }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .field label {
+    font-family: Arial, sans-serif;
+    font-size: 7.5px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gray-lt);
+  }
+  .field label .req { color: var(--gold); margin-left: 2px; }
+  .field input, .field textarea, .field select {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(201,168,76,0.18);
+    border-radius: 3px;
+    color: var(--cream);
+    font-family: Georgia, serif;
+    font-size: 13px;
+    padding: 10px 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  .field input:focus, .field textarea:focus, .field select:focus {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.05);
+  }
+  .field input::placeholder, .field textarea::placeholder { color: var(--gray); }
+  .field select option { background: var(--navy-mid); color: var(--cream); }
+  .field textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+  .field-hint {
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+    color: var(--gray);
+    font-style: italic;
+    margin-top: 2px;
+  }
+
+  /* ── Score inputs ── */
+  .score-input-wrap {
+    position: relative;
+  }
+  .score-input-wrap input {
+    padding-right: 42px;
+  }
+  .score-suffix {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+    color: var(--gray);
+  }
+
+  /* ── Category cards ── */
+  .cat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .cat-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(201,168,76,0.1);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .cat-card-hdr {
+    padding: 10px 16px;
+    background: rgba(201,168,76,0.06);
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .cat-name {
+    font-family: Arial, sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .cat-wcag {
+    font-family: 'Courier New', monospace;
+    font-size: 9px;
+    color: var(--gray);
+  }
+  .cat-body { padding: 14px 16px; }
+  .cat-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+  .cat-body .field label { font-size: 7px; letter-spacing: 0.12em; }
+  .cat-body .field input { padding: 7px 10px; font-size: 12px; }
+
+  /* ── Manual check items ── */
+  .check-item {
+    border: 1px solid rgba(201,168,76,0.1);
+    border-radius: 3px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .check-hdr {
+    display: grid;
+    grid-template-columns: 48px 1fr auto;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: rgba(255,255,255,0.02);
+    border-bottom: 1px solid rgba(201,168,76,0.08);
+  }
+  .check-num {
+    font-family: Georgia, serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--gold);
+    opacity: 0.6;
+    text-align: center;
+  }
+  .check-title {
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cream);
+  }
+  .check-std {
+    font-family: Arial, sans-serif;
+    font-size: 8px;
+    color: var(--gray);
+    margin-top: 2px;
+  }
+  .check-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--green);
+    flex-shrink: 0;
+  }
+  .status-label {
+    font-family: Arial, sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--green);
+  }
+  .check-body { padding: 12px 16px; }
+  .check-body textarea {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,168,76,0.14);
+    border-radius: 3px;
+    color: var(--cream);
+    font-family: Georgia, serif;
+    font-size: 12px;
+    padding: 10px 12px;
+    width: 100%;
+    min-height: 70px;
+    resize: vertical;
+    outline: none;
+    line-height: 1.6;
+    transition: border-color 0.2s;
+  }
+  .check-body textarea:focus { border-color: var(--gold); }
+  .check-body textarea::placeholder { color: var(--gray); font-style: italic; }
+
+  /* ── Admin password ── */
+  .admin-bar {
+    background: rgba(184,40,10,0.08);
+    border: 1px solid rgba(184,40,10,0.2);
+    border-radius: 4px;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .admin-bar-icon { font-size: 18px; }
+  .admin-bar-label {
+    font-family: Arial, sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(184,40,10,0.8);
+  }
+  .admin-bar input {
+    margin-left: auto;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(184,40,10,0.3);
+    border-radius: 3px;
+    color: var(--cream);
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    padding: 8px 14px;
+    outline: none;
+    width: 220px;
+    letter-spacing: 0.1em;
+  }
+  .admin-bar input:focus { border-color: rgba(184,40,10,0.6); }
+
+  /* ── Submit button ── */
+  .submit-zone {
+    margin-top: 32px;
+    text-align: center;
+  }
+  .btn-generate {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--gold);
+    color: var(--navy);
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border: none;
+    padding: 16px 48px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .btn-generate:hover { background: #D4B55E; }
+  .btn-generate:active { transform: scale(0.99); }
+  .btn-generate:disabled { background: var(--gray); cursor: not-allowed; }
+  .btn-generate .icon { font-size: 16px; }
+
+  /* ── Status messages ── */
+  .status-msg {
+    display: none;
+    margin-top: 20px;
+    padding: 16px 24px;
+    border-radius: 3px;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    line-height: 1.6;
+    text-align: left;
+  }
+  .status-msg.success {
+    display: block;
+    background: rgba(26,122,60,0.12);
+    border: 1px solid rgba(26,122,60,0.3);
+    color: #7EC89A;
+  }
+  .status-msg.error {
+    display: block;
+    background: rgba(184,40,10,0.12);
+    border: 1px solid rgba(184,40,10,0.3);
+    color: #F09080;
+  }
+  .status-msg.loading {
+    display: block;
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.2);
+    color: var(--gold);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 640px) {
+    .field-row { grid-template-columns: 1fr; }
+    .cat-grid { grid-template-columns: 1fr; }
+    .field-row.three { grid-template-columns: 1fr 1fr; }
+    .topbar { padding: 14px 20px; }
+    .wrap { padding: 24px 16px 60px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Top bar -->
+<div class="topbar">
+  <div class="topbar-logo">IDR Shield</div>
+  <div class="topbar-sep"></div>
+  <div class="topbar-title">HHS Audit Delivery Console</div>
+  <div class="topbar-badge">Admin Only</div>
+</div>
+
+<div class="wrap">
+
+  <!-- Page header -->
+  <div class="page-hdr">
+    <div class="page-eyebrow">Institute of Digital Remediation · HHS Compliance</div>
+    <h1 class="page-title">Generate & Deliver<br>HHS Audit Record</h1>
+    <p class="page-sub">
+      Complete all fields below. Clicking Generate & Send produces the
+      30-page PDF audit record and delivers it to the client's email automatically.
+    </p>
+    <div class="gold-rule"></div>
+  </div>
+
+  <!-- Admin password -->
+  <div class="admin-bar">
+    <div class="admin-bar-icon">🔒</div>
+    <div>
+      <div class="admin-bar-label">Admin Authentication Required</div>
+    </div>
+    <input type="password" id="adminKey" placeholder="Enter admin key…">
+  </div>
+
+  <form id="auditForm" novalidate>
+
+    <!-- ── Section 1: Client & Delivery ── -->
+    <div class="section">
+      <div class="section-hdr">
+        <div class="section-num">1</div>
+        <div class="section-label">Client & Delivery</div>
+        <div class="section-desc">Who receives the report</div>
+      </div>
+      <div class="section-body">
+        <div class="field-row">
+          <div class="field">
+            <label>Client Email <span class="req">*</span></label>
+            <input type="email" id="clientEmail" placeholder="compliance@hospital.com" required>
+            <div class="field-hint">The 30-page PDF attaches to this email automatically</div>
+          </div>
+          <div class="field">
+            <label>Domain <span class="req">*</span></label>
+            <input type="text" id="domain" placeholder="orlandohealth.com" required>
+            <div class="field-hint">Without https:// or www.</div>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Receipt ID <span class="req">*</span></label>
+            <input type="text" id="receiptId" placeholder="IDR-2026-XXXXXXXX" required>
+            <div class="field-hint">From the registry or payment notification</div>
+          </div>
+          <div class="field">
+            <label>Registry ID</label>
+            <input type="text" id="registryId" placeholder="IDR-HHS-DOMAIN-COM">
+            <div class="field-hint">Auto-generated if left blank</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Section 2: Organization Details ── -->
+    <div class="section">
+      <div class="section-hdr">
+        <div class="section-num">2</div>
+        <div class="section-label">Organization Details</div>
+        <div class="section-desc">Appears on cover page and throughout the document</div>
+      </div>
+      <div class="section-body">
+        <div class="field-row">
+          <div class="field">
+            <label>Legal Organization Name <span class="req">*</span></label>
+            <input type="text" id="orgName" placeholder="Orlando Health, Inc." required>
+          </div>
+          <div class="field">
+            <label>Contact Name & Title</label>
+            <input type="text" id="orgContact" placeholder="Dr. Angela Morrison, Chief Compliance Officer">
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Address</label>
+            <input type="text" id="orgAddress" placeholder="1414 Kuhl Avenue, Orlando, FL 32806">
+          </div>
+          <div class="field">
+            <label>Phone</label>
+            <input type="text" id="orgPhone" placeholder="(407) 841-5111">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Section 3: Overall Scores ── -->
+    <div class="section">
+      <div class="section-hdr">
+        <div class="section-num">3</div>
+        <div class="section-label">Overall Scan Results</div>
+        <div class="section-desc">Top-level scores from the automated scan</div>
+      </div>
+      <div class="section-body">
+        <div class="field-row three">
+          <div class="field">
+            <label>Overall Score <span class="req">*</span></label>
+            <div class="score-input-wrap">
+              <input type="number" id="overallScore" min="0" max="100" placeholder="62" required>
+              <span class="score-suffix">/100</span>
+            </div>
+          </div>
+          <div class="field">
+            <label>Critical Violations <span class="req">*</span></label>
+            <input type="number" id="critCount" min="0" placeholder="3" required>
+          </div>
+          <div class="field">
+            <label>Serious Violations</label>
+            <input type="number" id="seriousCount" min="0" placeholder="5">
+          </div>
+        </div>
+        <div class="field-row three">
+          <div class="field">
+            <label>Total Issues</label>
+            <input type="number" id="totalIssues" min="0" placeholder="14">
+          </div>
+          <div class="field">
+            <label>Page Title</label>
+            <input type="text" id="pageTitle" placeholder="Hospital Name | Homepage">
+          </div>
+          <div class="field">
+            <label>Scan Duration (ms)</label>
+            <input type="number" id="scanDuration" placeholder="4218">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Section 4: Category Findings ── -->
+    <div class="section">
+      <div class="section-hdr">
+        <div class="section-num">4</div>
+        <div class="section-label">Category Findings</div>
+        <div class="section-desc">Score and violation counts per category — leave at 100/0/0 if no issues</div>
+      </div>
+      <div class="section-body">
+        <div class="cat-grid">
+
+          <!-- Image Alt Text -->
+          <div class="cat-card">
+            <div class="cat-card-hdr">
+              <span class="cat-name">Image Alt Text</span>
+              <span class="cat-wcag">WCAG 1.1.1</span>
+            </div>
+            <div class="cat-body">
+              <div class="cat-row">
+                <div class="field">
+                  <label>Score</label>
+                  <input type="number" id="cat_alt_score" min="0" max="100" value="100" placeholder="100">
+                </div>
+                <div class="field">
+                  <label>Critical</label>
+                  <input type="number" id="cat_alt_crit" min="0" value="0" placeholder="0">
+                </div>
+                <div class="field">
+                  <label>Serious</label>
+                  <input type="number" id="cat_alt_serious" min="0" value="0" placeholder="0">
+                </div>
+              </div>
+              <div class="field">
+                <label>Finding Notes</label>
+                <textarea id="cat_alt_notes" rows="2" placeholder="e.g. 14 hero images missing alt text on homepage…"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Form Labels -->
+          <div class="cat-card">
+            <div class="cat-card-hdr">
+              <span class="cat-name">Form Labels</span>
+              <span class="cat-wcag">WCAG 1.3.1</span>
+            </div>
+            <div class="cat-body">
+              <div class="cat-row">
+                <div class="field">
+                  <label>Score</label>
+                  <input type="number" id="cat_form_score" min="0" max="100" value="100" placeholder="100">
+                </div>
+                <div class="field">
+                  <label>Critical</label>
+                  <input type="number" id="cat_form_crit" min="0" value="0" placeholder="0">
+                </div>
+                <div class="field">
+                  <label>Serious</label>
+                  <input type="number" id="cat_form_serious" min="0" value="0" placeholder="0">
+                </div>
+              </div>
+              <div class="field">
+                <label>Finding Notes</label>
+                <textarea id="cat_form_notes" rows="2" placeholder="e.g. Appointment booking form — 6 unlabeled inputs…"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Keyboard Navigation -->
+          <div class="cat-card">
+            <div class="cat-card-hdr">
+              <span class="cat-name">Keyboard Navigation</span>
+              <span class="cat-wcag">WCAG 2.1.1</span>
+            </div>
+            <div class="cat-body">
+              <div class="cat-row">
+                <div class="field">
+                  <label>Score</label>
+                  <input type="number" id="cat_kbd_score" min="0" max="100" value="100" placeholder="100">
+                </div>
+                <div class="field">
+                  <label>Critical</label>
+                  <input type="number" id="cat_kbd_crit" min="0" value="0" placeholder="0">
+                </div>
+                <div class="field">
+                  <label>Serious</label>
+                  <input type="number" id="cat_kbd_serious" min="0" value="0" placeholder="0">
+                </div>
+              </div>
+              <div class="field">
+                <label>Finding Notes</label>
+                <textarea id="cat_kbd_notes" rows="2" placeholder="e.g. Focus suppressed via CSS outline:none on nav…"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Heading Structure -->
+          <div class="cat-card">
+            <div class="cat-card-hdr">
+              <span class="cat-name">Heading Structure</span>
+              <span class="cat-wcag">WCAG 2.4.6</span>
+            </div>
+            <div class="cat-body">
+              <div class="cat-row">
+                <div class="field">
+                  <label>Score</label>
+                  <input type="number" id="cat_hdg_score" min="0" max="100" value="100" placeholder="100">
+                </div>
+                <div class="field">
+                  <label>Critical</label>
+                  <input type="number" id="cat_hdg_crit" min="0" value="0" placeholder="0">
+                </div>
+                <div class="field">
+                  <label>Serious</label>
+                  <input type="number" id="cat_hdg_serious" min="0" value="0" placeholder="0">
+                </div>
+              </div>
+              <div class="field">
+                <label>Finding Notes</label>
+                <textarea id="cat_hdg_notes" rows="2" placeholder="e.g. H1 skips to H3 in 4 sections…"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- ARIA & Links — spans full width -->
+          <div class="cat-card" style="grid-column: 1 / -1;">
+            <div class="cat-card-hdr">
+              <span class="cat-name">ARIA & Links</span>
+              <span class="cat-wcag">WCAG 4.1.1 · 4.1.2 · 2.4.4</span>
+            </div>
+            <div class="cat-body">
+              <div class="field-row three">
+                <div class="field">
+                  <label>Score</label>
+                  <input type="number" id="cat_aria_score" min="0" max="100" value="100" placeholder="100">
+                </div>
+                <div class="field">
+                  <label>Critical</label>
+                  <input type="number" id="cat_aria_crit" min="0" value="0" placeholder="0">
+                </div>
+                <div class="field">
+                  <label>Serious</label>
+                  <input type="number" id="cat_aria_serious" min="0" value="0" placeholder="0">
+                </div>
+              </div>
+              <div class="field">
+                <label>Finding Notes</label>
+                <textarea id="cat_aria_notes" rows="2" placeholder="e.g. 9 empty links, 6 unlabeled buttons in cart flow…"></textarea>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /cat-grid -->
+      </div>
+    </div>
+
+    <!-- ── Section 5: Manual Audit Checks ── -->
+    <div class="section">
+      <div class="section-hdr">
+        <div class="section-num">5</div>
+        <div class="section-label">Manual Audit Findings</div>
+        <div class="section-desc">Your human validation notes — appear as auditor-stamped in the report</div>
+      </div>
+      <div class="section-body">
+
+        <div class="check-item">
+          <div class="check-hdr">
+            <div class="check-num">01</div>
+            <div>
+              <div class="check-title">Keyboard Navigation Test</div>
+              <div class="check-std">WCAG 2.1.1, 2.4.1, 2.4.3</div>
+            </div>
+            <div class="check-status">
+              <div class="status-dot"></div>
+              <div class="status-label">COMPLETED</div>
+            </div>
+          </div>
+          <div class="check-body">
+            <textarea id="check_kbd" placeholder="e.g. Tab order logical throughout. Focus suppressed on 8 nav elements via CSS — cited in findings. Skip link present but non-functional. Appointment CTA unreachable by keyboard."></textarea>
+          </div>
+        </div>
+
+        <div class="check-item">
+          <div class="check-hdr">
+            <div class="check-num">02</div>
+            <div>
+              <div class="check-title">Screen Reader Pass</div>
+              <div class="check-std">WCAG 1.1.1, 1.3.1, 1.3.2, 4.1.2</div>
+            </div>
+            <div class="check-status">
+              <div class="status-dot"></div>
+              <div class="status-label">COMPLETED</div>
+            </div>
+          </div>
+          <div class="check-body">
+            <textarea id="check_sr" placeholder="e.g. Heading skip confirmed via NVDA. Hero banner completely unannounced. Appointment form inaccessible — screen reader user cannot book. Department images skipped."></textarea>
+          </div>
+        </div>
+
+        <div class="check-item">
+          <div class="check-hdr">
+            <div class="check-num">03</div>
+            <div>
+              <div class="check-title">Form Completion Test</div>
+              <div class="check-std">WCAG 1.3.1, 3.3.1, 3.3.2, 3.3.3</div>
+            </div>
+            <div class="check-status">
+              <div class="status-dot"></div>
+              <div class="status-label">COMPLETED</div>
+            </div>
+          </div>
+          <div class="check-body">
+            <textarea id="check_form" placeholder="e.g. Appointment booking: 6 unlabeled fields confirmed. Form submission partially accessible. Error messages not announced by screen reader."></textarea>
+          </div>
+        </div>
+
+        <div class="check-item">
+          <div class="check-hdr">
+            <div class="check-num">04</div>
+            <div>
+              <div class="check-title">PDF Accessibility Review</div>
+              <div class="check-std">WCAG 1.1.1, 1.3.1, PDF/UA ISO 14289</div>
+            </div>
+            <div class="check-status">
+              <div class="status-dot"></div>
+              <div class="status-label">COMPLETED</div>
+            </div>
+          </div>
+          <div class="check-body">
+            <textarea id="check_pdf" placeholder="e.g. Patient consent forms: untagged PDF confirmed. No alt text on embedded images. Document language not declared. 2 linked PDFs reviewed."></textarea>
+          </div>
+        </div>
+
+        <div class="check-item">
+          <div class="check-hdr">
+            <div class="check-num">05</div>
+            <div>
+              <div class="check-title">Visual Stress Testing</div>
+              <div class="check-std">WCAG 1.4.4, 1.4.10, 1.4.12, 2.3.3</div>
+            </div>
+            <div class="check-status">
+              <div class="status-dot"></div>
+              <div class="status-label">COMPLETED</div>
+            </div>
+          </div>
+          <div class="check-body">
+            <textarea id="check_visual" placeholder="e.g. Reflow at 200%: nav overlaps main content. High contrast: logo invisible (SVG without fill). Reduced motion: hero animations still fire despite preference."></textarea>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── Section 6: Audit timestamp ── -->
+    <div class="section">
+      <div class="section-hdr">
+        <div class="section-num">6</div>
+        <div class="section-label">Audit Timestamp</div>
+        <div class="section-desc">Defaults to right now if left blank</div>
+      </div>
+      <div class="section-body">
+        <div class="field-row">
+          <div class="field">
+            <label>Audit Date & Time (UTC)</label>
+            <input type="datetime-local" id="auditTimestamp">
+            <div class="field-hint">Leave blank to use current time</div>
+          </div>
+          <div class="field">
+            <label>Audit URL (if different from domain)</label>
+            <input type="text" id="auditUrl" placeholder="https://orlandohealth.com">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <div class="submit-zone">
+      <button type="submit" class="btn-generate" id="submitBtn">
+        <span class="icon">📄</span>
+        Generate & Send Audit Record
+      </button>
+
+      <div class="status-msg loading" id="msgLoading" style="display:none">
+        ⏳ Generating PDF and sending to client… this takes 15–30 seconds.
+      </div>
+      <div class="status-msg success" id="msgSuccess" style="display:none">
+        ✓ <strong>Audit record delivered.</strong><br>
+        The 30-page PDF has been generated and sent to the client's email.
+        The registry has been updated with the delivery timestamp.
+      </div>
+      <div class="status-msg error" id="msgError" style="display:none">
+        ✗ <strong>Delivery failed:</strong> <span id="errDetail"></span>
+      </div>
+    </div>
+
+  </form>
+</div>
+
+<script>
+const API = 'https://idr-backend-production.up.railway.app';
+
+// Pre-fill timestamp
+document.getElementById('auditTimestamp').value =
+  new Date().toISOString().slice(0, 16);
+
+// Pre-fill from URL params (Hans-Peter clicks from payment notification link)
+const params = new URLSearchParams(window.location.search);
+if (params.get('domain'))    document.getElementById('domain').value    = params.get('domain');
+if (params.get('email'))     document.getElementById('clientEmail').value = params.get('email');
+if (params.get('receipt_id'))document.getElementById('receiptId').value  = params.get('receipt_id');
+if (params.get('registry_id')) document.getElementById('registryId').value = params.get('registry_id');
+if (params.get('org'))       document.getElementById('orgName').value    = params.get('org');
+
+// Auto-generate registry_id from domain
+document.getElementById('domain').addEventListener('blur', function() {
+  const rid = document.getElementById('registryId');
+  if (!rid.value && this.value) {
+    rid.value = 'IDR-HHS-' + this.value.toUpperCase().replace(/\./g, '-');
+  }
+  const url = document.getElementById('auditUrl');
+  if (!url.value && this.value) {
+    url.value = 'https://' + this.value;
+  }
+});
+
+// Form submit
+document.getElementById('auditForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const adminKey = document.getElementById('adminKey').value.trim();
+  if (!adminKey) { alert('Enter the admin key first.'); return; }
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Generating…';
+
+  document.getElementById('msgLoading').style.display = 'block';
+  document.getElementById('msgSuccess').style.display = 'none';
+  document.getElementById('msgError').style.display   = 'none';
+
+  // Build timestamp
+  let ts = document.getElementById('auditTimestamp').value;
+  if (ts) {
+    ts = new Date(ts).toISOString();
+  } else {
+    ts = new Date().toISOString();
+  }
+
+  const domain = document.getElementById('domain').value.trim()
+    .replace('https://','').replace('http://','').replace('www.','').split('/')[0];
+
+  const payload = {
+    admin_key:   adminKey,
+    client_email: document.getElementById('clientEmail').value.trim(),
+    domain:      domain,
+    receipt_id:  document.getElementById('receiptId').value.trim(),
+    registry_id: document.getElementById('registryId').value.trim() ||
+                 'IDR-HHS-' + domain.toUpperCase().replace(/\./g,'-'),
+    timestamp_utc: ts,
+    organization: {
+      name:         document.getElementById('orgName').value.trim(),
+      address:      document.getElementById('orgAddress').value.trim(),
+      contact_name: document.getElementById('orgContact').value.trim(),
+      phone:        document.getElementById('orgPhone').value.trim(),
+      email:        document.getElementById('clientEmail').value.trim(),
+    },
+    scan: {
+      domain:         domain,
+      url:            document.getElementById('auditUrl').value.trim() || 'https://' + domain,
+      title:          document.getElementById('pageTitle').value.trim(),
+      overall_score:  parseInt(document.getElementById('overallScore').value)  || 0,
+      overall_status: scoreToStatus(parseInt(document.getElementById('overallScore').value) || 0),
+      critical_count: parseInt(document.getElementById('critCount').value)     || 0,
+      serious_count:  parseInt(document.getElementById('seriousCount').value)  || 0,
+      total_issues:   parseInt(document.getElementById('totalIssues').value)   || 0,
+      scan_duration_ms: parseInt(document.getElementById('scanDuration').value) || 0,
+      categories: buildCategories(domain),
+    },
+    manual_checks: {
+      keyboard:  document.getElementById('check_kbd').value.trim(),
+      screen_reader: document.getElementById('check_sr').value.trim(),
+      form:      document.getElementById('check_form').value.trim(),
+      pdf:       document.getElementById('check_pdf').value.trim(),
+      visual:    document.getElementById('check_visual').value.trim(),
+    }
+  };
+
+  try {
+    const resp = await fetch(API + '/api/hhs/manual-deliver', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const data = await resp.json();
+
+    document.getElementById('msgLoading').style.display = 'none';
+
+    if (resp.ok && data.success) {
+      document.getElementById('msgSuccess').style.display = 'block';
+      btn.textContent = '✓ Delivered';
+    } else {
+      document.getElementById('errDetail').textContent = data.error || 'Unknown error';
+      document.getElementById('msgError').style.display = 'block';
+      btn.disabled = false;
+      btn.innerHTML = '<span class="icon">📄</span> Generate & Send Audit Record';
+    }
+  } catch (err) {
+    document.getElementById('msgLoading').style.display = 'none';
+    document.getElementById('errDetail').textContent = err.message;
+    document.getElementById('msgError').style.display = 'block';
+    btn.disabled = false;
+    btn.innerHTML = '<span class="icon">📄</span> Generate & Send Audit Record';
+  }
+});
+
+function scoreToStatus(s) {
+  if (s >= 80) return 'pass';
+  if (s >= 60) return 'warning';
+  return 'fail';
+}
+
+function catStatus(score) {
+  if (score >= 80) return 'pass';
+  if (score >= 60) return 'warning';
+  return 'fail';
+}
+
+function buildCategories(domain) {
+  const cats = [
+    { id: 'alt',  name: 'Image Alt Text',       slug: 'alt_text',            wcag: '1.1.1' },
+    { id: 'form', name: 'Form Labels',           slug: 'form_labels',         wcag: '1.3.1' },
+    { id: 'kbd',  name: 'Keyboard Navigation',   slug: 'keyboard_navigation', wcag: '2.1.1' },
+    { id: 'hdg',  name: 'Heading Structure',     slug: 'heading_structure',   wcag: '1.3.1' },
+    { id: 'aria', name: 'ARIA & Links',          slug: 'aria_links',          wcag: '4.1.1' },
+  ];
+
+  return cats.map(cat => {
+    const score  = parseInt(document.getElementById(`cat_${cat.id}_score`).value)  || 100;
+    const crits  = parseInt(document.getElementById(`cat_${cat.id}_crit`).value)   || 0;
+    const serious= parseInt(document.getElementById(`cat_${cat.id}_serious`).value)|| 0;
+    const notes  = document.getElementById(`cat_${cat.id}_notes`).value.trim();
+
+    const issues = [];
+    if (crits > 0 || serious > 0) {
+      if (crits > 0) {
+        issues.push({
+          rule:        `${cat.slug}-critical`,
+          severity:    'critical',
+          description: notes || `${crits} critical violation(s) identified in ${cat.name}.`,
+          element:     '',
+          impact:      `Patients with disabilities cannot access content in this category.`,
+          url:         `https://${domain}`,
+          wcag:        cat.wcag,
+          count:       crits,
+        });
+      }
+      if (serious > 0) {
+        issues.push({
+          rule:        `${cat.slug}-serious`,
+          severity:    'serious',
+          description: notes && !crits ? notes : `${serious} serious violation(s) identified in ${cat.name}.`,
+          element:     '',
+          impact:      `Significant accessibility barrier for users with disabilities.`,
+          url:         `https://${domain}`,
+          wcag:        cat.wcag,
+          count:       serious,
+        });
+      }
+    }
+
+    return {
+      name:           cat.name,
+      slug:           cat.slug,
+      status:         catStatus(score),
+      score:          score,
+      critical_count: crits,
+      serious_count:  serious,
+      issues:         issues,
+    };
+  });
+}
+</script>
+</body>
+</html>
