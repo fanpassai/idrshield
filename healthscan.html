@@ -560,17 +560,48 @@ footer{border-top:1px solid var(--border2);padding:24px 40px;display:flex;align-
   </div>
 
   <div class="act-block">
-    <p class="act-kicker">HHS Readiness Audit — 48-Hour Delivery</p>
-    <h2 class="act-title">Create Your HHS Readiness Record</h2>
-    <p class="act-sub">The first documented proof your organization has taken action under HHS accessibility requirements.</p>
-    <div class="act-feats">
-      <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>Full WCAG 2.1 AA audit</strong> — automated detection + human verification</span></div>
-      <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>SHA-256 timestamped receipt</strong> — tamper-proof, registry-linked</span></div>
-      <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>IDR Registry entry</strong> — "Manual Verified" status, publicly accessible</span></div>
-      <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>Screenshot evidence</strong> — annotated failure points documented</span></div>
-      <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>Defense positioning summary</strong> — ready for legal use if challenged</span></div>
-      <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>Delivered within 48 hours</strong> of activation</span></div>
+  <p class="act-kicker">HHS Readiness Audit — 48-Hour Delivery</p>
+  <h2 class="act-title">Create Your HHS Readiness Record</h2>
+  <p class="act-sub">The first documented proof your organization has taken action under HHS accessibility requirements.</p>
+  <div class="act-feats">
+    <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>Full WCAG 2.1 AA audit</strong> — automated detection + human verification</span></div>
+    <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>SHA-256 timestamped receipt</strong> — tamper-proof, registry-linked</span></div>
+    <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>IDR Registry entry</strong> — "Manual Verified" status, publicly accessible</span></div>
+    <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>Screenshot evidence</strong> — annotated failure points documented</span></div>
+    <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>Defense positioning summary</strong> — ready for legal use if challenged</span></div>
+    <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>Delivered within 48 hours</strong> of activation</span></div>
+  </div>
+  <div class="org-capture">
+    <div class="org-capture-title">Step 1 — Your Organization Details</div>
+    <div class="org-fields">
+      <div class="org-field">
+        <label for="org-name">Organization Name *</label>
+        <input type="text" id="org-name" placeholder="Orlando Community Health Clinic">
+      </div>
+      <div class="org-field">
+        <label for="org-contact">Primary Contact Name *</label>
+        <input type="text" id="org-contact" placeholder="Dr. Jane Smith">
+      </div>
+      <div class="org-field">
+        <label for="org-title">Title / Role</label>
+        <input type="text" id="org-title" placeholder="Chief Compliance Officer">
+      </div>
+      <div class="org-field">
+        <label for="org-phone">Phone Number</label>
+        <input type="tel" id="org-phone" placeholder="(407) 555-0100">
+      </div>
+      <div class="org-field full">
+        <label for="org-address">Office Address</label>
+        <input type="text" id="org-address" placeholder="123 Health Plaza, Orlando, FL 32801">
+      </div>
     </div>
+    <div class="org-saved" id="org-saved">✓ Details saved — proceeding to payment</div>
+  </div>
+  <div class="act-cta-row">
+    <a id="act-link" class="cta-btn" href="#" onclick="activateHHS(event)">Activate HHS Readiness Record — $497</a>
+    <div><div class="price-n">$497</div><div class="price-s">One-time · Human verified · 48-hour delivery</div></div>
+  </div>
+</div>
     <div class="act-cta-row">
       <a id="act-link" class="cta-btn" href="https://buy.stripe.com/REPLACE_AUDIT_LINK" target="_blank" rel="noopener">Activate HHS Readiness Record — $497</a>
       <div><div class="price-n">$497</div><div class="price-s">One-time · Human verified · 48-hour delivery</div></div>
