@@ -2330,6 +2330,19 @@ footer {
 </footer>
 
 <script>
+// Pre-fill URL from /healthcare landing page scan box
+(function(){
+  const p = new URLSearchParams(window.location.search);
+  const u = p.get('url');
+  if (u) {
+    const inp = document.getElementById('url-inp');
+    if (inp) {
+      inp.value = u;
+      checkReady();
+      setTimeout(function(){ inp.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 300);
+    }
+  }
+})();
 
 // Live org count from API
 (function(){
@@ -2355,10 +2368,16 @@ document.getElementById('scan-url-input').addEventListener('keydown', function(e
   if (e.key === 'Enter') runFreeScan();
 });
 
-// Update days remaining dynamically
+// Update dynamic days
 (function(){
   const dl = new Date('2026-05-11T23:59:59');
   const days = Math.max(0, Math.ceil((dl - new Date()) / 86400000));
+  document.querySelectorAll('.dynamic-days').forEach(el => {
+    el.textContent = days;
+    if (days <= 3) el.style.color = 'var(--red)';
+  });
+  const ey = document.querySelector('.urgency-eyebrow');
+  if (ey) ey.textContent = days + ' Days Remaining';
   document.querySelectorAll('.proof-item').forEach(el => {
     const n = el.querySelector('.proof-n');
     const l = el.querySelector('.proof-l');
