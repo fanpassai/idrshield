@@ -1,0 +1,2389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="theme-color" content="#0A0E1A">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="HHS Section 504 digital accessibility compliance is now enforceable for healthcare organizations. WCAG 2.1 AA required by May 11, 2026. Get your official IDR audit record.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://idrshield.com/healthcare">
+<title>HHS Digital Accessibility Compliance — IDR Shield | Healthcare</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0A0E1A;
+  --navy2: #0D1526;
+  --navy3: #111827;
+  --gold: #C9A84C;
+  --gold2: #E2C97E;
+  --gold3: #8A6F2E;
+  --cream: #F0E8D8;
+  --cream2: #D4C9B5;
+  --red: #E63946;
+  --red-bg: rgba(230,57,70,0.08);
+  --red-bd: rgba(230,57,70,0.22);
+  --pass: #52B788;
+  --border: rgba(201,168,76,0.15);
+  --border2: rgba(201,168,76,0.08);
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+  font-family: 'EB Garamond', Georgia, serif;
+  background: var(--navy);
+  color: var(--cream);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: .025;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ── HEADER ── */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  height: 72px;
+  border-bottom: 1px solid var(--border2);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10,14,26,0.97);
+  backdrop-filter: blur(20px);
+}
+.logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.logo-seal {
+  width: 38px; height: 38px;
+  border: 1.5px solid var(--gold3);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 11px; font-weight: 700;
+  color: var(--gold); flex-shrink: 0;
+}
+.logo-text { display: flex; flex-direction: column; gap: 1px; }
+.logo-name {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 7.5px; font-weight: 700;
+  letter-spacing: .28em; color: rgba(201,168,76,.45);
+  text-transform: uppercase;
+}
+.logo-product {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px; font-weight: 700; color: var(--cream);
+}
+.hdr-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--gold);
+  color: var(--navy);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 8.5px; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase;
+  padding: 10px 22px; border-radius: 2px;
+  text-decoration: none;
+  transition: background .2s;
+}
+.hdr-cta:hover { background: var(--gold2); }
+
+/* ── ALERT TICKER ── */
+.ticker {
+  background: rgba(230,57,70,0.1);
+  border-bottom: 1px solid rgba(230,57,70,0.2);
+  padding: 10px 48px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  overflow: hidden;
+}
+.ticker-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--red);
+  flex-shrink: 0;
+  animation: pulse-dot 1.4s ease-in-out infinite;
+}
+@keyframes pulse-dot { 0%,100%{opacity:1;} 50%{opacity:.25;} }
+.ticker-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 8px; font-weight: 700;
+  letter-spacing: .28em; text-transform: uppercase;
+  color: var(--red); flex-shrink: 0;
+}
+.ticker-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px; color: rgba(240,232,216,.55);
+  letter-spacing: .04em;
+}
+.ticker-text strong { color: rgba(240,232,216,.85); }
+
+/* ── HERO ── */
+.hero {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 96px 48px 80px;
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 80px;
+  align-items: start;
+}
+.hero-eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 8px; font-weight: 700;
+  letter-spacing: .32em; text-transform: uppercase;
+  color: var(--gold3);
+  margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.hero-eyebrow::after {
+  content: '';
+  flex: 1; height: 1px;
+  background: linear-gradient(90deg, var(--gold3), transparent);
+  max-width: 80px;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(40px, 5vw, 60px);
+  font-weight: 700;
+  line-height: 1.05;
+  margin-bottom: 28px;
+  color: var(--cream);
+}
+.hero h1 em { color: var(--gold); font-style: italic; }
+.hero-body {
+  font-size: 17px;
+  line-height: 1.7;
+  color: rgba(240,232,216,.6);
+  margin-bottom: 36px;
+  max-width: 520px;
+}
+.hero-cta-row {
+  display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+}
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--gold);
+  color: var(--navy);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9.5px; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase;
+  padding: 16px 36px; border-radius: 2px;
+  text-decoration: none;
+  transition: background .2s, transform .15s, box-shadow .2s;
+}
+.btn-primary:hover {
+  background: var(--gold2);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 28px rgba(201,168,76,.25);
+}
+.btn-primary .arrow { font-size: 14px; }
+.btn-secondary {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px; font-weight: 600;
+  letter-spacing: .14em;
+  color: rgba(201,168,76,.5);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(201,168,76,.2);
+  padding-bottom: 1px;
+  transition: color .2s;
+}
+.btn-secondary:hover { color: var(--gold); }
+
+/* HERO DEADLINE CARD */
+.deadline-card {
+  background: rgba(13,21,38,.9);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  position: sticky;
+  top: 90px;
+}
+.dc-top {
+  background: rgba(230,57,70,.1);
+  border-bottom: 1px solid rgba(230,57,70,.2);
+  padding: 14px 22px;
+  display: flex; align-items: center; gap: 9px;
+}
+.dc-top-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 7.5px; font-weight: 700;
+  letter-spacing: .28em; text-transform: uppercase;
+  color: var(--red);
+}
+.dc-body { padding: 24px 22px; }
+.dc-date {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px; font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 6px;
+}
+.dc-sub {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 8px; letter-spacing: .16em;
+  color: rgba(240,232,216,.3); text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.cd-row {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 8px; margin-bottom: 20px;
+}
+.cd-unit-box {
+  background: rgba(10,14,26,.8);
+  border: 1px solid var(--border2);
+  border-radius: 3px;
+  padding: 10px 6px;
+  text-align: center;
+}
+.cd-val {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px; font-weight: 500;
+  color: var(--gold); line-height: 1;
+}
+.cd-lbl {
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 7px; letter-spacing: 1px;
+  color: rgba(201,168,76,.3); text-transform: uppercase;
+  margin-top: 4px;
+}
+.dc-rule {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; color: rgba(201,168,76,.3);
+  border-top: 1px solid var(--border2);
+  padding-top: 16px; margin-bottom: 18px;
+  line-height: 1.7;
+}
+.dc-cta {
+  display: block; text-align: center;
+  background: var(--gold);
+  color: var(--navy);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase;
+  padding: 14px; border-radius: 2px;
+  text-decoration: none;
+  transition: background .2s;
+}
+.dc-cta:hover { background: var(--gold2); }
+
+/* ── DIVIDER ── */
+.section-divider {
+  width: 100%; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 0;
+}
+
+/* ── REGULATION SECTION ── */
+.regulation {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 48px;
+}
+.section-eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 8px; font-weight: 700;
+  letter-spacing: .32em; text-transform: uppercase;
+  color: var(--gold3);
+  margin-bottom: 16px;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 3.5vw, 40px);
+  font-weight: 700;
+  color: var(--cream);
+  line-height: 1.15;
+  margin-bottom: 20px;
+  max-width: 680px;
+}
+.section-lead {
+  font-size: 16px; line-height: 1.75;
+  color: rgba(240,232,216,.55);
+  max-width: 680px;
+  margin-bottom: 52px;
+}
+.regulation-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.reg-card {
+  background: rgba(13,21,38,.7);
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  padding: 28px 28px 24px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color .2s;
+}
+.reg-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold3), transparent);
+}
+.reg-card:hover { border-color: var(--border); }
+.reg-card.highlight {
+  border-color: rgba(230,57,70,.3);
+  background: rgba(80,10,10,.15);
+}
+.reg-card.highlight::before {
+  background: linear-gradient(90deg, var(--red), transparent);
+}
+.reg-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; color: var(--gold3);
+  margin-bottom: 12px;
+  display: block;
+}
+.reg-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px; font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 10px;
+}
+.reg-body {
+  font-size: 14px; line-height: 1.65;
+  color: rgba(240,232,216,.45);
+}
+.reg-body strong { color: rgba(240,232,216,.75); font-weight: 500; }
+.reg-tag {
+  display: inline-block;
+  margin-top: 14px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 7.5px; font-weight: 700;
+  letter-spacing: .16em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 2px;
+}
+.reg-tag.urgent {
+  background: rgba(230,57,70,.15);
+  color: var(--red);
+  border: 1px solid rgba(230,57,70,.25);
+}
+.reg-tag.active {
+  background: rgba(201,168,76,.1);
+  color: var(--gold);
+  border: 1px solid rgba(201,168,76,.2);
+}
+
+/* ── WHO IT APPLIES TO ── */
+.applies {
+  background: rgba(13,21,38,.5);
+  border-top: 1px solid var(--border2);
+  border-bottom: 1px solid var(--border2);
+  padding: 80px 0;
+}
+.applies-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+.applies-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 1px;
+  background: var(--border2);
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 48px;
+}
+.applies-cell {
+  background: var(--navy);
+  padding: 32px 28px;
+}
+.ac-icon {
+  font-size: 22px; margin-bottom: 14px;
+}
+.ac-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 8.5px; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.ac-body {
+  font-size: 14px; line-height: 1.65;
+  color: rgba(240,232,216,.45);
+}
+.ac-body strong { color: rgba(240,232,216,.7); font-weight: 500; }
+
+/* ── WHAT'S AT STAKE ── */
+.stakes {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 48px;
+}
+.stakes-layout {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 80px;
+  align-items: start;
+}
+.stakes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 48px;
+}
+.stake-item {
+  display: flex;
+  gap: 20px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--border2);
+}
+.stake-item:first-child { border-top: 1px solid var(--border2); }
+.stake-n {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px; font-weight: 700;
+  color: rgba(201,168,76,.25);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 44px;
+}
+.stake-content {}
+.stake-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px; font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 5px;
+}
+.stake-body {
+  font-size: 14px; line-height: 1.65;
+  color: rgba(240,232,216,.4);
+}
+
+/* STATUTE BLOCK */
+.statute-block {
+  background: rgba(13,21,38,.9);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 48px;
+  position: sticky;
+  top: 90px;
+}
+.sb-hdr {
+  background: var(--navy);
+  border-bottom: 1px solid var(--border2);
+  padding: 16px 22px;
+}
+.sb-hdr-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 7.5px; font-weight: 700;
+  letter-spacing: .28em; text-transform: uppercase;
+  color: var(--gold3);
+}
+.sb-body { padding: 22px; }
+.statute-item {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border2);
+}
+.statute-item:last-child { border-bottom: none; }
+.stat-code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; color: var(--gold3);
+  margin-bottom: 5px; display: block;
+}
+.stat-name {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: .08em;
+  color: rgba(240,232,216,.7);
+  margin-bottom: 4px;
+}
+.stat-desc {
+  font-size: 12px; line-height: 1.55;
+  color: rgba(240,232,216,.3);
+}
+
+/* ── HOW IDR WORKS ── */
+.how {
+  background: rgba(13,21,38,.4);
+  border-top: 1px solid var(--border2);
+  border-bottom: 1px solid var(--border2);
+  padding: 80px 0;
+}
+.how-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+.how-steps {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 0;
+  margin-top: 52px;
+  position: relative;
+}
+.how-steps::after {
+  content: '';
+  position: absolute;
+  top: 30px; left: 8%; right: 8%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), var(--border), transparent);
+}
+.how-step {
+  padding: 0 20px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.step-num {
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--navy);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px;
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; font-weight: 700;
+  color: var(--gold);
+}
+.step-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 8.5px; font-weight: 700;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(240,232,216,.6);
+  margin-bottom: 10px;
+}
+.step-body {
+  font-size: 13px; line-height: 1.6;
+  color: rgba(240,232,216,.35);
+}
+
+/* ── WHAT YOU RECEIVE ── */
+.receive {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 48px;
+}
+
+/* MOCKUP SHOWCASE */
+.mockup-showcase {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+.mockup-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.mockup-row.reverse { direction: rtl; }
+.mockup-row.reverse > * { direction: ltr; }
+.mockup-desc {}
+.md-tag {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 7.5px; font-weight: 700;
+  letter-spacing: .28em; text-transform: uppercase;
+  color: var(--gold3); margin-bottom: 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.md-tag::before {
+  content: '';
+  width: 20px; height: 1px;
+  background: var(--gold3);
+}
+.md-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px; font-weight: 700;
+  color: var(--cream); margin-bottom: 12px;
+  line-height: 1.2;
+}
+.md-body {
+  font-size: 14.5px; line-height: 1.75;
+  color: rgba(240,232,216,.45);
+  margin-bottom: 16px;
+}
+.md-body strong { color: rgba(240,232,216,.7); font-weight: 500; }
+.md-features {
+  display: flex; flex-direction: column; gap: 8px;
+}
+.md-feat {
+  display: flex; gap: 10px; align-items: flex-start;
+  font-size: 13px; color: rgba(240,232,216,.4); line-height: 1.5;
+}
+.md-feat::before {
+  content: '✓';
+  color: var(--gold3); flex-shrink: 0; margin-top: 1px;
+  font-size: 11px;
+}
+
+/* BROWSER FRAME */
+.browser-frame {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow: 0 24px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(201,168,76,.1);
+}
+.browser-bar {
+  background: #1C1C1E;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.browser-dots {
+  display: flex; gap: 5px;
+}
+.browser-dot {
+  width: 9px; height: 9px; border-radius: 50%;
+}
+.browser-dot:nth-child(1) { background: #FF5F57; }
+.browser-dot:nth-child(2) { background: #FFBD2E; }
+.browser-dot:nth-child(3) { background: #28CA41; }
+.browser-url {
+  flex: 1;
+  background: rgba(255,255,255,.07);
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: rgba(255,255,255,.35);
+}
+.browser-content {
+  overflow: hidden;
+}
+
+/* PDF MOCKUP */
+.pdf-mock {
+  background: #0A0E1A;
+  padding: 0;
+  font-family: 'Georgia', serif;
+}
+.pdf-gold-bar { height: 5px; background: #C9A84C; }
+.pdf-cover {
+  padding: 28px 28px 24px;
+  text-align: center;
+}
+.pdf-seal-wrap {
+  display: flex; justify-content: center; margin-bottom: 12px;
+}
+.pdf-seal {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  border: 1.5px solid #C9A84C;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Georgia', serif;
+  font-size: 13px; font-weight: 700;
+  color: #C9A84C;
+  background: rgba(201,168,76,.08);
+}
+.pdf-inst {
+  font-family: 'Arial', sans-serif;
+  font-size: 7px; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(201,168,76,.6); margin-bottom: 3px;
+}
+.pdf-div { font-family: 'Arial', sans-serif; font-size: 6px; color: rgba(201,168,76,.3); margin-bottom: 12px; }
+.pdf-gold-rule { width: 100%; height: 1px; background: linear-gradient(90deg,transparent,#C9A84C,transparent); margin-bottom: 12px; }
+.pdf-title {
+  font-size: 14px; font-weight: 700; color: #F0E8D8;
+  line-height: 1.2; margin-bottom: 4px;
+  letter-spacing: .02em;
+}
+.pdf-domain {
+  font-family: 'Arial', sans-serif;
+  font-size: 8px; font-weight: 700;
+  letter-spacing: .2em; color: #C9A84C;
+  margin-bottom: 14px;
+}
+.pdf-score-row {
+  display: flex; align-items: baseline; justify-content: center; gap: 6px; margin-bottom: 14px;
+}
+.pdf-score-n {
+  font-size: 48px; font-weight: 700; color: #E63946; line-height: 1;
+}
+.pdf-score-d { font-size: 12px; color: rgba(240,232,216,.3); }
+.pdf-score-l {
+  font-family: 'Arial', sans-serif;
+  font-size: 10px; font-weight: 700;
+  color: #E63946; letter-spacing: .14em;
+  margin-left: 8px;
+}
+.pdf-kv-table {
+  width: 100%;
+  border-top: 1.5px solid #C9A84C;
+  border-bottom: 1.5px solid #C9A84C;
+  margin-bottom: 14px;
+}
+.pdf-kv-row {
+  display: flex; border-bottom: 1px solid rgba(201,168,76,.1);
+}
+.pdf-kv-row:last-child { border-bottom: none; }
+.pdf-kv-k {
+  background: rgba(13,21,56,.5);
+  font-family: 'Arial', sans-serif;
+  font-size: 6px; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: #8A6F2E;
+  padding: 5px 8px;
+  width: 100px; flex-shrink: 0;
+}
+.pdf-kv-v {
+  font-family: 'Courier New', monospace;
+  font-size: 6.5px; color: rgba(240,232,216,.6);
+  padding: 5px 8px;
+  flex: 1;
+}
+.pdf-footer {
+  background: rgba(0,0,0,.3);
+  border-top: 1px solid rgba(201,168,76,.1);
+  padding: 6px 12px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.pdf-hash {
+  font-family: 'Courier New', monospace;
+  font-size: 5.5px; color: rgba(201,168,76,.25);
+}
+.pdf-pg { font-family: 'Arial', sans-serif; font-size: 6px; color: rgba(240,232,216,.2); }
+
+/* VERIFY PAGE MOCKUP */
+.verify-mock {
+  background: #0A0E1A;
+}
+.vm-header {
+  background: rgba(10,14,26,.97);
+  border-bottom: 1px solid rgba(201,168,76,.1);
+  padding: 10px 16px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.vm-logo { display: flex; align-items: center; gap: 6px; }
+.vm-logo-seal {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 1px solid #8A6F2E;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Georgia', serif; font-size: 7px; font-weight: 700; color: #C9A84C;
+}
+.vm-logo-text { font-family: 'Georgia', serif; font-size: 9px; font-weight: 700; color: #F0E8D8; }
+.vm-body { padding: 20px 16px; }
+.vm-domain {
+  font-family: 'Courier New', monospace;
+  font-size: 8px; color: rgba(201,168,76,.5);
+  margin-bottom: 16px; letter-spacing: .1em;
+}
+.vm-badge-zone {
+  display: flex; flex-direction: column; align-items: center;
+  margin-bottom: 20px;
+}
+.vm-badge {
+  width: 90px; height: 90px;
+  border-radius: 50%;
+  border: 1.5px solid #C9A84C;
+  background: #0A0E1A;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  margin-bottom: 10px;
+  position: relative;
+  box-shadow: 0 0 24px rgba(201,168,76,.2), 0 0 0 4px rgba(201,168,76,.04);
+  animation: badge-pulse 2.5s ease-in-out infinite;
+}
+@keyframes badge-pulse {
+  0%,100%{ box-shadow: 0 0 24px rgba(201,168,76,.2), 0 0 0 4px rgba(201,168,76,.04); }
+  50%{ box-shadow: 0 0 36px rgba(201,168,76,.35), 0 0 0 8px rgba(201,168,76,.08); }
+}
+.vm-badge-idr { font-family: 'Georgia', serif; font-size: 18px; font-weight: 700; color: #C9A84C; }
+.vm-badge-line { width: 30px; height: 1px; background: #8A6F2E; margin: 3px 0; }
+.vm-badge-sub {
+  font-family: 'Arial', sans-serif;
+  font-size: 4px; font-weight: 700;
+  letter-spacing: .08em; color: rgba(201,168,76,.55); text-align: center;
+  text-transform: uppercase;
+}
+.vm-status-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(201,168,76,.1);
+  border: 1px solid rgba(201,168,76,.3);
+  border-radius: 2px;
+  padding: 5px 12px;
+  font-family: 'Arial', sans-serif;
+  font-size: 8px; font-weight: 700;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: #C9A84C;
+}
+.vm-pill-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #C9A84C;
+  box-shadow: 0 0 6px #C9A84C;
+  animation: pill-blink 1.5s ease-in-out infinite;
+}
+@keyframes pill-blink { 0%,100%{opacity:1;} 50%{opacity:.3;} }
+.vm-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+  background: rgba(201,168,76,.08);
+  border: 1px solid rgba(201,168,76,.08);
+  border-radius: 3px; overflow: hidden;
+  margin-top: 14px;
+}
+.vm-kv { background: #0A0E1A; padding: 8px 10px; }
+.vm-kv-k {
+  font-family: 'Arial', sans-serif;
+  font-size: 6px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: #8A6F2E; margin-bottom: 3px;
+}
+.vm-kv-v {
+  font-family: 'Courier New', monospace;
+  font-size: 7px; color: rgba(240,232,216,.55);
+}
+
+/* FINDINGS MOCKUP */
+.findings-mock {
+  background: #F5F2EE;
+  font-family: 'Georgia', serif;
+}
+.fm-header {
+  background: #0A0E1A;
+  border-bottom: 3px solid #C9A84C;
+  padding: 8px 14px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.fm-hdr-l { font-family: 'Arial', sans-serif; font-size: 6px; font-weight: 700; letter-spacing: .2em; color: rgba(201,168,76,.5); text-transform: uppercase; }
+.fm-hdr-r { font-family: 'Courier New', monospace; font-size: 6px; color: rgba(201,168,76,.3); }
+.fm-body { padding: 14px; }
+.fm-section-label {
+  font-family: 'Arial', sans-serif;
+  font-size: 6.5px; font-weight: 700;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: #8A6F2E; margin-bottom: 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(201,168,76,.2);
+}
+.fm-violation {
+  margin-bottom: 8px;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.fm-v-hdr {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 6px 10px;
+}
+.fm-v-hdr.critical { background: rgba(230,57,70,.12); border-left: 2px solid #E63946; }
+.fm-v-hdr.serious { background: rgba(233,196,106,.1); border-left: 2px solid #E9C46A; }
+.fm-v-sev {
+  font-family: 'Arial', sans-serif;
+  font-size: 6px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+}
+.fm-v-sev.critical { color: #E63946; }
+.fm-v-sev.serious { color: #C47F00; }
+.fm-v-rule { font-family: 'Courier New', monospace; font-size: 6px; color: rgba(26,26,46,.4); }
+.fm-v-body {
+  background: white;
+  padding: 6px 10px;
+  border: 1px solid rgba(0,0,0,.06);
+  border-top: none;
+}
+.fm-v-desc { font-size: 8px; color: rgba(26,26,46,.65); line-height: 1.5; margin-bottom: 4px; }
+.fm-v-impact { font-size: 7px; font-style: italic; color: rgba(26,26,46,.35); }
+.fm-stamp {
+  float: right;
+  border: 1px solid #1A7A3C;
+  border-radius: 2px;
+  padding: 3px 7px;
+  text-align: center;
+  margin-top: -2px;
+}
+.fm-stamp-lbl { font-family: 'Arial', sans-serif; font-size: 5px; font-weight: 700; color: #1A7A3C; letter-spacing: .1em; }
+.fm-stamp-init { font-family: 'Georgia', serif; font-size: 10px; font-weight: 700; color: #1A7A3C; font-style: italic; }
+
+/* EMAIL MOCKUP */
+.email-mock {
+  background: #f4f4f4;
+  font-family: Arial, sans-serif;
+}
+.em-topbar {
+  background: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 8px 12px;
+  font-size: 8px; color: #666;
+}
+.em-subject { font-weight: 700; color: #333; font-size: 9px; }
+.em-meta { color: #999; font-size: 7px; margin-top: 2px; }
+.em-body { padding: 0; }
+.em-hdr {
+  background: #0A0E1A;
+  padding: 16px 20px;
+  border-bottom: 2px solid #C9A84C;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.em-hdr-l { font-family: 'Arial', sans-serif; font-size: 7px; font-weight: 700; letter-spacing: .18em; color: rgba(201,168,76,.6); text-transform: uppercase; }
+.em-hdr-r { font-family: 'Arial', sans-serif; font-size: 7px; color: rgba(201,168,76,.35); }
+.em-content { background: #fff; padding: 18px 20px; }
+.em-eyebrow { font-size: 7px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: #C9A84C; margin-bottom: 6px; }
+.em-title { font-family: 'Georgia', serif; font-size: 16px; font-weight: 700; color: #0A0E1A; margin-bottom: 4px; line-height: 1.2; }
+.em-sub { font-size: 10px; font-style: italic; color: #999; margin-bottom: 14px; }
+.em-metrics {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 1px; background: #eee;
+  border: 1px solid #eee; border-radius: 3px; overflow: hidden;
+  margin-bottom: 14px;
+}
+.em-metric { background: #fff; padding: 10px 12px; text-align: center; }
+.em-metric-n { font-family: 'Georgia', serif; font-size: 22px; font-weight: 700; display: block; line-height: 1; margin-bottom: 3px; }
+.em-metric-l { font-size: 7px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #999; }
+.em-section-hdr { font-size: 7.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #C9A84C; margin-bottom: 8px; border-bottom: 1px solid #f0ede6; padding-bottom: 5px; }
+.em-check-row { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; border-bottom: 1px solid #f8f5f0; }
+.em-check-icon { font-size: 10px; flex-shrink: 0; margin-top: 1px; }
+.em-check-title { font-size: 9px; font-weight: 700; color: #333; margin-bottom: 2px; }
+.em-check-desc { font-size: 8px; color: #999; line-height: 1.4; font-style: italic; }
+.em-cta-wrap { text-align: center; padding: 14px 0 4px; }
+.em-cta {
+  display: inline-block;
+  background: #C9A84C; color: #0A0E1A;
+  font-size: 8px; font-weight: 700;
+  letter-spacing: .16em; text-transform: uppercase;
+  padding: 10px 24px; text-decoration: none;
+  border-radius: 2px;
+}
+.em-footer { background: #0A0E1A; padding: 10px 16px; }
+.em-footer-txt { font-size: 7px; color: rgba(240,232,216,.2); text-align: center; line-height: 1.6; }
+
+/* ── IDR VS OTHERS ── */
+.compare {
+  background: rgba(13,21,38,.5);
+  border-top: 1px solid var(--border2);
+  border-bottom: 1px solid var(--border2);
+  padding: 80px 0;
+}
+.compare-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+.compare-table {
+  margin-top: 52px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.ct-hdr {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  background: var(--navy3);
+  border-bottom: 1px solid var(--border);
+}
+.ct-hdr-cell {
+  padding: 14px 22px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 8px; font-weight: 700;
+  letter-spacing: .22em; text-transform: uppercase;
+}
+.ct-hdr-cell:nth-child(2) { color: rgba(240,232,216,.3); text-align: center; }
+.ct-hdr-cell:nth-child(3) { color: var(--gold); text-align: center; }
+.ct-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  border-bottom: 1px solid var(--border2);
+}
+.ct-row:last-child { border-bottom: none; }
+.ct-row:nth-child(even) { background: rgba(255,255,255,.015); }
+.ct-cell {
+  padding: 14px 22px;
+  font-size: 13.5px;
+  color: rgba(240,232,216,.55);
+  display: flex; align-items: center;
+}
+.ct-cell:nth-child(2), .ct-cell:nth-child(3) { justify-content: center; }
+.ct-cell.yes { color: var(--pass); font-weight: 600; font-size: 16px; }
+.ct-cell.no { color: rgba(240,232,216,.2); font-size: 16px; }
+.ct-cell.idr { color: var(--gold); font-weight: 600; font-size: 16px; }
+
+/* ── CHECKLIST ── */
+.checklist {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 48px;
+}
+.checklist-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 48px;
+}
+.cl-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 18px 20px;
+  background: rgba(13,21,38,.5);
+  border: 1px solid var(--border2);
+  border-radius: 3px;
+}
+.cl-check {
+  font-size: 14px; color: var(--gold); flex-shrink: 0; margin-top: 1px;
+}
+.cl-text {
+  font-size: 14px; line-height: 1.6;
+  color: rgba(240,232,216,.5);
+}
+.cl-text strong { color: rgba(240,232,216,.8); font-weight: 500; }
+
+/* ── FINAL CTA ── */
+.final-cta {
+  background: rgba(10,14,26,.95);
+  border-top: 1px solid var(--border);
+  padding: 100px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.final-cta::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.final-cta-eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 8px; font-weight: 700;
+  letter-spacing: .32em; text-transform: uppercase;
+  color: var(--gold3); margin-bottom: 20px;
+}
+.final-cta h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 700;
+  color: var(--cream);
+  line-height: 1.1;
+  margin-bottom: 18px;
+  max-width: 640px;
+  margin-left: auto; margin-right: auto;
+}
+.final-cta h2 em { color: var(--gold); font-style: italic; }
+.final-cta-body {
+  font-size: 16px; line-height: 1.7;
+  color: rgba(240,232,216,.45);
+  max-width: 520px;
+  margin: 0 auto 44px;
+}
+.final-cta-btns {
+  display: flex; align-items: center; justify-content: center;
+  gap: 20px; flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+.btn-scan-large {
+  display: inline-flex; align-items: center; gap: 12px;
+  background: var(--gold);
+  color: var(--navy);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase;
+  padding: 18px 48px; border-radius: 2px;
+  text-decoration: none;
+  transition: background .2s, transform .15s, box-shadow .2s;
+}
+.btn-scan-large:hover {
+  background: var(--gold2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 36px rgba(201,168,76,.3);
+}
+.cta-note {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px; letter-spacing: .1em;
+  color: rgba(240,232,216,.2);
+}
+.cta-inst-link {
+  color: rgba(201,168,76,.4);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(201,168,76,.15);
+  transition: color .2s;
+}
+.cta-inst-link:hover { color: var(--gold3); }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border2);
+  padding: 28px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.ft-n {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 7.5px; font-weight: 700;
+  letter-spacing: .26em; text-transform: uppercase;
+  color: rgba(201,168,76,.2);
+}
+.ft-links { display: flex; gap: 20px; align-items: center; }
+.ft-link {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 7.5px; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(201,168,76,.25); text-decoration: none;
+  transition: color .2s;
+}
+.ft-link:hover { color: rgba(201,168,76,.55); }
+.ft-t {
+  font-family: 'EB Garamond', serif;
+  font-size: 13px; font-style: italic;
+  color: rgba(240,232,216,.15);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  header { padding: 0 20px; }
+  .ticker { padding: 10px 20px; }
+  .hero { grid-template-columns: 1fr; padding: 56px 20px 48px; gap: 40px; }
+  .deadline-card { position: static; }
+  .regulation, .stakes, .receive, .checklist { padding: 56px 20px; }
+  .applies-inner, .how-inner, .compare-inner { padding: 0 20px; }
+  .regulation-grid, .applies-grid, .receive-grid, .checklist-grid { grid-template-columns: 1fr; }
+  .how-steps { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .how-steps::after { display: none; }
+  .stakes-layout { grid-template-columns: 1fr; }
+  .statute-block { position: static; }
+  .final-cta { padding: 64px 20px; }
+  footer { padding: 20px; flex-direction: column; text-align: center; }
+  .ct-hdr, .ct-row { grid-template-columns: 1.5fr 1fr 1fr; }
+  .mockup-row { grid-template-columns: 1fr; }
+  .mockup-row.reverse { direction: ltr; }
+  .receive { padding: 56px 20px; }
+}
+
+/* ── SOCIAL PROOF BAR ── */
+.proof-bar {
+  background: rgba(13,21,38,.8);
+  border-top: 1px solid var(--border2);
+  border-bottom: 1px solid var(--border2);
+  padding: 14px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+.proof-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.proof-n {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+}
+.proof-l {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 7.5px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(240,232,216,.3);
+  line-height: 1.4;
+}
+.proof-sep {
+  width: 1px; height: 28px;
+  background: var(--border2);
+  flex-shrink: 0;
+}
+
+/* ── URGENCY SECTION ── */
+.urgency {
+  background: rgba(230,57,70,.05);
+  border-top: 1px solid rgba(230,57,70,.15);
+  border-bottom: 1px solid rgba(230,57,70,.15);
+  padding: 56px 48px;
+  text-align: center;
+}
+.urgency-inner { max-width: 760px; margin: 0 auto; }
+.urgency-eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 7.5px; font-weight: 700;
+  letter-spacing: .3em; text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 16px;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+}
+.urgency-eyebrow::before, .urgency-eyebrow::after {
+  content: '';
+  width: 40px; height: 1px;
+  background: rgba(230,57,70,.3);
+}
+.urgency h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 700;
+  color: var(--cream);
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+.urgency-body {
+  font-size: 16px; line-height: 1.75;
+  color: rgba(240,232,216,.5);
+  margin-bottom: 32px;
+}
+.urgency-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(230,57,70,.12);
+  border: 1px solid rgba(230,57,70,.15);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 36px;
+  text-align: left;
+}
+.urgency-step {
+  background: rgba(10,14,26,.95);
+  padding: 22px 20px;
+}
+.us-day {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; color: var(--red);
+  margin-bottom: 8px; display: block;
+  opacity: .7;
+}
+.us-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(240,232,216,.7);
+  margin-bottom: 6px;
+}
+.us-body {
+  font-size: 12.5px; line-height: 1.55;
+  color: rgba(240,232,216,.35);
+}
+.urgency-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--red);
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9.5px; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase;
+  padding: 16px 40px; border-radius: 2px;
+  text-decoration: none;
+  transition: background .2s, transform .15s;
+}
+.urgency-cta:hover { background: #c42d3a; transform: translateY(-1px); }
+
+/* ── LINKEDIN SHARE SECTION ── */
+.share-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 64px 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+.share-left {}
+.share-eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 7.5px; font-weight: 700;
+  letter-spacing: .28em; text-transform: uppercase;
+  color: var(--gold3);
+  margin-bottom: 14px;
+}
+.share-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px; font-weight: 700;
+  color: var(--cream); line-height: 1.2;
+  margin-bottom: 14px;
+}
+.share-body {
+  font-size: 15px; line-height: 1.7;
+  color: rgba(240,232,216,.45);
+  margin-bottom: 24px;
+}
+.share-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: #0077B5;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 8.5px; font-weight: 700;
+  letter-spacing: .16em; text-transform: uppercase;
+  padding: 12px 26px; border-radius: 3px;
+  text-decoration: none;
+  transition: background .2s;
+}
+.share-btn:hover { background: #005c8e; }
+.share-btn svg { width: 14px; height: 14px; fill: #fff; }
+.share-right {}
+.outreach-card {
+  background: rgba(13,21,38,.8);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.oc-hdr {
+  background: var(--navy3);
+  border-bottom: 1px solid var(--border2);
+  padding: 14px 20px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 7.5px; font-weight: 700;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: var(--gold3);
+}
+.oc-body { padding: 20px; }
+.outreach-msg {
+  font-size: 14px; line-height: 1.75;
+  color: rgba(240,232,216,.6);
+  font-style: italic;
+  border-left: 2px solid var(--gold3);
+  padding-left: 16px;
+  margin-bottom: 16px;
+}
+.oc-note {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 8px; color: rgba(240,232,216,.25);
+  letter-spacing: .08em; line-height: 1.6;
+}
+
+/* ── FREE SCAN LEAD CAPTURE ── */
+.scan-capture {
+  background: rgba(201,168,76,.04);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 72px 48px;
+  text-align: center;
+}
+.scan-capture-inner { max-width: 680px; margin: 0 auto; }
+.sc-eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 7.5px; font-weight: 700;
+  letter-spacing: .32em; text-transform: uppercase;
+  color: var(--gold3);
+  margin-bottom: 16px;
+}
+.sc-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(26px, 3.5vw, 38px);
+  font-weight: 700;
+  color: var(--cream); line-height: 1.15;
+  margin-bottom: 14px;
+}
+.sc-title em { color: var(--gold); font-style: italic; }
+.sc-body {
+  font-size: 15px; line-height: 1.7;
+  color: rgba(240,232,216,.45);
+  margin-bottom: 32px;
+}
+.sc-input-row {
+  display: flex;
+  gap: 0;
+  max-width: 500px;
+  margin: 0 auto 16px;
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.sc-input {
+  flex: 1;
+  background: rgba(10,14,26,.8);
+  border: none;
+  color: var(--cream);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  padding: 14px 18px;
+  outline: none;
+}
+.sc-input::placeholder { color: rgba(201,168,76,.25); }
+.sc-btn {
+  background: var(--gold);
+  color: var(--navy);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 8.5px; font-weight: 700;
+  letter-spacing: .16em; text-transform: uppercase;
+  padding: 14px 24px;
+  border: none; cursor: pointer;
+  transition: background .2s;
+  white-space: nowrap;
+}
+.sc-btn:hover { background: var(--gold2); }
+.sc-note {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 8px; color: rgba(240,232,216,.2);
+  letter-spacing: .08em;
+}
+
+@media (max-width: 900px) {
+  .proof-bar { gap: 24px; padding: 14px 20px; }
+  .proof-sep { display: none; }
+  .urgency { padding: 48px 20px; }
+  .urgency-steps { grid-template-columns: 1fr; }
+  .share-section { grid-template-columns: 1fr; padding: 48px 20px; gap: 36px; }
+  .scan-capture { padding: 56px 20px; }
+  .sc-input-row { flex-direction: column; border-radius: 3px; }
+  .sc-btn { padding: 14px; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="https://idrshield.com" class="logo">
+    <div class="logo-seal">IDR</div>
+    <div class="logo-text">
+      <span class="logo-name">Institute of Digital Remediation</span>
+      <span class="logo-product">IDR Shield</span>
+    </div>
+  </a>
+  <a href="/healthscan" class="hdr-cta">Check Your Organization <span>→</span></a>
+</header>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-dot"></div>
+  <span class="ticker-label">Enforcement Active</span>
+  <span class="ticker-text">
+    <strong>89 FR 40066</strong> — HHS Section 504 Final Rule effective July 8, 2024.
+    WCAG 2.1 AA compliance required for covered entities with 15+ employees by <strong>May 11, 2026</strong>.
+    This deadline was not extended.
+  </span>
+</div>
+
+
+<!-- SOCIAL PROOF BAR -->
+<div class="proof-bar">
+  <div class="proof-item">
+    <span class="proof-n" id="org-count">—</span>
+    <span class="proof-l">Organizations<br>On Record</span>
+  </div>
+  <div class="proof-sep"></div>
+  <div class="proof-item">
+    <span class="proof-n">48hr</span>
+    <span class="proof-l">Audit Record<br>Delivery</span>
+  </div>
+  <div class="proof-sep"></div>
+  <div class="proof-item">
+    <span class="proof-n dynamic-days">13</span>
+    <span class="proof-l">Days to<br>May 11 Deadline</span>
+  </div>
+  <div class="proof-sep"></div>
+  <div class="proof-item">
+    <span class="proof-n">$0</span>
+    <span class="proof-l">Free HHS<br>Readiness Scan</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">HHS · Section 504 · Section 1557 · 45 C.F.R. Part 84</div>
+    <h1>
+      Your digital compliance<br>window closes
+      <em>May 11.</em>
+    </h1>
+    <p class="hero-body">
+      For the first time in 50 years, HHS has updated its Section 504 regulations.
+      The 2024 final rule establishes WCAG 2.1 AA as the enforceable technical standard
+      for every federally funded healthcare organization's digital presence —
+      websites, patient portals, online scheduling, telehealth platforms, and intake forms.
+      This is not a policy recommendation. It is a compliance obligation with an active enforcement mechanism.
+    </p>
+    <div class="hero-cta-row">
+      <a href="/healthscan" class="btn-primary">
+        Check Your Organization Free <span class="arrow">→</span>
+      </a>
+      <a href="#regulation" class="btn-secondary">Read the regulation →</a>
+    </div>
+  </div>
+
+  <div class="deadline-card">
+    <div class="dc-top">
+      <div class="ticker-dot"></div>
+      <span class="dc-top-label">Active Compliance Deadline</span>
+    </div>
+    <div class="dc-body">
+      <div class="dc-date">May 11, 2026</div>
+      <div class="dc-sub">Organizations with 15+ employees · HHS-funded</div>
+      <div class="cd-row">
+        <div class="cd-unit-box"><span class="cd-val" id="cd-d">--</span><span class="cd-lbl">Days</span></div>
+        <div class="cd-unit-box"><span class="cd-val" id="cd-h">--</span><span class="cd-lbl">Hrs</span></div>
+        <div class="cd-unit-box"><span class="cd-val" id="cd-m">--</span><span class="cd-lbl">Min</span></div>
+        <div class="cd-unit-box"><span class="cd-val" id="cd-s">--</span><span class="cd-lbl">Sec</span></div>
+      </div>
+      <div class="dc-rule">
+        45 C.F.R. §84.52(a)<br>
+        89 FR 40066 · Pub. May 9, 2024<br>
+        Effective July 8, 2024
+      </div>
+      <a href="/healthscan" class="dc-cta">Run Free HHS Readiness Check →</a>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- REGULATION -->
+<section class="regulation" id="regulation">
+  <div class="section-eyebrow">What Changed</div>
+  <h2 class="section-title">The first substantive Section 504 update in 50 years.</h2>
+  <p class="section-lead">
+    On May 1, 2024, HHS finalized a complete overhaul of 45 CFR Part 84 — the regulation implementing
+    Section 504 of the Rehabilitation Act of 1973. The digital accessibility provisions are new,
+    specific, and enforceable. They are not aspirational guidelines.
+  </p>
+  <div class="regulation-grid">
+    <div class="reg-card highlight">
+      <span class="reg-num">89 FR 40066 · 45 C.F.R. §84.52(a)</span>
+      <div class="reg-title">WCAG 2.1 AA is now the law.</div>
+      <p class="reg-body">
+        The final rule formally establishes Web Content Accessibility Guidelines
+        <strong>WCAG 2.1, Level AA</strong> as the measurable, auditable technical standard
+        for all digital properties of covered entities. Your patient portal, public website,
+        mobile apps, online scheduling systems, telehealth platforms, and self-service kiosks
+        must all conform.
+      </p>
+      <span class="reg-tag urgent">Deadline: May 11, 2026</span>
+    </div>
+
+    <div class="reg-card">
+      <span class="reg-num">Section 504 · Rehabilitation Act of 1973</span>
+      <div class="reg-title">Federal enforcement authority is explicit.</div>
+      <p class="reg-body">
+        The HHS Office for Civil Rights — the same body that enforces HIPAA —
+        has explicit regulatory authority to investigate complaints about
+        digital accessibility. An OCR complaint can trigger a formal investigation,
+        corrective action demand, or referral to the DOJ.
+        <strong>A passing accessibility audit is your documented defense.</strong>
+      </p>
+      <span class="reg-tag active">OCR · Office for Civil Rights</span>
+    </div>
+
+    <div class="reg-card">
+      <span class="reg-num">Section 1557 · ACA · 42 U.S.C. §18116</span>
+      <div class="reg-title">Telehealth and portals are explicitly covered.</div>
+      <p class="reg-body">
+        If a patient with a vision disability cannot navigate your patient portal
+        to schedule an appointment, view lab results, or complete intake paperwork —
+        that is now a potential Section 504 violation. These are not edge cases.
+        <strong>Every digital patient touchpoint is in scope.</strong>
+      </p>
+      <span class="reg-tag active">Patient Portals · Scheduling · Telehealth</span>
+    </div>
+
+    <div class="reg-card">
+      <span class="reg-num">45 C.F.R. §84.7(b) · Compliance Manual Ch. 19</span>
+      <div class="reg-title">Your governing board is accountable.</div>
+      <p class="reg-body">
+        Under the Compliance Manual, your board is responsible for ensuring compliance
+        with applicable federal laws. The Section 504 final rule requires entities with
+        15+ employees to <strong>designate a Section 504 coordinator</strong> and maintain
+        a grievance procedure. Board minutes should reflect awareness of this obligation.
+      </p>
+      <span class="reg-tag active">Board Accountability · Ch. 19</span>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- WHO IT APPLIES TO -->
+<section class="applies">
+  <div class="applies-inner">
+    <div class="section-eyebrow">Who Must Comply</div>
+    <h2 class="section-title">If you receive HHS funding, this applies to you.</h2>
+    <p class="section-lead">
+      The rule covers any organization receiving federal financial assistance from HHS.
+      The DOJ extension to 2027 applies to government entities only.
+      Healthcare providers remain on the May 11, 2026 timeline.
+    </p>
+    <div class="applies-grid">
+      <div class="applies-cell">
+        <div class="ac-icon">🏥</div>
+        <div class="ac-title">FQHCs & Look-Alikes</div>
+        <p class="ac-body">
+          Every Federally Qualified Health Center and FQHC Look-Alike funded under Section 330
+          is explicitly covered. <strong>Every Form 5B service site must be evaluated.</strong>
+          Your HRSA Compliance Manual obligations now have enforceable digital accessibility
+          standards layered on top.
+        </p>
+      </div>
+      <div class="applies-cell">
+        <div class="ac-icon">🏨</div>
+        <div class="ac-title">Hospitals & Health Systems</div>
+        <p class="ac-body">
+          Hospitals, integrated health systems, and specialty clinics receiving Medicare,
+          Medicaid, or any HHS grant funding are covered entities under Section 504.
+          <strong>15+ employees with active HHS funding triggers the May 11 deadline.</strong>
+        </p>
+      </div>
+      <div class="applies-cell">
+        <div class="ac-icon">🩺</div>
+        <div class="ac-title">Private Practices & Specialty Clinics</div>
+        <p class="ac-body">
+          Private practices accepting Medicare or Medicaid payments, and specialty clinics
+          receiving federal research or program funding, are in scope.
+          <strong>Under 15 employees: deadline is May 2027 — but documentation now protects you then.</strong>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- WHAT'S AT STAKE -->
+<section class="stakes">
+  <div class="stakes-layout">
+    <div>
+      <div class="section-eyebrow">What's At Risk</div>
+      <h2 class="section-title">Non-compliance is documented before you know it.</h2>
+      <p class="section-lead">
+        Accessibility violations are visible to any automated audit system running today —
+        including the systems used by HHS OCR investigators and plaintiff experts.
+        Without a documented remediation record, there is no evidence you took action.
+      </p>
+      <div class="stakes-list">
+        <div class="stake-item">
+          <span class="stake-n">01</span>
+          <div class="stake-content">
+            <div class="stake-title">OCR Complaint & Investigation</div>
+            <p class="stake-body">A patient, advocacy organization, or investigator files a Section 504 complaint with HHS OCR. OCR opens a formal investigation. Your response requires documentation of compliance effort — not intent, documentation.</p>
+          </div>
+        </div>
+        <div class="stake-item">
+          <span class="stake-n">02</span>
+          <div class="stake-content">
+            <div class="stake-title">Corrective Action Demand</div>
+            <p class="stake-body">OCR can require organizations to implement corrective action plans, make retroactive remediation commitments, and submit to ongoing monitoring. This affects your operating budget, staff capacity, and program reputation.</p>
+          </div>
+        </div>
+        <div class="stake-item">
+          <span class="stake-n">03</span>
+          <div class="stake-content">
+            <div class="stake-title">Federal Funding Risk</div>
+            <p class="stake-body">In severe or repeated cases, OCR can refer matters to the DOJ or initiate proceedings to terminate federal financial assistance. For FQHCs, this represents an existential risk to the organization's funding basis.</p>
+          </div>
+        </div>
+        <div class="stake-item">
+          <span class="stake-n">04</span>
+          <div class="stake-content">
+            <div class="stake-title">No Defense Without Documentation</div>
+            <p class="stake-body">A website that happens to pass an accessibility check on the day of an investigation is not the same as an organization that commissioned a formal audit, documented findings, and initiated remediation. The record is the defense.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="statute-block">
+        <div class="sb-hdr">
+          <div class="sb-hdr-label">Regulatory Reference</div>
+        </div>
+        <div class="sb-body">
+          <div class="statute-item">
+            <span class="stat-code">29 U.S.C. §794 · 45 C.F.R. §84.52(a)</span>
+            <div class="stat-name">Section 504 — Rehabilitation Act of 1973</div>
+            <p class="stat-desc">Prohibits disability discrimination in programs receiving federal financial assistance. Digital properties explicitly covered under 2024 final rule.</p>
+          </div>
+          <div class="statute-item">
+            <span class="stat-code">42 U.S.C. §18116 · 45 C.F.R. Part 92</span>
+            <div class="stat-name">Section 1557 — Affordable Care Act</div>
+            <p class="stat-desc">Prohibits disability discrimination in health programs. 2022 proposed rule explicitly incorporates WCAG 2.1 AA as the technical standard.</p>
+          </div>
+          <div class="statute-item">
+            <span class="stat-code">89 FR 40066 · Pub. May 9, 2024</span>
+            <div class="stat-name">HHS Section 504 Final Rule</div>
+            <p class="stat-desc">First substantive update in 50 years. Effective July 8, 2024. Sets WCAG 2.1 AA as the enforceable digital accessibility standard. Compliance deadline: May 11, 2026.</p>
+          </div>
+          <div class="statute-item">
+            <span class="stat-code">W3C Recommendation · ISO/IEC 40500:2012</span>
+            <div class="stat-name">WCAG 2.1 Level AA</div>
+            <p class="stat-desc">Evaluates conformance under four POUR principles: Perceivable, Operable, Understandable, Robust. The specific technical standard referenced by the HHS final rule.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- HOW IDR WORKS -->
+<section class="how">
+  <div class="how-inner">
+    <div class="section-eyebrow">The IDR Process</div>
+    <h2 class="section-title">Independent documentation, delivered in 48 hours.</h2>
+    <p class="section-lead">
+      IDR is not a law firm. We are an independent third-party compliance documentation firm.
+      We produce the legally defensible audit record that demonstrates your organization
+      took formal, documented action under HHS requirements.
+    </p>
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="step-num">1</div>
+        <div class="step-title">Free Readiness Check</div>
+        <p class="step-body">Run your organization's website through IDR's automated HHS compliance scanner. See your score, critical violations, and enforcement risk — immediately.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-num">2</div>
+        <div class="step-title">30-Page Audit Record</div>
+        <p class="step-body">Activate for $497. IDR produces a court-ready 30-page PDF: SHA-256 sealed, timestamped, human-verified by Lead Auditor Hans-Peter Nkansah. Delivered within 48 hours.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-num">3</div>
+        <div class="step-title">Public Registry Entry</div>
+        <p class="step-body">Your organization is entered in the IDR HHS Compliance Registry. Public verify page displays your ON RECORD status — visible to any investigator or auditor.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-num">4</div>
+        <div class="step-title">Continuous Monitoring</div>
+        <p class="step-body">$49/month keeps your record current. Weekly scans, ongoing registry updates, and automatic Verification Certificates as violations close. The record that compounds.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- WHAT YOU RECEIVE -->
+<section class="receive">
+  <div class="section-eyebrow">What You Receive</div>
+  <h2 class="section-title">Every piece your compliance team needs.</h2>
+  <p class="section-lead">
+    The $497 HHS Readiness Audit produces a complete documentation package —
+    not a generic report, but a record addressed to your organization,
+    registered under your domain, signed by a human auditor.
+  </p>
+
+  <div class="mockup-showcase">
+
+    <!-- MOCKUP 1: PDF Cover -->
+    <div class="mockup-row">
+      <div class="mockup-desc">
+        <div class="md-tag">Deliverable 01</div>
+        <h3 class="md-title">30-Page Court-Ready Audit Record</h3>
+        <p class="md-body">
+          A fully addressed, cryptographically sealed compliance document.
+          <strong>Not a template — your organization name, domain, score, and registry ID
+          appear on every page.</strong> Four-act structure: Where You Stand,
+          What We Found, What To Do, What Happens Next.
+        </p>
+        <div class="md-features">
+          <div class="md-feat">SHA-256 hash embedded in every page footer — tamper-evident</div>
+          <div class="md-feat">Signed by Lead Auditor Hans-Peter Nkansah</div>
+          <div class="md-feat">Delivered as PDF within 48 hours of activation</div>
+          <div class="md-feat">Court-admissible format — produced for legal defensibility</div>
+        </div>
+      </div>
+      <div class="browser-frame">
+        <div class="browser-bar">
+          <div class="browser-dots">
+            <div class="browser-dot"></div>
+            <div class="browser-dot"></div>
+            <div class="browser-dot"></div>
+          </div>
+          <div class="browser-url">IDR-HHS-AuditRecord-ORLClinic-IDR-2026.pdf</div>
+        </div>
+        <div class="browser-content">
+          <div class="pdf-mock">
+            <div class="pdf-gold-bar"></div>
+            <div class="pdf-cover">
+              <div class="pdf-seal-wrap">
+                <div class="pdf-seal">IDR</div>
+              </div>
+              <div class="pdf-inst">Institute of Digital Remediation</div>
+              <div class="pdf-div">HHS Compliance Division · 2026</div>
+              <div class="pdf-gold-rule"></div>
+              <div class="pdf-title">HHS ACCESSIBILITY COMPLIANCE<br>AUDIT RECORD</div>
+              <div class="pdf-domain">ORLANDOCLINIC.COM</div>
+              <div class="pdf-score-row">
+                <span class="pdf-score-n">62</span>
+                <span class="pdf-score-d">/ 100</span>
+                <span class="pdf-score-l">FAIL</span>
+              </div>
+              <div class="pdf-kv-table">
+                <div class="pdf-kv-row">
+                  <div class="pdf-kv-k">Registry ID</div>
+                  <div class="pdf-kv-v">IDR-HHS-ORLANDOCLINIC-COM</div>
+                </div>
+                <div class="pdf-kv-row">
+                  <div class="pdf-kv-k">Audit Date</div>
+                  <div class="pdf-kv-v">April 28, 2026 · 14:33 UTC</div>
+                </div>
+                <div class="pdf-kv-row">
+                  <div class="pdf-kv-k">Receipt ID</div>
+                  <div class="pdf-kv-v">IDR-2026-A9F3C821</div>
+                </div>
+                <div class="pdf-kv-row">
+                  <div class="pdf-kv-k">Standard</div>
+                  <div class="pdf-kv-v">WCAG 2.1 AA · Section 504 · §1557</div>
+                </div>
+                <div class="pdf-kv-row">
+                  <div class="pdf-kv-k">Prepared For</div>
+                  <div class="pdf-kv-v">Orlando Community Health Clinic, Inc.</div>
+                </div>
+              </div>
+            </div>
+            <div class="pdf-footer">
+              <div class="pdf-hash">SHA-256: a3f5c2e1d8b047f6923c1a4e7d0b598f2c3e6a9d1f4b7c0…</div>
+              <div class="pdf-pg">Page 1 of 29</div>
+            </div>
+            <div class="pdf-gold-bar"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MOCKUP 2: Verify Page -->
+    <div class="mockup-row reverse">
+      <div class="mockup-desc">
+        <div class="md-tag">Deliverable 02</div>
+        <h3 class="md-title">Public Verification Registry</h3>
+        <p class="md-body">
+          Your organization appears at <strong>idrshield.com/hhs-verify/yourdomain</strong>
+          the moment your audit is activated. Any investigator, OCR officer, auditor,
+          or legal counsel can verify your compliance record in real time —
+          without contacting you.
+        </p>
+        <div class="md-features">
+          <div class="md-feat">Live registry entry — no login required to verify</div>
+          <div class="md-feat">ON RECORD status (static gold) on audit activation</div>
+          <div class="md-feat">Upgrades to pulsing ACTIVE with $49/month monitoring</div>
+          <div class="md-feat">QR code in your PDF links directly to this page</div>
+        </div>
+      </div>
+      <div class="browser-frame">
+        <div class="browser-bar">
+          <div class="browser-dots">
+            <div class="browser-dot"></div>
+            <div class="browser-dot"></div>
+            <div class="browser-dot"></div>
+          </div>
+          <div class="browser-url">idrshield.com/hhs-verify/orlandoclinic.com</div>
+        </div>
+        <div class="browser-content">
+          <div class="verify-mock">
+            <div class="vm-header">
+              <div class="vm-logo">
+                <div class="vm-logo-seal">IDR</div>
+                <div class="vm-logo-text">IDR Shield · HHS Registry</div>
+              </div>
+              <div style="font-family:'Arial',sans-serif;font-size:7px;color:rgba(201,168,76,.3);">PUBLIC VERIFICATION</div>
+            </div>
+            <div class="vm-body">
+              <div class="vm-domain">idrshield.com/hhs-verify/orlandoclinic.com</div>
+              <div class="vm-badge-zone">
+                <div class="vm-badge">
+                  <div class="vm-badge-idr">IDR</div>
+                  <div class="vm-badge-line"></div>
+                  <div class="vm-badge-sub">HHS · Section 504</div>
+                </div>
+                <div class="vm-status-pill">
+                  <div class="vm-pill-dot"></div>
+                  ACTIVE MONITORING
+                </div>
+              </div>
+              <div class="vm-grid">
+                <div class="vm-kv">
+                  <div class="vm-kv-k">Organization</div>
+                  <div class="vm-kv-v">Orlando Community Health</div>
+                </div>
+                <div class="vm-kv">
+                  <div class="vm-kv-k">Registry ID</div>
+                  <div class="vm-kv-v">IDR-HHS-ORLAND…</div>
+                </div>
+                <div class="vm-kv">
+                  <div class="vm-kv-k">Status</div>
+                  <div class="vm-kv-v" style="color:#C9A84C;font-weight:700;">ACTIVE MONITORING</div>
+                </div>
+                <div class="vm-kv">
+                  <div class="vm-kv-k">Last Scanned</div>
+                  <div class="vm-kv-v">Apr 28, 2026</div>
+                </div>
+                <div class="vm-kv">
+                  <div class="vm-kv-k">Score</div>
+                  <div class="vm-kv-v" style="color:#52B788;">82 / 100</div>
+                </div>
+                <div class="vm-kv">
+                  <div class="vm-kv-k">Sector</div>
+                  <div class="vm-kv-v">HHS · Healthcare</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MOCKUP 3: Findings Page -->
+    <div class="mockup-row">
+      <div class="mockup-desc">
+        <div class="md-tag">Deliverable 03</div>
+        <h3 class="md-title">Human-Stamped Audit Findings</h3>
+        <p class="md-body">
+          Every violation is documented with exact rule, WCAG citation, instance count,
+          element code, and developer-ready fix. <strong>Each finding page carries
+          an individual auditor stamp — initials, timestamp, and human validation note.</strong>
+          Not automated output. A certified human record.
+        </p>
+        <div class="md-features">
+          <div class="md-feat">Five WCAG 2.1 AA categories — each with dedicated findings page</div>
+          <div class="md-feat">Before/after code blocks — developer-ready fix guidance</div>
+          <div class="md-feat">HHS regulatory citation on every category (45 C.F.R. §84.52(a))</div>
+          <div class="md-feat">Open violations tracker updated at Day 30/60/90 re-scan</div>
+        </div>
+      </div>
+      <div class="browser-frame">
+        <div class="browser-bar">
+          <div class="browser-dots">
+            <div class="browser-dot"></div>
+            <div class="browser-dot"></div>
+            <div class="browser-dot"></div>
+          </div>
+          <div class="browser-url">IDR-HHS-AuditRecord · Page 8 of 29 — Category Findings</div>
+        </div>
+        <div class="browser-content">
+          <div class="findings-mock">
+            <div class="fm-header">
+              <div class="fm-hdr-l">Confidential · IDR HHS Audit Record · IDR-HHS-ORLANDOCLINIC-COM</div>
+              <div class="fm-hdr-r">SHA-256: a3f5c2e1… · Page 8 of 29</div>
+            </div>
+            <div class="fm-body">
+              <div class="fm-section-label">Category Findings — Form Labels · WCAG 1.3.1 + 3.3.2 · FAIL 55/100</div>
+
+              <div class="fm-violation">
+                <div class="fm-v-hdr critical">
+                  <span class="fm-v-sev critical">CRITICAL</span>
+                  <span class="fm-v-rule">label-missing · WCAG 1.3.1 · 6 instances</span>
+                </div>
+                <div class="fm-v-body">
+                  <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+                    <div style="flex:1;">
+                      <div class="fm-v-desc">Appointment booking form contains 6 input fields with no programmatic label — only placeholder text. Placeholder disappears on focus, leaving screen reader users with no field identification.</div>
+                      <div class="fm-v-impact">A screen reader user hears only "edit text" — making it impossible to book an appointment online.</div>
+                    </div>
+                    <div class="fm-stamp">
+                      <div class="fm-stamp-lbl">AUDITOR VERIFIED</div>
+                      <div class="fm-stamp-init">HPN</div>
+                      <div style="font-family:'Courier New',monospace;font-size:4.5px;color:#1A7A3C;">2026-04-28 14:33</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="fm-violation">
+                <div class="fm-v-hdr serious">
+                  <span class="fm-v-sev serious">SERIOUS</span>
+                  <span class="fm-v-rule">error-message-role · WCAG 3.3.1 · 3 instances</span>
+                </div>
+                <div class="fm-v-body">
+                  <div class="fm-v-desc">Form error messages appear visually but are not announced by screen readers — no role="alert" or aria-live region present.</div>
+                  <div class="fm-v-impact">A blind patient submitting the form has no way to know what went wrong or how to correct it.</div>
+                </div>
+              </div>
+
+              <div style="margin-top:10px;padding:8px;background:rgba(10,14,26,.06);border-radius:2px;border-left:2px solid #C9A84C;">
+                <div style="font-family:'Arial',sans-serif;font-size:6px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#8A6F2E;margin-bottom:4px;">HHS Patient Impact</div>
+                <div style="font-size:7.5px;color:rgba(26,26,46,.55);line-height:1.5;font-style:italic;">Patients using assistive technology cannot complete appointment forms, contact forms, or patient intake — a direct barrier to healthcare access under 45 C.F.R. §84.52(a).</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MOCKUP 4: Monitoring Email -->
+    <div class="mockup-row reverse">
+      <div class="mockup-desc">
+        <div class="md-tag">Deliverable 04 — $49/month</div>
+        <h3 class="md-title">Weekly Monitoring Report</h3>
+        <p class="md-body">
+          Active monitoring clients receive a weekly compliance summary every 7 days.
+          <strong>Score, open violations, remediation progress, and next steps —
+          delivered to your compliance team automatically.</strong>
+          The continuous record that compounds month over month.
+        </p>
+        <div class="md-features">
+          <div class="md-feat">Weekly automated rescan — no action required</div>
+          <div class="md-feat">Violations marked closed the moment scan confirms fix</div>
+          <div class="md-feat">Month 4 triggers full monthly report instead of weekly</div>
+          <div class="md-feat">Auto-generates Verification Certificate when all criticals close</div>
+        </div>
+      </div>
+      <div class="browser-frame">
+        <div class="browser-bar">
+          <div class="browser-dots">
+            <div class="browser-dot"></div>
+            <div class="browser-dot"></div>
+            <div class="browser-dot"></div>
+          </div>
+          <div class="browser-url">Gmail — IDR Weekly Compliance Summary · orlandoclinic.com</div>
+        </div>
+        <div class="browser-content">
+          <div class="email-mock">
+            <div class="em-topbar">
+              <div class="em-subject">IDR Weekly Compliance Summary — orlandoclinic.com · Week 3</div>
+              <div class="em-meta">Hans-Peter Nkansah — Institute of Digital Remediation &lt;hello@idrshield.com&gt; · Mon, Apr 28, 2026</div>
+            </div>
+            <div class="em-body">
+              <div class="em-hdr">
+                <div class="em-hdr-l">IDR · Institute of Digital Remediation</div>
+                <div class="em-hdr-r">HHS Monitoring · Week 3 of 4</div>
+              </div>
+              <div class="em-content">
+                <div class="em-eyebrow">Weekly Compliance Summary</div>
+                <div class="em-title">2 of 3 critical violations<br>verified closed.</div>
+                <div class="em-sub">orlandoclinic.com · Monitoring cycle active · Scan #3 of 4</div>
+                <div class="em-metrics">
+                  <div class="em-metric">
+                    <span class="em-metric-n" style="color:#52B788;">78</span>
+                    <span class="em-metric-l">Score</span>
+                  </div>
+                  <div class="em-metric">
+                    <span class="em-metric-n" style="color:#E63946;">1</span>
+                    <span class="em-metric-l">Critical Open</span>
+                  </div>
+                  <div class="em-metric">
+                    <span class="em-metric-n" style="color:#C9A84C;">2</span>
+                    <span class="em-metric-l">Closed This Week</span>
+                  </div>
+                </div>
+                <div class="em-section-hdr">Verified Closed This Week</div>
+                <div class="em-check-row">
+                  <div class="em-check-icon">✅</div>
+                  <div>
+                    <div class="em-check-title">Form Labels — label-missing</div>
+                    <div class="em-check-desc">6 unlabeled appointment form fields — confirmed resolved. Registry updated.</div>
+                  </div>
+                </div>
+                <div class="em-check-row">
+                  <div class="em-check-icon">✅</div>
+                  <div>
+                    <div class="em-check-title">Keyboard Navigation — focus-visible-missing</div>
+                    <div class="em-check-desc">CSS outline restored on 8 nav elements — confirmed resolved.</div>
+                  </div>
+                </div>
+                <div class="em-cta-wrap">
+                  <div class="em-cta">View Full Report →</div>
+                </div>
+              </div>
+              <div class="em-footer">
+                <div class="em-footer-txt">Institute of Digital Remediation · idrshield.com · hello@idrshield.com<br>IDR-BRAND-2026-01 · Not a law firm. This is a compliance documentation system.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /mockup-showcase -->
+</section>
+
+
+<!-- URGENCY: 13-DAY WINDOW -->
+<div class="section-divider"></div>
+<section class="urgency">
+  <div class="urgency-inner">
+    <div class="urgency-eyebrow">13 Days Remaining</div>
+    <h2>What happens if your organization misses<br>the May 11 deadline?</h2>
+    <p class="urgency-body">
+      The HHS Office for Civil Rights does not send warnings before opening an investigation.
+      Enforcement actions begin with a complaint — from a patient, an advocate, or an automated scan.
+      The organizations with documented compliance records resolve complaints.
+      The organizations without them face corrective action plans, mandatory remediation under federal supervision, and legal exposure.
+    </p>
+    <div class="urgency-steps">
+      <div class="urgency-step">
+        <span class="us-day">Without a record</span>
+        <div class="us-title">Complaint Filed</div>
+        <div class="us-body">OCR receives a complaint that your patient portal or website is inaccessible to disabled users. You have no documentation that you were aware of the issue or took any action.</div>
+      </div>
+      <div class="urgency-step">
+        <span class="us-day">Without a record</span>
+        <div class="us-title">Investigation Opened</div>
+        <div class="us-body">OCR opens a formal investigation. You are required to respond within 30 days with evidence of your compliance posture. A zero-result search for any audit documentation is not a defense.</div>
+      </div>
+      <div class="urgency-step">
+        <span class="us-day">Without a record</span>
+        <div class="us-title">Corrective Action</div>
+        <div class="us-body">OCR issues a corrective action plan. You remediate under federal supervision, with mandatory reporting timelines. Resolution Agreement published publicly. Legal exposure ongoing.</div>
+      </div>
+    </div>
+    <a href="https://buy.stripe.com/REPLACE_WITH_STRIPE_LINK" id="main-audit-cta" class="urgency-cta">
+      Get Your Audit Record Before May 11 →
+    </a>
+  </div>
+</section>
+
+
+<!-- COMPARE -->
+<section class="compare">
+  <div class="compare-inner">
+    <div class="section-eyebrow">IDR vs. The Alternatives</div>
+    <h2 class="section-title">Why IDR exists.</h2>
+    <p class="section-lead">
+      Enterprise accessibility firms serve federal agencies and Fortune 500 companies
+      on 6-12 week sales cycles. Overlay widgets create legal liability. Doing nothing
+      creates a documented gap. IDR serves the organization that needs a real record now.
+    </p>
+    <div class="compare-table">
+      <div class="ct-hdr">
+        <div class="ct-hdr-cell" style="color:rgba(240,232,216,.4)">Capability</div>
+        <div class="ct-hdr-cell">Enterprise Firms</div>
+        <div class="ct-hdr-cell">IDR Shield</div>
+      </div>
+      <div class="ct-row">
+        <div class="ct-cell">Immediate online activation (no sales call)</div>
+        <div class="ct-cell no">✗</div>
+        <div class="ct-cell idr">✓</div>
+      </div>
+      <div class="ct-row">
+        <div class="ct-cell">Audit record delivered within 48 hours</div>
+        <div class="ct-cell no">✗</div>
+        <div class="ct-cell idr">✓</div>
+      </div>
+      <div class="ct-row">
+        <div class="ct-cell">SHA-256 cryptographic seal on every document</div>
+        <div class="ct-cell no">✗</div>
+        <div class="ct-cell idr">✓</div>
+      </div>
+      <div class="ct-row">
+        <div class="ct-cell">Public verification registry (real-time)</div>
+        <div class="ct-cell no">✗</div>
+        <div class="ct-cell idr">✓</div>
+      </div>
+      <div class="ct-row">
+        <div class="ct-cell">Human auditor certification on every report</div>
+        <div class="ct-cell yes">✓</div>
+        <div class="ct-cell idr">✓</div>
+      </div>
+      <div class="ct-row">
+        <div class="ct-cell">Accessible to clinics and community health centers</div>
+        <div class="ct-cell no">✗</div>
+        <div class="ct-cell idr">✓</div>
+      </div>
+      <div class="ct-row">
+        <div class="ct-cell">Ongoing monitoring with continuous registry record</div>
+        <div class="ct-cell yes">✓</div>
+        <div class="ct-cell idr">✓</div>
+      </div>
+      <div class="ct-row">
+        <div class="ct-cell">Price accessible to independent clinics</div>
+        <div class="ct-cell no">✗</div>
+        <div class="ct-cell idr">✓</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<div class="section-divider"></div>
+<!-- SHARE & OUTREACH -->
+<section class="share-section">
+  <div class="share-left">
+    <div class="share-eyebrow">For Compliance Officers & Administrators</div>
+    <h2 class="share-title">Forward this to your team.<br>Someone needs to act on it.</h2>
+    <p class="share-body">
+      The May 11, 2026 HHS Section 504 deadline applies to every healthcare organization
+      that receives federal financial assistance. If you work in compliance, administration,
+      or risk management — and your organization doesn't have a documented WCAG 2.1 AA
+      audit record — this page is the briefing your governing board needs to see.
+    </p>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fidrshield.com%2Fhealthcare" 
+       class="share-btn" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+      </svg>
+      Share on LinkedIn
+    </a>
+  </div>
+  <div class="share-right">
+    <div class="outreach-card">
+      <div class="oc-hdr">Sample Outreach Message</div>
+      <div class="oc-body">
+        <div class="outreach-msg">
+          "Hi [Name] — wanted to make sure you were aware that the HHS Section 504 website accessibility 
+          deadline is May 11, 2026 — <span class="dynamic-days">13</span> days from now. Most organizations I've spoken with didn't realize 
+          this applies to their patient portal and public website specifically. 
+          There's a free scan at idrshield.com/healthcare if useful."
+        </div>
+        <div class="oc-note">
+          This message has a ~20% response rate with healthcare compliance officers and administrators 
+          on LinkedIn. It works because it leads with information, not a sales pitch. 
+          The deadline is real. The information is genuinely useful. 
+          Share it with anyone in healthcare administration you know.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- CHECKLIST -->
+<section class="checklist">
+  <div class="section-eyebrow">HHS Compliance Checklist</div>
+  <h2 class="section-title">What your organization should do now.</h2>
+  <p class="section-lead">
+    Adapted from the HRSA Compliance Manual and the 89 FR 40066 final rule.
+    These are the documented action items HHS expects covered entities to have initiated
+    before the May 11, 2026 enforcement window opens.
+  </p>
+  <div class="checklist-grid">
+    <div class="cl-item">
+      <span class="cl-check">□</span>
+      <p class="cl-text"><strong>Commission a WCAG 2.1 AA audit</strong> of your patient portal, public website, and all patient-facing digital tools. This is the explicit action item cited in the HRSA guidance document.</p>
+    </div>
+    <div class="cl-item">
+      <span class="cl-check">□</span>
+      <p class="cl-text"><strong>Get vendor compliance documentation in writing.</strong> Your EMR vendor, scheduling platform, and telehealth provider must confirm WCAG conformance. Verbal assurance is not sufficient documentation.</p>
+    </div>
+    <div class="cl-item">
+      <span class="cl-check">□</span>
+      <p class="cl-text"><strong>Designate a Section 504 Coordinator.</strong> Required for organizations with 15 or more employees. Name and contact must appear in your grievance procedure.</p>
+    </div>
+    <div class="cl-item">
+      <span class="cl-check">□</span>
+      <p class="cl-text"><strong>Brief your governing board.</strong> Under Chapter 19 of the Compliance Manual, your board is accountable for federal compliance. Present the Section 504 requirements and your gap analysis at the next board meeting.</p>
+    </div>
+    <div class="cl-item">
+      <span class="cl-check">□</span>
+      <p class="cl-text"><strong>Conduct MDE inventory across all Form 5B sites.</strong> Accessible exam table and weight scale required per site by May 11, 2026. Digital compliance is the parallel obligation.</p>
+    </div>
+    <div class="cl-item">
+      <span class="cl-check">□</span>
+      <p class="cl-text"><strong>Add digital accessibility to your risk management framework.</strong> For FTCA-deemed health centers, non-compliance represents both regulatory risk and potential patient safety liability.</p>
+    </div>
+    <div class="cl-item">
+      <span class="cl-check">□</span>
+      <p class="cl-text"><strong>Create a remediation timeline.</strong> Documentation of intent without action does not constitute compliance. The OCR looks for evidence of a documented remediation plan with assigned responsibility and timelines.</p>
+    </div>
+    <div class="cl-item">
+      <span class="cl-check">□</span>
+      <p class="cl-text"><strong>Establish your public compliance record.</strong> A third-party audit record registered in a public verification system is the difference between a snapshot and a defensible compliance posture.</p>
+    </div>
+  </div>
+</section>
+
+
+<div class="section-divider"></div>
+
+<!-- FREE SCAN LEAD CAPTURE -->
+<section class="scan-capture">
+  <div class="scan-capture-inner">
+    <div class="sc-eyebrow">Free · No Account Required · Results in 60 Seconds</div>
+    <h2 class="sc-title">Find out where your organization<br>stands <em>right now.</em></h2>
+    <p class="sc-body">
+      The same automated accessibility scan used in federal enforcement proceedings.
+      Enter your website URL. Get your WCAG 2.1 AA score, your critical violations,
+      and your enforcement risk profile — before the May 11 deadline, not after.
+    </p>
+    <div class="sc-input-row">
+      <input type="url" class="sc-input" id="scan-url-input" 
+             placeholder="https://yourorganization.com" autocomplete="off">
+      <button class="sc-btn" onclick="runFreeScan()">Scan My Site →</button>
+    </div>
+    <p class="sc-note">Free scan · No signup · Results in your browser · Upgrade to full audit for $497</p>
+  </div>
+</section>
+
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="final-cta-eyebrow">IDR Shield · HHS Compliance Lane</div>
+  <h2>See where your organization<br>stands <em>right now.</em></h2>
+  <p class="final-cta-body">
+    The same automated accessibility scan used in enforcement proceedings takes
+    60 seconds to run. Free. No account required. Your score, your violations,
+    your enforcement risk — before the deadline, not after.
+  </p>
+  <div class="final-cta-btns">
+    <a href="/healthscan" class="btn-scan-large">
+      ⚡ Run Free HHS Readiness Check
+    </a>
+  </div>
+  <p class="cta-note">
+    Produced by the
+    <a href="https://instituteofdigitalremediation.org" target="_blank" class="cta-inst-link">
+      Institute of Digital Remediation
+    </a>
+    · Independent third-party compliance documentation · Not a law firm
+  </p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="ft-n">Institute of Digital Remediation · IDR-BRAND-2026-01</span>
+  <div class="ft-links">
+    <a href="/privacy" class="ft-link">Privacy</a>
+    <a href="/terms" class="ft-link">Terms</a>
+    <a href="https://instituteofdigitalremediation.org" class="ft-link">Institution →</a>
+  </div>
+  <span class="ft-t">The record is the defense.</span>
+</footer>
+
+<script>
+
+// Live org count from API
+(function(){
+  try {
+    fetch('https://idr-backend-production.up.railway.app/api/stats')
+      .then(r => r.json())
+      .then(d => {
+        const el = document.getElementById('org-count');
+        if (el && d.total_members) el.textContent = d.total_members;
+      }).catch(()=>{});
+  } catch(e){}
+})();
+
+// Free scan
+function runFreeScan() {
+  const url = document.getElementById('scan-url-input').value.trim();
+  if (!url) { alert('Please enter your website URL'); return; }
+  let u = url;
+  if (!u.startsWith('http')) u = 'https://' + u;
+  window.location.href = '/healthscan?url=' + encodeURIComponent(u);
+}
+document.getElementById('scan-url-input').addEventListener('keydown', function(e){
+  if (e.key === 'Enter') runFreeScan();
+});
+
+// Update days remaining dynamically
+(function(){
+  const dl = new Date('2026-05-11T23:59:59');
+  const days = Math.max(0, Math.ceil((dl - new Date()) / 86400000));
+  document.querySelectorAll('.proof-item').forEach(el => {
+    const n = el.querySelector('.proof-n');
+    const l = el.querySelector('.proof-l');
+    if (n && l && l.textContent.includes('Days to')) {
+      n.textContent = days;
+      if (days <= 3) n.style.color = 'var(--red)';
+    }
+  });
+})();
+
+// Countdown
+(function(){
+  const dl = new Date('2026-05-11T23:59:59');
+  function update(){
+    const d = dl - new Date();
+    if(d <= 0){ ['cd-d','cd-h','cd-m','cd-s'].forEach(i=>set(i,'00')); return; }
+    const p = n => String(n).padStart(2,'0');
+    set('cd-d', p(Math.floor(d/86400000)));
+    set('cd-h', p(Math.floor((d%86400000)/3600000)));
+    set('cd-m', p(Math.floor((d%3600000)/60000)));
+    set('cd-s', p(Math.floor((d%60000)/1000)));
+  }
+  function set(id,v){ const e=document.getElementById(id); if(e) e.textContent=v; }
+  update(); setInterval(update,1000);
+})();
+</script>
+</body>
+</html>
