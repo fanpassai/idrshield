@@ -1051,7 +1051,27 @@ function showErr(msg){hide('scan-panel');dis('scan-btn',false);document.getEleme
 function resetBars(){CATS.forEach(c=>{const b=document.getElementById(c.bar);b.className='cbar';b.querySelector('.cbar-f').style.width='0%';b.querySelector('.cbar-i').textContent='';});}
 function actBar(id){document.getElementById(id).className='cbar on scanning';}
 function finBar(id,score,st){const b=document.getElementById(id);b.className='cbar done';b.querySelector('.cbar-f').style.width=score+'%';const ic=b.querySelector('.cbar-i');ic.textContent=st==='pass'?'✓':st==='warning'?'⚠':'✗';ic.style.color=st==='pass'?'#52B788':st==='warning'?'#E9C46A':'#E63946';}
-
+async function activateHHS(e){
+  e.preventDefault();
+  const orgName   =document.getElementById('org-name').value.trim();
+  const orgContact=document.getElementById('org-contact').value.trim();
+  const orgTitle  =document.getElementById('org-title').value.trim();
+  const orgPhone  =document.getElementById('org-phone').value.trim();
+  const orgAddress=document.getElementById('org-address').value.trim();
+  if(!orgName){document.getElementById('org-name').focus();alert('Please enter your organization name.');return;}
+  if(!orgContact){document.getElementById('org-contact').focus();alert('Please enter your primary contact name.');return;}
+  const domain=(receipt&&receipt.scan&&receipt.scan.domain)||'';
+  const stripeUrl='https://buy.stripe.com/14A00i4QX9so6UF11q2sM01'+(domain?'?client_reference_id='+encodeURIComponent(domain):'');
+  try{
+    await fetch('/api/hhs/capture',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({domain,org_name:orgName,org_contact:orgContact,org_title:orgTitle,org_phone:orgPhone,org_address:orgAddress})
+    });
+  }catch(err){console.warn('Org capture failed, proceeding:',err);}
+  document.getElementById('org-saved').classList.add('show');
+  setTimeout(function(){window.open(stripeUrl,'_blank');},600);
+}
 document.getElementById('url-inp').addEventListener('keydown',e=>{if(e.key==='Enter')startScan();});
 document.getElementById('email-inp').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('url-inp').focus();});
 document.getElementById('email-inp').addEventListener('input',function(){this.style.borderColor='';checkReady();});
