@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Free HHS accessibility compliance check for healthcare organizations. WCAG 2.1 AA score under Section 504 and Section 1557.">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://idrshield.com/healthcare">
+<link rel="canonical" href="https://idrshield.com/healthscan">
 <title>HHS Compliance Check — Institute of Digital Remediation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -625,7 +625,7 @@ footer{border-top:1px solid var(--border2);padding:24px 40px;display:flex;align-
 </footer>
 
 <script>
-const PAGEURL = 'https://idrshield.com/healthcare';
+const PAGEURL = 'https://idrshield.com/healthscan';
 let receipt = null, visitorEmail = '', visitorFunding = null, visitorEmpBand = null;
 var _cD='',_cS=0,_cC=0,_cT=0;
 
@@ -921,7 +921,7 @@ function generateShareCard(domain,score,crits,total){
   const threat=score>=80?'Clean score — no HHS compliance documentation record exists yet.':score>=60?'Open violations visible to HHS enforcement audit systems.':'Violation profile meets HHS enforcement threshold. May 11, 2026.';
   ctx.fillText(threat,72,502);
   ctx.font='600 14px Arial,sans-serif';
-  const ctaStr='Check your organization  →  idrshield.com/healthcare';
+  const ctaStr='Check your organization  →  idrshield.com/healthscan';
   const ctaW=ctx.measureText(ctaStr).width+52;
   ctx.fillStyle='rgba(201,168,76,.09)';ctx.strokeStyle='rgba(201,168,76,.32)';ctx.lineWidth=1;ctx.fillRect(72,540,ctaW,40);ctx.strokeRect(72,540,ctaW,40);
   ctx.fillStyle='#C9A84C';ctx.textAlign='left';ctx.fillText(ctaStr,98,560);
