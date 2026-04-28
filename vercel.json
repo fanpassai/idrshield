@@ -20,3 +20,4 @@
     { "source": "/hhs-audit-delivery", "destination": "/hhs_audit_delivery.html" }
   ]
 }
+{ "source": "/ecommerce", "destination": "/index.html" }
