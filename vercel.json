@@ -15,6 +15,7 @@
     { "source": "/registry", "destination": "/idrshield_registry.html" },
     { "source": "/healthcare", "destination": "/healthcare.html" },
     { "source": "/hhs-verify/:domain*", "destination": "/hhs_verify.html" },
-    { "source": "/hhs-success", "destination": "/hhs_success.html" }
+    { "source": "/hhs-success", "destination": "/hhs_success.html" },
+    { "source": "/hhs-audit-delivery", "destination": "/hhs_audit_delivery.html" }
   ]
 }
