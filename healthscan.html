@@ -1049,6 +1049,10 @@ function actBar(id){document.getElementById(id).className='cbar on scanning';}
 function finBar(id,score,st){const b=document.getElementById(id);b.className='cbar done';b.querySelector('.cbar-f').style.width=score+'%';const ic=b.querySelector('.cbar-i');ic.textContent=st==='pass'?'✓':st==='warning'?'⚠':'✗';ic.style.color=st==='pass'?'#52B788':st==='warning'?'#E9C46A':'#E63946';}
 async function activateHHS(e){
   e.preventDefault();
+  if(!receipt||!receipt.scan){
+    alert('Please run your free HHS compliance check first before activating.');
+    return;
+  }
   const orgName   =document.getElementById('org-name').value.trim();
   const orgContact=document.getElementById('org-contact').value.trim();
   const orgTitle  =document.getElementById('org-title').value.trim();
