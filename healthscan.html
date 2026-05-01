@@ -597,7 +597,7 @@ footer{border-top:1px solid var(--border2);padding:24px 40px;display:flex;align-
   <div class="act-block">
     <p class="act-kicker">HHS Good Faith Effort Record — Select Your Audit Scope</p>
     <h2 class="act-title">Create Your Compliance Record</h2>
-    <p class="act-sub">The first documented proof your organization has taken action under HHS accessibility requirements. Choose the scope that matches your compliance exposure.</p>
+    <p class="act-sub">The first documented proof your organization has taken action under HHS accessibility requirements. Choose the scope that matches your compliance exposure — both options issue a formal Good Faith Effort Record, sealed and registered.</p>
 
     <!-- STEP 1: PRODUCT SELECTION -->
     <div class="prod-select-wrap">
@@ -608,24 +608,29 @@ footer{border-top:1px solid var(--border2);padding:24px 40px;display:flex;align-
         <div class="prod-card" id="prod-primary" onclick="selectProduct('primary')">
           <div class="prod-card-top">
             <div class="prod-card-left">
-              <div class="prod-card-name">Primary Web Presence Audit</div>
-              <div class="prod-card-scope">Primary Website · WCAG 2.1 AA · Section 504 / 1557</div>
+              <div class="prod-card-name">Good Faith Effort Record</div>
+              <div class="prod-card-scope">Primary Web Presence · WCAG 2.1 AA · Section 504 / 1557</div>
             </div>
             <div class="prod-card-right">
               <div class="prod-card-price">$497</div>
-              <div class="prod-card-delivery">48-hour delivery</div>
+              <div class="prod-card-delivery">Delivered within 48 hours</div>
             </div>
           </div>
           <div class="prod-card-feats">
-            <div class="prod-card-feat"><span class="prod-card-feat-ck">✓</span><span>Full WCAG 2.1 AA automated scan + CPACC-certified human validation of your primary website</span></div>
-            <div class="prod-card-feat"><span class="prod-card-feat-ck">✓</span><span>SHA-256 timestamped Good Faith Effort Record — cryptographically sealed, registry-linked</span></div>
-            <div class="prod-card-feat"><span class="prod-card-feat-ck">✓</span><span>IDR Registry entry — "Manual Verified" status, publicly accessible</span></div>
-            <div class="prod-card-feat"><span class="prod-card-feat-ck">✓</span><span>Screenshot evidence package — annotated failure points documented</span></div>
-            <div class="prod-card-feat"><span class="prod-card-feat-ck">✓</span><span>Defense positioning summary — ready for legal use if challenged</span></div>
+            <div class="prod-card-feat"><span class="prod-card-feat-ck">✓</span><span><strong>Surfaces audited:</strong> Your main public-facing website — homepage, services pages, contact, informational content</span></div>
+            <div class="prod-card-feat"><span class="prod-card-feat-ck">✓</span><span>Automated WCAG 2.1 AA protocol scan across five categories — image alt text, form labels, keyboard navigation, heading structure, ARIA &amp; links</span></div>
+            <div class="prod-card-feat" style="padding-left:12px;border-left:2px solid rgba(201,168,76,.15);margin-left:4px;"><span class="prod-card-feat-ck" style="color:var(--gold3);">↳</span><span><strong style="color:rgba(240,232,216,.7);">CPACC human validation — Primary Surface:</strong> Keyboard-only navigation test (no mouse), screen reader pass with NVDA and VoiceOver across headings and landmarks, form completion and error-handling test, visual stress test at 200% zoom, focus indicator verification. Findings documented with annotated screenshots.</span></div>
+            <div class="prod-card-feat"><span class="prod-card-feat-ck">✓</span><span>CPACC reviewer signs certification page with full name and credential number — human review is the legal attestation that elevates this above an automated scan report</span></div>
+            <div class="prod-card-feat"><span class="prod-card-feat-ck">✓</span><span>SHA-256 timestamped Good Faith Effort Record — cryptographically sealed, publicly registered in the IDR HHS Compliance Registry</span></div>
+            <div class="prod-card-feat"><span class="prod-card-feat-ck">✓</span><span>IDR Registry entry — "Manual Verified" status · Screenshot evidence package · Defense positioning summary</span></div>
+            <div class="prod-card-feat" style="margin-top:6px;padding-top:10px;border-top:1px solid var(--border2);font-style:italic;color:rgba(240,232,216,.38);font-size:12px;"><span class="prod-card-feat-ck" style="color:rgba(201,168,76,.3);">→</span><span><strong style="color:rgba(240,232,216,.45);font-weight:600;">Not included:</strong> Online scheduling flows, patient intake forms, patient portal entry, mobile apps, or third-party embedded tools</span></div>
+          </div>
+          <div class="prod-card-recommend" style="font-family:'Montserrat',sans-serif;font-size:8.5px;font-weight:600;letter-spacing:.08em;color:rgba(240,232,216,.45);line-height:1.6;padding:10px 0 12px;border-top:1px solid var(--border2);margin-top:8px;">
+            Recommended if your organization is beginning its compliance documentation, your digital presence is primarily informational, or you do not currently offer online scheduling or patient portal access.
           </div>
           <div class="prod-card-select">
             <div class="prod-card-radio"><div class="prod-card-radio-dot"></div></div>
-            <span class="prod-card-select-txt">Select this scope</span>
+            <span class="prod-card-select-txt">Select Primary Web Presence — $497</span>
           </div>
         </div>
 
@@ -633,31 +638,47 @@ footer{border-top:1px solid var(--border2);padding:24px 40px;display:flex;align-
         <div class="prod-card" id="prod-full" onclick="selectProduct('full')">
           <div class="prod-card-top">
             <div class="prod-card-left">
-              <div class="prod-card-name">Full Patient Access Audit</div>
-              <div class="prod-card-scope">Primary Website + Scheduling · Intake Forms · Patient Portal Entry</div>
+              <div class="prod-card-name">Good Faith Effort Record</div>
+              <div class="prod-card-scope">Full Patient Access · Primary Site + Transaction Layer</div>
             </div>
             <div class="prod-card-right">
               <div class="prod-card-badge">Recommended</div>
               <div class="prod-card-price">$1,197</div>
-              <div class="prod-card-delivery">5 business days</div>
+              <div class="prod-card-delivery">Delivered within 5 business days</div>
             </div>
           </div>
           <div class="prod-card-feats">
-            <div class="prod-card-feat"><span class="prod-card-feat-ck">✓</span><span>Everything in Primary Web Presence — plus your patient-facing transaction layer</span></div>
-            <div class="prod-card-feat"><span class="prod-card-feat-ck">✓</span><span>Online scheduling flow, intake forms, and patient portal entry — where most OCR complaints originate</span></div>
-            <div class="prod-card-feat"><span class="prod-card-feat-ck">✓</span><span>Single comprehensive record covering both surfaces — one registry entry, one sealed document</span></div>
-            <div class="prod-card-feat"><span class="prod-card-feat-ck">✓</span><span>CPACC-certified human validation across all audited surfaces with credential number on record</span></div>
-            <div class="prod-card-feat"><span class="prod-card-feat-ck">✓</span><span>Most defensible posture for organizations with active scheduling systems or patient portals</span></div>
+            <div class="prod-card-feat"><span class="prod-card-feat-ck">✓</span><span><strong>Surfaces audited:</strong> Primary website <em>and</em> patient-facing transaction layer — online scheduling flow, patient intake forms, patient portal login and landing experience</span></div>
+            <div class="prod-card-feat"><span class="prod-card-feat-ck">✓</span><span>Automated WCAG 2.1 AA protocol scan across all five categories on the primary web presence</span></div>
+            <div class="prod-card-feat" style="padding-left:12px;border-left:2px solid rgba(201,168,76,.15);margin-left:4px;"><span class="prod-card-feat-ck" style="color:var(--gold3);">↳</span><span><strong style="color:rgba(240,232,216,.7);">CPACC human validation — Primary Surface:</strong> Full keyboard-only navigation, screen reader pass with NVDA and VoiceOver, form completion and error-handling, 200% zoom stress test, focus indicator verification</span></div>
+            <div class="prod-card-feat" style="padding-left:12px;border-left:2px solid rgba(201,168,76,.3);margin-left:4px;"><span class="prod-card-feat-ck" style="color:var(--gold);">↳</span><span><strong style="color:rgba(240,232,216,.85);">CPACC human validation — Transaction Layer:</strong> Live walk-through of the complete appointment booking flow end to end, patient intake form completion test with screen reader and keyboard only, patient portal login and session experience — keyboard navigation, timeout warnings, error message accessibility. Each step documented with annotated evidence.</span></div>
+            <div class="prod-card-feat"><span class="prod-card-feat-ck">✓</span><span>CPACC reviewer signs a dual-surface certification statement — credential number on record, both surfaces individually attested</span></div>
+            <div class="prod-card-feat"><span class="prod-card-feat-ck">✓</span><span>Transaction layer is where most Section 1557 complaints originate — access barriers here directly prevent patients from receiving care. This surface is what enforcement investigators examine first.</span></div>
+            <div class="prod-card-feat"><span class="prod-card-feat-ck">✓</span><span>Single comprehensive Good Faith Effort Record — one SHA-256 sealed document, one IDR Registry entry covering both surfaces</span></div>
+            <div class="prod-card-feat" style="margin-top:6px;padding-top:10px;border-top:1px solid var(--border2);font-style:italic;color:rgba(240,232,216,.38);font-size:12px;"><span class="prod-card-feat-ck" style="color:rgba(201,168,76,.3);">→</span><span><strong style="color:rgba(240,232,216,.45);font-weight:600;">Not included:</strong> Patient portal interior (medical records, provider messaging), mobile applications, third-party embedded tools — covered under the Full Digital Footprint enterprise engagement</span></div>
+          </div>
+          <div class="prod-card-recommend" style="font-family:'Montserrat',sans-serif;font-size:8.5px;font-weight:600;letter-spacing:.08em;color:rgba(240,232,216,.45);line-height:1.6;padding:10px 0 12px;border-top:1px solid var(--border2);margin-top:8px;">
+            Recommended for any organization with an active online scheduling system, patient intake process, or patient portal — the surfaces where most OCR enforcement actions originate.
           </div>
           <div class="prod-card-select">
             <div class="prod-card-radio"><div class="prod-card-radio-dot"></div></div>
-            <span class="prod-card-select-txt">Select this scope</span>
+            <span class="prod-card-select-txt">Select Full Patient Access — $1,197</span>
           </div>
         </div>
 
       </div>
+
+      <!-- SCOPE TRANSPARENCY NOTE -->
       <div class="prod-scope-note">
-        <strong>Scope transparency:</strong> The Primary Audit covers your main public-facing website only. Patient portals (MyChart, Epic, Athena, etc.), mobile applications, and embedded third-party tools are outside scope unless you select the Full Patient Access Audit. Both products issue a Good Faith Effort Record that explicitly states the surfaces audited — there are no surprises.
+        <strong>What is explicitly out of scope for both products:</strong> Patient portal interior (test results, medical records, provider messaging), mobile applications, third-party embedded tools (insurance verification portals, payment systems, chatbots), and linked PDF documents. These surfaces are covered under the Full Digital Footprint enterprise engagement — available by inquiry for hospital systems and large clinic networks.
+        <br><br>
+        <strong>Both products issue a Good Faith Effort Record</strong> that explicitly states every surface audited and every surface excluded. No ambiguity. No surprises. The document you receive reflects exactly the scope you selected.
+      </div>
+
+      <!-- ENTERPRISE NOTE -->
+      <div style="margin-top:16px;padding:16px 20px;background:rgba(201,168,76,.03);border:1px solid rgba(201,168,76,.1);border-radius:3px;">
+        <span style="font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(201,168,76,.35);">Enterprise · Full Digital Footprint Audit</span>
+        <p style="font-size:13px;color:rgba(240,232,216,.32);font-style:italic;line-height:1.6;margin-top:6px;">Hospital systems, large clinic networks, and federally qualified health centers requiring complete coverage — patient portal interior, mobile app, all embedded third-party tools, and PDF document accessibility — contact us for a custom scoped engagement. <a href="mailto:hello@idrshield.com" style="color:rgba(201,168,76,.45);text-decoration:none;border-bottom:1px solid rgba(201,168,76,.2);">hello@idrshield.com</a></p>
       </div>
     </div>
 
