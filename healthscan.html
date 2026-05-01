@@ -257,7 +257,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 4
 .hhs-dl-body{font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:.03em;color:rgba(240,232,216,.55);line-height:1.7;margin-bottom:14px;}
 .hhs-stmt{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(201,168,76,.3);line-height:1.7;border-top:1px solid var(--border2);padding-top:14px;font-style:italic;}
 
-/* ACTIVATION BLOCK - $497 */
+/* ACTIVATION BLOCK */
 .act-block{border:1px solid rgba(201,168,76,.3);border-radius:4px;padding:44px;margin-bottom:20px;position:relative;overflow:hidden;background:rgba(13,18,34,.9);}
 .act-block::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.65;}
 .act-block::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(201,168,76,.04),transparent 70%);pointer-events:none;}
@@ -274,6 +274,19 @@ header{display:flex;align-items:center;justify-content:space-between;padding:0 4
 .cta-btn:hover{background:var(--gold2);transform:translateY(-1px);box-shadow:0 6px 26px rgba(201,168,76,.25);}
 .price-n{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--cream);}
 .price-s{font-family:'Montserrat',sans-serif;font-size:8.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,232,216,.3);margin-top:1px;}
+
+/* ORG CAPTURE FORM */
+.org-capture{border-top:1px solid var(--border2);padding-top:28px;margin-bottom:28px;}
+.org-capture-title{font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--gold3);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+.org-capture-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border2),transparent);}
+.org-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px;}
+.org-field label{display:block;font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold3);margin-bottom:6px;}
+.org-field input{width:100%;background:rgba(10,14,26,.8);border:1px solid rgba(201,168,76,.18);border-radius:3px;padding:11px 14px;font-family:'EB Garamond',serif;font-size:15px;color:var(--cream);outline:none;transition:border-color .2s;}
+.org-field input:focus{border-color:var(--gold);box-shadow:0 0 0 2px rgba(201,168,76,.07);}
+.org-field input::placeholder{color:rgba(240,232,216,.2);}
+.org-field.full{grid-column:1/-1;}
+.org-saved{display:none;font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--pass);margin-bottom:12px;}
+.org-saved.show{display:block;}
 
 /* $49/MO CONTINUITY */
 .cont-block{background:rgba(13,21,38,.5);border:1px solid var(--border2);border-radius:4px;padding:32px 36px;margin-bottom:20px;}
@@ -307,23 +320,44 @@ footer{border-top:1px solid var(--border2);padding:24px 40px;display:flex;align-
 .ft-links{display:flex;gap:20px;align-items:center;}
 .ft-link{font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(201,168,76,.25);text-decoration:none;transition:color .2s;}
 .ft-link:hover{color:rgba(201,168,76,.55);}
-.org-capture{border-top:1px solid var(--border2);padding-top:28px;margin-bottom:28px;}
-.org-capture-title{font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--gold3);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
-.org-capture-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border2),transparent);}
-.org-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px;}
-.org-field label{display:block;font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold3);margin-bottom:6px;}
-.org-field input{width:100%;background:rgba(10,14,26,.8);border:1px solid rgba(201,168,76,.18);border-radius:3px;padding:11px 14px;font-family:'EB Garamond',serif;font-size:15px;color:var(--cream);outline:none;transition:border-color .2s;}
-.org-field input:focus{border-color:var(--gold);box-shadow:0 0 0 2px rgba(201,168,76,.07);}
-.org-field input::placeholder{color:rgba(240,232,216,.2);}
-.org-field.full{grid-column:1/-1;}
-.org-saved{display:none;font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--pass);margin-bottom:12px;}
-.org-saved.show{display:block;}
+
+/* PRODUCT SELECTION CARDS */
+.prod-select-wrap{margin-bottom:28px;}
+.prod-select-label{font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--gold3);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.prod-select-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border2),transparent);}
+.prod-cards{display:flex;flex-direction:column;gap:12px;}
+.prod-card{border:1px solid rgba(201,168,76,.18);border-radius:4px;padding:22px 24px;cursor:pointer;transition:border-color .2s,background .2s,box-shadow .2s;position:relative;background:rgba(10,14,26,.6);}
+.prod-card:hover{border-color:rgba(201,168,76,.35);background:rgba(13,18,34,.8);}
+.prod-card.selected{border-color:var(--gold);background:rgba(13,18,34,.95);box-shadow:0 0 0 1px rgba(201,168,76,.2),0 4px 24px rgba(201,168,76,.08);}
+.prod-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:10px;}
+.prod-card-left{flex:1;}
+.prod-card-name{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--cream);margin-bottom:3px;}
+.prod-card-scope{font-family:'Montserrat',sans-serif;font-size:8px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,232,216,.35);}
+.prod-card-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;}
+.prod-card-price{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--cream);line-height:1;}
+.prod-card-delivery{font-family:'Montserrat',sans-serif;font-size:7.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,232,216,.3);}
+.prod-card-badge{font-family:'Montserrat',sans-serif;font-size:7px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:3px 8px;border-radius:2px;background:rgba(201,168,76,.15);color:var(--gold);border:1px solid rgba(201,168,76,.3);}
+.prod-card-feats{display:flex;flex-direction:column;gap:6px;margin-bottom:10px;}
+.prod-card-feat{display:flex;gap:8px;align-items:flex-start;font-size:13px;color:rgba(240,232,216,.58);line-height:1.4;}
+.prod-card-feat-ck{color:var(--gold);font-size:11px;margin-top:1px;flex-shrink:0;}
+.prod-card-select{display:flex;align-items:center;gap:8px;margin-top:4px;}
+.prod-card-radio{width:16px;height:16px;border-radius:50%;border:1.5px solid rgba(201,168,76,.3);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:border-color .2s;}
+.prod-card.selected .prod-card-radio{border-color:var(--gold);}
+.prod-card-radio-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);opacity:0;transform:scale(0);transition:opacity .15s,transform .15s;}
+.prod-card.selected .prod-card-radio-dot{opacity:1;transform:scale(1);}
+.prod-card-select-txt{font-family:'Montserrat',sans-serif;font-size:8.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,232,216,.3);transition:color .2s;}
+.prod-card.selected .prod-card-select-txt{color:var(--gold);}
+.prod-scope-note{font-family:'Montserrat',sans-serif;font-size:8px;letter-spacing:.06em;color:rgba(240,232,216,.22);line-height:1.65;padding:12px 14px;background:rgba(255,255,255,.02);border:1px solid var(--border2);border-radius:3px;margin-top:4px;}
+.prod-scope-note strong{color:rgba(240,232,216,.4);font-weight:600;}
+/* Activate button state when no product selected */
+.cta-btn.dimmed{background:var(--gold3);cursor:not-allowed;opacity:.55;transform:none!important;box-shadow:none!important;}
 @media(max-width:700px){
   header{padding:0 18px;}
   .page-wrap,.results-wrap{padding:36px 18px 80px;}
   .score-block{grid-template-columns:1fr;text-align:center;}
   .score-wrap{margin:0 auto;}.score-stats{justify-content:center;}
-  .cats-grid,.qual-grid{grid-template-columns:1fr;}
+  .cats-grid,.qual-grid,.org-fields{grid-template-columns:1fr;}
+  .org-field.full{grid-column:1;}
   .r-fields,.act-feats{grid-template-columns:1fr;}
   .receipt-top,.badge-prev{flex-direction:column;}
   .badge-prev{text-align:center;}
@@ -559,50 +593,108 @@ footer{border-top:1px solid var(--border2);padding:24px 40px;display:flex;align-
     <div class="hhs-stmt">"Organizations receiving HHS funding may be required to meet WCAG 2.1 Level AA accessibility standards under federal law (45 C.F.R. Part 84 / 89 FR 40066). This scan reflects the current accessibility posture of the identified domain."</div>
   </div>
 
+  <!-- ACTIVATION BLOCK WITH PRODUCT SELECTION -->
   <div class="act-block">
-  <p class="act-kicker">HHS Readiness Audit — 48-Hour Delivery</p>
-  <h2 class="act-title">Create Your HHS Readiness Record</h2>
-  <p class="act-sub">The first documented proof your organization has taken action under HHS accessibility requirements.</p>
-  <div class="act-feats">
-    <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>Full WCAG 2.1 AA audit</strong> — automated detection + human verification</span></div>
-    <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>SHA-256 timestamped receipt</strong> — tamper-proof, registry-linked</span></div>
-    <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>IDR Registry entry</strong> — "Manual Verified" status, publicly accessible</span></div>
-    <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>Screenshot evidence</strong> — annotated failure points documented</span></div>
-    <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>Defense positioning summary</strong> — ready for legal use if challenged</span></div>
-    <div class="feat"><span class="feat-ck">✓</span><span class="feat-t"><strong>Delivered within 48 hours</strong> of activation</span></div>
-  </div>
-  <div class="org-capture">
-    <div class="org-capture-title">Step 1 — Your Organization Details</div>
-    <div class="org-fields">
-      <div class="org-field">
-        <label for="org-name">Organization Name *</label>
-        <input type="text" id="org-name" placeholder="Orlando Community Health Clinic">
+    <p class="act-kicker">HHS Good Faith Effort Record — Select Your Audit Scope</p>
+    <h2 class="act-title">Create Your Compliance Record</h2>
+    <p class="act-sub">The first documented proof your organization has taken action under HHS accessibility requirements. Choose the scope that matches your compliance exposure.</p>
+
+    <!-- STEP 1: PRODUCT SELECTION -->
+    <div class="prod-select-wrap">
+      <div class="prod-select-label">Step 1 — Choose Your Audit Scope</div>
+      <div class="prod-cards">
+
+        <!-- CARD A: Primary Web Presence $497 -->
+        <div class="prod-card" id="prod-primary" onclick="selectProduct('primary')">
+          <div class="prod-card-top">
+            <div class="prod-card-left">
+              <div class="prod-card-name">Primary Web Presence Audit</div>
+              <div class="prod-card-scope">Primary Website · WCAG 2.1 AA · Section 504 / 1557</div>
+            </div>
+            <div class="prod-card-right">
+              <div class="prod-card-price">$497</div>
+              <div class="prod-card-delivery">48-hour delivery</div>
+            </div>
+          </div>
+          <div class="prod-card-feats">
+            <div class="prod-card-feat"><span class="prod-card-feat-ck">✓</span><span>Full WCAG 2.1 AA automated scan + CPACC-certified human validation of your primary website</span></div>
+            <div class="prod-card-feat"><span class="prod-card-feat-ck">✓</span><span>SHA-256 timestamped Good Faith Effort Record — cryptographically sealed, registry-linked</span></div>
+            <div class="prod-card-feat"><span class="prod-card-feat-ck">✓</span><span>IDR Registry entry — "Manual Verified" status, publicly accessible</span></div>
+            <div class="prod-card-feat"><span class="prod-card-feat-ck">✓</span><span>Screenshot evidence package — annotated failure points documented</span></div>
+            <div class="prod-card-feat"><span class="prod-card-feat-ck">✓</span><span>Defense positioning summary — ready for legal use if challenged</span></div>
+          </div>
+          <div class="prod-card-select">
+            <div class="prod-card-radio"><div class="prod-card-radio-dot"></div></div>
+            <span class="prod-card-select-txt">Select this scope</span>
+          </div>
+        </div>
+
+        <!-- CARD B: Full Patient Access $1,197 — RECOMMENDED -->
+        <div class="prod-card" id="prod-full" onclick="selectProduct('full')">
+          <div class="prod-card-top">
+            <div class="prod-card-left">
+              <div class="prod-card-name">Full Patient Access Audit</div>
+              <div class="prod-card-scope">Primary Website + Scheduling · Intake Forms · Patient Portal Entry</div>
+            </div>
+            <div class="prod-card-right">
+              <div class="prod-card-badge">Recommended</div>
+              <div class="prod-card-price">$1,197</div>
+              <div class="prod-card-delivery">5 business days</div>
+            </div>
+          </div>
+          <div class="prod-card-feats">
+            <div class="prod-card-feat"><span class="prod-card-feat-ck">✓</span><span>Everything in Primary Web Presence — plus your patient-facing transaction layer</span></div>
+            <div class="prod-card-feat"><span class="prod-card-feat-ck">✓</span><span>Online scheduling flow, intake forms, and patient portal entry — where most OCR complaints originate</span></div>
+            <div class="prod-card-feat"><span class="prod-card-feat-ck">✓</span><span>Single comprehensive record covering both surfaces — one registry entry, one sealed document</span></div>
+            <div class="prod-card-feat"><span class="prod-card-feat-ck">✓</span><span>CPACC-certified human validation across all audited surfaces with credential number on record</span></div>
+            <div class="prod-card-feat"><span class="prod-card-feat-ck">✓</span><span>Most defensible posture for organizations with active scheduling systems or patient portals</span></div>
+          </div>
+          <div class="prod-card-select">
+            <div class="prod-card-radio"><div class="prod-card-radio-dot"></div></div>
+            <span class="prod-card-select-txt">Select this scope</span>
+          </div>
+        </div>
+
       </div>
-      <div class="org-field">
-        <label for="org-contact">Primary Contact Name *</label>
-        <input type="text" id="org-contact" placeholder="Dr. Jane Smith">
-      </div>
-      <div class="org-field">
-        <label for="org-title">Title / Role</label>
-        <input type="text" id="org-title" placeholder="Chief Compliance Officer">
-      </div>
-      <div class="org-field">
-        <label for="org-phone">Phone Number</label>
-        <input type="tel" id="org-phone" placeholder="(407) 555-0100">
-      </div>
-      <div class="org-field full">
-        <label for="org-address">Office Address</label>
-        <input type="text" id="org-address" placeholder="123 Health Plaza, Orlando, FL 32801">
+      <div class="prod-scope-note">
+        <strong>Scope transparency:</strong> The Primary Audit covers your main public-facing website only. Patient portals (MyChart, Epic, Athena, etc.), mobile applications, and embedded third-party tools are outside scope unless you select the Full Patient Access Audit. Both products issue a Good Faith Effort Record that explicitly states the surfaces audited — there are no surprises.
       </div>
     </div>
-    <div class="org-saved" id="org-saved">✓ Details saved — proceeding to payment</div>
+
+    <!-- STEP 2: ORG DATA CAPTURE -->
+    <div class="org-capture">
+      <div class="org-capture-title">Step 2 — Your Organization Details</div>
+      <div class="org-fields">
+        <div class="org-field">
+          <label for="org-name">Organization Name *</label>
+          <input type="text" id="org-name" placeholder="Orlando Community Health Clinic">
+        </div>
+        <div class="org-field">
+          <label for="org-contact">Primary Contact Name *</label>
+          <input type="text" id="org-contact" placeholder="Dr. Jane Smith">
+        </div>
+        <div class="org-field">
+          <label for="org-title">Title / Role</label>
+          <input type="text" id="org-title" placeholder="Chief Compliance Officer">
+        </div>
+        <div class="org-field">
+          <label for="org-phone">Phone Number</label>
+          <input type="tel" id="org-phone" placeholder="(407) 555-0100">
+        </div>
+        <div class="org-field full">
+          <label for="org-address">Office Address</label>
+          <input type="text" id="org-address" placeholder="123 Health Plaza, Orlando, FL 32801">
+        </div>
+      </div>
+      <div class="org-saved" id="org-saved">✓ Details saved — proceeding to payment</div>
+    </div>
+
+    <!-- STEP 3: ACTIVATE -->
+    <div class="act-cta-row">
+      <a id="act-link" class="cta-btn dimmed" href="#" onclick="activateHHS(event)">Select a scope above to continue</a>
+      <div><div class="price-n" id="act-price-display">—</div><div class="price-s" id="act-delivery-display">Choose your audit scope above</div></div>
+    </div>
   </div>
-  <div class="act-cta-row">
-    <a id="act-link" class="cta-btn" href="#" onclick="activateHHS(event)">Activate HHS Readiness Record — $497</a>
-    <div><div class="price-n">$497</div><div class="price-s">One-time · Human verified · 48-hour delivery</div></div>
-  </div>
-</div>
-    
 
   <div class="cont-block">
     <div class="cont-top">
@@ -617,7 +709,7 @@ footer{border-top:1px solid var(--border2);padding:24px 40px;display:flex;align-
     </div>
     <p class="cont-body">A static audit can be challenged. A continuously dated record is far harder to dispute.</p>
     <div class="cont-killer">Weekly rescans keep your registry record active and continuously dated — the difference between a one-time snapshot and a living compliance record that compounds in strength every month. Includes your live HHS Accessibility Monitored badge.</div>
-    <a id="cont-link" href="https://buy.stripe.com/REPLACE_CONTINUITY_LINK" target="_blank" rel="noopener" class="cont-btn">Add Ongoing Monitoring — $49/mo →</a>
+    <a id="cont-link" href="https://buy.stripe.com/fZu7sK3MTeMI7YJ5hG2sM00" target="_blank" rel="noopener" class="cont-btn">Add Ongoing Monitoring — $49/mo →</a>
     <p class="cont-gate">Available after HHS Readiness Audit activation</p>
   </div>
 
@@ -662,8 +754,26 @@ footer{border-top:1px solid var(--border2);padding:24px 40px;display:flex;align-
 </footer>
 
 <script>
- (function(){var p=new URLSearchParams(window.location.search);var u=p.get('url');if(u){var inp=document.getElementById('url-inp');if(inp){inp.value=u;checkReady();setTimeout(function(){inp.scrollIntoView({behavior:'smooth',block:'center'});},300);}}})(); 
+// ── PRE-FILL FROM /healthcare URL PARAM ──────────────────────────────────────
+(function(){
+  var p=new URLSearchParams(window.location.search);
+  var u=p.get('url');
+  if(u){
+    var inp=document.getElementById('url-inp');
+    if(inp){
+      inp.value=u;
+      checkReady();
+      setTimeout(function(){ inp.scrollIntoView({behavior:'smooth',block:'center'}); },300);
+    }
+  }
+})();
+// ─────────────────────────────────────────────────────────────────────────────
+
 const PAGEURL = 'https://idrshield.com/healthscan';
+const STRIPE_AUDIT_URL = 'https://buy.stripe.com/14A00i4QX9so6UF11q2sM01';
+const STRIPE_FULL_URL  = 'https://buy.stripe.com/8x2dR84QX8ok92N11q2sM02';
+const STRIPE_MONITORING_URL = 'https://buy.stripe.com/fZu7sK3MTeMI7YJ5hG2sM00';
+
 let receipt = null, visitorEmail = '', visitorFunding = null, visitorEmpBand = null;
 var _cD='',_cS=0,_cC=0,_cT=0;
 
@@ -711,6 +821,9 @@ function showInput(){
   show('page-input');hide('page-results');
   document.getElementById('hdr-right').style.display='';
   document.getElementById('btn-new-scan').style.display='none';
+  // Reset org form state
+  var savedEl=document.getElementById('org-saved');
+  if(savedEl) savedEl.classList.remove('show');
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function showResults(){
@@ -831,13 +944,10 @@ function renderResults(r){
 
     renderDeadline();
 
-    /* Always construct HHS verify URL from domain — never use r.registry_url
-       which points to the e-commerce /verify/ route */
     const domain=sc.domain||'';
     const hhsVerifyUrl='https://idrshield.com/hhs-verify/'+domain;
     const hhsVerifyDisplay='idrshield.com/hhs-verify/'+domain;
 
-    /* Wire pub-rec block — visible inside score-block immediately after verdict */
     const pubRec=document.getElementById('pub-rec');
     const pubRecLink=document.getElementById('pub-rec-link');
     if(pubRec&&domain){
@@ -846,15 +956,14 @@ function renderResults(r){
       pubRec.style.display='block';
     }
 
-    /* Wire badge-prev URL — clickable anchor */
     const bpUrlEl=document.getElementById('bp-url');
     if(bpUrlEl){
       bpUrlEl.textContent=hhsVerifyDisplay+' →';
       bpUrlEl.href=hhsVerifyUrl;
     }
 
-    document.getElementById('act-link').href='https://buy.stripe.com/REPLACE_AUDIT_LINK?client_reference_id='+encodeURIComponent(domain);
-    document.getElementById('cont-link').href='https://buy.stripe.com/REPLACE_CONTINUITY_LINK?client_reference_id='+encodeURIComponent(domain);
+    // Update monitoring link with domain
+    document.getElementById('cont-link').href=STRIPE_MONITORING_URL+(domain?'?client_reference_id='+encodeURIComponent(domain):'');
 
   }catch(err){console.error('renderResults:',err);}
 }
@@ -878,6 +987,91 @@ function renderDeadline(){
       ?'If your organization has 15 or more employees receiving HHS funding, this deadline is yours — not the 2027 DOJ extension. The DOJ extension applies only to government entities. Assume this deadline applies until you confirm otherwise.'
       :'Organizations with 15 or more employees receiving HHS funding must meet WCAG 2.1 AA standards by May 11, 2026. This is the federal HHS rule under Section 504 and Section 1557 — separate from and unaffected by the 2027 DOJ extension.';
   }
+}
+
+/* PRODUCT SELECTION */
+let selectedProduct = null; // 'primary' | 'full'
+
+function selectProduct(type) {
+  selectedProduct = type;
+  // Update card visual states
+  document.getElementById('prod-primary').classList.toggle('selected', type === 'primary');
+  document.getElementById('prod-full').classList.toggle('selected', type === 'full');
+  // Update activate button
+  const btn = document.getElementById('act-link');
+  const priceEl = document.getElementById('act-price-display');
+  const delivEl = document.getElementById('act-delivery-display');
+  if (type === 'primary') {
+    btn.textContent = 'Activate Primary Web Presence Audit — $497';
+    btn.classList.remove('dimmed');
+    priceEl.textContent = '$497';
+    delivEl.textContent = 'One-time · CPACC verified · 48-hour delivery';
+  } else {
+    btn.textContent = 'Activate Full Patient Access Audit — $1,197';
+    btn.classList.remove('dimmed');
+    priceEl.textContent = '$1,197';
+    delivEl.textContent = 'One-time · CPACC verified · 5 business days';
+  }
+}
+
+/* ORG CAPTURE + STRIPE REDIRECT */
+async function activateHHS(e){
+  e.preventDefault();
+
+  if(!receipt||!receipt.scan){
+    alert('Please run your free HHS compliance check first before activating.');
+    return;
+  }
+
+  if(!selectedProduct){
+    alert('Please select your audit scope above — Primary Web Presence ($497) or Full Patient Access ($1,197).');
+    document.getElementById('prod-primary').scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+
+  const orgName    = document.getElementById('org-name').value.trim();
+  const orgContact = document.getElementById('org-contact').value.trim();
+  const orgTitle   = document.getElementById('org-title').value.trim();
+  const orgPhone   = document.getElementById('org-phone').value.trim();
+  const orgAddress = document.getElementById('org-address').value.trim();
+
+  if(!orgName){
+    document.getElementById('org-name').focus();
+    alert('Please enter your organization name.');
+    return;
+  }
+  if(!orgContact){
+    document.getElementById('org-contact').focus();
+    alert('Please enter your primary contact name.');
+    return;
+  }
+
+  const domain=(receipt&&receipt.scan&&receipt.scan.domain)||'';
+  const baseUrl = selectedProduct === 'full' ? STRIPE_FULL_URL : STRIPE_AUDIT_URL;
+  const stripeUrl = baseUrl + (domain ? '?client_reference_id=' + encodeURIComponent(domain) : '');
+
+  try{
+    await fetch('/api/hhs/capture',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        domain,
+        org_name:orgName,
+        org_contact:orgContact,
+        org_title:orgTitle,
+        org_phone:orgPhone,
+        org_address:orgAddress,
+        audit_surface: selectedProduct === 'full' ? 'primary_and_transaction' : 'primary'
+      })
+    });
+  }catch(err){
+    console.warn('Org capture save failed, proceeding anyway:',err);
+  }
+
+  const savedEl=document.getElementById('org-saved');
+  if(savedEl) savedEl.classList.add('show');
+
+  setTimeout(function(){ window.open(stripeUrl,'_blank'); },600);
 }
 
 /* CARD BUILDER */
@@ -1047,31 +1241,7 @@ function showErr(msg){hide('scan-panel');dis('scan-btn',false);document.getEleme
 function resetBars(){CATS.forEach(c=>{const b=document.getElementById(c.bar);b.className='cbar';b.querySelector('.cbar-f').style.width='0%';b.querySelector('.cbar-i').textContent='';});}
 function actBar(id){document.getElementById(id).className='cbar on scanning';}
 function finBar(id,score,st){const b=document.getElementById(id);b.className='cbar done';b.querySelector('.cbar-f').style.width=score+'%';const ic=b.querySelector('.cbar-i');ic.textContent=st==='pass'?'✓':st==='warning'?'⚠':'✗';ic.style.color=st==='pass'?'#52B788':st==='warning'?'#E9C46A':'#E63946';}
-async function activateHHS(e){
-  e.preventDefault();
-  if(!receipt||!receipt.scan){
-    alert('Please run your free HHS compliance check first before activating.');
-    return;
-  }
-  const orgName   =document.getElementById('org-name').value.trim();
-  const orgContact=document.getElementById('org-contact').value.trim();
-  const orgTitle  =document.getElementById('org-title').value.trim();
-  const orgPhone  =document.getElementById('org-phone').value.trim();
-  const orgAddress=document.getElementById('org-address').value.trim();
-  if(!orgName){document.getElementById('org-name').focus();alert('Please enter your organization name.');return;}
-  if(!orgContact){document.getElementById('org-contact').focus();alert('Please enter your primary contact name.');return;}
-  const domain=(receipt&&receipt.scan&&receipt.scan.domain)||'';
-  const stripeUrl='https://buy.stripe.com/14A00i4QX9so6UF11q2sM01'+(domain?'?client_reference_id='+encodeURIComponent(domain):'');
-  try{
-    await fetch('/api/hhs/capture',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({domain,org_name:orgName,org_contact:orgContact,org_title:orgTitle,org_phone:orgPhone,org_address:orgAddress})
-    });
-  }catch(err){console.warn('Org capture failed, proceeding:',err);}
-  document.getElementById('org-saved').classList.add('show');
-  setTimeout(function(){window.open(stripeUrl,'_blank');},600);
-}
+
 document.getElementById('url-inp').addEventListener('keydown',e=>{if(e.key==='Enter')startScan();});
 document.getElementById('email-inp').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('url-inp').focus();});
 document.getElementById('email-inp').addEventListener('input',function(){this.style.borderColor='';checkReady();});
