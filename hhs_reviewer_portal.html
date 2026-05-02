@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IDR Reviewer Portal — Institute of Digital Remediation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:     #0A0E1A;
+  --navy2:    #0D1526;
+  --gold:     #C9A84C;
+  --gold2:    #E2C97E;
+  --gold3:    #8A6F2E;
+  --gold-bg:  #FBF7EE;
+  --cream:    #FAF8F4;
+  --white:    #FFFFFF;
+  --border:   #E8E2D8;
+  --border2:  #D4CCB8;
+  --text:     #1A1A1A;
+  --text2:    #444444;
+  --text3:    #888888;
+  --pass:     #1A7A4A;
+  --pass-bg:  #EDF7F2;
+  --pass-bd:  #A8D8BC;
+  --fail:     #B91C1C;
+  --fail-bg:  #FEF2F2;
+  --fail-bd:  #FECACA;
+  --part:     #B45309;
+  --part-bg:  #FFFBEB;
+  --part-bd:  #FDE68A;
+  --shadow:   0 1px 3px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.06);
+  --shadow2:  0 2px 8px rgba(0,0,0,.10), 0 12px 32px rgba(0,0,0,.08);
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { font-size:16px; scroll-behavior:smooth; }
+body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--text); min-height:100vh; }
+
+/* ── HEADER ───────────────────────────────────────────────────── */
+header {
+  background:var(--navy);
+  padding:0 40px;
+  height:64px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  position:sticky;
+  top:0;
+  z-index:100;
+  border-bottom:1px solid rgba(201,168,76,.2);
+}
+.logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
+.logo-mark {
+  width:36px; height:36px; border-radius:50%;
+  border:1.5px solid rgba(201,168,76,.5);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'DM Serif Display',serif;
+  font-size:11px; color:var(--gold); flex-shrink:0;
+}
+.logo-text { display:flex; flex-direction:column; gap:1px; }
+.logo-inst { font-size:8px; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:rgba(201,168,76,.45); }
+.logo-prod { font-family:'DM Serif Display',serif; font-size:15px; color:#FFFFFF; }
+.hdr-reviewer {
+  display:flex; align-items:center; gap:10px;
+  font-size:12px; color:rgba(255,255,255,.5);
+}
+.hdr-dot { width:7px; height:7px; border-radius:50%; background:var(--pass); box-shadow:0 0 6px var(--pass); }
+#hdr-name { color:rgba(255,255,255,.85); font-weight:500; }
+#btn-logout {
+  font-size:11px; font-weight:600; letter-spacing:.12em; text-transform:uppercase;
+  color:rgba(201,168,76,.5); background:none; border:none; cursor:pointer;
+  padding:6px 0; margin-left:16px; transition:color .2s;
+}
+#btn-logout:hover { color:var(--gold); }
+
+/* ── SCREENS ──────────────────────────────────────────────────── */
+.screen { display:none; }
+.screen.active { display:block; animation:fadeIn .3s ease; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+/* ── LOGIN SCREEN ─────────────────────────────────────────────── */
+#screen-login {
+  min-height:calc(100vh - 64px);
+  display:flex; align-items:center; justify-content:center; padding:40px 20px;
+}
+#screen-login.active { display:flex; }
+.login-card {
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:52px 48px;
+  max-width:420px;
+  width:100%;
+  box-shadow:var(--shadow2);
+  text-align:center;
+}
+.login-seal {
+  width:64px; height:64px; border-radius:50%;
+  background:var(--navy); border:2px solid var(--gold3);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'DM Serif Display',serif; font-size:16px; color:var(--gold);
+  margin:0 auto 24px;
+}
+.login-eyebrow {
+  font-size:9px; font-weight:700; letter-spacing:.26em; text-transform:uppercase;
+  color:var(--gold3); margin-bottom:8px;
+}
+.login-title {
+  font-family:'DM Serif Display',serif; font-size:26px; color:var(--navy);
+  margin-bottom:6px; line-height:1.2;
+}
+.login-sub {
+  font-size:13px; color:var(--text3); line-height:1.6; margin-bottom:32px;
+}
+.login-field { text-align:left; margin-bottom:16px; }
+.login-field label {
+  display:block; font-size:10px; font-weight:700; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--text2); margin-bottom:7px;
+}
+.login-field input {
+  width:100%; padding:12px 16px;
+  background:var(--cream); border:1.5px solid var(--border);
+  border-radius:4px; font-family:'DM Sans',sans-serif; font-size:14px;
+  color:var(--text); outline:none; transition:border-color .2s, box-shadow .2s;
+}
+.login-field input:focus {
+  border-color:var(--gold); box-shadow:0 0 0 3px rgba(201,168,76,.1);
+}
+.btn-primary {
+  width:100%; padding:14px;
+  background:var(--navy); color:var(--white);
+  border:none; border-radius:4px; cursor:pointer;
+  font-family:'DM Sans',sans-serif; font-size:11px; font-weight:700;
+  letter-spacing:.18em; text-transform:uppercase;
+  transition:background .2s, transform .15s;
+}
+.btn-primary:hover { background:var(--navy2); transform:translateY(-1px); }
+.btn-primary:disabled { background:#AAAAAA; cursor:not-allowed; transform:none; }
+.login-sent {
+  display:none; background:var(--pass-bg); border:1px solid var(--pass-bd);
+  border-radius:4px; padding:16px; margin-top:16px;
+  font-size:13px; color:var(--pass); line-height:1.6;
+}
+.login-sent.show { display:block; }
+
+/* ── JOBS SCREEN ──────────────────────────────────────────────── */
+.page-wrap { max-width:960px; margin:0 auto; padding:40px 32px 80px; }
+.page-title { font-family:'DM Serif Display',serif; font-size:30px; color:var(--navy); margin-bottom:4px; }
+.page-sub { font-size:13px; color:var(--text3); margin-bottom:32px; }
+
+/* Tally cards */
+.tally-row { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:32px; }
+.tally-card {
+  background:var(--white); border:1px solid var(--border); border-radius:6px;
+  padding:20px 22px; box-shadow:var(--shadow);
+}
+.tally-label { font-size:9px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--text3); margin-bottom:8px; }
+.tally-val { font-family:'DM Serif Display',serif; font-size:28px; color:var(--navy); line-height:1; }
+.tally-val.gold { color:var(--gold3); }
+.tally-sub { font-size:11px; color:var(--text3); margin-top:4px; }
+
+/* Job list */
+.section-label {
+  font-size:9px; font-weight:700; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--gold3); margin-bottom:14px; padding-bottom:8px;
+  border-bottom:1px solid var(--border);
+}
+.jobs-list { display:flex; flex-direction:column; gap:10px; }
+.job-card {
+  background:var(--white); border:1px solid var(--border); border-radius:6px;
+  padding:20px 24px; display:flex; align-items:center; gap:20px;
+  box-shadow:var(--shadow); transition:border-color .2s, box-shadow .2s; cursor:pointer;
+}
+.job-card:hover { border-color:var(--gold3); box-shadow:var(--shadow2); }
+.job-card.urgent { border-left:4px solid var(--fail); }
+.job-card.active-job { border-left:4px solid var(--gold); }
+.job-card.done { border-left:4px solid var(--pass); opacity:.75; }
+.job-domain { font-family:'JetBrains Mono',monospace; font-size:14px; color:var(--navy); font-weight:500; flex:1; }
+.job-surface {
+  font-size:9px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+  padding:4px 10px; border-radius:2px;
+  background:var(--gold-bg); color:var(--gold3); border:1px solid rgba(201,168,76,.25);
+}
+.job-surface.full { background:#EEF2FF; color:#3730A3; border-color:#C7D2FE; }
+.job-status-pill {
+  font-size:9px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+  padding:4px 10px; border-radius:2px;
+}
+.job-status-pill.pending { background:var(--fail-bg); color:var(--fail); border:1px solid var(--fail-bd); }
+.job-status-pill.progress { background:var(--part-bg); color:var(--part); border:1px solid var(--part-bd); }
+.job-status-pill.submitted { background:var(--pass-bg); color:var(--pass); border:1px solid var(--pass-bd); }
+.job-status-pill.delivered { background:#F0F9FF; color:#0369A1; border:1px solid #BAE6FD; }
+.job-date { font-size:11px; color:var(--text3); white-space:nowrap; }
+.job-open-btn {
+  font-size:10px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--gold3); background:none; border:1px solid rgba(201,168,76,.3);
+  padding:7px 16px; border-radius:3px; cursor:pointer; transition:all .2s; white-space:nowrap;
+}
+.job-open-btn:hover { background:var(--gold-bg); border-color:var(--gold3); }
+.no-jobs { text-align:center; padding:60px 20px; color:var(--text3); font-style:italic; font-size:15px; }
+
+/* ── CHECKLIST SCREEN ─────────────────────────────────────────── */
+.checklist-wrap { max-width:840px; margin:0 auto; padding:36px 32px 100px; }
+
+/* Job header */
+.job-header {
+  background:var(--white); border:1px solid var(--border); border-radius:8px;
+  padding:24px 28px; margin-bottom:24px; box-shadow:var(--shadow);
+  display:grid; grid-template-columns:1fr auto; gap:20px; align-items:start;
+}
+.job-header-domain {
+  font-family:'JetBrains Mono',monospace; font-size:20px; color:var(--navy); font-weight:500;
+}
+.job-header-meta { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; align-items:center; }
+.meta-pill {
+  font-size:9px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+  padding:4px 10px; border-radius:2px;
+}
+.meta-pill.surface { background:var(--gold-bg); color:var(--gold3); border:1px solid rgba(201,168,76,.25); }
+.meta-pill.surface.full { background:#EEF2FF; color:#3730A3; border-color:#C7D2FE; }
+.meta-pill.turnaround { background:var(--fail-bg); color:var(--fail); border:1px solid var(--fail-bd); }
+.job-header-right { text-align:right; }
+.session-timer {
+  font-family:'JetBrains Mono',monospace; font-size:22px; color:var(--navy);
+  font-weight:500; line-height:1;
+}
+.session-timer-label { font-size:9px; color:var(--text3); letter-spacing:.12em; text-transform:uppercase; margin-top:4px; }
+
+/* Scan summary strip */
+.scan-summary {
+  background:var(--navy); border-radius:6px; padding:16px 24px;
+  margin-bottom:24px; display:flex; gap:32px; align-items:center;
+}
+.ss-label { font-size:8px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:rgba(201,168,76,.5); margin-bottom:4px; }
+.ss-val { font-family:'DM Serif Display',serif; font-size:22px; color:var(--white); }
+.ss-val.warn { color:#FBBF24; }
+.ss-val.danger { color:#F87171; }
+.ss-divider { width:1px; background:rgba(255,255,255,.1); align-self:stretch; }
+.ss-note { font-size:12px; color:rgba(255,255,255,.4); font-style:italic; flex:1; line-height:1.5; }
+
+/* Progress bar */
+.progress-wrap { margin-bottom:24px; }
+.progress-label {
+  display:flex; justify-content:space-between; align-items:center;
+  font-size:10px; font-weight:700; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--text3); margin-bottom:8px;
+}
+.progress-bar-bg { height:6px; background:var(--border); border-radius:3px; overflow:hidden; }
+.progress-bar-fill { height:100%; background:var(--gold); border-radius:3px; transition:width .4s ease; }
+
+/* Check cards */
+.checks-section-label {
+  font-size:9px; font-weight:700; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--gold3); margin-bottom:12px; margin-top:28px; padding-bottom:8px;
+  border-bottom:1px solid var(--border);
+}
+.check-card {
+  background:var(--white); border:1px solid var(--border); border-radius:6px;
+  margin-bottom:12px; overflow:hidden; box-shadow:var(--shadow);
+  transition:border-color .2s;
+}
+.check-card.is-pass { border-left:4px solid var(--pass); }
+.check-card.is-fail { border-left:4px solid var(--fail); }
+.check-card.is-partial { border-left:4px solid var(--part); }
+.check-header {
+  display:flex; align-items:center; gap:16px; padding:18px 22px;
+  cursor:pointer; user-select:none;
+}
+.check-num {
+  width:28px; height:28px; border-radius:50%;
+  background:var(--cream); border:1.5px solid var(--border);
+  font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:500;
+  color:var(--text3); display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.check-card.is-pass .check-num { background:var(--pass-bg); border-color:var(--pass-bd); color:var(--pass); }
+.check-card.is-fail .check-num { background:var(--fail-bg); border-color:var(--fail-bd); color:var(--fail); }
+.check-card.is-partial .check-num { background:var(--part-bg); border-color:var(--part-bd); color:var(--part); }
+.check-name { font-size:14px; font-weight:600; color:var(--navy); flex:1; }
+.check-desc { font-size:12px; color:var(--text3); margin-top:2px; }
+.check-result-badge {
+  font-size:9px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+  padding:4px 10px; border-radius:2px;
+}
+.check-result-badge.pass { background:var(--pass-bg); color:var(--pass); border:1px solid var(--pass-bd); }
+.check-result-badge.fail { background:var(--fail-bg); color:var(--fail); border:1px solid var(--fail-bd); }
+.check-result-badge.partial { background:var(--part-bg); color:var(--part); border:1px solid var(--part-bd); }
+.check-result-badge.pending { background:var(--cream); color:var(--text3); border:1px solid var(--border); }
+.check-chevron { font-size:12px; color:var(--text3); transition:transform .2s; }
+.check-card.expanded .check-chevron { transform:rotate(180deg); }
+
+.check-body { display:none; padding:0 22px 22px; border-top:1px solid var(--border); }
+.check-card.expanded .check-body { display:block; }
+
+/* Result toggle */
+.result-toggle { display:flex; gap:8px; margin:18px 0 16px; }
+.result-btn {
+  flex:1; padding:11px 8px;
+  border-radius:4px; border:1.5px solid var(--border);
+  background:var(--cream); cursor:pointer;
+  font-family:'DM Sans',sans-serif; font-size:10px; font-weight:700;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--text3);
+  transition:all .15s;
+}
+.result-btn:hover { border-color:var(--border2); }
+.result-btn.pass.active { background:var(--pass-bg); border-color:var(--pass); color:var(--pass); }
+.result-btn.fail.active { background:var(--fail-bg); border-color:var(--fail); color:var(--fail); }
+.result-btn.partial.active { background:var(--part-bg); border-color:var(--part); color:var(--part); }
+
+/* Finding fields */
+.finding-fields { display:none; }
+.finding-fields.show { display:block; }
+.field-row { margin-bottom:14px; }
+.field-row.two { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.field-label {
+  display:block; font-size:9px; font-weight:700; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--text2); margin-bottom:6px;
+}
+.field-input, .field-select, .field-textarea {
+  width:100%; padding:10px 13px;
+  background:var(--cream); border:1.5px solid var(--border);
+  border-radius:4px; font-family:'DM Sans',sans-serif; font-size:13px;
+  color:var(--text); outline:none; transition:border-color .2s, box-shadow .2s;
+}
+.field-textarea { resize:vertical; min-height:80px; line-height:1.5; }
+.field-input:focus, .field-select:focus, .field-textarea:focus {
+  border-color:var(--gold); box-shadow:0 0 0 3px rgba(201,168,76,.1);
+}
+.autosave-indicator {
+  font-size:10px; color:var(--pass); font-weight:600;
+  opacity:0; transition:opacity .3s; margin-left:8px;
+}
+.autosave-indicator.show { opacity:1; }
+
+/* Screenshot upload zone */
+.upload-zone {
+  border:2px dashed var(--border2); border-radius:6px; padding:24px;
+  text-align:center; cursor:pointer; transition:border-color .2s, background .2s;
+  margin-top:14px; background:var(--cream);
+}
+.upload-zone:hover { border-color:var(--gold3); background:var(--gold-bg); }
+.upload-zone.drag-over { border-color:var(--gold); background:var(--gold-bg); }
+.upload-zone-icon { font-size:28px; margin-bottom:8px; }
+.upload-zone-text { font-size:12px; color:var(--text3); line-height:1.6; }
+.upload-zone-text strong { color:var(--gold3); }
+.upload-zone input[type=file] { display:none; }
+.screenshots-grid { display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+.screenshot-thumb {
+  width:88px; height:66px; border-radius:4px; border:1.5px solid var(--border);
+  object-fit:cover; cursor:pointer; transition:border-color .2s;
+  background:var(--cream);
+}
+.screenshot-thumb:hover { border-color:var(--gold3); }
+.screenshot-item { position:relative; }
+.screenshot-del {
+  position:absolute; top:-6px; right:-6px;
+  width:18px; height:18px; border-radius:50%;
+  background:var(--fail); color:white; border:none; cursor:pointer;
+  font-size:10px; font-weight:700; display:flex; align-items:center; justify-content:center;
+}
+.uploading-indicator { font-size:11px; color:var(--text3); font-style:italic; margin-top:8px; }
+
+/* Reviewer credential box */
+.reviewer-cred-box {
+  background:var(--gold-bg); border:1.5px solid rgba(201,168,76,.3);
+  border-radius:6px; padding:22px 24px; margin-top:28px;
+}
+.reviewer-cred-title {
+  font-size:9px; font-weight:700; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--gold3); margin-bottom:16px; display:flex; align-items:center; gap:8px;
+}
+.reviewer-cred-title::after { content:''; flex:1; height:1px; background:rgba(201,168,76,.25); }
+.cred-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.cred-grid .full { grid-column:1/-1; }
+
+/* Submit section */
+.submit-section {
+  background:var(--white); border:1px solid var(--border); border-radius:6px;
+  padding:28px 28px; margin-top:24px; box-shadow:var(--shadow);
+}
+.submit-gate {
+  font-size:12px; color:var(--text3); font-style:italic;
+  margin-bottom:14px; line-height:1.6;
+}
+.submit-gate span { color:var(--fail); font-weight:600; font-style:normal; }
+.btn-submit {
+  width:100%; padding:16px;
+  background:var(--navy); color:var(--white);
+  border:none; border-radius:4px; cursor:pointer;
+  font-family:'DM Sans',sans-serif; font-size:11px; font-weight:700;
+  letter-spacing:.18em; text-transform:uppercase;
+  transition:background .2s; position:relative;
+}
+.btn-submit:hover:not(:disabled) { background:#1A2540; }
+.btn-submit:disabled { background:#AAAAAA; cursor:not-allowed; }
+.btn-back {
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--text3); background:none; border:none; cursor:pointer;
+  padding:8px 0; margin-bottom:20px; transition:color .2s;
+}
+.btn-back:hover { color:var(--navy); }
+
+/* Success screen */
+#screen-success { min-height:calc(100vh - 64px); display:flex; align-items:center; justify-content:center; }
+#screen-success.active { display:flex; }
+.success-card {
+  background:var(--white); border:1px solid var(--border); border-radius:8px;
+  padding:52px 48px; max-width:480px; width:100%; text-align:center;
+  box-shadow:var(--shadow2);
+}
+.success-icon { font-size:48px; margin-bottom:16px; }
+.success-title { font-family:'DM Serif Display',serif; font-size:26px; color:var(--navy); margin-bottom:10px; }
+.success-body { font-size:14px; color:var(--text3); line-height:1.7; margin-bottom:28px; }
+.btn-secondary {
+  padding:12px 28px; background:var(--cream); border:1.5px solid var(--border);
+  border-radius:4px; cursor:pointer;
+  font-family:'DM Sans',sans-serif; font-size:11px; font-weight:700;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--text2);
+  transition:border-color .2s;
+}
+.btn-secondary:hover { border-color:var(--gold3); }
+
+/* Toast */
+.toast {
+  position:fixed; bottom:24px; right:24px;
+  background:var(--navy); color:var(--white);
+  padding:12px 20px; border-radius:4px;
+  font-size:12px; font-weight:600; letter-spacing:.06em;
+  box-shadow:var(--shadow2); z-index:999;
+  transform:translateY(80px); opacity:0;
+  transition:transform .3s ease, opacity .3s ease;
+}
+.toast.show { transform:translateY(0); opacity:1; }
+.toast.success { border-left:3px solid var(--pass); }
+.toast.error { border-left:3px solid var(--fail); }
+
+@media(max-width:700px) {
+  header { padding:0 18px; }
+  .page-wrap, .checklist-wrap { padding:24px 18px 80px; }
+  .tally-row { grid-template-columns:1fr 1fr; }
+  .cred-grid { grid-template-columns:1fr; }
+  .cred-grid .full { grid-column:1; }
+  .field-row.two { grid-template-columns:1fr; }
+  .result-toggle { flex-direction:column; }
+  .scan-summary { flex-wrap:wrap; gap:16px; }
+  .job-card { flex-wrap:wrap; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="#" class="logo">
+    <div class="logo-mark">IDR</div>
+    <div class="logo-text">
+      <span class="logo-inst">Institute of Digital Remediation</span>
+      <span class="logo-prod">Reviewer Portal</span>
+    </div>
+  </a>
+  <div class="hdr-reviewer" id="hdr-reviewer" style="display:none;">
+    <div class="hdr-dot"></div>
+    <span id="hdr-name">Reviewer</span>
+    <button id="btn-logout" onclick="logout()">Sign Out</button>
+  </div>
+</header>
+
+<!-- ── SCREEN: LOGIN ───────────────────────────────────────────── -->
+<div class="screen active" id="screen-login">
+  <div class="login-card">
+    <div class="login-seal">IDR</div>
+    <p class="login-eyebrow">Institute of Digital Remediation</p>
+    <h1 class="login-title">Reviewer Portal</h1>
+    <p class="login-sub">Enter your registered email address. We'll send you a secure login link — no password needed.</p>
+    <div class="login-field">
+      <label for="login-email">Email Address</label>
+      <input type="email" id="login-email" placeholder="your@email.com" autocomplete="email">
+    </div>
+    <button class="btn-primary" id="btn-send-link" onclick="sendLoginLink()">Send Login Link</button>
+    <div class="login-sent" id="login-sent">
+      ✓ Login link sent to your email. Check your inbox — the link expires in 2 hours. You can close this tab.
+    </div>
+  </div>
+</div>
+
+<!-- ── SCREEN: JOBS LIST ───────────────────────────────────────── -->
+<div class="screen" id="screen-jobs">
+  <div class="page-wrap">
+    <h1 class="page-title">Your Audit Jobs</h1>
+    <p class="page-sub" id="jobs-sub">Active and recent assignments</p>
+
+    <div class="tally-row" id="tally-row">
+      <div class="tally-card">
+        <div class="tally-label">Primary Audits This Month</div>
+        <div class="tally-val" id="tally-primary">—</div>
+        <div class="tally-sub" id="tally-primary-fee">$125 each</div>
+      </div>
+      <div class="tally-card">
+        <div class="tally-label">Full Access Audits This Month</div>
+        <div class="tally-val" id="tally-full">—</div>
+        <div class="tally-sub" id="tally-full-fee">$200 each</div>
+      </div>
+      <div class="tally-card">
+        <div class="tally-label">Total Earned This Month</div>
+        <div class="tally-val gold" id="tally-total">—</div>
+        <div class="tally-sub">Submitted audits only</div>
+      </div>
+      <div class="tally-card">
+        <div class="tally-label">Pending Action</div>
+        <div class="tally-val" id="tally-pending" style="color:var(--fail);">—</div>
+        <div class="tally-sub">Awaiting your review</div>
+      </div>
+    </div>
+
+    <div class="section-label">Active &amp; Recent Jobs</div>
+    <div class="jobs-list" id="jobs-list">
+      <div class="no-jobs">Loading jobs…</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SCREEN: CHECKLIST ───────────────────────────────────────── -->
+<div class="screen" id="screen-checklist">
+  <div class="checklist-wrap">
+    <button class="btn-back" onclick="showJobs()">← Back to Jobs</button>
+
+    <div class="job-header" id="job-header">
+      <div>
+        <div class="job-header-domain" id="jh-domain">—</div>
+        <div class="job-header-meta">
+          <span class="meta-pill surface" id="jh-surface">—</span>
+          <span class="meta-pill turnaround" id="jh-turnaround">—</span>
+          <span style="font-size:11px;color:var(--text3);" id="jh-org">—</span>
+        </div>
+      </div>
+      <div class="job-header-right">
+        <div class="session-timer" id="session-timer">00:00</div>
+        <div class="session-timer-label">Session Time</div>
+      </div>
+    </div>
+
+    <div class="scan-summary" id="scan-summary" style="display:none;">
+      <div>
+        <div class="ss-label">Auto-Scan Score</div>
+        <div class="ss-val" id="ss-score">—</div>
+      </div>
+      <div class="ss-divider"></div>
+      <div>
+        <div class="ss-label">Critical</div>
+        <div class="ss-val danger" id="ss-crit">—</div>
+      </div>
+      <div class="ss-divider"></div>
+      <div>
+        <div class="ss-label">Total Issues</div>
+        <div class="ss-val warn" id="ss-total">—</div>
+      </div>
+      <div class="ss-divider"></div>
+      <p class="ss-note">Automated scan data for reference. Your manual validation is the legal attestation — document what you observe directly.</p>
+    </div>
+
+    <div class="progress-wrap">
+      <div class="progress-label">
+        <span>Checklist Progress</span>
+        <span id="progress-text">0 of 0 checks completed</span>
+      </div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-bar" style="width:0%"></div></div>
+    </div>
+
+    <div id="checks-container"></div>
+
+    <!-- Reviewer Credentials -->
+    <div class="reviewer-cred-box" id="reviewer-cred-box">
+      <div class="reviewer-cred-title">Reviewer Credentials — Required Before Submission</div>
+      <p style="font-size:12px;color:var(--text3);margin-bottom:16px;line-height:1.6;">
+        Enter the details of the team member who conducted this specific review. This information will appear on the certification page of the issued Good Faith Effort Record.
+      </p>
+      <div class="cred-grid">
+        <div class="field-row full">
+          <label class="field-label">Full Legal Name *</label>
+          <input type="text" class="field-input" id="cred-name" placeholder="e.g. Archana Patel">
+        </div>
+        <div class="field-row">
+          <label class="field-label">Credentials Held *</label>
+          <input type="text" class="field-input" id="cred-title" placeholder="e.g. CPACC, WAS, DHS">
+        </div>
+        <div class="field-row">
+          <label class="field-label">Credential / License Number *</label>
+          <input type="text" class="field-input" id="cred-number" placeholder="IAAP or DHS credential number">
+        </div>
+        <div class="field-row full">
+          <label class="field-label">Title / Role</label>
+          <input type="text" class="field-input" id="cred-role" placeholder="e.g. Senior Accessibility Specialist">
+        </div>
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <div class="submit-section">
+      <p class="submit-gate" id="submit-gate">
+        Complete all checks and fill in your credentials above to enable submission.
+        <span id="remaining-label"></span>
+      </p>
+      <button class="btn-submit" id="btn-submit" disabled onclick="submitAudit()">
+        Submit Findings to IDR
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ── SCREEN: SUCCESS ─────────────────────────────────────────── -->
+<div class="screen" id="screen-success">
+  <div class="success-card">
+    <div class="success-icon">✓</div>
+    <h2 class="success-title">Findings Submitted</h2>
+    <p class="success-body" id="success-body">
+      Your findings have been submitted to the Institute of Digital Remediation. The delivery team has been notified and will review and deliver the Good Faith Effort Record to the client.
+    </p>
+    <button class="btn-secondary" onclick="showJobs()">← Back to Job List</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const API = '';
+let sessionToken = localStorage.getItem('idr_reviewer_token');
+let reviewerInfo = JSON.parse(localStorage.getItem('idr_reviewer_info') || 'null');
+let currentJob   = null;
+let timerInterval = null;
+let sessionStartTime = null;
+
+// ── BOOT ─────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  // Check for magic link token in URL
+  const params = new URLSearchParams(window.location.search);
+  const urlToken = params.get('token');
+  if (urlToken) {
+    verifyMagicLink(urlToken);
+    return;
+  }
+  if (sessionToken && reviewerInfo) {
+    showJobs();
+  } else {
+    showScreen('login');
+  }
+});
+
+// ── AUTH ──────────────────────────────────────────────────────────
+async function sendLoginLink() {
+  const email = document.getElementById('login-email').value.trim();
+  if (!email || !email.includes('@')) {
+    showToast('Please enter a valid email address.', 'error');
+    return;
+  }
+  const btn = document.getElementById('btn-send-link');
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+
+  try {
+    const res = await fetch(`${API}/api/reviewer/login`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({email})
+    });
+    document.getElementById('login-sent').classList.add('show');
+    btn.textContent = 'Link Sent ✓';
+  } catch(e) {
+    showToast('Could not send link. Please try again.', 'error');
+    btn.disabled = false;
+    btn.textContent = 'Send Login Link';
+  }
+}
+
+async function verifyMagicLink(token) {
+  try {
+    const res = await fetch(`${API}/api/reviewer/verify?token=${token}`);
+    const data = await res.json();
+    if (!res.ok) {
+      showToast('Login link expired or invalid. Please request a new one.', 'error');
+      showScreen('login');
+      return;
+    }
+    sessionToken = data.session_token;
+    reviewerInfo = {id: data.reviewer_id, name: data.name, email: data.email};
+    localStorage.setItem('idr_reviewer_token', sessionToken);
+    localStorage.setItem('idr_reviewer_info', JSON.stringify(reviewerInfo));
+    // Clean URL
+    window.history.replaceState({}, '', '/idr-reviewer');
+    showJobs();
+  } catch(e) {
+    showToast('Verification failed. Please request a new login link.', 'error');
+    showScreen('login');
+  }
+}
+
+function logout() {
+  localStorage.removeItem('idr_reviewer_token');
+  localStorage.removeItem('idr_reviewer_info');
+  sessionToken = null;
+  reviewerInfo = null;
+  showScreen('login');
+  document.getElementById('hdr-reviewer').style.display = 'none';
+}
+
+// ── JOBS LIST ─────────────────────────────────────────────────────
+async function showJobs() {
+  showScreen('jobs');
+  stopTimer();
+  if (reviewerInfo) {
+    document.getElementById('hdr-name').textContent = reviewerInfo.name || 'Reviewer';
+    document.getElementById('hdr-reviewer').style.display = 'flex';
+    document.getElementById('jobs-sub').textContent = `Welcome back, ${reviewerInfo.name?.split(' ')[0] || 'Reviewer'} — your active and recent assignments are below.`;
+  }
+  await loadJobs();
+}
+
+async function loadJobs() {
+  const list = document.getElementById('jobs-list');
+  list.innerHTML = '<div class="no-jobs">Loading…</div>';
+
+  try {
+    const res = await fetch(`${API}/api/reviewer/jobs`, {
+      headers: {'Authorization': `Bearer ${sessionToken}`}
+    });
+    if (res.status === 401) { logout(); return; }
+    const data = await res.json();
+
+    // Tally
+    const t = data.tally || {};
+    document.getElementById('tally-primary').textContent = t.primary || 0;
+    document.getElementById('tally-full').textContent = t.full || 0;
+    document.getElementById('tally-total').textContent = '$' + (t.total_owed || 0).toLocaleString();
+    document.getElementById('tally-primary-fee').textContent = `$${t.primary_fee || 125} each`;
+    document.getElementById('tally-full-fee').textContent = `$${t.full_fee || 200} each`;
+
+    const pending = (data.jobs || []).filter(j => j.status === 'pending_review').length;
+    document.getElementById('tally-pending').textContent = pending;
+
+    if (!data.jobs || data.jobs.length === 0) {
+      list.innerHTML = '<div class="no-jobs">No jobs assigned yet. You\'ll receive an email when a new audit is ready.</div>';
+      return;
+    }
+
+    list.innerHTML = '';
+    data.jobs.forEach(job => {
+      const card = buildJobCard(job);
+      list.appendChild(card);
+    });
+  } catch(e) {
+    list.innerHTML = '<div class="no-jobs">Could not load jobs. Please refresh.</div>';
+  }
+}
+
+function buildJobCard(job) {
+  const div = document.createElement('div');
+  const statusClass = job.status === 'pending_review' ? 'urgent' :
+                      job.status === 'reviewer_submitted' || job.status === 'delivered' ? 'done' : 'active-job';
+  const statusLabel = job.status === 'pending_review'      ? 'Pending Review' :
+                      job.status === 'reviewer_submitted'  ? 'Submitted' :
+                      job.status === 'delivered'           ? 'Delivered' : 'In Progress';
+  const statusPill  = job.status === 'pending_review'      ? 'pending' :
+                      job.status === 'reviewer_submitted'  ? 'submitted' :
+                      job.status === 'delivered'           ? 'delivered' : 'progress';
+  const surfaceClass = job.audit_surface === 'primary_and_transaction' ? 'full' : '';
+  const date = job.created_at ? new Date(job.created_at).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '—';
+
+  div.className = `job-card ${statusClass}`;
+  div.innerHTML = `
+    <div style="flex:1;">
+      <div class="job-domain">${esc(job.domain)}</div>
+      <div style="margin-top:6px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <span class="job-surface ${surfaceClass}">${esc(job.surface_label)}</span>
+        <span class="job-status-pill ${statusPill}">${statusLabel}</span>
+        <span class="job-date">Assigned ${date}</span>
+      </div>
+    </div>
+    ${job.status !== 'delivered' ? `<button class="job-open-btn" onclick="openJob(${job.audit_id})">Open Audit →</button>` : '<span style="font-size:11px;color:var(--pass);font-weight:600;">✓ Complete</span>'}
+  `;
+  return div;
+}
+
+// ── CHECKLIST ─────────────────────────────────────────────────────
+async function openJob(auditId) {
+  showScreen('checklist');
+  document.getElementById('checks-container').innerHTML = '<div style="text-align:center;padding:40px;color:var(--text3);">Loading audit brief…</div>';
+
+  try {
+    const res = await fetch(`${API}/api/reviewer/job/${auditId}`, {
+      headers: {'Authorization': `Bearer ${sessionToken}`}
+    });
+    if (res.status === 401) { logout(); return; }
+    const job = await res.json();
+    currentJob = job;
+    renderChecklist(job);
+    startSessionTimer(job);
+
+    // Record session start
+    fetch(`${API}/api/reviewer/session-start/${auditId}`, {
+      method: 'POST',
+      headers: {'Authorization': `Bearer ${sessionToken}`}
+    }).catch(() => {});
+  } catch(e) {
+    showToast('Could not load audit. Please try again.', 'error');
+    showJobs();
+  }
+}
+
+function renderChecklist(job) {
+  // Header
+  const isFull = job.audit_surface === 'primary_and_transaction';
+  document.getElementById('jh-domain').textContent = job.domain;
+  const surfaceEl = document.getElementById('jh-surface');
+  surfaceEl.textContent = job.surface_label;
+  if (isFull) surfaceEl.classList.add('full');
+  document.getElementById('jh-turnaround').textContent = isFull ? '48hr Turnaround' : '24hr Turnaround';
+  document.getElementById('jh-org').textContent = job.org_name || '';
+
+  // Scan summary
+  if (job.scan_json && job.scan_json.overall_score !== undefined) {
+    const sc = job.scan_json;
+    document.getElementById('ss-score').textContent = (sc.overall_score || 0) + '/100';
+    document.getElementById('ss-crit').textContent  = sc.critical_count || 0;
+    document.getElementById('ss-total').textContent = sc.total_issues || 0;
+    if (sc.overall_score >= 80) document.getElementById('ss-score').className = 'ss-val';
+    else if (sc.overall_score >= 60) document.getElementById('ss-score').className = 'ss-val warn';
+    else document.getElementById('ss-score').className = 'ss-val danger';
+    document.getElementById('scan-summary').style.display = 'flex';
+  }
+
+  // Build check cards
+  const container = document.getElementById('checks-container');
+  container.innerHTML = '';
+
+  const primaryChecks = job.checks.slice(0, 5);
+  const transChecks   = isFull ? job.checks.slice(5) : [];
+
+  container.appendChild(makeSectionLabel('Primary Web Presence — Manual Validation'));
+  primaryChecks.forEach((check, i) => {
+    container.appendChild(buildCheckCard(check, i + 1, job.audit_id));
+  });
+
+  if (transChecks.length > 0) {
+    container.appendChild(makeSectionLabel('Patient-Facing Transaction Layer'));
+    transChecks.forEach((check, i) => {
+      container.appendChild(buildCheckCard(check, primaryChecks.length + i + 1, job.audit_id));
+    });
+  }
+
+  updateProgress();
+}
+
+function makeSectionLabel(text) {
+  const el = document.createElement('div');
+  el.className = 'checks-section-label';
+  el.textContent = text;
+  return el;
+}
+
+const CHECK_DESCRIPTIONS = {
+  keyboard_nav:     'Tab through every interactive element — no mouse. Confirm logical order, all elements reachable, no focus traps.',
+  screen_reader:    'Run NVDA or VoiceOver. Navigate by headings, landmarks, and linearly. Document every wrong or missing announcement.',
+  forms:            'Tab through every form field. Confirm labels, required state, and error messages are correctly announced.',
+  zoom_stress:      'Set browser to 200%. Confirm no horizontal scroll, no content cutoff, focus indicators remain visible.',
+  focus_indicators: 'Tab through all interactive elements. Confirm each has a clearly visible focus ring — document any that disappear.',
+  scheduling_flow:  'Complete the full appointment booking flow end-to-end using keyboard and screen reader only. Document every barrier.',
+  intake_forms:     'Complete patient intake forms with screen reader and keyboard only. Test all fields, validation, and submission.',
+  portal_entry:     'Test patient portal login, landing experience, keyboard navigation, session timeout warnings, and error messages.',
+};
+
+function buildCheckCard(check, num, auditId) {
+  const div = document.createElement('div');
+  const hasResult = check.result && check.result !== 'pending';
+  div.className = `check-card${hasResult ? ' is-' + check.result : ''}`;
+  div.id = `check-card-${check.slug}`;
+
+  const resultLabel = hasResult ? check.result.charAt(0).toUpperCase() + check.result.slice(1) : 'Pending';
+  const wcagOptions = (check.wcag_common || []).map(w =>
+    `<option value="${w}" ${check.wcag_criterion === w ? 'selected' : ''}>${w}</option>`
+  ).join('');
+
+  div.innerHTML = `
+    <div class="check-header" onclick="toggleCheck('${check.slug}')">
+      <div class="check-num">${num}</div>
+      <div>
+        <div class="check-name">${esc(check.check_name)}</div>
+        <div class="check-desc">${CHECK_DESCRIPTIONS[check.slug] || ''}</div>
+      </div>
+      <span class="check-result-badge ${check.result || 'pending'}">${resultLabel}</span>
+      <span class="check-chevron">▼</span>
+    </div>
+    <div class="check-body">
+      <div class="result-toggle">
+        <button class="result-btn pass ${check.result === 'pass' ? 'active' : ''}"
+          onclick="setResult('${check.slug}', '${check.check_name}', 'pass', ${auditId})">✓ Pass</button>
+        <button class="result-btn partial ${check.result === 'partial' ? 'active' : ''}"
+          onclick="setResult('${check.slug}', '${check.check_name}', 'partial', ${auditId})">⚠ Partial</button>
+        <button class="result-btn fail ${check.result === 'fail' ? 'active' : ''}"
+          onclick="setResult('${check.slug}', '${check.check_name}', 'fail', ${auditId})">✗ Fail</button>
+      </div>
+      <div class="finding-fields ${(check.result === 'fail' || check.result === 'partial') ? 'show' : ''}"
+           id="fields-${check.slug}">
+        <div class="field-row">
+          <label class="field-label">
+            Finding Description *
+            <span class="autosave-indicator" id="save-${check.slug}">Saved ✓</span>
+          </label>
+          <textarea class="field-textarea" id="text-${check.slug}"
+            placeholder="Describe exactly what you observed — what failed, what element, what the impact is on users with disabilities."
+            oninput="scheduleSave('${check.slug}', '${check.check_name}', ${auditId})"
+          >${check.finding_text || ''}</textarea>
+        </div>
+        <div class="field-row two">
+          <div>
+            <label class="field-label">WCAG Criterion</label>
+            <select class="field-select" id="wcag-${check.slug}"
+              onchange="scheduleSave('${check.slug}', '${check.check_name}', ${auditId})">
+              <option value="">Select criterion…</option>
+              ${wcagOptions}
+              <option value="other" ${!check.wcag_criterion || check.wcag_common?.includes(check.wcag_criterion) ? '' : 'selected'}>Other</option>
+            </select>
+          </div>
+          <div>
+            <label class="field-label">Severity</label>
+            <select class="field-select" id="sev-${check.slug}"
+              onchange="scheduleSave('${check.slug}', '${check.check_name}', ${auditId})">
+              <option value="">Select severity…</option>
+              <option value="critical"  ${check.severity === 'critical'  ? 'selected' : ''}>Critical</option>
+              <option value="serious"   ${check.severity === 'serious'   ? 'selected' : ''}>Serious</option>
+              <option value="moderate"  ${check.severity === 'moderate'  ? 'selected' : ''}>Moderate</option>
+              <option value="minor"     ${check.severity === 'minor'     ? 'selected' : ''}>Minor</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label class="field-label" style="margin-top:14px;display:block;">
+          Screenshots
+          <span style="font-weight:400;color:var(--text3);text-transform:none;letter-spacing:0;font-size:11px;">
+            — drag and drop or click to upload annotated screenshots
+          </span>
+        </label>
+        <div class="screenshots-grid" id="shots-${check.slug}">
+          ${(check.screenshots || []).map(s => buildThumb(s, check.slug)).join('')}
+        </div>
+        <div class="upload-zone" id="zone-${check.slug}"
+          onclick="document.getElementById('file-${check.slug}').click()"
+          ondragover="e=>e.preventDefault()" ondrop="handleDrop(event,'${check.slug}',${auditId})">
+          <input type="file" id="file-${check.slug}" accept="image/*" multiple
+            onchange="handleFileSelect(this,'${check.slug}',${auditId})">
+          <div class="upload-zone-icon">📎</div>
+          <p class="upload-zone-text">
+            <strong>Click to upload</strong> or drag and drop<br>
+            PNG, JPG, GIF, WebP accepted · Multiple files allowed
+          </p>
+        </div>
+        <div class="uploading-indicator" id="uploading-${check.slug}" style="display:none;">Uploading…</div>
+      </div>
+    </div>
+  `;
+
+  // Expand if already has result
+  if (hasResult) {
+    div.classList.add('expanded');
+  }
+
+  return div;
+}
+
+function buildThumb(s, slug) {
+  return `<div class="screenshot-item">
+    <img class="screenshot-thumb" src="${s.url}" title="${esc(s.filename)}" alt="Screenshot">
+    <button class="screenshot-del" onclick="deleteScreenshot(${s.screenshot_id},'${slug}')" title="Remove">×</button>
+  </div>`;
+}
+
+// ── CHECK INTERACTIONS ────────────────────────────────────────────
+function toggleCheck(slug) {
+  const card = document.getElementById(`check-card-${slug}`);
+  card.classList.toggle('expanded');
+}
+
+const saveTimers = {};
+function scheduleSave(slug, checkName, auditId) {
+  clearTimeout(saveTimers[slug]);
+  saveTimers[slug] = setTimeout(() => saveFinding(slug, checkName, auditId, false), 1200);
+}
+
+async function setResult(slug, checkName, result, auditId) {
+  const card = document.getElementById(`check-card-${slug}`);
+  card.className = `check-card expanded is-${result}`;
+
+  // Update badge
+  const badge = card.querySelector('.check-result-badge');
+  badge.className = `check-result-badge ${result}`;
+  badge.textContent = result.charAt(0).toUpperCase() + result.slice(1);
+
+  // Update toggle buttons
+  card.querySelectorAll('.result-btn').forEach(b => b.classList.remove('active'));
+  const activeBtn = card.querySelector(`.result-btn.${result}`);
+  if (activeBtn) activeBtn.classList.add('active');
+
+  // Show/hide finding fields
+  const fields = document.getElementById(`fields-${slug}`);
+  if (result === 'fail' || result === 'partial') {
+    fields.classList.add('show');
+  } else {
+    fields.classList.remove('show');
+  }
+
+  await saveFinding(slug, checkName, auditId, true, result);
+  updateProgress();
+}
+
+async function saveFinding(slug, checkName, auditId, showIndicator, overrideResult = null) {
+  const result  = overrideResult || getCurrentResult(slug);
+  const text    = (document.getElementById(`text-${slug}`) || {}).value || '';
+  const wcag    = (document.getElementById(`wcag-${slug}`) || {}).value || '';
+  const sev     = (document.getElementById(`sev-${slug}`) || {}).value || '';
+
+  try {
+    await fetch(`${API}/api/reviewer/finding/${auditId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionToken}`
+      },
+      body: JSON.stringify({
+        check_slug:     slug,
+        check_name:     checkName,
+        result:         result || 'pending',
+        finding_text:   text,
+        wcag_criterion: wcag,
+        severity:       sev,
+      })
+    });
+    if (showIndicator) {
+      const ind = document.getElementById(`save-${slug}`);
+      if (ind) { ind.classList.add('show'); setTimeout(() => ind.classList.remove('show'), 2000); }
+    }
+  } catch(e) {
+    console.warn('Save failed:', e);
+  }
+}
+
+function getCurrentResult(slug) {
+  const card = document.getElementById(`check-card-${slug}`);
+  if (!card) return 'pending';
+  if (card.classList.contains('is-pass'))    return 'pass';
+  if (card.classList.contains('is-fail'))    return 'fail';
+  if (card.classList.contains('is-partial')) return 'partial';
+  return 'pending';
+}
+
+// ── PROGRESS ──────────────────────────────────────────────────────
+function updateProgress() {
+  if (!currentJob) return;
+  const total    = currentJob.checks.length;
+  const completed = currentJob.checks.filter(c => {
+    const result = getCurrentResult(c.slug);
+    return result && result !== 'pending';
+  }).length;
+  const pct = total ? Math.round((completed / total) * 100) : 0;
+  document.getElementById('progress-bar').style.width  = pct + '%';
+  document.getElementById('progress-text').textContent = `${completed} of ${total} checks completed`;
+
+  const remaining = total - completed;
+  const credOk = credentialsComplete();
+  document.getElementById('submit-gate').innerHTML = completed < total
+    ? `Complete all checks to enable submission. <span>${remaining} remaining.</span>`
+    : credOk
+      ? 'All checks complete and credentials filled. Ready to submit.'
+      : '<span>Please fill in your reviewer credentials above before submitting.</span>';
+
+  const submitBtn = document.getElementById('btn-submit');
+  submitBtn.disabled = !(completed >= total && credOk);
+
+  // Live check on cred fields
+  ['cred-name','cred-title','cred-number'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', updateProgress);
+  });
+}
+
+function credentialsComplete() {
+  const name   = (document.getElementById('cred-name') || {}).value?.trim();
+  const title  = (document.getElementById('cred-title') || {}).value?.trim();
+  const number = (document.getElementById('cred-number') || {}).value?.trim();
+  return !!(name && title && number);
+}
+
+// ── SCREENSHOT UPLOAD ──────────────────────────────────────────────
+function handleDrop(e, slug, auditId) {
+  e.preventDefault();
+  const files = e.dataTransfer.files;
+  if (files.length) uploadFiles(Array.from(files), slug, auditId);
+}
+
+function handleFileSelect(input, slug, auditId) {
+  if (input.files.length) uploadFiles(Array.from(input.files), slug, auditId);
+  input.value = '';
+}
+
+async function uploadFiles(files, slug, auditId) {
+  // Get finding_id first — save finding to ensure row exists
+  const checkName = currentJob?.checks.find(c => c.slug === slug)?.check_name || slug;
+  const result    = getCurrentResult(slug) || 'pending';
+
+  let findingId = null;
+  try {
+    const res = await fetch(`${API}/api/reviewer/finding/${auditId}`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json', 'Authorization': `Bearer ${sessionToken}`},
+      body: JSON.stringify({check_slug: slug, check_name: checkName, result})
+    });
+    const data = await res.json();
+    findingId = data.finding_id;
+  } catch(e) {
+    showToast('Could not save finding before upload.', 'error');
+    return;
+  }
+
+  if (!findingId) { showToast('Finding must be saved first.', 'error'); return; }
+
+  const upEl = document.getElementById(`uploading-${slug}`);
+  if (upEl) upEl.style.display = 'block';
+
+  for (const file of files) {
+    if (!file.type.startsWith('image/')) continue;
+    const fd = new FormData();
+    fd.append('file', file);
+    fd.append('check_slug', slug);
+    fd.append('wcag_criterion', (document.getElementById(`wcag-${slug}`) || {}).value || '');
+    fd.append('domain', currentJob?.domain || '');
+
+    try {
+      const res = await fetch(`${API}/api/reviewer/screenshot/${auditId}/${findingId}`, {
+        method: 'POST',
+        headers: {'Authorization': `Bearer ${sessionToken}`},
+        body: fd
+      });
+      const data = await res.json();
+      if (data.saved) {
+        const grid = document.getElementById(`shots-${slug}`);
+        const item = document.createElement('div');
+        item.className = 'screenshot-item';
+        item.innerHTML = `
+          <img class="screenshot-thumb" src="${data.url}" alt="Screenshot">
+          <button class="screenshot-del" onclick="deleteScreenshot(${data.screenshot_id},'${slug}')">×</button>
+        `;
+        grid.appendChild(item);
+        showToast('Screenshot uploaded', 'success');
+      }
+    } catch(e) {
+      showToast('Upload failed. Please try again.', 'error');
+    }
+  }
+
+  if (upEl) upEl.style.display = 'none';
+}
+
+async function deleteScreenshot(screenshotId, slug) {
+  // Visual removal only for now — no delete endpoint needed
+  // (screenshots stay in DB; admin can filter on delivery)
+  showToast('Screenshot removed from view.', 'success');
+}
+
+// ── SUBMIT ────────────────────────────────────────────────────────
+async function submitAudit() {
+  if (!currentJob) return;
+
+  const name   = document.getElementById('cred-name').value.trim();
+  const title  = document.getElementById('cred-title').value.trim();
+  const number = document.getElementById('cred-number').value.trim();
+  const role   = document.getElementById('cred-role').value.trim();
+
+  if (!name || !title || !number) {
+    showToast('Please fill in all required credential fields.', 'error');
+    document.getElementById('reviewer-cred-box').scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+
+  const btn = document.getElementById('btn-submit');
+  btn.disabled = true;
+  btn.textContent = 'Submitting…';
+
+  try {
+    const res = await fetch(`${API}/api/reviewer/submit/${currentJob.audit_id}`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json', 'Authorization': `Bearer ${sessionToken}`},
+      body: JSON.stringify({
+        reviewer_name:              name,
+        reviewer_credentials:       title,
+        reviewer_credential_number: number,
+        reviewer_role:              role,
+      })
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      showToast(data.error || 'Submission failed. Please try again.', 'error');
+      btn.disabled = false;
+      btn.textContent = 'Submit Findings to IDR';
+      return;
+    }
+
+    stopTimer();
+    document.getElementById('success-body').textContent =
+      `Your findings for ${currentJob.domain} have been submitted. The IDR delivery team has been notified and will review and deliver the Good Faith Effort Record to the client.`;
+    showScreen('success');
+  } catch(e) {
+    showToast('Submission failed. Please check your connection and try again.', 'error');
+    btn.disabled = false;
+    btn.textContent = 'Submit Findings to IDR';
+  }
+}
+
+// ── SESSION TIMER ─────────────────────────────────────────────────
+function startSessionTimer(job) {
+  stopTimer();
+  // If session already started, calculate offset
+  const start = job.session_start ? new Date(job.session_start) : new Date();
+  sessionStartTime = start;
+  timerInterval = setInterval(() => {
+    const elapsed = Math.floor((Date.now() - sessionStartTime.getTime()) / 1000);
+    const m = String(Math.floor(elapsed / 60)).padStart(2, '0');
+    const s = String(elapsed % 60).padStart(2, '0');
+    const el = document.getElementById('session-timer');
+    if (el) el.textContent = `${m}:${s}`;
+  }, 1000);
+}
+
+function stopTimer() {
+  if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+}
+
+// ── UTILS ─────────────────────────────────────────────────────────
+function showScreen(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(`screen-${name}`).classList.add('active');
+}
+
+function showJobs() {
+  showScreen('jobs');
+  stopTimer();
+  loadJobs();
+}
+
+function esc(str) {
+  const d = document.createElement('div');
+  d.textContent = str || '';
+  return d.innerHTML;
+}
+
+let toastTimer;
+function showToast(msg, type = 'success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast show ${type}`;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+</script>
+</body>
+</html>
