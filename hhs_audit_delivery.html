@@ -492,6 +492,21 @@
             <div class="field-hint">Without https:// or www.</div>
           </div>
         </div>
+
+        <!-- Reviewer findings loader -->
+        <div id="reviewer-loader-bar" style="display:none;margin:0 0 16px;padding:14px 18px;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);border-radius:4px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+          <div style="flex:1;">
+            <div style="font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#8A6F2E;margin-bottom:3px;">Reviewer Findings Available</div>
+            <div style="font-size:13px;color:#444;" id="reviewer-loader-status">Archana's team has submitted findings for this domain.</div>
+          </div>
+          <button type="button" id="btn-load-findings" onclick="loadReviewerFindings()"
+            style="background:#C9A84C;color:#0A0E1A;border:none;border-radius:3px;padding:10px 20px;
+            font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.16em;
+            text-transform:uppercase;cursor:pointer;white-space:nowrap;">
+            Load Findings →
+          </button>
+        </div>
+
         <div class="field-row">
           <div class="field">
             <label>Receipt ID <span class="req">*</span></label>
@@ -734,6 +749,53 @@
       </div>
     </div>
 
+    <!-- ── Section 4b: Reviewer Portal Findings (auto-loaded) ── -->
+    <div class="section" id="reviewer-findings-section" style="display:none;">
+      <div class="section-hdr">
+        <div class="section-num" style="background:#1A6B3A;color:#fff;">R</div>
+        <div class="section-label">Reviewer Findings — Submitted via Portal</div>
+        <div class="section-desc" id="reviewer-findings-desc">Loaded from Archana's team submission</div>
+      </div>
+      <div class="section-body">
+        <!-- Session info strip -->
+        <div id="reviewer-session-strip" style="display:flex;gap:24px;flex-wrap:wrap;padding:14px 18px;
+          background:#0A0E1A;border-radius:4px;margin-bottom:18px;">
+          <div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:7px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:3px;">Reviewer</div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:12px;color:#F0E8D8;" id="rs-name">—</div>
+          </div>
+          <div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:7px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:3px;">Credentials</div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:12px;color:#F0E8D8;" id="rs-creds">—</div>
+          </div>
+          <div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:7px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:3px;">Credential No.</div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:12px;color:#F0E8D8;" id="rs-crednum">—</div>
+          </div>
+          <div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:7px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:3px;">Session Duration</div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:12px;color:#F0E8D8;" id="rs-duration">—</div>
+          </div>
+          <div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:7px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:3px;">Audit Surface</div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:12px;color:#F0E8D8;" id="rs-surface">—</div>
+          </div>
+          <div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:7px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:3px;">Submitted</div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:12px;color:#F0E8D8;" id="rs-submitted">—</div>
+          </div>
+        </div>
+
+        <!-- Check findings list -->
+        <div id="reviewer-checks-list" style="display:flex;flex-direction:column;gap:10px;"></div>
+
+        <div style="margin-top:16px;padding:12px 16px;background:rgba(26,106,58,.08);border:1px solid rgba(26,106,58,.2);border-radius:3px;">
+          <p style="font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#1A6B3A;margin-bottom:4px;">Findings Transferred</p>
+          <p style="font-size:12px;color:#555;line-height:1.6;">The reviewer's findings have been copied into the Manual Audit Findings section below for your review. Edit any finding before generating the PDF — what appears below is what goes into the document.</p>
+        </div>
+      </div>
+    </div>
+
     <!-- ── Section 5: Manual Audit Checks ── -->
     <div class="section">
       <div class="section-hdr">
@@ -885,13 +947,188 @@ document.getElementById('auditTimestamp').value =
 
 // Pre-fill from URL params (Hans-Peter clicks from payment notification link)
 const params = new URLSearchParams(window.location.search);
-if (params.get('domain'))    document.getElementById('domain').value    = params.get('domain');
-if (params.get('email'))     document.getElementById('clientEmail').value = params.get('email');
-if (params.get('receipt_id'))document.getElementById('receiptId').value  = params.get('receipt_id');
-if (params.get('registry_id')) document.getElementById('registryId').value = params.get('registry_id');
-if (params.get('org'))       document.getElementById('orgName').value    = params.get('org');
+if (params.get('domain'))     document.getElementById('domain').value       = params.get('domain');
+if (params.get('email'))      document.getElementById('clientEmail').value  = params.get('email');
+if (params.get('receipt_id')) document.getElementById('receiptId').value    = params.get('receipt_id');
+if (params.get('registry_id'))document.getElementById('registryId').value   = params.get('registry_id');
+if (params.get('org'))        document.getElementById('orgName').value       = params.get('org');
 
-// Auto-generate registry_id from domain
+// If audit_id in URL, auto-check for reviewer findings on load
+let _currentAuditId = params.get('audit_id') ? parseInt(params.get('audit_id')) : null;
+if (_currentAuditId || params.get('domain')) {
+  setTimeout(checkForReviewerFindings, 800);
+}
+
+// ── REVIEWER FINDINGS LOADER ──────────────────────────────────────────────────
+
+async function checkForReviewerFindings() {
+  const domain = document.getElementById('domain').value.trim()
+    .replace('https://','').replace('http://','').replace('www.','').split('/')[0];
+  if (!domain) return;
+
+  try {
+    // Look up the hhs_audits job by domain
+    const res = await fetch(API + '/api/hhs/org-data/' + domain);
+    const data = await res.json();
+
+    // Check if there's a submitted reviewer job for this domain
+    const jobRes = await fetch(API + '/api/hhs/audit-job-by-domain/' + domain);
+    if (!jobRes.ok) return;
+    const jobData = await jobRes.json();
+
+    if (jobData.found && jobData.status === 'reviewer_submitted') {
+      _currentAuditId = jobData.audit_id;
+      document.getElementById('reviewer-loader-bar').style.display = 'flex';
+      document.getElementById('reviewer-loader-status').textContent =
+        (jobData.reviewer_name_submitted || 'Reviewer') +
+        ' submitted findings for ' + domain + '. Load to pre-populate fields.';
+    }
+  } catch(e) {
+    // Silently fail — reviewer portal is optional enhancement
+  }
+}
+
+async function loadReviewerFindings() {
+  if (!_currentAuditId) return;
+  const btn = document.getElementById('btn-load-findings');
+  btn.textContent = 'Loading…';
+  btn.disabled = true;
+
+  try {
+    // We use the admin key to fetch full job details
+    const adminKey = document.getElementById('adminKey').value.trim();
+    const res = await fetch(API + '/api/hhs/audit-job/' + _currentAuditId, {
+      headers: {'X-Admin-Key': adminKey || ''}
+    });
+    if (!res.ok) throw new Error('Could not load findings');
+    const job = await res.json();
+
+    // ── Populate org fields from job ──────────────────────────────
+    if (job.org_name)    document.getElementById('orgName').value    = job.org_name;
+    if (job.org_contact) document.getElementById('orgContact').value = job.org_contact;
+    if (job.org_address) document.getElementById('orgAddress').value = job.org_address;
+    if (job.org_phone)   document.getElementById('orgPhone').value   = job.org_phone;
+    if (job.client_email)document.getElementById('clientEmail').value= job.client_email;
+    if (job.registry_id) document.getElementById('registryId').value = job.registry_id;
+
+    // ── Populate scan scores from scan_json ───────────────────────
+    if (job.scan_json) {
+      const sc = job.scan_json;
+      if (sc.overall_score !== undefined) document.getElementById('overallScore').value = sc.overall_score;
+      if (sc.critical_count !== undefined)document.getElementById('critCount').value    = sc.critical_count;
+      if (sc.total_issues !== undefined)  document.getElementById('totalIssues').value  = sc.total_issues;
+      if (sc.serious_count !== undefined) document.getElementById('seriousCount').value = sc.serious_count;
+    }
+
+    // ── Populate manual check textareas from reviewer findings ────
+    const slugMap = {
+      keyboard_nav:     'check_kbd',
+      screen_reader:    'check_sr',
+      forms:            'check_form',
+      zoom_stress:      'check_visual',
+      focus_indicators: 'check_visual',
+      scheduling_flow:  'check_kbd',
+      intake_forms:     'check_form',
+      portal_entry:     'check_sr',
+    };
+
+    const findingsBySlug = {};
+    (job.checks || []).forEach(c => { findingsBySlug[c.slug] = c; });
+
+    // Build combined text per textarea from relevant checks
+    const textareaContent = {
+      check_kbd:    [],
+      check_sr:     [],
+      check_form:   [],
+      check_visual: [],
+      check_pdf:    [],
+    };
+
+    (job.checks || []).forEach(c => {
+      if (!c.finding_text || c.result === 'pass') return;
+      const resultLabel = c.result === 'fail' ? 'FAIL' : 'PARTIAL';
+      const line = `[${resultLabel}] ${c.check_name}: ${c.finding_text}` +
+        (c.wcag_criterion ? ` (WCAG ${c.wcag_criterion})` : '') +
+        (c.severity ? ` — ${c.severity}` : '');
+
+      if (c.slug === 'keyboard_nav' || c.slug === 'scheduling_flow') textareaContent.check_kbd.push(line);
+      else if (c.slug === 'screen_reader' || c.slug === 'portal_entry') textareaContent.check_sr.push(line);
+      else if (c.slug === 'forms' || c.slug === 'intake_forms') textareaContent.check_form.push(line);
+      else if (c.slug === 'zoom_stress' || c.slug === 'focus_indicators') textareaContent.check_visual.push(line);
+    });
+
+    Object.entries(textareaContent).forEach(([id, lines]) => {
+      const el = document.getElementById(id);
+      if (el && lines.length > 0) el.value = lines.join('\n\n');
+    });
+
+    // ── Render reviewer session info strip ────────────────────────
+    const rName   = job.reviewer_name_submitted || '—';
+    const rCreds  = job.reviewer_credentials_submitted || '—';
+    const rNum    = job.reviewer_cred_number_submitted || '—';
+    const surface = job.surface_label || '—';
+
+    document.getElementById('rs-name').textContent    = rName;
+    document.getElementById('rs-creds').textContent   = rCreds;
+    document.getElementById('rs-crednum').textContent = rNum;
+    document.getElementById('rs-surface').textContent = surface;
+
+    if (job.reviewer_session_start && job.reviewer_session_end) {
+      const start = new Date(job.reviewer_session_start);
+      const end   = new Date(job.reviewer_session_end);
+      const mins  = Math.round((end - start) / 60000);
+      document.getElementById('rs-duration').textContent = mins + ' minutes';
+    }
+    if (job.reviewer_submitted_at) {
+      const d = new Date(job.reviewer_submitted_at);
+      document.getElementById('rs-submitted').textContent =
+        d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) + ' ' +
+        d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}) + ' UTC';
+    }
+
+    // ── Render check findings list ────────────────────────────────
+    const list = document.getElementById('reviewer-checks-list');
+    list.innerHTML = '';
+    (job.checks || []).forEach(c => {
+      const resultColor = c.result === 'pass' ? '#1A6B3A' : c.result === 'fail' ? '#B91C1C' : '#B45309';
+      const resultBg    = c.result === 'pass' ? '#EDF7F2' : c.result === 'fail' ? '#FEF2F2' : '#FFFBEB';
+      const item = document.createElement('div');
+      item.style.cssText = 'border:1px solid #E8E2D8;border-radius:4px;overflow:hidden;';
+      item.innerHTML = `
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:#FAF8F4;">
+          <span style="font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:.14em;
+            text-transform:uppercase;padding:3px 9px;border-radius:2px;background:${resultBg};color:${resultColor};
+            border:1px solid ${resultColor}40;white-space:nowrap;">${(c.result || 'pending').toUpperCase()}</span>
+          <span style="font-weight:600;font-size:13px;color:#0A0E1A;">${c.check_name || c.slug}</span>
+          ${c.wcag_criterion ? `<span style="font-family:monospace;font-size:11px;color:#888;">WCAG ${c.wcag_criterion}</span>` : ''}
+          ${c.severity ? `<span style="font-size:11px;color:#888;">${c.severity}</span>` : ''}
+          ${c.screenshot_count > 0 ? `<span style="font-size:11px;color:#1A6B3A;margin-left:auto;">📎 ${c.screenshot_count} screenshot${c.screenshot_count > 1 ? 's' : ''}</span>` : ''}
+        </div>
+        ${c.finding_text ? `<div style="padding:10px 16px;font-size:13px;color:#444;line-height:1.6;border-top:1px solid #E8E2D8;">${c.finding_text}</div>` : ''}
+      `;
+      list.appendChild(item);
+    });
+
+    // ── Show the findings section ─────────────────────────────────
+    document.getElementById('reviewer-findings-desc').textContent =
+      rName + ' · ' + rCreds + ' · ' + surface;
+    document.getElementById('reviewer-findings-section').style.display = 'block';
+    document.getElementById('reviewer-loader-bar').style.background = 'rgba(26,106,58,.06)';
+    document.getElementById('reviewer-loader-bar').style.borderColor = 'rgba(26,106,58,.25)';
+    document.getElementById('reviewer-loader-status').textContent = '✓ Findings loaded and transferred to form fields below.';
+    btn.textContent = '✓ Loaded';
+
+    // Scroll to findings section
+    document.getElementById('reviewer-findings-section').scrollIntoView({behavior:'smooth', block:'start'});
+
+  } catch(e) {
+    btn.disabled = false;
+    btn.textContent = 'Load Findings →';
+    alert('Could not load reviewer findings: ' + e.message);
+  }
+}
+
+// Auto-generate registry_id from domain + check for reviewer findings
 document.getElementById('domain').addEventListener('blur', function() {
   const rid = document.getElementById('registryId');
   if (!rid.value && this.value) {
@@ -900,6 +1137,10 @@ document.getElementById('domain').addEventListener('blur', function() {
   const url = document.getElementById('auditUrl');
   if (!url.value && this.value) {
     url.value = 'https://' + this.value;
+  }
+  // Auto-check for reviewer findings when domain is entered manually
+  if (this.value.trim()) {
+    checkForReviewerFindings();
   }
 });
 
