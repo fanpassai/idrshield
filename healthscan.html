@@ -504,6 +504,7 @@ footer{border-top:1px solid var(--border2);padding:24px 40px;display:flex;align-
         <div class="stat"><span class="n c" id="s-crit">0</span><span class="l">Critical</span></div>
         <div class="stat"><span class="n w" id="s-total">0</span><span class="l">Total Issues</span></div>
         <div class="stat"><span class="n t" id="s-dur">—</span><span class="l">Scan Time</span></div>
+        <div class="stat"><span class="n t" id="s-pages">1</span><span class="l">Page Scanned</span></div>
       </div>
       <p class="score-context">This check applies the WCAG 2.1 AA standard required under federal HHS enforcement. Your score reflects the current accessibility posture of this organization — visible to any audit system running today.</p>
       <span class="status-interp" id="status-interp"></span>
@@ -916,6 +917,13 @@ function renderResults(r){
     document.getElementById('s-total').textContent=total;
     const ms=sc.scan_duration_ms||0;
     document.getElementById('s-dur').textContent=ms<1000?ms+'ms':+(ms/1000).toFixed(1)+'s';
+    const pgCount=sc.pages_scanned||1;
+    const pagesEl=document.getElementById('s-pages');
+    if(pagesEl){
+      pagesEl.textContent=pgCount;
+      const lbl=pagesEl.nextElementSibling;
+      if(lbl) lbl.textContent=pgCount===1?'Page Scanned':'Pages Scanned';
+    }
     generateShareCard(sc.domain||'',score,crits,total);
     const interp=document.getElementById('status-interp');
     interp.className='status-interp '+st;
