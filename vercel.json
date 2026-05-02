@@ -18,6 +18,7 @@
     { "source": "/ecommerce", "destination": "/ecommerce.html" },
     { "source": "/hhs-verify/:domain*", "destination": "/hhs_verify.html" },
     { "source": "/hhs-success", "destination": "/hhs_success.html" },
-    { "source": "/hhs-audit-delivery", "destination": "/hhs_audit_delivery.html" }
+    { "source": "/hhs-audit-delivery", "destination": "/hhs_audit_delivery.html" },
+    { "source": "/idr-reviewer", "destination": "/hhs_reviewer_portal.html" }
   ]
 }
