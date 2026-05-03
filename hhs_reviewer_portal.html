@@ -632,10 +632,13 @@ let sessionStartTime = null;
 
 // ── BOOT ─────────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', () => {
-  // Check for magic link token in URL hash or query string
+  // Check for magic link token in path, hash, or query string
+  const pathParts = window.location.pathname.split('/');
+  const verifyIdx = pathParts.indexOf('verify');
+  const pathToken = verifyIdx >= 0 ? pathParts[verifyIdx + 1] : null;
   const hashParams = new URLSearchParams(window.location.hash.replace('#', ''));
   const queryParams = new URLSearchParams(window.location.search);
-  const urlToken = hashParams.get('token') || queryParams.get('token');
+  const urlToken = pathToken || hashParams.get('token') || queryParams.get('token');
   if (urlToken) {
     verifyMagicLink(urlToken);
     return;
