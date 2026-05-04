@@ -767,7 +767,16 @@ async function loadJobs() {
     const res = await fetch(`${API}/api/reviewer/jobs`, {
       headers: {'Authorization': `Bearer ${sessionToken}`}
     });
-    if (res.status === 401) { logout(); return; }
+    if (res.status === 401) {
+      // Session expired - clear storage and show login with message
+      localStorage.removeItem('idr_reviewer_token');
+      localStorage.removeItem('idr_reviewer_info');
+      sessionToken = null;
+      reviewerInfo = null;
+      showScreen('login');
+      showToast('Session expired. Please log in again.', 'error');
+      return;
+    }
     const data = await res.json();
 
     // Tally
@@ -833,7 +842,16 @@ async function openJob(auditId) {
     const res = await fetch(`${API}/api/reviewer/job/${auditId}`, {
       headers: {'Authorization': `Bearer ${sessionToken}`}
     });
-    if (res.status === 401) { logout(); return; }
+    if (res.status === 401) {
+      // Session expired - clear storage and show login with message
+      localStorage.removeItem('idr_reviewer_token');
+      localStorage.removeItem('idr_reviewer_info');
+      sessionToken = null;
+      reviewerInfo = null;
+      showScreen('login');
+      showToast('Session expired. Please log in again.', 'error');
+      return;
+    }
     const job = await res.json();
     currentJob = job;
     renderChecklist(job);
