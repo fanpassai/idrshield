@@ -472,14 +472,31 @@ header {
     <div class="login-seal">IDR</div>
     <p class="login-eyebrow">Institute of Digital Remediation</p>
     <h1 class="login-title">Reviewer Portal</h1>
-    <p class="login-sub">Enter your registered email address. We'll send you a secure login link — no password needed.</p>
-    <div class="login-field">
-      <label for="login-email">Email Address</label>
-      <input type="email" id="login-email" placeholder="your@email.com" autocomplete="email">
+
+    <!-- Step 1: Email entry -->
+    <div id="login-step-email">
+      <p class="login-sub">Enter your registered email address. We'll send you a 6-digit login code.</p>
+      <div class="login-field">
+        <label for="login-email">Email Address</label>
+        <input type="email" id="login-email" placeholder="your@email.com" autocomplete="email">
+      </div>
+      <button class="btn-primary" id="btn-send-link" onclick="sendLoginLink()">Send Login Code</button>
     </div>
-    <button class="btn-primary" id="btn-send-link" onclick="sendLoginLink()">Send Login Link</button>
-    <div class="login-sent" id="login-sent">
-      ✓ Login link sent to your email. Check your inbox — the link expires in 2 hours. You can close this tab.
+
+    <!-- Step 2: PIN entry -->
+    <div id="login-step-pin" style="display:none;">
+      <p class="login-sub">Enter the 6-digit code we sent to your email. It expires in 15 minutes.</p>
+      <div class="login-field">
+        <label for="login-pin">Login Code</label>
+        <input type="text" id="login-pin" placeholder="000000" maxlength="6"
+               autocomplete="one-time-code" inputmode="numeric"
+               style="font-size:28px;letter-spacing:0.2em;text-align:center;"
+               oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+      </div>
+      <button class="btn-primary" id="btn-verify-pin" onclick="submitPin()">Verify Code</button>
+      <p style="margin-top:12px;font-size:12px;color:#999;text-align:center;">
+        Didn't receive it? <a href="#" onclick="resetToEmail()" style="color:#C9A84C;">Try again</a>
+      </p>
     </div>
   </div>
 </div>
@@ -632,17 +649,6 @@ let sessionStartTime = null;
 
 // ── BOOT ─────────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', () => {
-  // Check for magic link token — query param first (survives email client redirects), then path, then hash
-  const queryParams = new URLSearchParams(window.location.search);
-  const hashParams  = new URLSearchParams(window.location.hash.replace('#', ''));
-  const pathParts   = window.location.pathname.split('/');
-  const verifyIdx   = pathParts.indexOf('verify');
-  const pathToken   = verifyIdx >= 0 ? pathParts[verifyIdx + 1] : null;
-  const urlToken    = queryParams.get('token') || pathToken || hashParams.get('token');
-  if (urlToken) {
-    verifyMagicLink(urlToken);
-    return;
-  }
   if (sessionToken && reviewerInfo) {
     showJobs();
   } else {
@@ -651,6 +657,8 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 // ── AUTH ──────────────────────────────────────────────────────────
+let loginEmail = '';
+
 async function sendLoginLink() {
   const email = document.getElementById('login-email').value.trim();
   if (!email || !email.includes('@')) {
@@ -667,39 +675,65 @@ async function sendLoginLink() {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({email})
     });
-    document.getElementById('login-sent').classList.add('show');
-    btn.textContent = 'Link Sent ✓';
+    loginEmail = email;
+    // Show PIN entry step
+    document.getElementById('login-step-email').style.display = 'none';
+    document.getElementById('login-step-pin').style.display = 'block';
+    setTimeout(() => document.getElementById('login-pin').focus(), 100);
   } catch(e) {
-    showToast('Could not send link. Please try again.', 'error');
+    showToast('Could not send code. Please try again.', 'error');
     btn.disabled = false;
-    btn.textContent = 'Send Login Link';
+    btn.textContent = 'Send Login Code';
   }
 }
 
-async function verifyMagicLink(token) {
+function resetToEmail() {
+  document.getElementById('login-step-pin').style.display = 'none';
+  document.getElementById('login-step-email').style.display = 'block';
+  const btn = document.getElementById('btn-send-link');
+  btn.disabled = false;
+  btn.textContent = 'Send Login Code';
+  document.getElementById('login-pin').value = '';
+}
+
+async function submitPin() {
+  const pin = document.getElementById('login-pin').value.trim();
+  if (!pin || pin.length !== 6) {
+    showToast('Please enter the 6-digit code from your email.', 'error');
+    return;
+  }
+  const btn = document.getElementById('btn-verify-pin');
+  btn.disabled = true;
+  btn.textContent = 'Verifying…';
+
   try {
-    const res = await fetch(`${API}/api/reviewer/verify?token=${token}`);
+    const res = await fetch(`${API}/api/reviewer/verify`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({pin})
+    });
     let data;
     try { data = await res.json(); } catch(_) {
-      showToast('Verification failed. Please request a new login link.', 'error');
-      showScreen('login');
+      showToast('Verification failed. Please request a new code.', 'error');
+      btn.disabled = false;
+      btn.textContent = 'Verify Code';
       return;
     }
     if (!res.ok) {
-      showToast(data.error || 'Login link expired or invalid. Please request a new one.', 'error');
-      showScreen('login');
+      showToast(data.error || 'Code invalid or expired. Please request a new one.', 'error');
+      btn.disabled = false;
+      btn.textContent = 'Verify Code';
       return;
     }
     sessionToken = data.session_token;
     reviewerInfo = {id: data.reviewer_id, name: data.name, email: data.email};
     localStorage.setItem('idr_reviewer_token', sessionToken);
     localStorage.setItem('idr_reviewer_info', JSON.stringify(reviewerInfo));
-    // Clean URL
-    window.history.replaceState({}, '', '/idr-reviewer');
     showJobs();
   } catch(e) {
-    showToast('Verification failed. Please request a new login link.', 'error');
-    showScreen('login');
+    showToast('Verification failed. Please try again.', 'error');
+    btn.disabled = false;
+    btn.textContent = 'Verify Code';
   }
 }
 
@@ -1247,12 +1281,6 @@ function stopTimer() {
 function showScreen(name) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(`screen-${name}`).classList.add('active');
-}
-
-function showJobs() {
-  showScreen('jobs');
-  stopTimer();
-  loadJobs();
 }
 
 function esc(str) {
