@@ -447,6 +447,112 @@ header {
   .scan-summary { flex-wrap:wrap; gap:16px; }
   .job-card { flex-wrap:wrap; }
 }
+
+/* ── AUDIT SETUP BOX ───────────────────────────────────────────── */
+.audit-setup-box {
+  background:var(--navy); border-radius:8px; padding:24px 28px; margin-bottom:24px;
+}
+.audit-setup-title {
+  font-size:9px; font-weight:700; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--gold); margin-bottom:16px; display:flex; align-items:center; gap:8px;
+}
+.audit-setup-title::after { content:''; flex:1; height:1px; background:rgba(201,168,76,.25); }
+.audit-setup-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.audit-setup-grid .full { grid-column:1/-1; }
+.setup-label {
+  display:block; font-size:9px; font-weight:700; letter-spacing:.16em;
+  text-transform:uppercase; color:rgba(255,255,255,.5); margin-bottom:6px;
+}
+.setup-input, .setup-select {
+  width:100%; padding:10px 13px;
+  background:rgba(255,255,255,.06); border:1.5px solid rgba(255,255,255,.12);
+  border-radius:4px; font-family:'DM Sans',sans-serif; font-size:13px;
+  color:var(--white); outline:none; transition:border-color .2s;
+}
+.setup-input::placeholder { color:rgba(255,255,255,.25); }
+.setup-input:focus, .setup-select:focus { border-color:var(--gold); }
+.setup-select option { background:#0A0E1A; color:var(--white); }
+
+/* ── ALWAYS-VISIBLE COMMENT + PAGES ───────────────────────────── */
+.check-notes-wrap { margin-top:14px; }
+.check-notes-label {
+  font-size:9px; font-weight:700; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--text2); margin-bottom:6px; display:flex; align-items:center; justify-content:space-between;
+}
+.check-pages-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px; }
+.pages-count-input {
+  width:100%; padding:9px 12px;
+  background:var(--cream); border:1.5px solid var(--border);
+  border-radius:4px; font-family:'DM Sans',sans-serif; font-size:13px;
+  color:var(--text); outline:none;
+}
+.pages-count-input:focus { border-color:var(--gold); box-shadow:0 0 0 3px rgba(201,168,76,.1); }
+.pages-urls-textarea {
+  width:100%; padding:10px 13px; margin-top:8px;
+  background:var(--cream); border:1.5px solid var(--border);
+  border-radius:4px; font-family:'JetBrains Mono',monospace; font-size:11px;
+  color:var(--text); outline:none; resize:vertical; min-height:64px; line-height:1.6;
+}
+.pages-urls-textarea:focus { border-color:var(--gold); box-shadow:0 0 0 3px rgba(201,168,76,.1); }
+.pages-urls-textarea::placeholder { font-family:'DM Sans',sans-serif; font-size:12px; color:var(--text3); }
+
+/* PDF disclosure row */
+.pdf-disclosure-row { display:flex; align-items:center; gap:10px; margin-top:12px; }
+.pdf-disclosure-toggle { display:flex; gap:8px; }
+.pdf-btn {
+  padding:7px 16px; border-radius:4px; border:1.5px solid var(--border);
+  background:var(--cream); cursor:pointer; font-size:11px; font-weight:700;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--text3); transition:all .15s;
+}
+.pdf-btn.active-yes { background:#FEF3C7; border-color:#D97706; color:#92400E; }
+.pdf-btn.active-no  { background:var(--pass-bg); border-color:var(--pass); color:var(--pass); }
+
+/* ── LEGAL CERTIFICATION BLOCK ─────────────────────────────────── */
+.cert-block {
+  background:#0A0E1A; border:1.5px solid rgba(201,168,76,.3);
+  border-radius:8px; padding:28px; margin-top:28px;
+}
+.cert-title {
+  font-size:9px; font-weight:700; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--gold); margin-bottom:16px; display:flex; align-items:center; gap:8px;
+}
+.cert-title::after { content:''; flex:1; height:1px; background:rgba(201,168,76,.2); }
+.cert-statement {
+  font-family:'DM Serif Display',serif; font-size:13px; color:rgba(255,255,255,.75);
+  line-height:1.8; margin-bottom:20px; font-style:italic;
+}
+.cert-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.cert-grid .full { grid-column:1/-1; }
+.cert-label {
+  display:block; font-size:9px; font-weight:700; letter-spacing:.16em;
+  text-transform:uppercase; color:rgba(255,255,255,.4); margin-bottom:6px;
+}
+.cert-input {
+  width:100%; padding:10px 13px;
+  background:rgba(255,255,255,.06); border:1.5px solid rgba(255,255,255,.12);
+  border-radius:4px; font-family:'DM Sans',sans-serif; font-size:13px;
+  color:var(--white); outline:none; transition:border-color .2s;
+}
+.cert-input:focus { border-color:var(--gold); }
+.cert-input::placeholder { color:rgba(255,255,255,.2); }
+.cert-input[readonly] {
+  opacity:.5; cursor:default;
+}
+.cert-total-row {
+  background:rgba(201,168,76,.08); border:1px solid rgba(201,168,76,.2);
+  border-radius:4px; padding:12px 16px; margin-top:12px;
+  display:flex; justify-content:space-between; align-items:center;
+}
+.cert-total-label { font-size:11px; color:rgba(201,168,76,.7); font-weight:600; }
+.cert-total-val { font-family:'JetBrains Mono',monospace; font-size:15px; color:var(--gold); font-weight:700; }
+
+@media(max-width:700px) {
+  .audit-setup-grid { grid-template-columns:1fr; }
+  .audit-setup-grid .full { grid-column:1; }
+  .check-pages-row { grid-template-columns:1fr; }
+  .cert-grid { grid-template-columns:1fr; }
+  .cert-grid .full { grid-column:1; }
+}
 </style>
 </head>
 <body>
@@ -584,30 +690,105 @@ header {
       <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-bar" style="width:0%"></div></div>
     </div>
 
+    <!-- ── AUDIT SETUP ── -->
+    <div class="audit-setup-box" id="audit-setup-box">
+      <div class="audit-setup-title">Audit Session Setup — Complete Before Starting</div>
+      <div class="audit-setup-grid">
+        <div>
+          <label class="setup-label">Browser Used *</label>
+          <select class="setup-select" id="setup-browser">
+            <option value="">Select browser…</option>
+            <option>Chrome</option>
+            <option>Firefox</option>
+            <option>Edge</option>
+            <option>Safari</option>
+          </select>
+        </div>
+        <div>
+          <label class="setup-label">Operating System *</label>
+          <select class="setup-select" id="setup-os">
+            <option value="">Select OS…</option>
+            <option>Windows 11</option>
+            <option>Windows 10</option>
+            <option>macOS Ventura</option>
+            <option>macOS Sonoma</option>
+            <option>macOS Sequoia</option>
+          </select>
+        </div>
+        <div>
+          <label class="setup-label">Screen Reader Used *</label>
+          <select class="setup-select" id="setup-sr">
+            <option value="">Select screen reader…</option>
+            <option>NVDA</option>
+            <option>VoiceOver (Mac)</option>
+            <option>VoiceOver (iOS)</option>
+            <option>JAWS</option>
+            <option>TalkBack (Android)</option>
+          </select>
+        </div>
+        <div>
+          <label class="setup-label">Screen Reader Version</label>
+          <input class="setup-input" id="setup-sr-version" placeholder="e.g. NVDA 2024.1" type="text">
+        </div>
+        <div class="full">
+          <label class="setup-label">Primary URL Being Audited</label>
+          <input class="setup-input" id="setup-primary-url" placeholder="https://…" type="url">
+        </div>
+      </div>
+    </div>
+
     <div id="checks-container"></div>
 
-    <!-- Reviewer Credentials -->
-    <div class="reviewer-cred-box" id="reviewer-cred-box">
-      <div class="reviewer-cred-title">Reviewer Credentials — Required Before Submission</div>
-      <p style="font-size:12px;color:var(--text3);margin-bottom:16px;line-height:1.6;">
-        Enter the details of the team member who conducted this specific review. This information will appear on the certification page of the issued Good Faith Effort Record.
+    <!-- ── LEGAL CERTIFICATION BLOCK ── -->
+    <div class="cert-block" id="cert-block">
+      <div class="cert-title">Legal Certification — Reviewer Attestation</div>
+
+      <p class="cert-statement" id="cert-statement-text">
+        "I, [Reviewer Name], holding [Credential] credential number [Credential Number],
+        certify that I personally conducted the manual accessibility review documented above
+        in accordance with WCAG 2.1 Level AA standards under Section 504 and Section 1557
+        of the Rehabilitation Act and Affordable Care Act. The findings recorded represent
+        my professional assessment based on direct interaction with the surfaces listed.
+        All pages visited are documented within each check above. Surfaces not listed were
+        not tested and are not covered by this certification."
       </p>
-      <div class="cred-grid">
-        <div class="field-row full">
-          <label class="field-label">Full Legal Name *</label>
-          <input type="text" class="field-input" id="cred-name" placeholder="e.g. Archana Patel">
+
+      <div class="cert-grid">
+        <div class="full">
+          <label class="cert-label">Full Legal Name — As It Appears on Credential *</label>
+          <input class="cert-input" id="cert-name" type="text" placeholder="Full legal name">
         </div>
-        <div class="field-row">
-          <label class="field-label">Credentials Held *</label>
-          <input type="text" class="field-input" id="cred-title" placeholder="e.g. CPACC, WAS, DHS">
+        <div>
+          <label class="cert-label">Credential(s) Held *</label>
+          <input class="cert-input" id="cert-title" type="text" placeholder="e.g. CPACC, WAS">
         </div>
-        <div class="field-row">
-          <label class="field-label">Credential / License Number *</label>
-          <input type="text" class="field-input" id="cred-number" placeholder="IAAP or DHS credential number">
+        <div>
+          <label class="cert-label">Credential / License Number *</label>
+          <input class="cert-input" id="cert-number" type="text" placeholder="IAAP credential number">
         </div>
-        <div class="field-row full">
-          <label class="field-label">Title / Role</label>
-          <input type="text" class="field-input" id="cred-role" placeholder="e.g. Senior Accessibility Specialist">
+        <div>
+          <label class="cert-label">Title / Role</label>
+          <input class="cert-input" id="cert-role" type="text" placeholder="e.g. Senior Accessibility Specialist">
+        </div>
+        <div>
+          <label class="cert-label">Credential Verification URL</label>
+          <input class="cert-input" id="cert-verify-url" type="url" placeholder="https://www.accessibilityassociation.org/…">
+        </div>
+        <div class="full">
+          <div class="cert-total-row">
+            <span class="cert-total-label">Total Pages Visited This Audit</span>
+            <span class="cert-total-val" id="cert-total-pages">0 pages</span>
+          </div>
+        </div>
+        <div class="full">
+          <label class="cert-label">Typed Signature — Type Your Full Legal Name to Sign *</label>
+          <input class="cert-input" id="cert-signature"
+            placeholder="Type your full legal name exactly as above"
+            oninput="validateSignature()" type="text">
+        </div>
+        <div class="full">
+          <label class="cert-label">Date of Audit</label>
+          <input class="cert-input" id="cert-date" type="text" readonly>
         </div>
       </div>
     </div>
@@ -615,7 +796,7 @@ header {
     <!-- Submit -->
     <div class="submit-section">
       <p class="submit-gate" id="submit-gate">
-        Complete all checks and fill in your credentials above to enable submission.
+        Complete all checks, document pages visited, and sign the certification above to enable submission.
         <span id="remaining-label"></span>
       </p>
       <button class="btn-submit" id="btn-submit" disabled onclick="submitAudit()">
@@ -856,6 +1037,10 @@ async function openJob(auditId) {
     currentJob = job;
     renderChecklist(job);
     startSessionTimer(job);
+    initCertBlock();
+    updateCertStatement();
+    const urlEl = document.getElementById('setup-primary-url');
+    if (urlEl && job.domain) urlEl.value = 'https://' + job.domain;
 
     // Record session start
     fetch(`${API}/api/reviewer/session-start/${auditId}`, {
@@ -960,19 +1145,27 @@ function buildCheckCard(check, num, auditId) {
         <button class="result-btn fail ${check.result === 'fail' ? 'active' : ''}"
           onclick="setResult('${check.slug}', '${check.check_name}', 'fail', ${auditId})">✗ Fail</button>
       </div>
-      <div class="finding-fields ${(check.result === 'fail' || check.result === 'partial') ? 'show' : ''}"
-           id="fields-${check.slug}">
-        <div class="field-row">
+      <!-- Always-visible notes + page log -->
+      <div class="check-notes-wrap">
+        <div class="field-row" style="margin-top:14px;">
           <label class="field-label">
-            Finding Description *
+            Findings &amp; Observations *
             <span class="autosave-indicator" id="save-${check.slug}">Saved ✓</span>
           </label>
           <textarea class="field-textarea" id="text-${check.slug}"
-            placeholder="Describe exactly what you observed — what failed, what element, what the impact is on users with disabilities."
+            placeholder="Describe exactly what you observed on this check. If Pass — confirm explicitly what you verified. If Fail or Partial — name the specific element, its location, and the impact on users with disabilities."
             oninput="scheduleSave('${check.slug}', '${check.check_name}', ${auditId})"
+            style="min-height:96px;"
           >${check.finding_text || ''}</textarea>
         </div>
-        <div class="field-row two">
+        <div class="check-pages-row">
+          <div>
+            <label class="field-label">Number of Pages Tested for This Check</label>
+            <input type="number" class="pages-count-input" id="pages-count-${check.slug}"
+              min="1" placeholder="e.g. 4"
+              value="${check.pages_count || ''}"
+              oninput="updateTotalPages()">
+          </div>
           <div>
             <label class="field-label">WCAG Criterion</label>
             <select class="field-select" id="wcag-${check.slug}"
@@ -982,16 +1175,41 @@ function buildCheckCard(check, num, auditId) {
               <option value="other" ${!check.wcag_criterion || check.wcag_common?.includes(check.wcag_criterion) ? '' : 'selected'}>Other</option>
             </select>
           </div>
-          <div>
-            <label class="field-label">Severity</label>
-            <select class="field-select" id="sev-${check.slug}"
-              onchange="scheduleSave('${check.slug}', '${check.check_name}', ${auditId})">
-              <option value="">Select severity…</option>
-              <option value="critical"  ${check.severity === 'critical'  ? 'selected' : ''}>Critical</option>
-              <option value="serious"   ${check.severity === 'serious'   ? 'selected' : ''}>Serious</option>
-              <option value="moderate"  ${check.severity === 'moderate'  ? 'selected' : ''}>Moderate</option>
-              <option value="minor"     ${check.severity === 'minor'     ? 'selected' : ''}>Minor</option>
-            </select>
+        </div>
+        <div style="margin-top:10px;">
+          <label class="field-label">URLs Visited for This Check — One Per Line</label>
+          <textarea class="pages-urls-textarea" id="pages-urls-${check.slug}"
+            placeholder="https://domain.com/&#10;https://domain.com/about&#10;https://domain.com/contact"
+            oninput="scheduleSave('${check.slug}', '${check.check_name}', ${auditId})"
+          >${check.pages_visited || ''}</textarea>
+        </div>
+        <div class="field-row" style="margin-top:12px;" id="sev-row-${check.slug}">
+          <label class="field-label">Severity (if Fail or Partial)</label>
+          <select class="field-select" id="sev-${check.slug}"
+            onchange="scheduleSave('${check.slug}', '${check.check_name}', ${auditId})">
+            <option value="">Select severity…</option>
+            <option value="critical"  ${check.severity === 'critical'  ? 'selected' : ''}>Critical</option>
+            <option value="serious"   ${check.severity === 'serious'   ? 'selected' : ''}>Serious</option>
+            <option value="moderate"  ${check.severity === 'moderate'  ? 'selected' : ''}>Moderate</option>
+            <option value="minor"     ${check.severity === 'minor'     ? 'selected' : ''}>Minor</option>
+          </select>
+        </div>
+        <!-- PDF Disclosure (shown on all checks) -->
+        <div style="margin-top:12px;">
+          <label class="field-label">PDFs or Downloadable Documents Encountered?</label>
+          <div class="pdf-disclosure-toggle">
+            <button class="pdf-btn ${check.pdf_found === true ? 'active-yes' : ''}"
+              id="pdf-yes-${check.slug}"
+              onclick="setPdfDisclosure('${check.slug}', true, '${check.check_name}', ${auditId})">Yes</button>
+            <button class="pdf-btn ${check.pdf_found === false ? 'active-no' : ''}"
+              id="pdf-no-${check.slug}"
+              onclick="setPdfDisclosure('${check.slug}', false, '${check.check_name}', ${auditId})">No</button>
+          </div>
+          <div id="pdf-detail-${check.slug}" style="display:${check.pdf_found ? 'block' : 'none'};margin-top:8px;">
+            <input type="text" class="field-input" id="pdf-docs-${check.slug}"
+              placeholder="List document names or URLs found (out of scope — will be noted in record)"
+              value="${check.pdf_docs || ''}"
+              oninput="scheduleSave('${check.slug}', '${check.check_name}', ${auditId})">
           </div>
         </div>
       </div>
@@ -1038,6 +1256,98 @@ function buildThumb(s, slug) {
 }
 
 // ── CHECK INTERACTIONS ────────────────────────────────────────────
+// ── CERT & SETUP FUNCTIONS ───────────────────────────────────────
+function initCertBlock() {
+  const now = new Date();
+  document.getElementById('cert-date').value =
+    now.toLocaleDateString('en-US', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
+}
+
+function validateSignature() {
+  const name  = (document.getElementById('cert-name')?.value || '').trim().toLowerCase();
+  const sig   = (document.getElementById('cert-signature')?.value || '').trim().toLowerCase();
+  const match = name.length > 3 && sig === name;
+  const btn   = document.getElementById('btn-submit');
+  updateSubmitState();
+}
+
+function updateTotalPages() {
+  let total = 0;
+  document.querySelectorAll('[id^="pages-count-"]').forEach(el => {
+    const v = parseInt(el.value);
+    if (!isNaN(v) && v > 0) total += v;
+  });
+  const el = document.getElementById('cert-total-pages');
+  if (el) el.textContent = total + (total === 1 ? ' page' : ' pages');
+}
+
+function setPdfDisclosure(slug, found, checkName, auditId) {
+  document.getElementById(`pdf-yes-${slug}`).className = 'pdf-btn' + (found ? ' active-yes' : '');
+  document.getElementById(`pdf-no-${slug}`).className  = 'pdf-btn' + (!found ? ' active-no'  : '');
+  document.getElementById(`pdf-detail-${slug}`).style.display = found ? 'block' : 'none';
+  scheduleSave(slug, checkName, auditId);
+}
+
+function updateCertStatement() {
+  const name   = document.getElementById('cert-name')?.value || '[Reviewer Name]';
+  const cred   = document.getElementById('cert-title')?.value || '[Credential]';
+  const num    = document.getElementById('cert-number')?.value || '[Credential Number]';
+  const el     = document.getElementById('cert-statement-text');
+  if (!el) return;
+  el.innerHTML = `"I, <strong style="color:var(--gold);">${name}</strong>, holding
+    <strong style="color:var(--gold);">${cred}</strong> credential number
+    <strong style="color:var(--gold);">${num}</strong>,
+    certify that I personally conducted the manual accessibility review documented above
+    in accordance with WCAG 2.1 Level AA standards under Section 504 and Section 1557
+    of the Rehabilitation Act and Affordable Care Act. The findings recorded represent
+    my professional assessment based on direct interaction with the surfaces listed.
+    All pages visited are documented within each check above. Surfaces not listed were
+    not tested and are not covered by this certification."`;
+}
+
+// Live update cert statement as reviewer types
+document.addEventListener('input', e => {
+  if (['cert-name','cert-title','cert-number'].includes(e.target?.id)) {
+    updateCertStatement();
+    validateSignature();
+  }
+});
+
+function updateSubmitState() {
+  const allResults    = [...document.querySelectorAll('[id^="check-card-"]')]
+                          .every(c => c.classList.contains('is-pass') ||
+                                     c.classList.contains('is-fail') ||
+                                     c.classList.contains('is-partial'));
+  const certName      = (document.getElementById('cert-name')?.value || '').trim();
+  const certCred      = (document.getElementById('cert-title')?.value || '').trim();
+  const certNum       = (document.getElementById('cert-number')?.value || '').trim();
+  const certSig       = (document.getElementById('cert-signature')?.value || '').trim().toLowerCase();
+  const sigMatch      = certSig === certName.toLowerCase() && certName.length > 3;
+  const setupBrowser  = (document.getElementById('setup-browser')?.value || '').trim();
+  const setupOs       = (document.getElementById('setup-os')?.value || '').trim();
+  const setupSr       = (document.getElementById('setup-sr')?.value || '').trim();
+  const ready = allResults && certName && certCred && certNum && sigMatch && setupBrowser && setupOs && setupSr;
+  document.getElementById('btn-submit').disabled = !ready;
+  const gate = document.getElementById('submit-gate');
+  if (ready) {
+    gate.style.display = 'none';
+  } else {
+    gate.style.display = 'block';
+    const missing = [];
+    if (!allResults)    missing.push('complete all checks');
+    if (!setupBrowser || !setupOs || !setupSr) missing.push('complete audit setup');
+    if (!certName || !certCred || !certNum) missing.push('fill in certification details');
+    if (!sigMatch)      missing.push('type your full name as signature');
+    document.getElementById('remaining-label').textContent = missing.length ? '— ' + missing.join(', ') + '.' : '';
+  }
+}
+
+// Watch cert fields for submit state
+['cert-name','cert-title','cert-number','cert-signature','setup-browser','setup-os','setup-sr'].forEach(id => {
+  document.addEventListener('input', e => { if (e.target?.id === id) updateSubmitState(); });
+  document.addEventListener('change', e => { if (e.target?.id === id) updateSubmitState(); });
+});
+
 function toggleCheck(slug) {
   const card = document.getElementById(`check-card-${slug}`);
   card.classList.toggle('expanded');
@@ -1126,30 +1436,19 @@ function updateProgress() {
   const pct = total ? Math.round((completed / total) * 100) : 0;
   document.getElementById('progress-bar').style.width  = pct + '%';
   document.getElementById('progress-text').textContent = `${completed} of ${total} checks completed`;
-
-  const remaining = total - completed;
-  const credOk = credentialsComplete();
-  document.getElementById('submit-gate').innerHTML = completed < total
-    ? `Complete all checks to enable submission. <span>${remaining} remaining.</span>`
-    : credOk
-      ? 'All checks complete and credentials filled. Ready to submit.'
-      : '<span>Please fill in your reviewer credentials above before submitting.</span>';
-
-  const submitBtn = document.getElementById('btn-submit');
-  submitBtn.disabled = !(completed >= total && credOk);
-
-  // Live check on cred fields
-  ['cred-name','cred-title','cred-number'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.addEventListener('input', updateProgress);
-  });
+  updateSubmitState();
+  updateTotalPages();
 }
 
 function credentialsComplete() {
-  const name   = (document.getElementById('cred-name') || {}).value?.trim();
-  const title  = (document.getElementById('cred-title') || {}).value?.trim();
-  const number = (document.getElementById('cred-number') || {}).value?.trim();
-  return !!(name && title && number);
+  const name   = (document.getElementById('cert-name') || {}).value?.trim();
+  const title  = (document.getElementById('cert-title') || {}).value?.trim();
+  const number = (document.getElementById('cert-number') || {}).value?.trim();
+  const sig    = (document.getElementById('cert-signature') || {}).value?.trim().toLowerCase();
+  const browser= (document.getElementById('setup-browser') || {}).value?.trim();
+  const os     = (document.getElementById('setup-os') || {}).value?.trim();
+  const sr     = (document.getElementById('setup-sr') || {}).value?.trim();
+  return !!(name && title && number && sig === name.toLowerCase() && browser && os && sr);
 }
 
 // ── SCREENSHOT UPLOAD ──────────────────────────────────────────────
@@ -1232,14 +1531,19 @@ async function deleteScreenshot(screenshotId, slug) {
 async function submitAudit() {
   if (!currentJob) return;
 
-  const name   = document.getElementById('cred-name').value.trim();
-  const title  = document.getElementById('cred-title').value.trim();
-  const number = document.getElementById('cred-number').value.trim();
-  const role   = document.getElementById('cred-role').value.trim();
+  const name   = (document.getElementById('cert-name') || {}).value?.trim();
+  const title  = (document.getElementById('cert-title') || {}).value?.trim();
+  const number = (document.getElementById('cert-number') || {}).value?.trim();
+  const role   = (document.getElementById('cert-role') || {}).value?.trim();
+  const sig    = (document.getElementById('cert-signature') || {}).value?.trim();
 
   if (!name || !title || !number) {
-    showToast('Please fill in all required credential fields.', 'error');
-    document.getElementById('reviewer-cred-box').scrollIntoView({behavior:'smooth', block:'center'});
+    showToast('Please fill in all required certification fields.', 'error');
+    document.getElementById('cert-block').scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+  if (sig.toLowerCase() !== name.toLowerCase()) {
+    showToast('Signature must match your full legal name exactly.', 'error');
     return;
   }
 
@@ -1256,6 +1560,15 @@ async function submitAudit() {
         reviewer_credentials:       title,
         reviewer_credential_number: number,
         reviewer_role:              role,
+        reviewer_verify_url:        (document.getElementById('cert-verify-url') || {}).value?.trim() || '',
+        cert_signature:             sig,
+        cert_date:                  (document.getElementById('cert-date') || {}).value || '',
+        total_pages:                (document.getElementById('cert-total-pages') || {}).textContent || '',
+        setup_browser:              (document.getElementById('setup-browser') || {}).value?.trim() || '',
+        setup_os:                   (document.getElementById('setup-os') || {}).value?.trim() || '',
+        setup_sr:                   (document.getElementById('setup-sr') || {}).value?.trim() || '',
+        setup_sr_version:           (document.getElementById('setup-sr-version') || {}).value?.trim() || '',
+        setup_primary_url:          (document.getElementById('setup-primary-url') || {}).value?.trim() || '',
       })
     });
     const data = await res.json();
