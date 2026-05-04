@@ -729,7 +729,8 @@ async function submitPin() {
     reviewerInfo = {id: data.reviewer_id, name: data.name, email: data.email};
     localStorage.setItem('idr_reviewer_token', sessionToken);
     localStorage.setItem('idr_reviewer_info', JSON.stringify(reviewerInfo));
-    showJobs();
+    // Force a clean page reload into the jobs screen
+    window.location.href = '/idr-reviewer';
   } catch(e) {
     showToast('Verification failed. Please try again.', 'error');
     btn.disabled = false;
