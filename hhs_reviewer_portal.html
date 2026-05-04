@@ -449,7 +449,7 @@ header {
 }
 </style>
 </head>
-<body>
+<body style="visibility:hidden;">
 
 <header>
   <a href="#" class="logo">
@@ -467,7 +467,7 @@ header {
 </header>
 
 <!-- ── SCREEN: LOGIN ───────────────────────────────────────────── -->
-<div class="screen active" id="screen-login">
+<div class="screen" id="screen-login">
   <div class="login-card">
     <div class="login-seal">IDR</div>
     <p class="login-eyebrow">Institute of Digital Remediation</p>
@@ -649,6 +649,7 @@ let sessionStartTime = null;
 
 // ── BOOT ─────────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   if (sessionToken && reviewerInfo) {
     showJobs();
   } else {
