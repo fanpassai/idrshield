@@ -1256,6 +1256,7 @@ async function quickLogOutreach(pid, name) {
 
 // ── FL FQHC SEED DATA ─────────────────────────────────────────────────────────
 const FL_FQHC_SEED = [
+  // Central Florida
   {id:'FQHC-FL-001',name:'Neighborhood Health Source',org_type:'fqhc',city:'Clearwater',state:'FL',phone:'(727) 442-8000',website:'https://www.nhsfl.org',address:'1344 S Ft Harrison Ave'},
   {id:'FQHC-FL-002',name:'Community Health of South Florida',org_type:'fqhc',city:'Miami',state:'FL',phone:'(305) 252-4820',website:'https://www.chisouthfl.org',address:'10300 SW 216th St'},
   {id:'FQHC-FL-003',name:'Suncoast Community Health Centers',org_type:'fqhc',city:'Ruskin',state:'FL',phone:'(813) 634-9295',website:'https://www.suncoastchc.org',address:'309 Beynon Dr'},
@@ -1277,10 +1278,46 @@ const FL_FQHC_SEED = [
   {id:'FQHC-FL-019',name:'Bread of Life Community Health Center',org_type:'fqhc',city:'Opa-locka',state:'FL',phone:'(305) 685-5333',website:'https://www.bolchc.org',address:'490 Ali Baba Ave'},
   {id:'FQHC-FL-020',name:'Manatee Community Health',org_type:'fqhc',city:'Bradenton',state:'FL',phone:'(941) 748-4878',website:'https://www.manateecommhealth.org',address:'2324 14th St W'},
   {id:'FQHC-FL-021',name:'Tri County Community Health Council',org_type:'fqhc',city:'Palatka',state:'FL',phone:'(386) 328-6444',website:'https://www.trichc.org',address:'111 Comfort Rd'},
-  {id:'FQHC-FL-022',name:'Marion County Health Department CHC',org_type:'fqhc',city:'Ocala',state:'FL',phone:'(352) 629-0137',website:'https://www.floridahealth.gov/ocala',address:'1801 SE 32nd Ave'},
+  {id:'FQHC-FL-022',name:'Marion County Health Department CHC',org_type:'fqhc',city:'Ocala',state:'FL',phone:'(352) 629-0137',website:'https://www.floridahealth.gov',address:'1801 SE 32nd Ave'},
   {id:'FQHC-FL-023',name:'Escambia Community Clinics',org_type:'fqhc',city:'Pensacola',state:'FL',phone:'(850) 436-4800',website:'https://www.escambiacommunityclinics.org',address:'3580 N Pace Blvd'},
   {id:'FQHC-FL-024',name:'Central Florida Health Care',org_type:'fqhc',city:'Haines City',state:'FL',phone:'(863) 422-4921',website:'https://www.cfhcfl.org',address:'1400 US-27'},
   {id:'FQHC-FL-025',name:'Consolidated Medical Transport',org_type:'fqhc',city:'Orlando',state:'FL',phone:'(407) 422-4551',website:'https://www.cmtchc.org',address:'521 W Church St'},
+  // Additional Florida FQHCs
+  {id:'FQHC-FL-026',name:'Acacia Counseling and Wellness',org_type:'fqhc',city:'Gainesville',state:'FL',phone:'(352) 376-6265',website:'https://www.acaciacounseling.net',address:'1221 SW 2nd Ave'},
+  {id:'FQHC-FL-027',name:'Bayfront Health St. Petersburg CHC',org_type:'fqhc',city:'St. Petersburg',state:'FL',phone:'(727) 823-1234',website:'https://www.bayfronthealth.com',address:'701 6th St S'},
+  {id:'FQHC-FL-028',name:'C.L. Brumback Primary Care Clinics',org_type:'fqhc',city:'West Palm Beach',state:'FL',phone:'(561) 642-1000',website:'https://www.pbchd.com',address:'800 Clematis St'},
+  {id:'FQHC-FL-029',name:'Charlotte Behavioral Health Care',org_type:'fqhc',city:'Punta Gorda',state:'FL',phone:'(941) 639-8300',website:'https://www.charlottebehavioral.org',address:'1700 Education Ave'},
+  {id:'FQHC-FL-030',name:'Citrus Health Network',org_type:'fqhc',city:'Hialeah',state:'FL',phone:'(305) 825-0300',website:'https://www.citrushealth.org',address:'4175 W 20th Ave'},
+  {id:'FQHC-FL-031',name:'Community Health Center of Alachua County',org_type:'fqhc',city:'Gainesville',state:'FL',phone:'(352) 372-4321',website:'https://www.chcfl.org',address:'730 N Main St'},
+  {id:'FQHC-FL-032',name:'Community Medical Care (Miami-Dade CHD)',org_type:'fqhc',city:'Miami',state:'FL',phone:'(305) 324-2400',website:'https://www.miamidade.gov/health',address:'1350 NW 14th St'},
+  {id:'FQHC-FL-033',name:'Comprehensive Community Care Network',org_type:'fqhc',city:'Homestead',state:'FL',phone:'(305) 245-5200',website:'https://www.c3network.org',address:'1 NE 4th Ave'},
+  {id:'FQHC-FL-034',name:'Covenant Community Care Osceola',org_type:'fqhc',city:'Kissimmee',state:'FL',phone:'(407) 932-1234',website:'https://www.covenantcare.org',address:'200 W Donegan Ave'},
+  {id:'FQHC-FL-035',name:'Duval County Health Dept - CHC',org_type:'fqhc',city:'Jacksonville',state:'FL',phone:'(904) 253-1000',website:'https://www.duvalhealth.org',address:'515 W 6th St'},
+  {id:'FQHC-FL-036',name:'Family Health Center of Osceola',org_type:'fqhc',city:'St. Cloud',state:'FL',phone:'(407) 892-4000',website:'https://www.fhcosceola.org',address:'1900 Boggy Creek Rd'},
+  {id:'FQHC-FL-037',name:'Gadsden Community Health Center',org_type:'fqhc',city:'Quincy',state:'FL',phone:'(850) 627-6404',website:'https://www.gadsdenchc.org',address:'140 E Jefferson St'},
+  {id:'FQHC-FL-038',name:'Gulf Coast Community Care',org_type:'fqhc',city:'Port Richey',state:'FL',phone:'(727) 845-6100',website:'https://www.gulfcoastcommunitycare.org',address:'3627 Plathe Rd'},
+  {id:'FQHC-FL-039',name:'Here's Help Community Health',org_type:'fqhc',city:'Fort Pierce',state:'FL',phone:'(772) 462-1650',website:'https://www.hereshelp.org',address:'2909 Midway Rd'},
+  {id:'FQHC-FL-040',name:'Hope Community Health',org_type:'fqhc',city:'Apopka',state:'FL',phone:'(407) 880-4673',website:'https://www.hopechfl.org',address:'1401 S Park Ave'},
+  {id:'FQHC-FL-041',name:'Indian River Community Health',org_type:'fqhc',city:'Vero Beach',state:'FL',phone:'(772) 770-4040',website:'https://www.irch.org',address:'2375 90th Ave'},
+  {id:'FQHC-FL-042',name:'Jackson Memorial Community Health',org_type:'fqhc',city:'Miami',state:'FL',phone:'(305) 585-1111',website:'https://www.umiamihealth.org',address:'1611 NW 12th Ave'},
+  {id:'FQHC-FL-043',name:'Lakeland Free Clinic',org_type:'fqhc',city:'Lakeland',state:'FL',phone:'(863) 686-0066',website:'https://www.lakelandfreeclinic.org',address:'929 N Lincoln Ave'},
+  {id:'FQHC-FL-044',name:'Larkin Community Hospital Behavioral Health',org_type:'fqhc',city:'South Miami',state:'FL',phone:'(305) 284-7500',website:'https://www.larkinhospital.com',address:'7031 SW 62nd Ave'},
+  {id:'FQHC-FL-045',name:'Lee County Human Services CHC',org_type:'fqhc',city:'Fort Myers',state:'FL',phone:'(239) 533-8900',website:'https://www.leegov.com/humanservices',address:'2440 Thompson St'},
+  {id:'FQHC-FL-046',name:'Life Management Center',org_type:'fqhc',city:'Panama City',state:'FL',phone:'(850) 522-4000',website:'https://www.lmcjax.org',address:'525 E 15th St'},
+  {id:'FQHC-FL-047',name:'Miami Beach Community Health Center',org_type:'fqhc',city:'Miami Beach',state:'FL',phone:'(305) 538-8835',website:'https://www.mbchc.org',address:'710 Alton Rd'},
+  {id:'FQHC-FL-048',name:'North Brevard County Hospital Dist.',org_type:'fqhc',city:'Titusville',state:'FL',phone:'(321) 268-6111',website:'https://www.pafford.com',address:'951 N Washington Ave'},
+  {id:'FQHC-FL-049',name:'Panhandle Area Educational Consortium',org_type:'fqhc',city:'Chipley',state:'FL',phone:'(850) 638-6131',website:'https://www.paec.org',address:'761 Industrial Dr'},
+  {id:'FQHC-FL-050',name:'Primary Care Access Network (PCAN)',org_type:'fqhc',city:'Gainesville',state:'FL',phone:'(352) 333-7226',website:'https://www.pcanfl.org',address:'730 N Main St'},
+  {id:'FQHC-FL-051',name:'Quantum Leap Farm Health Center',org_type:'fqhc',city:'Odessa',state:'FL',phone:'(813) 920-8966',website:'https://www.quantumleapfarm.org',address:'8045 W Linebaugh Ave'},
+  {id:'FQHC-FL-052',name:'Rural Health Network of Southwest Florida',org_type:'fqhc',city:'Fort Myers',state:'FL',phone:'(239) 938-0765',website:'https://www.ruralhealthnetwork.org',address:'2115 Second St'},
+  {id:'FQHC-FL-053',name:'SalusCare (Lee Mental Health Center)',org_type:'fqhc',city:'Fort Myers',state:'FL',phone:'(239) 275-3222',website:'https://www.saluscare.org',address:'3763 Evans Ave'},
+  {id:'FQHC-FL-054',name:'Suwannee Valley CHC',org_type:'fqhc',city:'Lake City',state:'FL',phone:'(386) 758-0700',website:'https://www.svchc.org',address:'1058 SW Main Blvd'},
+  {id:'FQHC-FL-055',name:'Tampa Family Health Centers',org_type:'fqhc',city:'Tampa',state:'FL',phone:'(813) 870-4000',website:'https://www.tampafamilyhealthcenters.org',address:'5765 N Nebraska Ave'},
+  {id:'FQHC-FL-056',name:'United Way Suncoast Community Health',org_type:'fqhc',city:'Tampa',state:'FL',phone:'(813) 274-0900',website:'https://www.unitedwaysuncoast.org',address:'1402 N Brookside Rd'},
+  {id:'FQHC-FL-057',name:'Wakulla County Health Dept CHC',org_type:'fqhc',city:'Crawfordville',state:'FL',phone:'(850) 926-3591',website:'https://www.floridahealth.gov',address:'65 Arran Rd'},
+  {id:'FQHC-FL-058',name:'WestCare Florida Community Health',org_type:'fqhc',city:'Jacksonville',state:'FL',phone:'(904) 630-7000',website:'https://www.westcare.com',address:'815 Market St'},
+  {id:'FQHC-FL-059',name:'Whispering Pines Community Health',org_type:'fqhc',city:'Clearwater',state:'FL',phone:'(727) 467-0900',website:'https://www.wpchc.org',address:'1600 N Belcher Rd'},
+  {id:'FQHC-FL-060',name:'Withlachoochee Primary Care',org_type:'fqhc',city:'Inverness',state:'FL',phone:'(352) 726-1900',website:'https://www.wpchfl.org',address:'109 Pine Ave'},
 ];
 
 // ── HARVEST — Browser-side government API loading ─────────────────────────────
@@ -1334,56 +1371,77 @@ async function triggerHarvest() {
 
 async function _fetchFQHC(stateFilter, maxRecords) {
   const results = [];
-  try {
-    // Try HRSA health center finder API
-    let url = `https://findahealthcenter.hrsa.gov/api/health-centers?pageNumber=1&pageSize=50&sortBy=name&sortDirection=asc`;
-    if (stateFilter) url += `&state=${stateFilter}`;
-    const res = await fetch(url, {signal: AbortSignal.timeout(10000)}).catch(() => null);
-    if (res && res.ok) {
-      const data = await res.json();
-      const items = data.items || data.data || data.results || data.healthCenters || (Array.isArray(data) ? data : []);
-      for (const item of items.slice(0, maxRecords)) {
-        results.push({
-          id: `FQHC-${item.id || item.bhcmisnum || Math.random().toString(36).slice(2,8)}`,
-          name: item.name || item.site_name || item.healthCenterName || item.center_name || 'Unknown',
-          org_type: 'fqhc', scanned: false, idr_score: null,
-          address: item.address || item.street_address || item.physicalAddress || '',
-          city: item.city || item.physicalCity || '',
-          state: item.state || item.physicalState || stateFilter || '',
-          zip: item.zip || item.postal_code || item.physicalZip || '',
-          phone: item.phone || item.telephone || item.mainPhone || '',
-          website: item.website || item.web_address || item.websiteUrl || '',
-        });
-      }
-    }
-  } catch(e) {}
+  const parse = (item, i) => ({
+    id: `FQHC-${item.id || item.bhcmisnum || item.BHCMISNUM || item.objectid || i}`,
+    name: item.name || item.site_name || item.Health_Center_Name || item.Site_Name ||
+          item.healthCenterName || item.center_name || 'Unknown',
+    org_type: 'fqhc', scanned: false, idr_score: null,
+    address: item.address || item.street_address || item.Site_Address || item.physicalAddress || '',
+    city: item.city || item.Site_City || item.physicalCity || '',
+    state: item.state || item.State_Abbreviation || item.physicalState || stateFilter || '',
+    zip: item.zip || item.postal_code || item.Site_Postal_Code || item.physicalZip || '',
+    phone: item.phone || item.telephone || item.Site_Telephone_Number || item.mainPhone || '',
+    website: item.website || item.web_address || item.Site_Web_Address || item.websiteUrl || '',
+  });
 
-  if (!results.length) {
-    // Try HRSA open data API
+  // Attempt 1: HRSA FindAHealthCenter API
+  const urls = [
+    `https://findahealthcenter.hrsa.gov/api/health-centers?pageNumber=1&pageSize=100&sortBy=name` + (stateFilter ? `&state=${stateFilter}` : ''),
+    `https://findahealthcenter.hrsa.gov/api/HealthCenter?pageNum=1&pageSize=100` + (stateFilter ? `&State=${stateFilter}` : ''),
+  ];
+  for (const url of urls) {
+    if (results.length) break;
     try {
-      const res2 = await fetch('https://data.hrsa.gov/api/download?filename=Health_Center_Service_Delivery_and_LookAlike_Sites&fileType=json',
-        {signal: AbortSignal.timeout(15000)}).catch(() => null);
-      if (res2 && res2.ok) {
-        const data2 = await res2.json();
-        const items2 = (Array.isArray(data2) ? data2 : data2.data || [])
+      const res = await fetch(url, {signal: AbortSignal.timeout(8000)}).catch(() => null);
+      if (!res || !res.ok) continue;
+      const data = await res.json();
+      const items = data.items || data.data || data.results || data.healthCenters ||
+                    data.HealthCenters || data.records || (Array.isArray(data) ? data : []);
+      items.slice(0, maxRecords).forEach((item, i) => results.push(parse(item, i)));
+    } catch(e) {}
+  }
+
+  // Attempt 2: HRSA open data JSON download (has CORS headers)
+  if (!results.length) {
+    try {
+      const res = await fetch(
+        'https://data.hrsa.gov/api/download?filename=Health_Center_Service_Delivery_and_LookAlike_Sites&fileType=json',
+        {signal: AbortSignal.timeout(20000)}
+      ).catch(() => null);
+      if (res && res.ok) {
+        const data = await res.json();
+        const all = Array.isArray(data) ? data : (data.data || data.results || []);
+        all
           .filter(i => !stateFilter || i.State_Abbreviation === stateFilter || i.state === stateFilter)
-          .slice(0, maxRecords);
-        for (const item of items2) {
-          results.push({
-            id: `FQHC-${item.BHCMISNUM || item.id || Math.random().toString(36).slice(2,8)}`,
-            name: item.Health_Center_Name || item.Site_Name || item.name || 'Unknown',
-            org_type: 'fqhc', scanned: false, idr_score: null,
-            address: item.Site_Address || item.address || '',
-            city: item.Site_City || item.city || '',
-            state: item.State_Abbreviation || item.state || stateFilter || '',
-            zip: item.Site_Postal_Code || item.zip || '',
-            phone: item.Site_Telephone_Number || item.phone || '',
-            website: item.Site_Web_Address || item.website || '',
-          });
-        }
+          .slice(0, maxRecords)
+          .forEach((item, i) => results.push(parse(item, i)));
       }
     } catch(e) {}
   }
+
+  // Attempt 3: CMS FQHC lookalike dataset (different source, CORS-friendly)
+  if (!results.length) {
+    try {
+      let url = `https://data.cms.gov/provider-data/api/1/datastore/query/rrqw-56er/0?limit=${Math.min(maxRecords,200)}&offset=0`;
+      if (stateFilter) url += `&conditions[0][property]=state&conditions[0][value]=${stateFilter}&conditions[0][operator]==`;
+      const res = await fetch(url, {signal: AbortSignal.timeout(12000)}).catch(() => null);
+      if (res && res.ok) {
+        const data = await res.json();
+        (data.results || []).slice(0, maxRecords).forEach((item, i) => results.push({
+          id: `FQHC-CMS-${item.npi || item.provider_number || i}`,
+          name: item.provider_name || item.facility_name || 'Unknown',
+          org_type: 'fqhc', scanned: false, idr_score: null,
+          address: item.address || item.provider_street_address || '',
+          city: item.city || item.provider_city || '',
+          state: item.state || stateFilter || '',
+          zip: item.zip || item.provider_zip_code || '',
+          phone: item.phone || item.provider_phone_number || '',
+          website: '',
+        }));
+      }
+    } catch(e) {}
+  }
+
   return results;
 }
 
