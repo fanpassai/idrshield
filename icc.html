@@ -601,6 +601,10 @@ td a:hover{color:var(--gold);}
         <div class="nav-item" onclick="navTo('playbook')">
           <span class="nav-icon">📋</span> Playbook
         </div>
+        <div class="nav-item" onclick="navTo('queue')" style="border-top:1px solid rgba(255,255,255,0.08);margin-top:8px;padding-top:12px;">
+          <span class="nav-icon">✉️</span> Email Queue
+          <span class="nav-badge amber" id="nav-queue-badge" style="background:#D97706;">0</span>
+        </div>
       </div>
     </div>
 
@@ -898,6 +902,49 @@ td a:hover{color:var(--gold);}
       </div>
 
       <!-- ── PLAYBOOK ── -->
+      <div class="panel" id="panel-queue">
+        <div class="page-title">Email Queue</div>
+        <div class="page-sub">Review and approve outreach emails. Every email was written using real prospect data. Click Approve to send from hello@idrshield.com via SendGrid. Click Edit to modify first.</div>
+
+        <!-- Queue tabs -->
+        <div style="display:flex;gap:8px;margin-bottom:20px;border-bottom:2px solid #F3F4F6;padding-bottom:0;">
+          <button class="btn btn-outline btn-sm" id="qtab-assoc" onclick="switchQTab('assoc')"
+            style="border-radius:4px 4px 0 0;border-bottom:2px solid var(--gold);margin-bottom:-2px;font-weight:700;">
+            🏛️ Association Pitches <span id="assoc-q-count" style="background:#D97706;color:#fff;border-radius:10px;padding:1px 7px;font-size:11px;margin-left:4px;">10</span>
+          </button>
+          <button class="btn btn-outline btn-sm" id="qtab-prospect" onclick="switchQTab('prospect')"
+            style="border-radius:4px 4px 0 0;">
+            🏥 Prospect Outreach <span id="prospect-q-count" style="background:#6B7280;color:#fff;border-radius:10px;padding:1px 7px;font-size:11px;margin-left:4px;">0</span>
+          </button>
+        </div>
+
+        <!-- Association emails -->
+        <div id="queue-assoc-section">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <div style="font-size:13px;color:#6B7280;">These 10 emails reach 650,000+ healthcare professionals. Review each one and click Approve to send.</div>
+            <button class="btn btn-gold" onclick="approveAllAssociations()" style="white-space:nowrap;">⚡ Approve All 10</button>
+          </div>
+          <div id="assoc-email-list">
+            <div class="loading"><div class="spinner"></div> Loading association emails…</div>
+          </div>
+        </div>
+
+        <!-- Prospect emails -->
+        <div id="queue-prospect-section" style="display:none;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <div style="font-size:13px;color:#6B7280;">Personalized emails generated from real scan data. Priority-sorted by score.</div>
+            <button class="btn btn-outline" onclick="generateMoreEmails()">⚡ Generate from Prospects</button>
+          </div>
+          <div id="prospect-email-list">
+            <div class="empty-state">
+              <div style="font-size:32px;margin-bottom:8px;">✉️</div>
+              <div style="font-weight:600;margin-bottom:4px;">No emails queued yet</div>
+              <div style="font-size:13px;color:#6B7280;">Click "Generate from Prospects" to create personalized emails for all scanned prospects.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="panel" id="panel-playbook">
         <div class="page-title">The 13-Day Playbook</div>
         <div class="page-sub">Your day-by-day action plan. The current day is highlighted. Click any day to see exactly what to do.</div>
@@ -1056,6 +1103,7 @@ function navTo(room) {
   if (room === 'associations') loadAssociations();
   if (room === 'tracker') loadTracker();
   if (room === 'playbook') loadPlaybook();
+  if (room === 'queue') loadQueue();
 }
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
@@ -1876,6 +1924,180 @@ function showDayDetailData(d) {
     </div>
   `;
   document.getElementById('day-detail').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+
+
+// ── EMAIL QUEUE ───────────────────────────────────────────────────────────────
+let currentQTab = 'assoc';
+
+function switchQTab(tab) {
+  currentQTab = tab;
+  document.getElementById('queue-assoc-section').style.display = tab==='assoc' ? 'block' : 'none';
+  document.getElementById('queue-prospect-section').style.display = tab==='prospect' ? 'block' : 'none';
+  document.getElementById('qtab-assoc').style.fontWeight = tab==='assoc' ? '700' : '400';
+  document.getElementById('qtab-assoc').style.borderBottom = tab==='assoc' ? '2px solid var(--gold)' : 'none';
+  document.getElementById('qtab-prospect').style.fontWeight = tab==='prospect' ? '700' : '400';
+  document.getElementById('qtab-prospect').style.borderBottom = tab==='prospect' ? '2px solid var(--gold)' : 'none';
+  if (tab === 'prospect') loadProspectQueue();
+}
+
+async function loadQueue() {
+  // Seed associations on first load
+  await api('/queue/seed-associations', 'POST').catch(() => {});
+  loadAssocQueue();
+  loadQueueStats();
+}
+
+async function loadQueueStats() {
+  try {
+    const data = await api('/queue/stats');
+    const total = (data.prospect_pending || 0) + (data.assoc_pending || 0);
+    const badge = document.getElementById('nav-queue-badge');
+    if (badge) badge.textContent = total;
+    const ac = document.getElementById('assoc-q-count');
+    if (ac) ac.textContent = data.assoc_pending || 0;
+    const pc = document.getElementById('prospect-q-count');
+    if (pc) pc.textContent = data.prospect_pending || 0;
+  } catch(e) {}
+}
+
+async function loadAssocQueue() {
+  const container = document.getElementById('assoc-email-list');
+  try {
+    const data = await api('/queue/associations');
+    const emails = data.emails || [];
+    if (!emails.length) {
+      container.innerHTML = '<div style="text-align:center;padding:32px;color:#6B7280;">All association emails sent. Check your inbox at hello@idrshield.com for responses.</div>';
+      return;
+    }
+    container.innerHTML = emails.map(e => renderEmailCard(e, 'assoc')).join('');
+  } catch(e) {
+    container.innerHTML = '<div style="color:#DC2626;padding:16px;">Error loading emails. Backend may still be deploying.</div>';
+  }
+}
+
+async function loadProspectQueue() {
+  const container = document.getElementById('prospect-email-list');
+  container.innerHTML = '<div class="loading"><div class="spinner"></div> Loading…</div>';
+  try {
+    const data = await api('/queue/prospects?limit=50');
+    const emails = data.emails || [];
+    if (!emails.length) {
+      container.innerHTML = `<div class="empty-state">
+        <div style="font-size:32px;margin-bottom:8px;">✉️</div>
+        <div style="font-weight:600;margin-bottom:4px;">No prospect emails queued</div>
+        <div style="font-size:13px;color:#6B7280;">Click "Generate from Prospects" to create personalized emails.</div>
+      </div>`;
+      return;
+    }
+    container.innerHTML = emails.map(e => renderEmailCard(e, 'prospect')).join('');
+  } catch(e) {
+    container.innerHTML = '<div style="color:#DC2626;padding:16px;">Error loading emails.</div>';
+  }
+}
+
+function renderEmailCard(e, type) {
+  const isAssoc = type === 'assoc';
+  const scoreHtml = e.idr_score != null
+    ? `<span style="background:${e.idr_score<60?'#FEE2E2':e.idr_score<80?'#FEF3C7':'#D1FAE5'};
+         color:${e.idr_score<60?'#DC2626':e.idr_score<80?'#D97706':'#059669'};
+         border-radius:4px;padding:2px 8px;font-size:11px;font-weight:700;">
+         ${e.idr_score}/100 · ${e.criticals||0} critical</span>` : '';
+
+  const recipientHtml = isAssoc
+    ? `<div style="font-size:11px;color:#6B7280;margin-top:2px;">→ ${e.contact_email}</div>`
+    : `<div style="margin-top:8px;"><input type="text" id="email-to-${e.id}"
+        placeholder="Recipient email address (find on their website)"
+        style="width:100%;padding:6px 10px;border:1px solid #E5E7EB;border-radius:4px;font-size:12px;"></div>`;
+
+  const nameDisplay = isAssoc ? e.assoc_name : `${e.prospect_name} · ${e.prospect_city}, ${e.prospect_state}`;
+
+  return `<div style="border:1px solid #E5E7EB;border-radius:8px;padding:16px;margin-bottom:12px;background:#fff;">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+      <div style="flex:1;">
+        <div style="font-weight:700;font-size:14px;color:#111827;">${nameDisplay}</div>
+        ${isAssoc ? `<div style="font-size:11px;color:#6B7280;margin-top:2px;">→ ${e.contact_email}</div>` : ''}
+        ${!isAssoc ? scoreHtml : ''}
+        <div style="font-size:12px;color:#374151;margin-top:6px;font-style:italic;">${e.subject}</div>
+      </div>
+      <div style="display:flex;gap:6px;flex-shrink:0;">
+        <button class="btn btn-outline btn-sm" onclick="previewEmail(${e.id},'${type}')">Preview</button>
+        <button class="btn btn-gold btn-sm" onclick="approveEmail(${e.id},'${type}')" id="approve-btn-${e.id}">Approve & Send</button>
+      </div>
+    </div>
+    ${!isAssoc ? recipientHtml : ''}
+    <div id="preview-${e.id}" style="display:none;margin-top:12px;border-top:1px solid #F3F4F6;padding-top:12px;">
+      <textarea id="body-${e.id}" style="width:100%;min-height:200px;padding:10px;border:1px solid #E5E7EB;
+        border-radius:4px;font-size:12px;font-family:monospace;line-height:1.6;">${(e.body_text||'').replace(/</g,'&lt;')}</textarea>
+    </div>
+  </div>`;
+}
+
+function previewEmail(id, type) {
+  const el = document.getElementById(`preview-${id}`);
+  if (el) el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+
+async function approveEmail(id, type) {
+  const btn = document.getElementById(`approve-btn-${id}`);
+  if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+
+  try {
+    const bodyEl = document.getElementById(`body-${id}`);
+    const toEl = document.getElementById(`email-to-${id}`);
+    const edited = bodyEl ? bodyEl.value : null;
+    const toEmail = toEl ? toEl.value.trim() : null;
+
+    let result;
+    if (type === 'assoc') {
+      result = await api(`/queue/approve-association/${id}`, 'POST', { body_text: edited });
+    } else {
+      if (!toEmail) {
+        toast('Enter the recipient email address first', 'error');
+        if (btn) { btn.disabled = false; btn.textContent = 'Approve & Send'; }
+        return;
+      }
+      result = await api(`/queue/approve/${id}`, 'POST', { to_email: toEmail, body_text: edited });
+    }
+
+    if (result.success) {
+      toast(`Sent to ${result.to || 'recipient'} ✓`, 'success');
+      document.getElementById(`approve-btn-${id}`)?.closest('div[style*="border:1px"]')
+        ?.style && (document.getElementById(`approve-btn-${id}`).closest('div').style.opacity = '0.4');
+      loadQueueStats();
+    } else {
+      toast(result.error || 'Send failed', 'error');
+      if (btn) { btn.disabled = false; btn.textContent = 'Approve & Send'; }
+    }
+  } catch(e) {
+    toast('Error — check backend', 'error');
+    if (btn) { btn.disabled = false; btn.textContent = 'Approve & Send'; }
+  }
+}
+
+async function approveAllAssociations() {
+  const data = await api('/queue/associations').catch(() => ({emails:[]}));
+  const pending = (data.emails || []).filter(e => e.status === 'pending');
+  if (!pending.length) { toast('No pending association emails', 'info'); return; }
+  toast(`Sending ${pending.length} association emails…`);
+  let sent = 0;
+  for (const e of pending) {
+    const result = await api(`/queue/approve-association/${e.id}`, 'POST', {}).catch(() => ({}));
+    if (result.success) sent++;
+    await new Promise(r => setTimeout(r, 800)); // pace the sends
+  }
+  toast(`${sent} association emails sent ✓`, 'success');
+  loadAssocQueue();
+  loadQueueStats();
+}
+
+async function generateMoreEmails() {
+  toast('Generating personalized emails from prospects…');
+  const data = await api('/queue/generate', 'POST').catch(() => ({}));
+  toast(`${data.queued || 0} emails queued`, 'success');
+  loadProspectQueue();
+  loadQueueStats();
 }
 
 </script>
