@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ICC — IDR Command Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:   #0A0E1A;
+  --gold:   #C9A84C;
+  --gold2:  #8A6F2E;
+  --cream:  #FAF8F4;
+  --border: #E8E4DC;
+  --gray:   #6B7280;
+  --light:  #F9FAFB;
+  --green:  #059669;
+  --red:    #DC2626;
+  --amber:  #D97706;
+  --blue:   #2563EB;
+  --sidebar-w: 220px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{font-size:15px;}
+body{
+  font-family:'Inter',sans-serif;
+  background:#F3F4F6;
+  color:#111827;
+  min-height:100vh;
+}
+
+/* ── LOGIN ── */
+#login-screen{
+  display:flex;align-items:center;justify-content:center;
+  min-height:100vh;background:#F3F4F6;
+}
+.login-card{
+  background:#fff;border-radius:12px;
+  box-shadow:0 4px 24px rgba(0,0,0,0.08);
+  padding:48px 44px;width:380px;text-align:center;
+}
+.login-seal{
+  width:64px;height:64px;border-radius:50%;
+  background:var(--navy);display:inline-flex;
+  align-items:center;justify-content:center;
+  margin-bottom:20px;
+}
+.login-seal span{
+  font-family:'Playfair Display',serif;
+  font-size:14px;font-weight:700;color:var(--gold);
+}
+.login-title{
+  font-family:'Playfair Display',serif;
+  font-size:22px;color:var(--navy);margin-bottom:4px;
+}
+.login-sub{
+  font-size:13px;color:var(--gray);margin-bottom:28px;
+}
+.login-input{
+  width:100%;border:1.5px solid var(--border);border-radius:8px;
+  padding:12px 16px;font-size:14px;outline:none;
+  transition:border-color .2s;margin-bottom:14px;
+  font-family:'Inter',sans-serif;
+}
+.login-input:focus{border-color:var(--gold);}
+.login-btn{
+  width:100%;background:var(--navy);color:#fff;
+  border:none;border-radius:8px;padding:13px;
+  font-size:13px;font-weight:600;cursor:pointer;
+  transition:background .2s;letter-spacing:.03em;
+}
+.login-btn:hover{background:#1a2235;}
+.login-err{color:var(--red);font-size:12px;margin-top:8px;}
+
+/* ── APP SHELL ── */
+#app{display:none;min-height:100vh;display:none;flex-direction:column;}
+#app.visible{display:flex;}
+
+/* Top bar */
+.topbar{
+  background:var(--navy);height:56px;
+  display:flex;align-items:center;
+  padding:0 24px;gap:16px;
+  position:sticky;top:0;z-index:100;
+  flex-shrink:0;
+}
+.tb-seal{
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(201,168,76,0.15);
+  border:1px solid rgba(201,168,76,0.3);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.tb-seal span{
+  font-family:'Playfair Display',serif;
+  font-size:9px;font-weight:700;color:var(--gold);
+}
+.tb-title{
+  font-size:13px;font-weight:700;color:#fff;letter-spacing:.03em;
+}
+.tb-sub{
+  font-size:10px;color:rgba(255,255,255,0.35);
+  letter-spacing:.08em;text-transform:uppercase;
+}
+.tb-spacer{flex:1;}
+.tb-days{
+  background:rgba(220,38,38,0.15);
+  border:1px solid rgba(220,38,38,0.3);
+  border-radius:6px;padding:6px 14px;text-align:center;
+}
+.tb-days-n{
+  font-family:'JetBrains Mono',monospace;
+  font-size:18px;font-weight:500;color:#F87171;
+  display:block;line-height:1;
+}
+.tb-days-l{
+  font-size:9px;color:rgba(248,113,113,0.6);
+  text-transform:uppercase;letter-spacing:.1em;
+}
+
+/* Body layout */
+.body-wrap{
+  display:flex;flex:1;overflow:hidden;
+  height:calc(100vh - 56px);
+}
+
+/* Sidebar */
+.sidebar{
+  width:var(--sidebar-w);
+  background:#fff;
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;
+  flex-shrink:0;overflow-y:auto;
+}
+.sidebar-logo{
+  padding:20px 18px 12px;
+  border-bottom:1px solid var(--border);
+}
+.sidebar-logo-text{
+  font-family:'Playfair Display',serif;
+  font-size:15px;color:var(--navy);
+}
+.sidebar-logo-sub{
+  font-size:9px;color:var(--gray);
+  letter-spacing:.1em;text-transform:uppercase;margin-top:2px;
+}
+.nav-section{padding:16px 12px 8px;}
+.nav-label{
+  font-size:9px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:#9CA3AF;padding:0 6px;margin-bottom:4px;
+}
+.nav-item{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 10px;border-radius:8px;
+  cursor:pointer;transition:all .15s;
+  margin-bottom:2px;color:#374151;
+  font-size:13px;font-weight:500;
+  text-decoration:none;
+}
+.nav-item:hover{background:#F3F4F6;color:var(--navy);}
+.nav-item.active{background:#FAF3E0;color:var(--navy);}
+.nav-item.active .nav-icon{color:var(--gold);}
+.nav-icon{font-size:16px;width:20px;text-align:center;flex-shrink:0;}
+.nav-badge{
+  margin-left:auto;background:#EF4444;color:#fff;
+  border-radius:10px;padding:1px 7px;
+  font-size:10px;font-weight:700;
+}
+.nav-badge.green{background:var(--green);}
+.nav-badge.amber{background:var(--amber);}
+
+/* Main content */
+.main{
+  flex:1;overflow-y:auto;
+  background:#F3F4F6;
+}
+.panel{display:none;padding:24px;}
+.panel.active{display:block;}
+
+/* ── SHARED COMPONENTS ── */
+.page-title{
+  font-family:'Playfair Display',serif;
+  font-size:22px;color:var(--navy);margin-bottom:4px;
+}
+.page-sub{font-size:13px;color:var(--gray);margin-bottom:20px;}
+
+.card{
+  background:#fff;border-radius:10px;
+  border:1px solid var(--border);
+  padding:20px;margin-bottom:16px;
+}
+.card-title{
+  font-size:10px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--gray);margin-bottom:12px;
+}
+
+.stat-grid{
+  display:grid;grid-template-columns:repeat(5,1fr);
+  gap:12px;margin-bottom:20px;
+}
+.stat-card{
+  background:#fff;border-radius:10px;
+  border:1px solid var(--border);
+  padding:16px 14px;text-align:center;
+}
+.stat-n{
+  font-family:'Playfair Display',serif;
+  font-size:28px;font-weight:700;color:var(--navy);
+  line-height:1;display:block;margin-bottom:4px;
+}
+.stat-n.gold{color:var(--gold);}
+.stat-n.red{color:var(--red);}
+.stat-n.green{color:var(--green);}
+.stat-n.amber{color:var(--amber);}
+.stat-l{
+  font-size:10px;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;
+  color:var(--gray);
+}
+
+.btn{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:9px 18px;border-radius:7px;
+  font-size:12px;font-weight:600;cursor:pointer;
+  border:none;transition:all .15s;letter-spacing:.02em;
+  font-family:'Inter',sans-serif;
+}
+.btn-primary{background:var(--navy);color:#fff;}
+.btn-primary:hover{background:#1a2235;}
+.btn-gold{background:var(--gold);color:var(--navy);}
+.btn-gold:hover{background:#d4b55e;}
+.btn-outline{background:#fff;color:var(--navy);border:1.5px solid var(--border);}
+.btn-outline:hover{border-color:var(--navy);}
+.btn-sm{padding:6px 12px;font-size:11px;}
+.btn-green{background:var(--green);color:#fff;}
+.btn-red{background:var(--red);color:#fff;}
+.btn:disabled{opacity:.4;cursor:not-allowed;}
+
+/* Table */
+.table-wrap{overflow-x:auto;border-radius:8px;border:1px solid var(--border);}
+table{width:100%;border-collapse:collapse;font-size:12px;}
+thead tr{background:#F9FAFB;border-bottom:1px solid var(--border);}
+th{
+  padding:10px 14px;text-align:left;
+  font-size:10px;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;
+  color:var(--gray);white-space:nowrap;
+}
+tbody tr{border-bottom:1px solid #F3F4F6;transition:background .12s;}
+tbody tr:hover{background:#FAFAFA;}
+tbody tr:last-child{border-bottom:none;}
+td{
+  padding:10px 14px;color:#374151;
+  max-width:180px;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap;
+}
+td a{color:var(--gold2);text-decoration:none;font-size:11px;}
+td a:hover{color:var(--gold);}
+
+.badge{
+  display:inline-block;padding:2px 8px;border-radius:4px;
+  font-size:10px;font-weight:600;letter-spacing:.04em;
+}
+.badge-red{background:#FEE2E2;color:#DC2626;}
+.badge-amber{background:#FEF3C7;color:#D97706;}
+.badge-green{background:#D1FAE5;color:#059669;}
+.badge-gray{background:#F3F4F6;color:#6B7280;}
+.badge-blue{background:#DBEAFE;color:#2563EB;}
+.badge-gold{background:#FEF3C7;color:#92400E;}
+
+/* Score display */
+.score-pill{
+  display:inline-block;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;font-weight:500;
+  padding:3px 10px;border-radius:20px;
+}
+.score-fail{background:#FEE2E2;color:#DC2626;}
+.score-warn{background:#FEF3C7;color:#D97706;}
+.score-pass{background:#D1FAE5;color:#059669;}
+.score-na{background:#F3F4F6;color:#9CA3AF;}
+
+/* Activity feed */
+.activity-feed{max-height:280px;overflow-y:auto;}
+.activity-item{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:8px 0;border-bottom:1px solid #F3F4F6;
+  font-size:12px;
+}
+.activity-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--gold);flex-shrink:0;margin-top:3px;
+}
+.activity-time{
+  font-size:10px;color:var(--gray);
+  margin-left:auto;flex-shrink:0;
+  font-family:'JetBrains Mono',monospace;
+}
+
+/* Prospect slide panel */
+.slide-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,0.3);z-index:200;
+}
+.slide-panel{
+  position:fixed;right:0;top:0;bottom:0;
+  width:460px;background:#fff;
+  box-shadow:-4px 0 24px rgba(0,0,0,0.1);
+  overflow-y:auto;z-index:201;
+  transform:translateX(100%);
+  transition:transform .25s ease;
+}
+.slide-panel.open{transform:translateX(0);}
+.slide-overlay.open{display:block;}
+.sp-header{
+  background:var(--navy);padding:20px 24px;
+  position:sticky;top:0;z-index:10;
+}
+.sp-title{
+  font-family:'Playfair Display',serif;
+  font-size:18px;color:#fff;margin-bottom:2px;
+}
+.sp-sub{font-size:11px;color:rgba(255,255,255,0.4);}
+.sp-close{
+  position:absolute;top:18px;right:18px;
+  background:rgba(255,255,255,0.1);border:none;
+  color:#fff;width:32px;height:32px;border-radius:6px;
+  cursor:pointer;font-size:16px;
+  display:flex;align-items:center;justify-content:center;
+}
+.sp-body{padding:20px 24px;}
+.sp-score{
+  background:#F9FAFB;border-radius:8px;
+  padding:16px;margin-bottom:16px;
+  display:flex;align-items:center;gap:16px;
+}
+.sp-score-n{
+  font-family:'Playfair Display',serif;
+  font-size:40px;font-weight:700;line-height:1;
+}
+.sp-section-title{
+  font-size:10px;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--gray);margin:16px 0 8px;
+}
+.sp-field{
+  display:grid;grid-template-columns:120px 1fr;
+  gap:4px;padding:7px 0;
+  border-bottom:1px solid #F3F4F6;
+  font-size:12px;
+}
+.sp-field-k{color:var(--gray);font-weight:500;}
+.sp-field-v{color:#111827;}
+.sp-msg{
+  background:#F9FAFB;border-radius:8px;
+  padding:14px;font-size:12px;line-height:1.7;
+  color:#374151;white-space:pre-wrap;
+  border-left:3px solid var(--gold);
+  margin-bottom:12px;
+}
+.sp-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;}
+
+/* Search bar */
+.search-bar{
+  display:flex;gap:10px;align-items:center;
+  margin-bottom:16px;flex-wrap:wrap;
+}
+.search-input{
+  flex:1;min-width:200px;
+  border:1.5px solid var(--border);border-radius:8px;
+  padding:9px 14px;font-size:13px;
+  font-family:'Inter',sans-serif;outline:none;
+  transition:border-color .2s;
+}
+.search-input:focus{border-color:var(--gold);}
+.filter-select{
+  border:1.5px solid var(--border);border-radius:8px;
+  padding:9px 12px;font-size:12px;
+  font-family:'Inter',sans-serif;outline:none;
+  background:#fff;cursor:pointer;color:#374151;
+}
+.filter-select:focus{border-color:var(--gold);}
+
+/* AI Chat */
+.ai-chat{
+  height:calc(100vh - 200px);
+  display:flex;flex-direction:column;
+}
+.ai-messages{
+  flex:1;overflow-y:auto;padding:16px;
+  background:#F9FAFB;border-radius:10px;
+  border:1px solid var(--border);
+  margin-bottom:14px;
+  display:flex;flex-direction:column;gap:14px;
+}
+.ai-msg{display:flex;gap:10px;align-items:flex-start;}
+.ai-msg.user{flex-direction:row-reverse;}
+.ai-bubble{
+  max-width:75%;padding:12px 16px;border-radius:10px;
+  font-size:13px;line-height:1.65;
+}
+.ai-msg.user .ai-bubble{
+  background:var(--navy);color:#fff;border-radius:10px 10px 0 10px;
+}
+.ai-msg.assistant .ai-bubble{
+  background:#fff;color:#111827;
+  border:1px solid var(--border);
+  border-radius:10px 10px 10px 0;
+  white-space:pre-wrap;
+}
+.ai-avatar{
+  width:32px;height:32px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;flex-shrink:0;
+}
+.ai-msg.user .ai-avatar{background:var(--navy);color:#fff;}
+.ai-msg.assistant .ai-avatar{background:var(--gold);color:var(--navy);}
+.ai-input-row{display:flex;gap:10px;}
+.ai-input{
+  flex:1;border:1.5px solid var(--border);border-radius:8px;
+  padding:12px 16px;font-size:13px;
+  font-family:'Inter',sans-serif;outline:none;resize:none;
+  transition:border-color .2s;
+}
+.ai-input:focus{border-color:var(--gold);}
+.ai-suggestions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+.ai-chip{
+  padding:6px 12px;border-radius:20px;
+  background:#fff;border:1px solid var(--border);
+  font-size:11px;color:var(--gray);cursor:pointer;
+  transition:all .15s;
+}
+.ai-chip:hover{border-color:var(--gold);color:var(--navy);}
+
+/* Association cards */
+.assoc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.assoc-card{
+  background:#fff;border-radius:10px;
+  border:1px solid var(--border);
+  overflow:hidden;
+  transition:box-shadow .15s;
+}
+.assoc-card:hover{box-shadow:0 2px 12px rgba(0,0,0,0.06);}
+.assoc-hdr{
+  padding:14px 16px;border-bottom:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:flex-start;
+  gap:8px;
+}
+.assoc-name{
+  font-size:12px;font-weight:700;color:var(--navy);line-height:1.3;
+}
+.assoc-serves{font-size:11px;color:var(--gray);margin-top:2px;}
+.assoc-body{padding:14px 16px;}
+.assoc-stat{
+  font-size:11px;color:var(--gray);margin-bottom:10px;
+}
+.assoc-stat strong{color:var(--navy);}
+.assoc-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;}
+
+/* Tracker */
+.status-tabs{
+  display:flex;gap:2px;margin-bottom:16px;
+  background:#F3F4F6;border-radius:8px;padding:4px;
+}
+.status-tab{
+  flex:1;padding:8px 6px;border-radius:6px;
+  text-align:center;font-size:11px;font-weight:600;
+  cursor:pointer;transition:all .15s;color:var(--gray);
+}
+.status-tab.active{background:#fff;color:var(--navy);
+  box-shadow:0 1px 4px rgba(0,0,0,0.08);}
+
+/* Playbook */
+.day-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+.day-card{
+  background:#fff;border-radius:10px;
+  border:1px solid var(--border);
+  padding:14px;cursor:pointer;
+  transition:all .15s;
+}
+.day-card:hover{box-shadow:0 2px 12px rgba(0,0,0,0.08);border-color:#d1d5db;}
+.day-card.current{border-color:var(--gold);background:#FFFBEB;}
+.day-card.done{background:#F0FDF4;border-color:#A7F3D0;}
+.day-n{
+  font-family:'Playfair Display',serif;
+  font-size:24px;font-weight:700;color:var(--navy);
+}
+.day-title{font-size:12px;font-weight:600;color:var(--navy);margin:4px 0 2px;}
+.day-group{font-size:10px;color:var(--gray);}
+
+/* Loading */
+.loading{
+  display:inline-flex;align-items:center;gap:8px;
+  color:var(--gray);font-size:13px;
+}
+.spinner{
+  width:16px;height:16px;border-radius:50%;
+  border:2px solid var(--border);
+  border-top-color:var(--gold);
+  animation:spin .7s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+.empty-state{
+  text-align:center;padding:48px 24px;color:var(--gray);
+}
+.empty-icon{font-size:40px;margin-bottom:12px;}
+.empty-title{font-size:15px;font-weight:600;color:#374151;margin-bottom:6px;}
+.empty-body{font-size:13px;line-height:1.6;max-width:320px;margin:0 auto;}
+
+/* Notification toast */
+.toast{
+  position:fixed;bottom:24px;right:24px;
+  background:var(--navy);color:#fff;
+  padding:12px 20px;border-radius:8px;
+  font-size:13px;z-index:500;
+  transform:translateY(80px);opacity:0;
+  transition:all .3s;pointer-events:none;
+}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast.success{background:var(--green);}
+.toast.error{background:var(--red);}
+
+@media(max-width:900px){
+  .stat-grid{grid-template-columns:repeat(3,1fr);}
+  .assoc-grid{grid-template-columns:1fr;}
+  .day-grid{grid-template-columns:repeat(2,1fr);}
+  .slide-panel{width:100%;}
+  .sidebar{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-seal"><span>IDR</span></div>
+    <div class="login-title">ICC Command Center</div>
+    <div class="login-sub">IDR Shield · HHS Outreach System</div>
+    <input type="password" class="login-input" id="login-pw"
+           placeholder="Enter your password…"
+           onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="login-btn" onclick="doLogin()">Access Command Center →</button>
+    <div class="login-err" id="login-err"></div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="tb-seal"><span>IDR</span></div>
+    <div>
+      <div class="tb-title">ICC Command Center</div>
+      <div class="tb-sub">HHS Outreach System</div>
+    </div>
+    <div class="tb-spacer"></div>
+    <div style="font-size:11px;color:rgba(255,255,255,0.3);margin-right:8px;">
+      May 11, 2026
+    </div>
+    <div class="tb-days">
+      <span class="tb-days-n" id="tb-days">—</span>
+      <span class="tb-days-l">Days Left</span>
+    </div>
+  </div>
+
+  <div class="body-wrap">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-logo">
+        <div class="sidebar-logo-text">Command Center</div>
+        <div class="sidebar-logo-sub">IDR Shield · HHS</div>
+      </div>
+      <div class="nav-section">
+        <div class="nav-label">Main</div>
+        <div class="nav-item active" onclick="navTo('radar')">
+          <span class="nav-icon">📡</span> The Radar
+        </div>
+        <div class="nav-item" onclick="navTo('prospects')">
+          <span class="nav-icon">🏥</span> Prospects
+          <span class="nav-badge amber" id="nav-priority-badge">0</span>
+        </div>
+        <div class="nav-item" onclick="navTo('ai')">
+          <span class="nav-icon">🤖</span> AI Writer
+        </div>
+      </div>
+      <div class="nav-section">
+        <div class="nav-label">Campaign</div>
+        <div class="nav-item" onclick="navTo('associations')">
+          <span class="nav-icon">📢</span> Associations
+          <span class="nav-badge" id="nav-assoc-badge">10</span>
+        </div>
+        <div class="nav-item" onclick="navTo('tracker')">
+          <span class="nav-icon">📊</span> Tracker
+          <span class="nav-badge green" id="nav-converted-badge">0</span>
+        </div>
+        <div class="nav-item" onclick="navTo('playbook')">
+          <span class="nav-icon">📋</span> Playbook
+        </div>
+      </div>
+    </div>
+
+    <!-- Main panels -->
+    <div class="main">
+
+      <!-- ── RADAR ── -->
+      <div class="panel active" id="panel-radar">
+        <div class="page-title">The Radar</div>
+        <div class="page-sub">Your live campaign dashboard. Updated every hour automatically.</div>
+
+        <!-- Stats -->
+        <div class="stat-grid" id="stat-grid">
+          <div class="stat-card">
+            <span class="stat-n gold" id="s-total">—</span>
+            <div class="stat-l">Prospects</div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-n red" id="s-priority">—</span>
+            <div class="stat-l">Priority Targets</div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-n" id="s-contacted">—</span>
+            <div class="stat-l">Contacted</div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-n amber" id="s-warm">—</span>
+            <div class="stat-l">Warm Leads</div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-n green" id="s-revenue">—</span>
+            <div class="stat-l">Revenue</div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 340px;gap:16px;">
+          <!-- Today's tasks -->
+          <div class="card">
+            <div class="card-title">Today's Priority Actions</div>
+            <div id="today-tasks">
+              <div class="loading"><div class="spinner"></div> Loading your tasks…</div>
+            </div>
+          </div>
+
+          <!-- Activity feed -->
+          <div class="card">
+            <div class="card-title">Live Activity Feed</div>
+            <div class="activity-feed" id="activity-feed">
+              <div class="loading"><div class="spinner"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick actions -->
+        <div class="card">
+          <div class="card-title">Quick Actions</div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button class="btn btn-gold" onclick="navTo('prospects')">
+              🏥 Browse Prospects
+            </button>
+            <button class="btn btn-primary" onclick="triggerHarvest()">
+              ⚡ Load New Prospects
+            </button>
+            <button class="btn btn-outline" onclick="navTo('ai')">
+              🤖 Ask AI Advisor
+            </button>
+            <button class="btn btn-outline" onclick="navTo('associations')">
+              📢 Association Pitches
+            </button>
+            <button class="btn btn-outline" onclick="navTo('playbook')">
+              📋 Today's Playbook
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PROSPECTS ── -->
+      <div class="panel" id="panel-prospects">
+        <div class="page-title">Prospect Database</div>
+        <div class="page-sub">Every healthcare organization pulled from government databases. Click any row to see their full profile and outreach message.</div>
+
+        <div class="search-bar">
+          <input type="text" class="search-input" placeholder="Search by name, city…"
+                 oninput="filterProspects(this.value)" id="prospect-search">
+          <select class="filter-select" id="filter-state" onchange="loadProspects()">
+            <option value="">All States</option>
+            <option value="FL">Florida</option>
+            <option value="TX">Texas</option>
+            <option value="CA">California</option>
+            <option value="NY">New York</option>
+            <option value="GA">Georgia</option>
+            <option value="IL">Illinois</option>
+            <option value="OH">Ohio</option>
+            <option value="NC">North Carolina</option>
+            <option value="PA">Pennsylvania</option>
+            <option value="MI">Michigan</option>
+          </select>
+          <select class="filter-select" id="filter-type" onchange="loadProspects()">
+            <option value="">All Types</option>
+            <option value="fqhc">Health Centers (FQHC)</option>
+            <option value="nh">Nursing Homes</option>
+            <option value="hha">Home Health</option>
+          </select>
+          <select class="filter-select" id="filter-priority" onchange="loadProspects()">
+            <option value="">All Prospects</option>
+            <option value="1">Priority Only (Score &lt;60)</option>
+          </select>
+          <button class="btn btn-gold btn-sm" onclick="triggerHarvest()">
+            ⚡ Load More
+          </button>
+          <span style="font-size:11px;color:var(--gray);margin-left:4px;" id="prospect-count"></span>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Organization</th>
+                <th>Type</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Phone</th>
+                <th>Website</th>
+                <th>IDR Score</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="prospects-tbody"></tbody>
+          </table>
+        </div>
+        <div class="empty-state" id="prospects-empty" style="display:none;">
+          <div class="empty-icon">🏥</div>
+          <div class="empty-title">No prospects loaded yet</div>
+          <div class="empty-body">Click "Load More" to pull organizations from government databases. Try Florida or Texas first — largest healthcare markets.</div>
+        </div>
+      </div>
+
+      <!-- ── AI WRITER ── -->
+      <div class="panel" id="panel-ai">
+        <div class="page-title">AI Writer</div>
+        <div class="page-sub">Ask anything about your campaign. Get messages, posts, articles, and strategy — instantly.</div>
+
+        <div class="ai-suggestions" id="ai-suggestions">
+          <div class="ai-chip" onclick="askAI('Write a LinkedIn post about the May 11 deadline for nursing home administrators')">LinkedIn post for nursing homes</div>
+          <div class="ai-chip" onclick="askAI('Write the full NACHC compliance alert article ready to send')">NACHC article draft</div>
+          <div class="ai-chip" onclick="askAI('Write a follow-up message for someone who connected but hasn\'t replied in 3 days')">3-day follow-up message</div>
+          <div class="ai-chip" onclick="askAI('Which type of organization should I focus on today and why?')">What to focus on today</div>
+          <div class="ai-chip" onclick="askAI('Write an outreach message for an FQHC executive director')">FQHC director message</div>
+          <div class="ai-chip" onclick="askAI('Write a healthcare attorney outreach message')">Attorney outreach</div>
+          <div class="ai-chip" onclick="askAI('What should my LinkedIn headline say during this campaign?')">LinkedIn headline</div>
+          <div class="ai-chip" onclick="askAI('Write the final 48-hour urgency message')">Final 48hr message</div>
+        </div>
+
+        <div class="ai-chat">
+          <div class="ai-messages" id="ai-messages">
+            <div class="ai-msg assistant">
+              <div class="ai-avatar">AI</div>
+              <div class="ai-bubble">
+                Hi Hans-Peter. I'm your ICC AI Advisor. I know your campaign, your targets, your messages, and your deadline. Ask me anything — I'll give you something ready to use immediately.<br><br>
+                Try one of the quick prompts above, or type your own question below.
+              </div>
+            </div>
+          </div>
+          <div class="ai-input-row">
+            <textarea class="ai-input" id="ai-input" rows="2"
+              placeholder="Ask anything — write a message, a post, a pitch, get strategy advice…"
+              onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAI();}"></textarea>
+            <button class="btn btn-gold" onclick="sendAI()" id="ai-send-btn">
+              Send →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── ASSOCIATIONS ── -->
+      <div class="panel" id="panel-associations">
+        <div class="page-title">Association Command</div>
+        <div class="page-sub">Every mouthpiece that speaks to your target audience. One association email can reach thousands of organizations. Click a card to see the pre-written pitch and update your status.</div>
+
+        <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;">
+          <div class="card" style="flex:1;min-width:140px;padding:14px;text-align:center;">
+            <div style="font-size:22px;font-weight:700;color:var(--navy);" id="assoc-not-contacted">—</div>
+            <div style="font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:.08em;">Not Contacted</div>
+          </div>
+          <div class="card" style="flex:1;min-width:140px;padding:14px;text-align:center;">
+            <div style="font-size:22px;font-weight:700;color:var(--amber);" id="assoc-contacted">—</div>
+            <div style="font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:.08em;">Contacted</div>
+          </div>
+          <div class="card" style="flex:1;min-width:140px;padding:14px;text-align:center;">
+            <div style="font-size:22px;font-weight:700;color:var(--blue);" id="assoc-in-convo">—</div>
+            <div style="font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:.08em;">In Conversation</div>
+          </div>
+          <div class="card" style="flex:1;min-width:140px;padding:14px;text-align:center;">
+            <div style="font-size:22px;font-weight:700;color:var(--green);" id="assoc-published">—</div>
+            <div style="font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:.08em;">Published ✓</div>
+          </div>
+        </div>
+
+        <div class="assoc-grid" id="assoc-grid">
+          <div class="loading"><div class="spinner"></div> Loading associations…</div>
+        </div>
+      </div>
+
+      <!-- ── TRACKER ── -->
+      <div class="panel" id="panel-tracker">
+        <div class="page-title">Campaign Tracker</div>
+        <div class="page-sub">Every outreach logged, every status tracked. Nothing falls through the cracks.</div>
+
+        <div class="stat-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:16px;">
+          <div class="stat-card">
+            <span class="stat-n" id="t-sent">—</span>
+            <div class="stat-l">Messages Sent</div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-n amber" id="t-warm">—</span>
+            <div class="stat-l">Warm Leads</div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-n green" id="t-converted">—</span>
+            <div class="stat-l">Converted</div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-n green" id="t-revenue">—</span>
+            <div class="stat-l">Revenue</div>
+          </div>
+        </div>
+
+        <!-- Log new outreach -->
+        <div class="card" style="margin-bottom:16px;">
+          <div class="card-title">Log New Outreach</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr auto;gap:10px;align-items:end;">
+            <div>
+              <div style="font-size:10px;font-weight:600;color:var(--gray);margin-bottom:4px;">Organization</div>
+              <input class="search-input" id="log-org" placeholder="Organization name…" style="width:100%;">
+            </div>
+            <div>
+              <div style="font-size:10px;font-weight:600;color:var(--gray);margin-bottom:4px;">Contact Name</div>
+              <input class="search-input" id="log-contact" placeholder="First Last…" style="width:100%;">
+            </div>
+            <div>
+              <div style="font-size:10px;font-weight:600;color:var(--gray);margin-bottom:4px;">Message Type</div>
+              <select class="filter-select" id="log-type" style="width:100%;">
+                <option value="connection">Connection Request</option>
+                <option value="scan_personal">Personalized Scan</option>
+                <option value="followup">Follow-Up</option>
+                <option value="fqhc">FQHC Message</option>
+                <option value="nh">Nursing Home</option>
+                <option value="close">Final Close</option>
+              </select>
+            </div>
+            <div>
+              <div style="font-size:10px;font-weight:600;color:var(--gray);margin-bottom:4px;">Notes</div>
+              <input class="search-input" id="log-notes" placeholder="Optional…" style="width:100%;">
+            </div>
+            <button class="btn btn-gold" onclick="logOutreach()">Log It</button>
+          </div>
+        </div>
+
+        <!-- Follow-ups due -->
+        <div class="card" id="followups-card" style="margin-bottom:16px;display:none;">
+          <div class="card-title" style="color:var(--amber);">⚠ Follow-Ups Due</div>
+          <div id="followups-list"></div>
+        </div>
+
+        <!-- Outreach table -->
+        <div class="status-tabs">
+          <div class="status-tab active" onclick="switchTrackerTab('all',this)">All</div>
+          <div class="status-tab" onclick="switchTrackerTab('sent',this)">Sent</div>
+          <div class="status-tab" onclick="switchTrackerTab('connected',this)">Connected</div>
+          <div class="status-tab" onclick="switchTrackerTab('replied',this)">Replied</div>
+          <div class="status-tab" onclick="switchTrackerTab('interested',this)">Interested</div>
+          <div class="status-tab" onclick="switchTrackerTab('converted',this)">Converted ✓</div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Organization</th>
+                <th>Contact</th>
+                <th>Message Type</th>
+                <th>Sent</th>
+                <th>Status</th>
+                <th>Update</th>
+              </tr>
+            </thead>
+            <tbody id="tracker-tbody"></tbody>
+          </table>
+        </div>
+        <div class="empty-state" id="tracker-empty" style="display:none;">
+          <div class="empty-icon">📊</div>
+          <div class="empty-title">No outreach logged yet</div>
+          <div class="empty-body">Use the form above to log every message you send. The tracker tells you who needs a follow-up and who is ready to convert.</div>
+        </div>
+      </div>
+
+      <!-- ── PLAYBOOK ── -->
+      <div class="panel" id="panel-playbook">
+        <div class="page-title">The 13-Day Playbook</div>
+        <div class="page-sub">Your day-by-day action plan. The current day is highlighted. Click any day to see exactly what to do.</div>
+
+        <div class="day-grid" id="day-grid">
+          <div class="loading"><div class="spinner"></div> Loading playbook…</div>
+        </div>
+
+        <!-- Day detail -->
+        <div class="card" id="day-detail" style="display:none;margin-top:16px;">
+          <div id="day-detail-content"></div>
+        </div>
+      </div>
+
+    </div><!-- /main -->
+  </div><!-- /body-wrap -->
+</div><!-- /app -->
+
+<!-- Slide panel -->
+<div class="slide-overlay" id="slide-overlay" onclick="closeSlide()"></div>
+<div class="slide-panel" id="slide-panel">
+  <div class="sp-header">
+    <div class="sp-title" id="sp-title">Organization</div>
+    <div class="sp-sub" id="sp-sub">Details</div>
+    <button class="sp-close" onclick="closeSlide()">✕</button>
+  </div>
+  <div class="sp-body" id="sp-body"></div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── CONFIG ────────────────────────────────────────────────────────────────────
+const API = 'https://idr-backend-production.up.railway.app/icc/api';
+let TOKEN = localStorage.getItem('icc_token') || '';
+let statsData = {};
+let prospectsData = [];
+
+// ── HELPERS ───────────────────────────────────────────────────────────────────
+async function api(path, method='GET', body=null) {
+  const opts = {
+    method,
+    headers: {
+      'Content-Type': 'application/json',
+      'X-ICC-Token': TOKEN,
+    },
+  };
+  if (body) opts.body = JSON.stringify(body);
+  const res = await fetch(API + path, opts);
+  return res.json();
+}
+
+function toast(msg, type='') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast show' + (type ? ' ' + type : '');
+  setTimeout(() => el.className = 'toast', 2800);
+}
+
+function copyText(text, btn) {
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn ? btn.textContent : '';
+    if (btn) { btn.textContent = '✓ Copied!'; btn.style.background = '#059669'; }
+    setTimeout(() => { if (btn) { btn.textContent = orig; btn.style.background = ''; } }, 2000);
+    toast('Copied to clipboard', 'success');
+  });
+}
+
+// ── COUNTDOWN ─────────────────────────────────────────────────────────────────
+(function updateCountdown() {
+  const dl = new Date('2026-05-11T23:59:59');
+  const days = Math.max(0, Math.ceil((dl - new Date()) / 86400000));
+  const el = document.getElementById('tb-days');
+  if (el) {
+    el.textContent = days;
+    if (days <= 3) el.style.color = '#F87171';
+    else if (days <= 7) el.style.color = '#FCD34D';
+  }
+})();
+
+// ── LOGIN ─────────────────────────────────────────────────────────────────────
+async function doLogin() {
+  const pw = document.getElementById('login-pw').value;
+  if (!pw) return;
+  try {
+    const res = await fetch(API + '/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: pw }),
+    });
+    const data = await res.json();
+    if (data.success) {
+      TOKEN = data.token;
+      localStorage.setItem('icc_token', TOKEN);
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('app').classList.add('visible');
+      initApp();
+    } else {
+      document.getElementById('login-err').textContent = 'Wrong password. Try again.';
+    }
+  } catch(e) {
+    document.getElementById('login-err').textContent = 'Connection error. Check your internet.';
+  }
+}
+
+// Auto-login if token stored
+if (TOKEN) {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').classList.add('visible');
+  initApp();
+}
+
+// ── NAVIGATION ────────────────────────────────────────────────────────────────
+function navTo(room) {
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+
+  const navEl = document.querySelector(`.nav-item[onclick="navTo('${room}')"]`);
+  if (navEl) navEl.classList.add('active');
+  const panelEl = document.getElementById(`panel-${room}`);
+  if (panelEl) panelEl.classList.add('active');
+
+  // Load room data
+  if (room === 'radar') loadRadar();
+  if (room === 'prospects') loadProspects();
+  if (room === 'associations') loadAssociations();
+  if (room === 'tracker') loadTracker();
+  if (room === 'playbook') loadPlaybook();
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+async function initApp() {
+  loadRadar();
+  // Pre-load prospects quietly
+  setTimeout(loadProspects, 1000);
+}
+
+// ── RADAR ─────────────────────────────────────────────────────────────────────
+async function loadRadar() {
+  try {
+    const data = await api('/stats');
+    statsData = data;
+
+    // Stats
+    document.getElementById('s-total').textContent    = data.total || 0;
+    document.getElementById('s-priority').textContent = data.priority || 0;
+    document.getElementById('s-contacted').textContent= data.contacted || 0;
+    document.getElementById('s-warm').textContent     = data.warm || 0;
+    document.getElementById('s-revenue').textContent  = '$' + (data.revenue || 0).toLocaleString();
+
+    // Nav badges
+    document.getElementById('nav-priority-badge').textContent  = data.priority || 0;
+    document.getElementById('nav-converted-badge').textContent = data.converted || 0;
+
+    // Activity feed
+    const feed = document.getElementById('activity-feed');
+    if (data.activity && data.activity.length) {
+      feed.innerHTML = data.activity.map(a => `
+        <div class="activity-item">
+          <div class="activity-dot"></div>
+          <div>${a.detail || a.type}</div>
+          <div class="activity-time">${a.time}</div>
+        </div>`).join('');
+    } else {
+      feed.innerHTML = '<div style="color:var(--gray);font-size:12px;padding:8px 0;">No activity yet. Load prospects to begin.</div>';
+    }
+
+    // Today's tasks
+    buildTodayTasks(data);
+
+  } catch(e) {
+    console.error('Radar load error:', e);
+  }
+}
+
+function buildTodayTasks(data) {
+  const dl = new Date('2026-05-11T23:59:59');
+  const days = Math.max(0, Math.ceil((dl - new Date()) / 86400000));
+  const tasks = [];
+
+  if ((data.priority || 0) > 0)
+    tasks.push({ icon:'🎯', text:`Contact ${Math.min(data.priority,10)} priority prospects — their scores are below 60 and their messages are pre-written in the Prospects tab`, action:'navTo("prospects")' });
+  if (data.total < 100)
+    tasks.push({ icon:'⚡', text:'Load more prospects from government databases — click Load New Prospects below', action:'triggerHarvest()' });
+  tasks.push({ icon:'📢', text:'Pitch at least one association newsletter today — go to Association Command and pick the top card', action:'navTo("associations")' });
+  tasks.push({ icon:'✍️', text:`Post on LinkedIn about the ${days}-day deadline — use the AI Writer to generate copy`, action:'navTo("ai")' });
+  if ((data.warm || 0) > 0)
+    tasks.push({ icon:'🔥', text:`You have ${data.warm} warm lead${data.warm!==1?'s':''} — follow up in the Campaign Tracker`, action:'navTo("tracker")' });
+  tasks.push({ icon:'🔍', text:'Ask the AI Advisor what to focus on today — it knows exactly where you stand', action:'navTo("ai")' });
+
+  document.getElementById('today-tasks').innerHTML = tasks.slice(0,5).map(t => `
+    <div style="display:flex;align-items:flex-start;gap:10px;padding:9px 0;
+         border-bottom:1px solid #F3F4F6;cursor:pointer;"
+         onclick="${t.action}">
+      <span style="font-size:18px;flex-shrink:0;">${t.icon}</span>
+      <span style="font-size:13px;color:#374151;line-height:1.5;">${t.text}</span>
+    </div>`).join('');
+}
+
+// ── PROSPECTS ─────────────────────────────────────────────────────────────────
+async function loadProspects() {
+  const state    = document.getElementById('filter-state')?.value || '';
+  const type     = document.getElementById('filter-type')?.value || '';
+  const priority = document.getElementById('filter-priority')?.value || '';
+
+  let url = `/prospects?limit=200`;
+  if (state)    url += `&state=${state}`;
+  if (type)     url += `&type=${type}`;
+  if (priority) url += `&priority=1`;
+
+  try {
+    const data = await api(url);
+    prospectsData = data.prospects || [];
+    renderProspects(prospectsData);
+  } catch(e) {
+    console.error('Prospects load error:', e);
+  }
+}
+
+function renderProspects(list) {
+  const tbody = document.getElementById('prospects-tbody');
+  const empty = document.getElementById('prospects-empty');
+  const count = document.getElementById('prospect-count');
+
+  if (count) count.textContent = `${list.length} organizations`;
+
+  if (!list.length) {
+    tbody.innerHTML = '';
+    if (empty) empty.style.display = 'block';
+    return;
+  }
+  if (empty) empty.style.display = 'none';
+
+  tbody.innerHTML = list.map(p => {
+    const scorePill = p.scanned
+      ? `<span class="score-pill ${p.idr_score>=80?'score-pass':p.idr_score>=60?'score-warn':'score-fail'}">${p.idr_score}/100</span>`
+      : `<span class="score-pill score-na">—</span>`;
+    const typeBadge = {fqhc:'badge-green',nh:'badge-gold',hha:'badge-blue'}[p.org_type] || 'badge-gray';
+    const typeLabel = {fqhc:'FQHC',nh:'Nursing Home',hha:'Home Health'}[p.org_type] || p.org_type;
+    const website = p.website
+      ? `<a href="${p.website}" target="_blank">${p.website.replace('https://','').replace('http://','').split('/')[0].slice(0,20)}</a>`
+      : '<span style="color:#D1D5DB;">—</span>';
+    return `<tr onclick="openSlide('${p.id}')" style="cursor:pointer;">
+      <td style="font-weight:600;color:#111827;">${p.name.length>30?p.name.slice(0,28)+'…':p.name}</td>
+      <td><span class="badge ${typeBadge}">${typeLabel}</span></td>
+      <td>${p.city||'—'}</td>
+      <td>${p.state||'—'}</td>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:11px;">${p.phone||'—'}</td>
+      <td>${website}</td>
+      <td>${scorePill}</td>
+      <td onclick="event.stopPropagation()">
+        ${p.website?`<button class="btn btn-outline btn-sm" onclick="scanProspect('${p.id}')">Scan</button>`:''}
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function filterProspects(q) {
+  q = q.toLowerCase();
+  const filtered = prospectsData.filter(p =>
+    (p.name||'').toLowerCase().includes(q) ||
+    (p.city||'').toLowerCase().includes(q) ||
+    (p.state||'').toLowerCase().includes(q)
+  );
+  renderProspects(filtered);
+}
+
+async function scanProspect(pid) {
+  toast('Scanning website…');
+  try {
+    const data = await api(`/prospects/scan/${pid}`, 'POST');
+    if (data.success) {
+      toast(`Score: ${data.prospect.idr_score}/100`, 'success');
+      loadProspects();
+    }
+  } catch(e) {
+    toast('Scan failed', 'error');
+  }
+}
+
+// ── SLIDE PANEL ───────────────────────────────────────────────────────────────
+async function openSlide(pid) {
+  const p = prospectsData.find(x => x.id === pid);
+  if (!p) return;
+
+  document.getElementById('sp-title').textContent = p.name;
+  document.getElementById('sp-sub').textContent = `${({fqhc:'Health Center',nh:'Nursing Home',hha:'Home Health'}[p.org_type]||p.org_type)} · ${p.city}, ${p.state}`;
+
+  const dl = new Date('2026-05-11T23:59:59');
+  const days = Math.max(0, Math.ceil((dl - new Date()) / 86400000));
+
+  const scoreColor = p.idr_score >= 80 ? '#059669' : p.idr_score >= 60 ? '#D97706' : '#DC2626';
+
+  document.getElementById('sp-body').innerHTML = `
+    ${p.scanned ? `
+    <div class="sp-score">
+      <span class="sp-score-n" style="color:${scoreColor}">${p.idr_score}/100</span>
+      <div>
+        <div style="font-weight:600;font-size:13px;">${p.idr_score<60?'⚠ PRIORITY TARGET':'Moderate Risk'}</div>
+        <div style="font-size:12px;color:var(--gray);">${p.critical_count||0} critical violations · Use personalized message</div>
+      </div>
+    </div>` : `
+    <div style="background:#FEF3C7;border-radius:8px;padding:12px 14px;margin-bottom:14px;font-size:12px;color:#92400E;">
+      Website not yet scanned. Click Scan below to get their score and generate a personalized message.
+    </div>`}
+
+    <div class="sp-section-title">Organization Details</div>
+    <div class="sp-field"><div class="sp-field-k">Address</div><div class="sp-field-v">${p.address||'—'}</div></div>
+    <div class="sp-field"><div class="sp-field-k">City / State</div><div class="sp-field-v">${p.city}, ${p.state} ${p.zip||''}</div></div>
+    <div class="sp-field"><div class="sp-field-k">Phone</div><div class="sp-field-v">${p.phone||'—'}</div></div>
+    <div class="sp-field"><div class="sp-field-k">Website</div><div class="sp-field-v">${p.website?`<a href="${p.website}" target="_blank">${p.website}</a>`:'—'}</div></div>
+
+    <div class="sp-section-title">Outreach Message — Ready to Copy</div>
+    <div class="sp-msg" id="sp-msg-text">${p.outreach_msg || `Hi [Name] — I work in HHS accessibility compliance. The May 11 Section 504 digital deadline applies to ${p.name} if you receive federal health funding. Wanted to make sure it was on your radar. Happy to share what's required.\n\nidrshield.com/healthcare — Free scan available.`}</div>
+
+    <div class="sp-actions">
+      <button class="btn btn-gold" onclick="copyText(document.getElementById('sp-msg-text').textContent, this)">
+        Copy Message
+      </button>
+      ${p.website ? `
+      <button class="btn btn-outline" onclick="scanProspect('${p.id}')">
+        Scan Website
+      </button>
+      <a href="${p.website}" target="_blank" class="btn btn-outline">
+        Visit Site
+      </a>` : ''}
+      <a href="https://www.linkedin.com/search/results/people/?keywords=${encodeURIComponent(p.name+' administrator')}" target="_blank" class="btn btn-outline">
+        Find on LinkedIn
+      </a>
+      <button class="btn btn-primary" onclick="quickLogOutreach('${p.id}','${p.name.replace(/'/g,"\\'")}')">
+        Log as Sent
+      </button>
+    </div>
+  `;
+
+  document.getElementById('slide-overlay').classList.add('open');
+  document.getElementById('slide-panel').classList.add('open');
+}
+
+function closeSlide() {
+  document.getElementById('slide-overlay').classList.remove('open');
+  document.getElementById('slide-panel').classList.remove('open');
+}
+
+async function quickLogOutreach(pid, name) {
+  await api('/outreach', 'POST', {
+    prospect_id: pid, prospect_name: name,
+    contact_name: '', contact_title: '',
+    message_type: 'connection', notes: 'Logged from prospect view',
+  });
+  toast('Logged as sent ✓', 'success');
+  closeSlide();
+  loadRadar();
+}
+
+// ── HARVEST ───────────────────────────────────────────────────────────────────
+async function triggerHarvest() {
+  const state = document.getElementById('filter-state')?.value || 'FL';
+  const type  = document.getElementById('filter-type')?.value || 'fqhc';
+  toast('Loading prospects from government database…');
+  try {
+    const data = await api('/harvest', 'POST',
+      { state: state||'FL', type: type||'fqhc', limit: 100 });
+    toast(`${data.added || 0} prospects loaded`, 'success');
+    loadProspects();
+    loadRadar();
+  } catch(e) {
+    toast('Load error — try again', 'error');
+  }
+}
+
+// ── AI WRITER ─────────────────────────────────────────────────────────────────
+async function sendAI() {
+  const input = document.getElementById('ai-input');
+  const prompt = input.value.trim();
+  if (!prompt) return;
+
+  addAIMsg(prompt, 'user');
+  input.value = '';
+  document.getElementById('ai-send-btn').disabled = true;
+
+  const thinkingId = addAIMsg('Thinking…', 'assistant', true);
+
+  try {
+    const data = await api('/ai', 'POST', {
+      prompt,
+      context: statsData,
+    });
+    removeAIMsg(thinkingId);
+    addAIMsg(data.reply || 'No response', 'assistant');
+  } catch(e) {
+    removeAIMsg(thinkingId);
+    addAIMsg('Connection error. Make sure you are online.', 'assistant');
+  }
+  document.getElementById('ai-send-btn').disabled = false;
+}
+
+function askAI(prompt) {
+  document.getElementById('ai-input').value = prompt;
+  sendAI();
+  navTo('ai');
+}
+
+let msgIdCounter = 0;
+function addAIMsg(text, role, isTemp=false) {
+  const id = 'msg-' + (++msgIdCounter);
+  const el = document.createElement('div');
+  el.className = `ai-msg ${role}`;
+  el.id = id;
+  el.innerHTML = `
+    <div class="ai-avatar">${role==='user'?'HP':'AI'}</div>
+    <div class="ai-bubble">${isTemp?`<div class="loading"><div class="spinner"></div> ${text}</div>`:text}</div>
+  `;
+  const msgs = document.getElementById('ai-messages');
+  msgs.appendChild(el);
+  msgs.scrollTop = msgs.scrollHeight;
+  return id;
+}
+
+function removeAIMsg(id) {
+  const el = document.getElementById(id);
+  if (el) el.remove();
+}
+
+// ── ASSOCIATIONS ──────────────────────────────────────────────────────────────
+async function loadAssociations() {
+  try {
+    const data = await api('/associations');
+    const assocs = data.associations || [];
+
+    const counts = {
+      not_contacted: assocs.filter(a=>a.status==='not_contacted').length,
+      contacted:     assocs.filter(a=>a.status==='contacted').length,
+      in_conversation: assocs.filter(a=>a.status==='in_conversation').length,
+      published:     assocs.filter(a=>a.status==='published').length,
+    };
+
+    document.getElementById('assoc-not-contacted').textContent = counts.not_contacted;
+    document.getElementById('assoc-contacted').textContent     = counts.contacted;
+    document.getElementById('assoc-in-convo').textContent      = counts.in_conversation;
+    document.getElementById('assoc-published').textContent     = counts.published;
+    document.getElementById('nav-assoc-badge').textContent     = assocs.length;
+
+    const statusBadge = {
+      not_contacted:  '<span class="badge badge-gray">Not Contacted</span>',
+      contacted:      '<span class="badge badge-amber">Contacted</span>',
+      in_conversation:'<span class="badge badge-blue">In Conversation</span>',
+      published:      '<span class="badge badge-green">Published ✓</span>',
+      declined:       '<span class="badge badge-red">Declined</span>',
+    };
+
+    document.getElementById('assoc-grid').innerHTML = assocs.map(a => `
+      <div class="assoc-card">
+        <div class="assoc-hdr">
+          <div>
+            <div class="assoc-name">${a.name}</div>
+            <div class="assoc-serves">${a.serves}</div>
+          </div>
+          ${statusBadge[a.status] || ''}
+        </div>
+        <div class="assoc-body">
+          <div class="assoc-stat">
+            <strong>${a.member_count}</strong> members ·
+            <a href="https://${a.website}" target="_blank">${a.website}</a>
+          </div>
+          <div style="font-size:11px;color:var(--gray);margin-bottom:8px;">
+            Contact: ${a.contact_name} · ${a.contact_title}
+          </div>
+          <div class="assoc-actions">
+            <button class="btn btn-gold btn-sm" onclick="showAssocPitch('${a.id}')">
+              View Pitch
+            </button>
+            <button class="btn btn-outline btn-sm" onclick="updateAssocStatus('${a.id}','contacted')">
+              Mark Contacted
+            </button>
+            <button class="btn btn-green btn-sm" onclick="updateAssocStatus('${a.id}','published')" style="font-size:10px;">
+              ✓ Published
+            </button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+  } catch(e) {
+    console.error('Association load error:', e);
+  }
+}
+
+function showAssocPitch(id) {
+  const dl = new Date('2026-05-11T23:59:59');
+  const days = Math.max(0, Math.ceil((dl - new Date()) / 86400000));
+
+  const pitches = {
+    nachc: `Subject: May 11 HHS Digital Deadline — Member Alert Opportunity
+
+Hi [Name],
+
+I'm reaching out because the May 11, 2026 HHS Section 504 digital accessibility deadline is ${days} days away and I'm concerned many NACHC member health centers may not have documented WCAG 2.1 AA audit records on file.
+
+HHS 89 FR 40066 — published July 8, 2024 — establishes WCAG 2.1 AA as the enforceable standard for all digital content operated by covered entities. This includes websites, patient portals, online scheduling, and intake forms. The deadline for organizations with 15+ employees is May 11, 2026.
+
+I'd like to offer NACHC a member compliance alert — written, edited, and ready to send within 24 hours at no cost.
+
+I run the Institute of Digital Remediation. We publish independent third-party HHS accessibility audit records for healthcare organizations. I'm not asking for promotional placement — I'm offering factual compliance content that is directly relevant to your members right now.
+
+Would that be useful for your next member communication?
+
+Hans-Peter Nkansah
+Institute of Digital Remediation
+idrshield.com · hello@idrshield.com`,
+  };
+
+  const defaultPitch = `Subject: May 11 HHS Digital Deadline — Member Alert Opportunity
+
+Hi [Name],
+
+I'm reaching out because the May 11, 2026 HHS Section 504 digital accessibility deadline is ${days} days away and your members are directly covered.
+
+HHS 89 FR 40066 requires WCAG 2.1 AA conformance for all digital content operated by entities receiving federal health funding — websites, patient portals, online scheduling, and intake forms. The deadline for organizations with 15+ employees is May 11, 2026.
+
+I'd like to offer your organization a member compliance alert — written, edited, and ready to send within 24 hours at no cost. I'm not asking for promotional placement — I'm offering factual compliance content that is directly relevant to your members right now.
+
+I run the Institute of Digital Remediation. We publish independent third-party HHS accessibility audit records for healthcare organizations. Free readiness scan at idrshield.com/healthcare.
+
+Would that be useful for your next member communication?
+
+Hans-Peter Nkansah
+Institute of Digital Remediation
+idrshield.com · hello@idrshield.com`;
+
+  const pitch = pitches[id] || defaultPitch;
+
+  document.getElementById('sp-title').textContent = 'Association Pitch';
+  document.getElementById('sp-sub').textContent = 'Ready to send — copy and email directly';
+  document.getElementById('sp-body').innerHTML = `
+    <div class="sp-msg" id="assoc-pitch-text">${pitch}</div>
+    <div class="sp-actions">
+      <button class="btn btn-gold" onclick="copyText(document.getElementById('assoc-pitch-text').textContent, this)">
+        Copy Pitch Email
+      </button>
+      <button class="btn btn-outline" onclick="askAI('Write the full compliance alert article for this association newsletter')">
+        Generate Article Draft
+      </button>
+    </div>
+  `;
+  document.getElementById('slide-overlay').classList.add('open');
+  document.getElementById('slide-panel').classList.add('open');
+}
+
+async function updateAssocStatus(id, status) {
+  await api(`/associations/${id}`, 'PUT', { status });
+  toast(`Status updated to ${status}`, 'success');
+  loadAssociations();
+}
+
+// ── TRACKER ───────────────────────────────────────────────────────────────────
+let trackerFilter = 'all';
+
+async function loadTracker() {
+  try {
+    const data = await api('/outreach');
+    const outreach  = data.outreach || [];
+    const followups = data.followups || [];
+
+    // Stats
+    document.getElementById('t-sent').textContent     = outreach.length;
+    document.getElementById('t-warm').textContent     = outreach.filter(o=>['replied','interested'].includes(o.status)).length;
+    document.getElementById('t-converted').textContent= outreach.filter(o=>o.status==='converted').length;
+    const rev = outreach.filter(o=>o.status==='converted').reduce((s,o)=>s+(o.revenue||0),0);
+    document.getElementById('t-revenue').textContent  = '$' + rev.toLocaleString();
+
+    // Follow-ups
+    if (followups.length) {
+      document.getElementById('followups-card').style.display = 'block';
+      document.getElementById('followups-list').innerHTML = followups.map(f => `
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #F3F4F6;font-size:12px;">
+          <span style="flex:1;font-weight:500;">${f.prospect_name}</span>
+          <span style="color:var(--gray);">sent ${f.sent_at?new Date(f.sent_at).toLocaleDateString():''}</span>
+          <button class="btn btn-amber btn-sm" style="background:#D97706;color:#fff;"
+            onclick="updateStatus(${f.id},'connected')">Connected</button>
+        </div>`).join('');
+    }
+
+    // Table
+    const filtered = trackerFilter === 'all'
+      ? outreach
+      : outreach.filter(o => o.status === trackerFilter);
+
+    const tbody = document.getElementById('tracker-tbody');
+    const empty = document.getElementById('tracker-empty');
+
+    if (!filtered.length) {
+      tbody.innerHTML = '';
+      empty.style.display = 'block';
+      return;
+    }
+    empty.style.display = 'none';
+
+    const statusBadge = {
+      sent:        '<span class="badge badge-gray">Sent</span>',
+      connected:   '<span class="badge badge-blue">Connected</span>',
+      replied:     '<span class="badge badge-amber">Replied</span>',
+      interested:  '<span class="badge" style="background:#EDE9FE;color:#7C3AED;">Interested</span>',
+      converted:   '<span class="badge badge-green">Converted ✓</span>',
+      no_response: '<span class="badge badge-red">No Response</span>',
+    };
+
+    tbody.innerHTML = filtered.map(o => `
+      <tr>
+        <td style="font-weight:500;">${o.prospect_name||'—'}</td>
+        <td>${o.contact_name||'—'}</td>
+        <td><span class="badge badge-gray" style="font-size:9px;">${o.message_type||'—'}</span></td>
+        <td style="font-size:11px;color:var(--gray);">${o.sent_at?new Date(o.sent_at).toLocaleDateString():''}</td>
+        <td>${statusBadge[o.status] || o.status}</td>
+        <td>
+          <select class="filter-select" style="padding:5px 8px;font-size:11px;"
+            onchange="updateStatus(${o.id},this.value)">
+            <option value="">Update…</option>
+            <option value="connected">Connected</option>
+            <option value="replied">Replied</option>
+            <option value="interested">Interested</option>
+            <option value="converted">Converted ($497)</option>
+            <option value="no_response">No Response</option>
+          </select>
+        </td>
+      </tr>`).join('');
+
+  } catch(e) {
+    console.error('Tracker load error:', e);
+  }
+}
+
+function switchTrackerTab(status, el) {
+  document.querySelectorAll('.status-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  trackerFilter = status;
+  loadTracker();
+}
+
+async function logOutreach() {
+  const org     = document.getElementById('log-org').value.trim();
+  const contact = document.getElementById('log-contact').value.trim();
+  const type    = document.getElementById('log-type').value;
+  const notes   = document.getElementById('log-notes').value.trim();
+
+  if (!org) { toast('Enter organization name', 'error'); return; }
+
+  await api('/outreach', 'POST', {
+    prospect_id: '', prospect_name: org,
+    contact_name: contact, contact_title: '',
+    message_type: type, notes,
+  });
+  toast('Logged ✓', 'success');
+  document.getElementById('log-org').value = '';
+  document.getElementById('log-contact').value = '';
+  document.getElementById('log-notes').value = '';
+  loadTracker();
+  loadRadar();
+}
+
+async function updateStatus(id, status) {
+  if (!status) return;
+  const revenue = status === 'converted' ? 497 : 0;
+  await api(`/outreach/${id}`, 'PUT', { status, revenue });
+  toast(`Updated to ${status}` + (status==='converted'?' 🎉 $497!':''), 'success');
+  loadTracker();
+  loadRadar();
+}
+
+// ── PLAYBOOK ──────────────────────────────────────────────────────────────────
+async function loadPlaybook() {
+  try {
+    const data = await api('/playbook');
+    const playbook   = data.playbook || [];
+    const currentDay = data.current_day || 1;
+
+    document.getElementById('day-grid').innerHTML = playbook.map(d => `
+      <div class="day-card ${d.day===currentDay?'current':d.day<currentDay?'done':''}"
+           onclick="showDayDetail(${d.day})">
+        <div class="day-n" style="${d.day===currentDay?'color:var(--gold)':d.day<currentDay?'color:var(--green)':''}">${d.day}</div>
+        <div class="day-title">${d.title}</div>
+        <div class="day-group">${d.group}</div>
+        ${d.day===currentDay?'<div style="font-size:10px;color:var(--gold);margin-top:4px;font-weight:600;">← TODAY</div>':''}
+        ${d.day<currentDay?'<div style="font-size:10px;color:var(--green);margin-top:4px;">✓ Complete</div>':''}
+      </div>`).join('');
+
+    // Auto-show today
+    showDayDetailData(playbook.find(d => d.day===currentDay) || playbook[0]);
+
+  } catch(e) {
+    console.error('Playbook error:', e);
+  }
+}
+
+function showDayDetail(dayNum) {
+  api('/playbook').then(data => {
+    const d = (data.playbook||[]).find(x=>x.day===dayNum);
+    if (d) showDayDetailData(d);
+  });
+}
+
+function showDayDetailData(d) {
+  if (!d) return;
+  document.getElementById('day-detail').style.display = 'block';
+  document.getElementById('day-detail-content').innerHTML = `
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+      <div style="font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--navy);">Day ${d.day}</div>
+      <div>
+        <div style="font-size:16px;font-weight:700;color:var(--navy);">${d.title}</div>
+        <div style="font-size:12px;color:var(--gray);">${d.group} · ${d.target_group}</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:8px;">Tasks</div>
+        ${d.tasks.map(t=>`
+          <div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid #F3F4F6;">
+            <span style="color:var(--gold);font-size:14px;flex-shrink:0;">→</span>
+            <span style="font-size:13px;color:#374151;">${t}</span>
+          </div>`).join('')}
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:8px;">LinkedIn Today</div>
+        <div style="background:#F9FAFB;border-radius:8px;padding:14px;font-size:13px;color:#374151;line-height:1.65;border-left:3px solid var(--gold);">
+          ${d.linkedin}
+        </div>
+        <button class="btn btn-gold btn-sm" style="margin-top:10px;"
+          onclick="askAI('Write the LinkedIn post for Day ${d.day}: ${d.linkedin}')">
+          Generate This Post →
+        </button>
+      </div>
+    </div>
+  `;
+  document.getElementById('day-detail').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+</script>
+</body>
+</html>
