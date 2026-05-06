@@ -605,6 +605,10 @@ td a:hover{color:var(--gold);}
           <span class="nav-icon">✉️</span> Email Queue
           <span class="nav-badge amber" id="nav-queue-badge" style="background:#D97706;">0</span>
         </div>
+        <div class="nav-item" onclick="navTo('scanner-visitors')">
+          <span class="nav-icon">👁️</span> Scanner Visitors
+          <span class="nav-badge" id="nav-visitors-badge" style="background:#059669;">0</span>
+        </div>
       </div>
     </div>
 
@@ -905,6 +909,36 @@ td a:hover{color:var(--gold);}
       </div>
 
       <!-- ── PLAYBOOK ── -->
+      <div class="panel" id="panel-scanner-visitors">
+        <div class="page-title">Scanner Visitors</div>
+        <div class="page-sub">Every organization that scanned their website on idrshield.com/healthcare or idrshield.com/healthscan. These are warm leads — they already know they have a problem.</div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+          <div style="font-size:13px;color:#6B7280;">
+            Sorted by most recent. Click any row to see their score and generate an outreach email.
+          </div>
+          <button class="btn btn-outline" onclick="loadScannerVisitors()">🔄 Refresh</button>
+        </div>
+
+        <table style="width:100%;border-collapse:collapse;">
+          <thead>
+            <tr style="border-bottom:2px solid #E5E7EB;">
+              <th style="text-align:left;padding:10px 12px;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#6B7280;">Domain</th>
+              <th style="text-align:left;padding:10px 12px;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#6B7280;">Score</th>
+              <th style="text-align:left;padding:10px 12px;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#6B7280;">Criticals</th>
+              <th style="text-align:left;padding:10px 12px;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#6B7280;">Scanned</th>
+              <th style="text-align:left;padding:10px 12px;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#6B7280;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="visitors-table-body">
+            <tr><td colspan="5" style="text-align:center;padding:40px;color:#6B7280;">
+              <div class="spinner" style="margin:0 auto 12px;"></div>
+              Loading scanner visitors…
+            </td></tr>
+          </tbody>
+        </table>
+      </div>
+
       <div class="panel" id="panel-queue">
         <div class="page-title">Email Queue</div>
         <div class="page-sub">Review and approve outreach emails. Every email was written using real prospect data. Click Approve to send from hello@idrshield.com via SendGrid. Click Edit to modify first.</div>
@@ -1111,6 +1145,7 @@ function navTo(room) {
   if (room === 'tracker') loadTracker();
   if (room === 'playbook') loadPlaybook();
   if (room === 'queue') loadQueue();
+  if (room === 'scanner-visitors') loadScannerVisitors();
 }
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
@@ -1934,6 +1969,100 @@ function showDayDetailData(d) {
 }
 
 
+
+
+
+// ── SCANNER VISITORS ──────────────────────────────────────────────────────────
+async function loadScannerVisitors() {
+  const tbody = document.getElementById('visitors-table-body');
+  if (!tbody) return;
+  tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:40px;color:#6B7280;"><div class="spinner" style="margin:0 auto 12px;"></div>Loading…</td></tr>';
+
+  try {
+    const data = await api('/scanner/visitors');
+    const visitors = data.visitors || [];
+
+    // Update badge
+    const badge = document.getElementById('nav-visitors-badge');
+    if (badge) badge.textContent = visitors.length;
+
+    if (!visitors.length) {
+      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:48px;color:#6B7280;">
+        <div style="font-size:32px;margin-bottom:8px;">👁️</div>
+        <div style="font-weight:600;margin-bottom:4px;">No scanner visitors yet</div>
+        <div style="font-size:13px;">When healthcare organizations scan their website on your scanner, they appear here as warm leads.</div>
+      </td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = visitors.map(v => {
+      const score = v.score;
+      const scoreColor = score == null ? '#6B7280' : score < 60 ? '#DC2626' : score < 80 ? '#D97706' : '#059669';
+      const scoreLabel = score == null ? 'Not scored' : score + '/100';
+      const statusBadge = score != null && score < 60
+        ? '<span style="background:#FEE2E2;color:#DC2626;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:700;">HOT LEAD</span>'
+        : score != null
+        ? '<span style="background:#FEF3C7;color:#D97706;border-radius:4px;padding:2px 8px;font-size:11px;">Warm</span>'
+        : '';
+
+      const scannedAt = v.scanned_at
+        ? new Date(v.scanned_at).toLocaleDateString('en-US', {month:'short', day:'numeric', hour:'2-digit', minute:'2-digit'})
+        : 'Unknown';
+
+      return `<tr style="border-bottom:1px solid #F3F4F6;cursor:pointer;"
+        onmouseover="this.style.background='#F9FAFB'" onmouseout="this.style.background=''">
+        <td style="padding:12px;font-size:13px;">
+          <div style="font-weight:600;color:#111827;">${v.domain || v.url || 'Unknown'}</div>
+          ${statusBadge}
+        </td>
+        <td style="padding:12px;">
+          <span style="font-weight:700;color:${scoreColor};font-size:14px;">${scoreLabel}</span>
+        </td>
+        <td style="padding:12px;font-size:13px;color:#374151;">
+          ${v.critical_count != null ? v.critical_count + ' critical' : 'N/A'}
+        </td>
+        <td style="padding:12px;font-size:12px;color:#6B7280;">${scannedAt}</td>
+        <td style="padding:12px;">
+          <button class="btn btn-gold btn-sm"
+            onclick="generateVisitorOutreach('${v.domain || v.url}', ${score || 0}, ${v.critical_count || 0})">
+            Contact →
+          </button>
+        </td>
+      </tr>`;
+    }).join('');
+
+  } catch(e) {
+    tbody.innerHTML = `<tr><td colspan="5" style="padding:24px;color:#DC2626;">
+      Could not load scanner visitors. Backend may still be deploying.
+    </td></tr>`;
+  }
+}
+
+async function generateVisitorOutreach(domain, score, criticals) {
+  const days = Math.max(0, Math.ceil((new Date('2026-05-11') - new Date()) / 86400000));
+  let msg = '';
+  if (score > 0 && score < 60) {
+    msg = `Hi,\n\nI noticed ${domain} recently ran an accessibility scan ahead of the May 11 HHS Section 504 deadline.\n\nYour score was ${score}/100 with ${criticals} critical violation${criticals !== 1 ? 's' : ''}. That score would flag in an OCR investigation.\n\nWe publish independent third-party HHS audit records — a timestamped, publicly verifiable compliance document. Initial audit is $497, delivered within 48 hours.\n\nYou have ${days} days before the enforcement window opens. Happy to answer any questions.\n\nHans-Peter Nkansah\nInstitute of Digital Remediation\nhans-peter@instituteofdigitalremediation.org`;
+  } else {
+    msg = `Hi,\n\nI saw ${domain} recently scanned for HHS accessibility compliance ahead of the May 11 deadline.\n\nWe publish independent third-party HHS audit records that provide documented compliance posture. Initial audit is $497, delivered within 48 hours.\n\nHappy to answer any questions before the deadline.\n\nHans-Peter Nkansah\nInstitute of Digital Remediation\nhans-peter@instituteofdigitalremediation.org`;
+  }
+
+  // Show message in a modal-style overlay
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:1000;display:flex;align-items:center;justify-content:center;';
+  overlay.innerHTML = `
+    <div style="background:#fff;border-radius:8px;padding:24px;max-width:560px;width:90%;max-height:80vh;overflow-y:auto;">
+      <div style="font-weight:700;font-size:16px;color:#111827;margin-bottom:4px;">Outreach for ${domain}</div>
+      <div style="font-size:12px;color:#6B7280;margin-bottom:16px;">Copy this message and send via LinkedIn or email</div>
+      <textarea style="width:100%;min-height:220px;padding:12px;border:1px solid #E5E7EB;border-radius:6px;font-size:13px;font-family:Georgia,serif;line-height:1.6;" id="visitor-msg">${msg}</textarea>
+      <div style="display:flex;gap:8px;margin-top:12px;">
+        <button class="btn btn-gold" onclick="navigator.clipboard.writeText(document.getElementById('visitor-msg').value);this.textContent='Copied ✓'">Copy Message</button>
+        <button class="btn btn-outline" onclick="this.closest('div[style*=fixed]').remove()">Close</button>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+  overlay.addEventListener('click', e => { if(e.target === overlay) overlay.remove(); });
+}
 
 // ── EMAIL QUEUE ───────────────────────────────────────────────────────────────
 let currentQTab = 'assoc';
