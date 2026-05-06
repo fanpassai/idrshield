@@ -1270,7 +1270,7 @@ function renderProspects(list) {
       <td>${website}</td>
       <td>${scorePill}</td>
       <td onclick="event.stopPropagation()">
-        ${p.website?`<button class="btn btn-outline btn-sm" onclick="scanProspect('${p.id}')">Scan</button>`:''}
+        ${p.website?`<button class="btn btn-outline btn-sm" onclick="scanProspect('${p.id}','${p.website}','${p.name.replace(/'/g,'')}')" id="scan-btn-${p.id}">Scan</button>`:''}
       </td>
     </tr>`;
   }).join('');
@@ -1286,17 +1286,43 @@ function filterProspects(q) {
   renderProspects(filtered);
 }
 
-async function scanProspect(pid) {
-  toast('Scanning website…');
+async function scanProspect(pid, website, name) {
+  const btn = document.getElementById(`scan-btn-${pid}`);
+  if (btn) { btn.disabled = true; btn.textContent = 'Scanning…'; }
+  toast(`Scanning ${website || pid}…`);
   try {
-    const data = await api(`/prospects/scan/${pid}`, 'POST');
-    if (data.success) {
-      toast(`Score: ${data.prospect.idr_score}/100`, 'success');
-      loadProspects();
+    const data = await api(`/prospects/scan/${pid}`, 'POST', {
+      website: website || '',
+      name: name || ''
+    });
+    if (data.success && data.prospect) {
+      const score = data.prospect.idr_score;
+      const crits = data.prospect.critical_count || 0;
+      const color = score < 60 ? '#DC2626' : score < 80 ? '#D97706' : '#059669';
+      toast(`Score: ${score}/100 · ${crits} critical`, 'success');
+
+      // Update the prospect in memory
+      const idx = prospectsData.findIndex(p => p.id === pid);
+      if (idx >= 0) {
+        prospectsData[idx].idr_score = score;
+        prospectsData[idx].critical_count = crits;
+        prospectsData[idx].scanned = true;
+      }
+      renderProspects(prospectsData);
+
+      // Update radar stats
+      const priorityEl = document.getElementById('stat-priority');
+      if (priorityEl) {
+        const priority = prospectsData.filter(p => p.scanned && p.idr_score < 60).length;
+        priorityEl.textContent = priority;
+      }
+    } else {
+      toast(data.error || 'Scan failed — check website URL', 'error');
     }
   } catch(e) {
-    toast('Scan failed', 'error');
+    toast('Scan error — backend may be busy', 'error');
   }
+  if (btn) { btn.disabled = false; btn.textContent = 'Scan'; }
 }
 
 // ── SLIDE PANEL ───────────────────────────────────────────────────────────────
