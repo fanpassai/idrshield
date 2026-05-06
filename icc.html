@@ -923,6 +923,7 @@ td a:hover{color:var(--gold);}
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
             <div style="font-size:13px;color:#6B7280;">These 10 emails reach 650,000+ healthcare professionals. Review each one and click Approve to send.</div>
             <div style="display:flex;gap:8px;">
+            <button class="btn btn-outline" onclick="sendTestEmail()" style="white-space:nowrap;">📧 Send Test to Gmail</button>
             <button class="btn btn-outline" onclick="refreshAssociations()" style="white-space:nowrap;">🔄 Refresh Emails</button>
             <button class="btn btn-gold" onclick="approveAllAssociations()" style="white-space:nowrap;">⚡ Approve All 10</button>
           </div>
@@ -2111,6 +2112,16 @@ async function generateMoreEmails() {
   toast(`${data.queued || 0} emails queued`, 'success');
   loadProspectQueue();
   loadQueueStats();
+}
+
+async function sendTestEmail() {
+  toast('Sending test email to idrshieldhq@gmail.com…');
+  const data = await api('/queue/send-test', 'POST').catch(() => ({}));
+  if (data.success) {
+    toast('Test email sent! Check your Gmail inbox now.', 'success');
+  } else {
+    toast(data.error || 'Send failed — check Railway logs', 'error');
+  }
 }
 
 async function refreshAssociations() {
