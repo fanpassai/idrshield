@@ -922,7 +922,10 @@ td a:hover{color:var(--gold);}
         <div id="queue-assoc-section">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
             <div style="font-size:13px;color:#6B7280;">These 10 emails reach 650,000+ healthcare professionals. Review each one and click Approve to send.</div>
+            <div style="display:flex;gap:8px;">
+            <button class="btn btn-outline" onclick="refreshAssociations()" style="white-space:nowrap;">🔄 Refresh Emails</button>
             <button class="btn btn-gold" onclick="approveAllAssociations()" style="white-space:nowrap;">⚡ Approve All 10</button>
+          </div>
           </div>
           <div id="assoc-email-list">
             <div class="loading"><div class="spinner"></div> Loading association emails…</div>
@@ -2108,6 +2111,23 @@ async function generateMoreEmails() {
   toast(`${data.queued || 0} emails queued`, 'success');
   loadProspectQueue();
   loadQueueStats();
+}
+
+async function refreshAssociations() {
+  const btn = event.target;
+  btn.disabled = true;
+  btn.textContent = 'Refreshing…';
+  toast('Refreshing association emails with latest copy…');
+  try {
+    const data = await api('/queue/reset-associations', 'POST');
+    toast(`${data.reseeded || 0} association emails refreshed ✓`, 'success');
+    loadAssocQueue();
+    loadQueueStats();
+  } catch(e) {
+    toast('Refresh failed — try again', 'error');
+  }
+  btn.disabled = false;
+  btn.textContent = '🔄 Refresh Emails';
 }
 
 async function approveNamedContact(id) {
