@@ -436,47 +436,6 @@ header {
 .toast.success { border-left:3px solid var(--pass); }
 .toast.error { border-left:3px solid var(--fail); }
 
-/* ── PAGE SETUP SCREEN ──────────────────────────────────────────── */
-.page-setup-wrap { max-width:720px; margin:0 auto; padding:48px 32px 100px; }
-.page-setup-title { font-family:'DM Serif Display',serif; font-size:22px; color:var(--navy); margin-bottom:6px; }
-.page-setup-sub { font-size:13px; color:var(--text3); margin-bottom:28px; line-height:1.55; }
-.page-slot { background:#fff; border:1px solid var(--border); border-radius:8px; padding:14px 18px; margin-bottom:10px; display:flex; align-items:center; gap:14px; box-shadow:var(--shadow); }
-.page-slot-num { width:26px; height:26px; background:var(--navy); color:var(--gold); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; flex-shrink:0; }
-.page-slot-label { font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--text3); width:74px; flex-shrink:0; }
-.page-slot-input { flex:1; border:1px solid var(--border2); border-radius:5px; padding:9px 12px; font-size:12px; font-family:'JetBrains Mono',monospace; color:var(--text); background:var(--cream); outline:none; }
-.page-slot-input:focus { border-color:var(--gold); background:#fff; }
-.page-setup-note { font-size:12px; color:var(--text3); font-style:italic; margin-top:10px; margin-bottom:28px; line-height:1.5; }
-.btn-confirm-pages { display:block; width:100%; background:var(--navy); color:var(--gold); border:none; border-radius:8px; padding:15px; font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; cursor:pointer; }
-.btn-confirm-pages:hover { background:#14213D; }
-
-/* ── PAGE MATRIX ────────────────────────────────────────────────── */
-.page-matrix { margin-top:14px; overflow-x:auto; }
-.pm-table { width:100%; border-collapse:collapse; font-size:11px; }
-.pm-table th { background:var(--navy); color:rgba(201,168,76,.7); font-size:9px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:7px 8px; text-align:left; }
-.pm-table td { border:1px solid var(--border); padding:8px; vertical-align:top; background:#fff; }
-.pm-table tr:nth-child(even) td { background:var(--cream); }
-.pm-pg-num { width:28px; height:28px; background:var(--navy2); color:var(--gold3); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; margin:0 auto; }
-.pm-url-cell { font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--text3); word-break:break-all; line-height:1.4; max-width:140px; }
-.pm-result-grp { display:flex; flex-direction:column; gap:3px; min-width:90px; }
-.pm-result-btn { padding:4px 6px; border:1px solid var(--border2); border-radius:4px; font-size:9px; font-weight:700; cursor:pointer; background:#fff; color:var(--text3); text-align:center; transition:all .15s; white-space:nowrap; }
-.pm-result-btn.active-pass   { background:var(--pass-bg); color:var(--pass); border-color:var(--pass-bd); }
-.pm-result-btn.active-partial{ background:var(--part-bg); color:var(--part); border-color:var(--part-bd); }
-.pm-result-btn.active-fail   { background:var(--fail-bg); color:var(--fail); border-color:var(--fail-bd); }
-.pm-result-btn.active-na     { background:#F5F5F5; color:#888; border-color:#ddd; }
-.pm-finding { font-size:11px; border:1px solid var(--border2); border-radius:4px; padding:6px 8px; resize:vertical; min-height:50px; outline:none; width:100%; font-family:'DM Sans',sans-serif; color:var(--text); background:inherit; }
-.pm-finding:focus { border-color:var(--gold); }
-.pm-shot-btn { font-size:10px; padding:4px 8px; border:1px dashed var(--border2); border-radius:4px; background:#fafafa; color:var(--text3); cursor:pointer; display:block; text-align:center; margin-top:4px; }
-.pm-shot-btn:hover { border-color:var(--gold3); color:var(--gold3); }
-.pm-shot-count { font-size:10px; color:var(--pass); font-weight:600; display:block; margin-top:2px; }
-.overall-result-row { display:flex; align-items:center; gap:10px; margin-top:12px; padding:10px 14px; background:var(--navy); border-radius:6px; }
-.overall-result-label { font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:rgba(201,168,76,.6); flex:1; }
-.overall-result-val { font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:4px 12px; border-radius:4px; }
-.overall-result-val.pass    { background:var(--pass-bg); color:var(--pass); }
-.overall-result-val.partial { background:var(--part-bg); color:var(--part); }
-.overall-result-val.fail    { background:var(--fail-bg); color:var(--fail); }
-.overall-result-val.pending { background:#f0f0f0; color:#888; }
-
-
 @media(max-width:700px) {
   header { padding:0 18px; }
   .page-wrap, .checklist-wrap { padding:24px 18px 80px; }
@@ -654,55 +613,11 @@ header {
     <h1 class="page-title">Your Audit Jobs</h1>
     <p class="page-sub" id="jobs-sub">Active and recent assignments</p>
 
-    <div class="tally-row" id="tally-row">
-      <div class="tally-card">
-        <div class="tally-label">Primary Audits This Month</div>
-        <div class="tally-val" id="tally-primary">—</div>
-        <div class="tally-sub" id="tally-primary-fee">$125 each</div>
-      </div>
-      <div class="tally-card">
-        <div class="tally-label">Full Access Audits This Month</div>
-        <div class="tally-val" id="tally-full">—</div>
-        <div class="tally-sub" id="tally-full-fee">$200 each</div>
-      </div>
-      <div class="tally-card">
-        <div class="tally-label">Total Earned This Month</div>
-        <div class="tally-val gold" id="tally-total">—</div>
-        <div class="tally-sub">Submitted audits only</div>
-      </div>
-      <div class="tally-card">
-        <div class="tally-label">Pending Action</div>
-        <div class="tally-val" id="tally-pending" style="color:var(--fail);">—</div>
-        <div class="tally-sub">Awaiting your review</div>
-      </div>
-    </div>
+    <div class="tally-row" id="tally-row" style="display:none;"></div>
 
     <div class="section-label">Active &amp; Recent Jobs</div>
     <div class="jobs-list" id="jobs-list">
       <div class="no-jobs">Loading jobs…</div>
-    </div>
-  </div>
-</div>
-
-<!-- ── SCREEN: PAGE SETUP ──────────────────────────────────────────── -->
-<div class="screen" id="screen-page-setup">
-  <div class="page-setup-wrap">
-    <button class="btn-back" onclick="showJobs()">← Back to Jobs</button>
-    <div class="job-header" id="ps-job-header" style="margin-top:18px;">
-      <div>
-        <div class="job-header-domain" id="ps-domain">—</div>
-        <div class="job-header-meta">
-          <span class="meta-pill surface" id="ps-surface">—</span>
-          <span style="font-size:11px;color:var(--text3);" id="ps-org">—</span>
-        </div>
-      </div>
-    </div>
-    <div style="margin-top:28px;">
-      <div class="page-setup-title">Page Setup</div>
-      <div class="page-setup-sub">Confirm the 5 pages you will audit for this engagement. Slot 1 is always the homepage. Slots 2–5 are pre-populated from the automated crawl — override any URL before starting. These URLs will appear in every check row of the audit matrix.</div>
-      <div id="page-slots-container"></div>
-      <p class="page-setup-note">All 5 pages must have URLs. You will evaluate all 5 pages against every check. Use N/A per-page if a check does not apply to that specific page.</p>
-      <button class="btn-confirm-pages" onclick="confirmPageSetup()">Confirm Pages &amp; Begin Audit →</button>
     </div>
   </div>
 </div>
@@ -1080,14 +995,15 @@ function buildJobCard(job) {
 
 // ── CHECKLIST ─────────────────────────────────────────────────────
 async function openJob(auditId) {
-  showScreen('page-setup');
-  document.getElementById('page-slots-container').innerHTML = '<div style="text-align:center;padding:40px;color:var(--text3);">Loading audit brief…</div>';
+  showScreen('checklist');
+  document.getElementById('checks-container').innerHTML = '<div style="text-align:center;padding:40px;color:var(--text3);">Loading audit brief…</div>';
 
   try {
     const res = await fetch(`${API}/api/reviewer/job/${auditId}`, {
       headers: {'Authorization': `Bearer ${sessionToken}`}
     });
     if (res.status === 401) {
+      // Session expired - clear storage and show login with message
       localStorage.removeItem('idr_reviewer_token');
       localStorage.removeItem('idr_reviewer_info');
       sessionToken = null;
@@ -1098,15 +1014,12 @@ async function openJob(auditId) {
     }
     const job = await res.json();
     currentJob = job;
-    // Reset page state for new job
-    Object.keys(pageResults).forEach(k => delete pageResults[k]);
-    Object.keys(pageFindings).forEach(k => delete pageFindings[k]);
-    auditPages = [];
-    // Show page setup first
-    renderPageSetup(job);
+    renderChecklist(job);
     startSessionTimer(job);
     initCertBlock();
     updateCertStatement();
+    const urlEl = document.getElementById('setup-primary-url');
+    if (urlEl && job.domain) urlEl.value = 'https://' + job.domain;
 
     // Record session start
     fetch(`${API}/api/reviewer/session-start/${auditId}`, {
@@ -1119,66 +1032,6 @@ async function openJob(auditId) {
   }
 }
 
-// ── PAGE SETUP ───────────────────────────────────────────────────
-let auditPages = [];  // [{num, url, label}] — set by confirmPageSetup
-
-function renderPageSetup(job) {
-  // Populate header
-  document.getElementById('ps-domain').textContent = job.domain;
-  const surfEl = document.getElementById('ps-surface');
-  surfEl.textContent = job.surface_label;
-  if (job.audit_surface === 'primary_and_transaction') surfEl.classList.add('full');
-  document.getElementById('ps-org').textContent = job.org_name || '';
-
-  // Pre-populate slots from crawl data
-  const crawledPages = (job.scan_json && job.scan_json.pages_crawled) ? job.scan_json.pages_crawled : [];
-  const homepageUrl  = job.scan_json && job.scan_json.url ? job.scan_json.url : ('https://' + job.domain);
-
-  const defaultUrls = [homepageUrl];
-  crawledPages.forEach(pg => {
-    if (defaultUrls.length < 5 && pg.url && pg.url !== homepageUrl) {
-      defaultUrls.push(pg.url);
-    }
-  });
-  while (defaultUrls.length < 5) defaultUrls.push('');
-
-  const labels = ['Homepage', 'Page 2', 'Page 3', 'Page 4', 'Page 5'];
-  const container = document.getElementById('page-slots-container');
-  container.innerHTML = '';
-  for (let i = 0; i < 5; i++) {
-    const slot = document.createElement('div');
-    slot.className = 'page-slot';
-    slot.innerHTML = `
-      <div class="page-slot-num">${i + 1}</div>
-      <div class="page-slot-label">${labels[i]}</div>
-      <input class="page-slot-input" id="ps-url-${i}"
-        type="url"
-        placeholder="https://…"
-        value="${esc2(defaultUrls[i] || '')}"
-        ${i === 0 ? '' : ''}>
-    `;
-    container.appendChild(slot);
-  }
-}
-
-function esc2(s) {
-  return (s || '').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-
-function confirmPageSetup() {
-  const urls = [];
-  for (let i = 0; i < 5; i++) {
-    const v = (document.getElementById(`ps-url-${i}`)?.value || '').trim();
-    if (!v) { showToast(`Please enter a URL for Page ${i + 1}.`, 'error'); return; }
-    urls.push(v);
-  }
-  const labels = ['Homepage', 'Page 2', 'Page 3', 'Page 4', 'Page 5'];
-  auditPages = urls.map((url, i) => ({ num: i + 1, url, label: labels[i] }));
-  showScreen('checklist');
-  renderChecklist(currentJob);
-}
-
-// ── CHECKLIST ─────────────────────────────────────────────────────
 function renderChecklist(job) {
   // Header
   const isFull = job.audit_surface === 'primary_and_transaction';
@@ -1208,13 +1061,13 @@ function renderChecklist(job) {
   const primaryChecks = job.checks.slice(0, 5);
   const transChecks   = isFull ? job.checks.slice(5) : [];
 
-  container.appendChild(makeSectionLabel('Primary Web Presence — Manual Validation (5 Pages × 5 Checks)'));
+  container.appendChild(makeSectionLabel('Primary Web Presence — Manual Validation'));
   primaryChecks.forEach((check, i) => {
     container.appendChild(buildCheckCard(check, i + 1, job.audit_id));
   });
 
   if (transChecks.length > 0) {
-    container.appendChild(makeSectionLabel('Patient-Facing Transaction Layer (3 Additional Checks)'));
+    container.appendChild(makeSectionLabel('Patient-Facing Transaction Layer'));
     transChecks.forEach((check, i) => {
       container.appendChild(buildCheckCard(check, primaryChecks.length + i + 1, job.audit_id));
     });
@@ -1241,272 +1094,137 @@ const CHECK_DESCRIPTIONS = {
   portal_entry:     'Test patient portal login, landing experience, keyboard navigation, session timeout warnings, and error messages.',
 };
 
-// Page results state: { [checkSlug]: { [pageNum]: 'pass'|'partial'|'fail'|'na'|null } }
-const pageResults = {};
-// Page findings: { [checkSlug]: { [pageNum]: string } }
-const pageFindings = {};
-
-function getOrInitPageState(slug) {
-  if (!pageResults[slug]) {
-    pageResults[slug] = {};
-    pageFindings[slug] = {};
-    auditPages.forEach(pg => {
-      pageResults[slug][pg.num] = null;
-      pageFindings[slug][pg.num] = '';
-    });
-  }
-  return pageResults[slug];
-}
-
-function calcOverallResult(slug) {
-  const state = pageResults[slug] || {};
-  const vals = Object.values(state).filter(v => v && v !== 'na');
-  if (vals.length === 0) return 'pending';
-  if (vals.includes('fail')) return 'fail';
-  if (vals.includes('partial')) return 'partial';
-  if (vals.every(v => v === 'pass')) return 'pass';
-  return 'partial';
-}
-
-function setPageResult(slug, checkName, pageNum, result, auditId) {
-  getOrInitPageState(slug);
-  pageResults[slug][pageNum] = result;
-  // Update button styles in this row
-  ['pass','partial','fail','na'].forEach(r => {
-    const btn = document.getElementById(`pm-btn-${slug}-${pageNum}-${r}`);
-    if (btn) {
-      btn.className = 'pm-result-btn' + (result === r ? ` active-${r}` : '');
-    }
-  });
-  // Auto-calculate and update overall result
-  const overall = calcOverallResult(slug);
-  const badge = document.getElementById(`overall-result-${slug}`);
-  if (badge) {
-    badge.textContent = overall.charAt(0).toUpperCase() + overall.slice(1);
-    badge.className = `overall-result-val ${overall}`;
-  }
-  // Update the check card class
-  const card = document.getElementById(`check-card-${slug}`);
-  if (card) {
-    card.className = `check-card${overall !== 'pending' ? ' is-' + overall : ''}`;
-    if (card.classList.contains('expanded')) card.classList.add('expanded');
-  }
-  // Update badge on header
-  const headerBadge = document.getElementById(`cr-badge-${slug}`);
-  if (headerBadge) {
-    headerBadge.className = `check-result-badge ${overall}`;
-    headerBadge.textContent = overall.charAt(0).toUpperCase() + overall.slice(1);
-  }
-  // Persist overall result + aggregated findings to backend
-  scheduleSaveMatrix(slug, checkName, auditId);
-  updateProgress();
-}
-
-function savePageFinding(slug, checkName, pageNum, auditId) {
-  getOrInitPageState(slug);
-  const val = document.getElementById(`pm-finding-${slug}-${pageNum}`)?.value || '';
-  pageFindings[slug][pageNum] = val;
-  scheduleSaveMatrix(slug, checkName, auditId);
-}
-
-const _matrixSaveTimers = {};
-function scheduleSaveMatrix(slug, checkName, auditId) {
-  clearTimeout(_matrixSaveTimers[slug]);
-  _matrixSaveTimers[slug] = setTimeout(() => saveMatrix(slug, checkName, auditId), 900);
-}
-
-async function saveMatrix(slug, checkName, auditId) {
-  const overall = calcOverallResult(slug);
-  if (overall === 'pending') return;
-
-  // Build aggregated finding text from all pages
-  const parts = [];
-  auditPages.forEach(pg => {
-    const res = (pageResults[slug] || {})[pg.num];
-    const txt = (pageFindings[slug] || {})[pg.num] || '';
-    if (res && res !== 'na') {
-      parts.push(`[${pg.label} — ${res.toUpperCase()}]${txt ? ': ' + txt : ''}`);
-    }
-  });
-  const aggregatedText = parts.join('  \n');
-
-  // Build pages_visited from pages with non-na result
-  const pagesVisited = auditPages
-    .filter(pg => (pageResults[slug]||{})[pg.num] && (pageResults[slug]||{})[pg.num] !== 'na')
-    .map(pg => pg.url).join('\n');
-  const pagesCount = auditPages.filter(pg =>
-    (pageResults[slug]||{})[pg.num] && (pageResults[slug]||{})[pg.num] !== 'na'
-  ).length;
-
-  const indEl = document.getElementById(`save-${slug}`);
-  if (indEl) indEl.textContent = 'Saving…';
-
-  try {
-    await fetch(`${API}/api/reviewer/finding/${auditId}`, {
-      method: 'POST',
-      headers: {'Content-Type':'application/json','Authorization':`Bearer ${sessionToken}`},
-      body: JSON.stringify({
-        check_slug:     slug,
-        check_name:     checkName,
-        result:         overall,
-        finding_text:   aggregatedText,
-        pages_count:    pagesCount,
-        pages_visited:  pagesVisited,
-        page_results:   pageResults[slug],
-        page_findings:  pageFindings[slug],
-      })
-    });
-    if (indEl) indEl.textContent = 'Saved ✓';
-  } catch(e) {
-    if (indEl) indEl.textContent = 'Save error';
-  }
-}
-
 function buildCheckCard(check, num, auditId) {
   const div = document.createElement('div');
-  const slug = check.slug;
-  const overall = calcOverallResult(slug);
-  const hasResult = overall !== 'pending';
-  div.className = `check-card${hasResult ? ' is-' + overall : ''}`;
-  div.id = `check-card-${slug}`;
+  const hasResult = check.result && check.result !== 'pending';
+  div.className = `check-card${hasResult ? ' is-' + check.result : ''}`;
+  div.id = `check-card-${check.slug}`;
 
-  // Build page matrix HTML
-  const pages = auditPages.length > 0 ? auditPages : [
-    {num:1,url:'Page 1',label:'Page 1'},{num:2,url:'Page 2',label:'Page 2'},
-    {num:3,url:'Page 3',label:'Page 3'},{num:4,url:'Page 4',label:'Page 4'},
-    {num:5,url:'Page 5',label:'Page 5'},
-  ];
-
-  const matrixRows = pages.map(pg => {
-    const pr = (pageResults[slug]||{})[pg.num] || null;
-    const pf = (pageFindings[slug]||{})[pg.num] || (check.page_findings||{})[pg.num] || '';
-    const urlShort = pg.url.replace(/^https?:\/\//,'').substring(0, 42);
-    return `<tr>
-      <td style="text-align:center;"><div class="pm-pg-num">${pg.num}</div></td>
-      <td class="pm-url-cell" title="${esc(pg.url)}">${esc(urlShort)}</td>
-      <td>
-        <div class="pm-result-grp">
-          <button class="pm-result-btn${pr==='pass'?' active-pass':''}"    id="pm-btn-${slug}-${pg.num}-pass"    onclick="setPageResult('${slug}','${check.check_name}',${pg.num},'pass',${auditId})">✓ Pass</button>
-          <button class="pm-result-btn${pr==='partial'?' active-partial':''}" id="pm-btn-${slug}-${pg.num}-partial" onclick="setPageResult('${slug}','${check.check_name}',${pg.num},'partial',${auditId})">⚠ Partial</button>
-          <button class="pm-result-btn${pr==='fail'?' active-fail':''}"    id="pm-btn-${slug}-${pg.num}-fail"    onclick="setPageResult('${slug}','${check.check_name}',${pg.num},'fail',${auditId})">✗ Fail</button>
-          <button class="pm-result-btn${pr==='na'?' active-na':''}"       id="pm-btn-${slug}-${pg.num}-na"      onclick="setPageResult('${slug}','${check.check_name}',${pg.num},'na',${auditId})">— N/A</button>
-        </div>
-      </td>
-      <td>
-        <textarea class="pm-finding" id="pm-finding-${slug}-${pg.num}"
-          placeholder="Observations for this page…"
-          oninput="savePageFinding('${slug}','${check.check_name}',${pg.num},${auditId})"
-        >${esc(pf)}</textarea>
-      </td>
-      <td>
-        <button class="pm-shot-btn" onclick="document.getElementById('file-pg-${slug}-${pg.num}').click()">📎 Add</button>
-        <input type="file" id="file-pg-${slug}-${pg.num}" accept="image/*" multiple style="display:none"
-          onchange="handlePageScreenshot(this,'${slug}',${pg.num},${auditId})">
-        <span class="pm-shot-count" id="pm-shots-${slug}-${pg.num}"></span>
-      </td>
-    </tr>`;
-  }).join('');
-
-  const overallLabel = hasResult
-    ? overall.charAt(0).toUpperCase() + overall.slice(1)
-    : 'Pending';
+  const resultLabel = hasResult ? check.result.charAt(0).toUpperCase() + check.result.slice(1) : 'Pending';
+  const wcagOptions = (check.wcag_common || []).map(w =>
+    `<option value="${w}" ${check.wcag_criterion === w ? 'selected' : ''}>${w}</option>`
+  ).join('');
 
   div.innerHTML = `
-    <div class="check-header" onclick="toggleCheck('${slug}')">
+    <div class="check-header" onclick="toggleCheck('${check.slug}')">
       <div class="check-num">${num}</div>
       <div>
         <div class="check-name">${esc(check.check_name)}</div>
-        <div class="check-desc">${CHECK_DESCRIPTIONS[slug] || ''}</div>
+        <div class="check-desc">${CHECK_DESCRIPTIONS[check.slug] || ''}</div>
       </div>
-      <span class="check-result-badge ${overall}" id="cr-badge-${slug}">${overallLabel}</span>
+      <span class="check-result-badge ${check.result || 'pending'}">${resultLabel}</span>
       <span class="check-chevron">▼</span>
     </div>
-    <div class="check-body">
-      <!-- Page-by-page matrix -->
-      <div class="page-matrix">
-        <table class="pm-table">
-          <thead>
-            <tr>
-              <th style="width:36px;">#</th>
-              <th style="width:140px;">Page URL</th>
-              <th style="width:100px;">Result</th>
-              <th>Findings &amp; Observations</th>
-              <th style="width:80px;">Screenshots</th>
-            </tr>
-          </thead>
-          <tbody>${matrixRows}</tbody>
-        </table>
+    <div class="check-body" onclick="event.stopPropagation()">
+      <div class="result-toggle">
+        <button class="result-btn pass ${check.result === 'pass' ? 'active' : ''}"
+          onclick="event.stopPropagation();setResult('${check.slug}', '${check.check_name}', 'pass', ${auditId})">✓ Pass</button>
+        <button class="result-btn partial ${check.result === 'partial' ? 'active' : ''}"
+          onclick="event.stopPropagation();setResult('${check.slug}', '${check.check_name}', 'partial', ${auditId})">⚠ Partial</button>
+        <button class="result-btn fail ${check.result === 'fail' ? 'active' : ''}"
+          onclick="event.stopPropagation();setResult('${check.slug}', '${check.check_name}', 'fail', ${auditId})">✗ Fail</button>
       </div>
-
-      <!-- Auto-calculated overall result -->
-      <div class="overall-result-row">
-        <span class="overall-result-label">Auto-Calculated Overall Result</span>
-        <span class="overall-result-val ${overall}" id="overall-result-${slug}">${overallLabel}</span>
-      </div>
-
-      <!-- Save indicator + autosave label -->
-      <div style="margin-top:10px;display:flex;align-items:center;gap:8px;">
-        <span class="autosave-indicator" id="save-${slug}">—</span>
-        <span style="font-size:11px;color:var(--text3);">Auto-saved on every change</span>
-      </div>
-
-      <!-- Screenshots for whole check (legacy support) -->
-      <div style="margin-top:14px;">
-        <label class="field-label">Additional Screenshots (check-level)</label>
-        <div class="screenshots-grid" id="shots-${slug}">
-          ${(check.screenshots || []).map(s => buildThumb(s, slug)).join('')}
+      <!-- Always-visible notes + page log -->
+      <div class="check-notes-wrap">
+        <div class="field-row" style="margin-top:14px;">
+          <label class="field-label">
+            Findings &amp; Observations *
+            <span class="autosave-indicator" id="save-${check.slug}">Saved ✓</span>
+          </label>
+          <textarea class="field-textarea" id="text-${check.slug}"
+            placeholder="Describe exactly what you observed on this check. If Pass — confirm explicitly what you verified. If Fail or Partial — name the specific element, its location, and the impact on users with disabilities."
+            oninput="scheduleSave('${check.slug}', '${check.check_name}', ${auditId})"
+            style="min-height:96px;"
+          >${check.finding_text || ''}</textarea>
         </div>
-        <div class="upload-zone" id="zone-${slug}"
-          onclick="document.getElementById('file-${slug}').click()"
-          ondragover="e=>e.preventDefault()" ondrop="handleDrop(event,'${slug}',${auditId})">
-          <input type="file" id="file-${slug}" accept="image/*" multiple
-            onchange="handleFileSelect(this,'${slug}',${auditId})">
+        <div class="check-pages-row">
+          <div>
+            <label class="field-label">Number of Pages Tested for This Check</label>
+            <input type="number" class="pages-count-input" id="pages-count-${check.slug}"
+              min="1" placeholder="e.g. 4"
+              value="${check.pages_count || ''}"
+              oninput="updateTotalPages()">
+          </div>
+          <div>
+            <label class="field-label">WCAG Criterion</label>
+            <select class="field-select" id="wcag-${check.slug}"
+              onchange="scheduleSave('${check.slug}', '${check.check_name}', ${auditId})">
+              <option value="">Select criterion…</option>
+              ${wcagOptions}
+              <option value="other" ${!check.wcag_criterion || check.wcag_common?.includes(check.wcag_criterion) ? '' : 'selected'}>Other</option>
+            </select>
+          </div>
+        </div>
+        <div style="margin-top:10px;">
+          <label class="field-label">URLs Visited for This Check — One Per Line</label>
+          <textarea class="pages-urls-textarea" id="pages-urls-${check.slug}"
+            placeholder="https://domain.com/&#10;https://domain.com/about&#10;https://domain.com/contact"
+            oninput="scheduleSave('${check.slug}', '${check.check_name}', ${auditId})"
+          >${check.pages_visited || ''}</textarea>
+        </div>
+        <div class="field-row" style="margin-top:12px;" id="sev-row-${check.slug}">
+          <label class="field-label">Severity (if Fail or Partial)</label>
+          <select class="field-select" id="sev-${check.slug}"
+            onchange="scheduleSave('${check.slug}', '${check.check_name}', ${auditId})">
+            <option value="">Select severity…</option>
+            <option value="critical"  ${check.severity === 'critical'  ? 'selected' : ''}>Critical</option>
+            <option value="serious"   ${check.severity === 'serious'   ? 'selected' : ''}>Serious</option>
+            <option value="moderate"  ${check.severity === 'moderate'  ? 'selected' : ''}>Moderate</option>
+            <option value="minor"     ${check.severity === 'minor'     ? 'selected' : ''}>Minor</option>
+          </select>
+        </div>
+        <!-- PDF Disclosure (shown on all checks) -->
+        <div style="margin-top:12px;">
+          <label class="field-label">PDFs or Downloadable Documents Encountered?</label>
+          <div class="pdf-disclosure-toggle">
+            <button class="pdf-btn ${check.pdf_found === true ? 'active-yes' : ''}"
+              id="pdf-yes-${check.slug}"
+              onclick="setPdfDisclosure('${check.slug}', true, '${check.check_name}', ${auditId})">Yes</button>
+            <button class="pdf-btn ${check.pdf_found === false ? 'active-no' : ''}"
+              id="pdf-no-${check.slug}"
+              onclick="setPdfDisclosure('${check.slug}', false, '${check.check_name}', ${auditId})">No</button>
+          </div>
+          <div id="pdf-detail-${check.slug}" style="display:${check.pdf_found ? 'block' : 'none'};margin-top:8px;">
+            <input type="text" class="field-input" id="pdf-docs-${check.slug}"
+              placeholder="List document names or URLs found (out of scope — will be noted in record)"
+              value="${check.pdf_docs || ''}"
+              oninput="scheduleSave('${check.slug}', '${check.check_name}', ${auditId})">
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label class="field-label" style="margin-top:14px;display:block;">
+          Screenshots
+          <span style="font-weight:400;color:var(--text3);text-transform:none;letter-spacing:0;font-size:11px;">
+            — drag and drop or click to upload annotated screenshots
+          </span>
+        </label>
+        <div class="screenshots-grid" id="shots-${check.slug}">
+          ${(check.screenshots || []).map(s => buildThumb(s, check.slug)).join('')}
+        </div>
+        <div class="upload-zone" id="zone-${check.slug}"
+          onclick="event.stopPropagation();document.getElementById('file-${check.slug}').click()"
+          ondragover="e=>e.preventDefault()" ondrop="handleDrop(event,'${check.slug}',${auditId})">
+          <input type="file" id="file-${check.slug}" accept="image/*" multiple
+            onchange="handleFileSelect(this,'${check.slug}',${auditId})">
           <div class="upload-zone-icon">📎</div>
-          <p class="upload-zone-text"><strong>Click to upload</strong> or drag and drop</p>
+          <p class="upload-zone-text">
+            <strong>Click to upload</strong> or drag and drop<br>
+            PNG, JPG, GIF, WebP accepted · Multiple files allowed
+          </p>
         </div>
-        <div class="uploading-indicator" id="uploading-${slug}" style="display:none;">Uploading…</div>
+        <div class="uploading-indicator" id="uploading-${check.slug}" style="display:none;">Uploading…</div>
       </div>
     </div>
   `;
 
-  if (hasResult) div.classList.add('expanded');
-  return div;
-}
-
-async function handlePageScreenshot(input, slug, pageNum, auditId) {
-  const files = Array.from(input.files);
-  if (!files.length) return;
-  const countEl = document.getElementById(`pm-shots-${slug}-${pageNum}`);
-  // Save finding first to get finding_id
-  const overall = calcOverallResult(slug);
-  await saveMatrix(slug, currentJob?.checks?.find(c=>c.slug===slug)?.check_name || slug, auditId);
-  // Fetch finding_id
-  let findingId = null;
-  try {
-    const res = await fetch(`${API}/api/reviewer/finding/${auditId}`, {
-      method: 'POST',
-      headers: {'Content-Type':'application/json','Authorization':`Bearer ${sessionToken}`},
-      body: JSON.stringify({check_slug:slug,check_name:slug,result:overall||'pending',finding_text:'',pages_count:1})
-    });
-    const d = await res.json();
-    findingId = d.finding_id;
-  } catch(e) {}
-  if (!findingId) { showToast('Save check first.','error'); return; }
-  let count = 0;
-  for (const file of files) {
-    const fd = new FormData();
-    fd.append('file', file);
-    fd.append('page_num', pageNum);
-    try {
-      const res = await fetch(`${API}/api/reviewer/screenshot/${auditId}/${findingId}`, {
-        method:'POST', headers:{'Authorization':`Bearer ${sessionToken}`}, body:fd
-      });
-      if (res.ok) count++;
-    } catch(e) {}
+  // Expand if already has result
+  if (hasResult) {
+    div.classList.add('expanded');
   }
-  if (countEl) countEl.textContent = count > 0 ? `${count} uploaded ✓` : '';
-  if (count > 0) showToast(`${count} screenshot(s) uploaded.`);
-  input.value = '';
+
+  return div;
 }
 
 function buildThumb(s, slug) {
@@ -1517,7 +1235,6 @@ function buildThumb(s, slug) {
 }
 
 // ── CHECK INTERACTIONS ────────────────────────────────────────────
-// ── CERT & SETUP FUNCTIONS ───────────────────────────────────────// ── CHECK INTERACTIONS ────────────────────────────────────────────
 // ── CERT & SETUP FUNCTIONS ───────────────────────────────────────
 function initCertBlock() {
   const now = new Date();
@@ -1534,8 +1251,11 @@ function validateSignature() {
 }
 
 function updateTotalPages() {
-  // In the matrix model, total pages = auditPages count (same pages audited across all checks)
-  const total = auditPages.length || 0;
+  let total = 0;
+  document.querySelectorAll('[id^="pages-count-"]').forEach(el => {
+    const v = parseInt(el.value);
+    if (!isNaN(v) && v > 0) total += v;
+  });
   const el = document.getElementById('cert-total-pages');
   if (el) el.textContent = total + (total === 1 ? ' page' : ' pages');
 }
@@ -1881,7 +1601,6 @@ function stopTimer() {
 function showScreen(name) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(`screen-${name}`).classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function esc(str) {
