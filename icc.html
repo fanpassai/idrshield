@@ -677,6 +677,9 @@ td a:hover{color:var(--gold);}
             <button class="btn btn-outline" onclick="navTo('playbook')">
               📋 Today's Playbook
             </button>
+            <button class="btn btn-outline" onclick="sendBriefingNow()" style="white-space:nowrap;">
+              📧 Send Briefing Now
+            </button>
           </div>
         </div>
       </div>
@@ -2112,6 +2115,16 @@ async function generateMoreEmails() {
   toast(`${data.queued || 0} emails queued`, 'success');
   loadProspectQueue();
   loadQueueStats();
+}
+
+async function sendBriefingNow() {
+  toast('Sending morning briefing to your Gmail…');
+  const data = await api('/briefing/send-now', 'POST').catch(() => ({}));
+  if (data.success) {
+    toast('Morning briefing sent to idrshieldhq@gmail.com ✓', 'success');
+  } else {
+    toast(data.error || 'Send failed', 'error');
+  }
 }
 
 async function sendTestEmail() {
