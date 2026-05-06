@@ -962,6 +962,7 @@ td a:hover{color:var(--gold);}
             <div style="display:flex;gap:8px;">
             <button class="btn btn-outline" onclick="sendTestEmail()" style="white-space:nowrap;">📧 Send Test to Gmail</button>
             <button class="btn btn-outline" onclick="refreshAssociations()" style="white-space:nowrap;">🔄 Refresh Emails</button>
+            <button class="btn btn-outline" onclick="resendBounced()" style="white-space:nowrap;border-color:#DC2626;color:#DC2626;">🔄 Resend 5 Bounced</button>
             <button class="btn btn-gold" onclick="approveAllAssociations()" style="white-space:nowrap;">⚡ Approve All 10</button>
           </div>
           </div>
@@ -2264,6 +2265,28 @@ async function sendTestEmail() {
   } else {
     toast(data.error || 'Send failed — check Railway logs', 'error');
   }
+}
+
+async function resendBounced() {
+  const btn = event.target;
+  btn.disabled = true;
+  btn.textContent = 'Resending…';
+  toast('Resending 5 bounced emails with corrected addresses…');
+  try {
+    const data = await api('/queue/resend-bounced', 'POST');
+    if (data.success) {
+      toast(`${data.sent_count} emails resent successfully ✓`, 'success');
+      if (data.failed && data.failed.length) {
+        toast(`${data.failed.length} still failed — check Railway logs`, 'error');
+      }
+    } else {
+      toast('Resend failed', 'error');
+    }
+  } catch(e) {
+    toast('Error — check backend', 'error');
+  }
+  btn.disabled = false;
+  btn.textContent = '🔄 Resend 5 Bounced';
 }
 
 async function refreshAssociations() {
