@@ -1289,40 +1289,53 @@ function filterProspects(q) {
 async function scanProspect(pid, website, name) {
   const btn = document.getElementById(`scan-btn-${pid}`);
   if (btn) { btn.disabled = true; btn.textContent = 'Scanning…'; }
-  toast(`Scanning ${website || pid}…`);
+  toast(`Scanning ${website || pid}… (15-30 seconds)`);
+
   try {
-    const data = await api(`/prospects/scan/${pid}`, 'POST', {
-      website: website || '',
-      name: name || ''
+    // Use the real IDR scanner — same endpoint as healthscan.html
+    const url = website.startsWith('http') ? website : 'https://' + website;
+    const res = await fetch('/api/scan', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url })
     });
-    if (data.success && data.prospect) {
-      const score = data.prospect.idr_score;
-      const crits = data.prospect.critical_count || 0;
-      const color = score < 60 ? '#DC2626' : score < 80 ? '#D97706' : '#059669';
-      toast(`Score: ${score}/100 · ${crits} critical`, 'success');
 
-      // Update the prospect in memory
-      const idx = prospectsData.findIndex(p => p.id === pid);
-      if (idx >= 0) {
-        prospectsData[idx].idr_score = score;
-        prospectsData[idx].critical_count = crits;
-        prospectsData[idx].scanned = true;
-      }
-      renderProspects(prospectsData);
+    if (!res.ok) throw new Error(`Scanner returned ${res.status}`);
+    const r = await res.json();
 
-      // Update radar stats
-      const priorityEl = document.getElementById('stat-priority');
-      if (priorityEl) {
-        const priority = prospectsData.filter(p => p.scanned && p.idr_score < 60).length;
-        priorityEl.textContent = priority;
-      }
-    } else {
-      toast(data.error || 'Scan failed — check website URL', 'error');
+    // Parse response same way healthscan.html does
+    const sc = r.scan || r || {};
+    const score = sc.overall_score || r.score || 0;
+    const crits = sc.critical_count || r.critical_count || 0;
+    const total = sc.total_issues || r.total_issues || 0;
+    const status = sc.overall_status || (score >= 80 ? 'pass' : score >= 60 ? 'warning' : 'fail');
+
+    toast(`Score: ${score}/100 · ${crits} critical · ${status.toUpperCase()}`, 'success');
+
+    // Update prospect in memory
+    const idx = prospectsData.findIndex(p => p.id === pid);
+    if (idx >= 0) {
+      prospectsData[idx].idr_score = score;
+      prospectsData[idx].critical_count = crits;
+      prospectsData[idx].total_issues = total;
+      prospectsData[idx].scanned = true;
     }
+    renderProspects(prospectsData);
+
+    // Save score to backend DB
+    api(`/prospects/scan/${pid}`, 'POST', { website, name, score, criticals: crits }).catch(() => {});
+
+    // Update priority count on radar
+    const priorityEl = document.getElementById('stat-priority');
+    if (priorityEl) {
+      priorityEl.textContent = prospectsData.filter(p => p.scanned && p.idr_score < 60).length;
+    }
+
   } catch(e) {
-    toast('Scan error — backend may be busy', 'error');
+    console.error('Scan error:', e);
+    toast('Scan error — ' + (e.message || 'check backend'), 'error');
   }
-  if (btn) { btn.disabled = false; btn.textContent = 'Scan'; }
+  if (btn) { btn.disabled = false; btn.textContent = 'Rescan'; }
 }
 
 // ── SLIDE PANEL ───────────────────────────────────────────────────────────────
