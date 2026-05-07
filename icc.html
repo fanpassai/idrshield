@@ -1285,64 +1285,38 @@ function buildTodayTasks(data) {
 
 // ── PROSPECTS ─────────────────────────────────────────────────────────────────
 async function loadProspects() {
-  const state    = document.getElementById('filter-state')?.value || '';
-  const type     = document.getElementById('filter-type')?.value || '';
-  const priority = document.getElementById('filter-priority')?.value || '';
-
-  // Step 1: Seed all prospects to DB on first load (so scans persist)
-  if (!window._prospectsSeedSent && PROSPECTS_60.length > 0) {
-    window._prospectsSeedSent = true;
-    try {
-      await api('/prospects/seed', 'POST', { prospects: PROSPECTS_60 });
-      console.log('[ICC] Prospects seeded to DB');
-    } catch(e) {
-      console.warn('[ICC] Seed failed (non-critical):', e);
-    }
+  // STEP 1: Show seed data immediately — never show blank table
+  if (prospectsData.length === 0) {
+    prospectsData = PROSPECTS_60.map(p => ({...p}));
+    renderProspects(prospectsData);
   }
 
-  // Step 2: Load from DB — includes scan scores that were saved
+  // STEP 2: Seed to DB in background (fire and forget — never blocks display)
+  if (!window._prospectsSeedSent) {
+    window._prospectsSeedSent = true;
+    api('/prospects/seed', 'POST', { prospects: PROSPECTS_60 })
+      .then(() => console.log('[ICC] 60 prospects seeded to DB'))
+      .catch(e => console.warn('[ICC] Seed non-critical error:', e));
+  }
+
+  // STEP 3: Fetch scores from DB and merge — updates scores without blanking table
   try {
-    let url = `/prospects?limit=200`;
-    if (state)    url += `&state=${state}`;
-    if (type)     url += `&type=${type}`;
-    if (priority) url += `&priority=1`;
-
-    const data = await api(url);
-    let dbProspects = data.prospects || [];
-
-    // Step 3: Merge DB prospects with seed data
-    // DB has scores; seed has phone/address fields DB might lack
-    const dbMap = {};
-    dbProspects.forEach(p => { dbMap[p.id] = p; });
-
-    prospectsData = PROSPECTS_60.map(seed => {
-      const db = dbMap[seed.id];
-      if (db) {
-        // DB version is authoritative for scores
-        return { ...seed, ...db };
-      }
-      return seed;
-    });
-
-    // Add any DB prospects not in seed (harvested by worker)
-    dbProspects.forEach(p => {
-      if (!prospectsData.find(s => s.id === p.id)) {
-        prospectsData.push(p);
-      }
-    });
-
-    renderProspects(prospectsData);
-
-    // Update nav badge with priority count
-    const priorityCount = prospectsData.filter(p => p.idr_score && p.idr_score < 60).length;
-    const badge = document.getElementById('nav-prospects-badge');
-    if (badge) badge.textContent = priorityCount || '';
-
+    const data = await api('/prospects/scanned');
+    const scanned = data.prospects || [];
+    if (scanned.length > 0) {
+      const scoreMap = {};
+      scanned.forEach(p => { scoreMap[p.id] = p; });
+      prospectsData = prospectsData.map(p => {
+        const db = scoreMap[p.id];
+        return db ? { ...p, idr_score: db.idr_score, critical_count: db.critical_count, scanned: true } : p;
+      });
+      renderProspects(prospectsData);
+      const priorityCount = prospectsData.filter(p => p.idr_score && p.idr_score < 60).length;
+      const badge = document.getElementById('nav-prospects-badge');
+      if (badge && priorityCount > 0) badge.textContent = priorityCount;
+    }
   } catch(e) {
-    // Fallback to seed data if DB fails
-    prospectsData = [...PROSPECTS_60];
-    renderProspects(prospectsData);
-    console.warn('[ICC] Using seed data (DB unavailable):', e);
+    console.warn('[ICC] Could not fetch scores from DB (non-critical):', e);
   }
 }
 
