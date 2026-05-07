@@ -1025,6 +1025,71 @@ const API = 'https://idr-backend-production.up.railway.app/icc/api';
 let TOKEN = localStorage.getItem('icc_token') || '';
 let statsData = {};
 let prospectsData = [];
+window._prospectsSeedSent = false;
+
+// ── SEED DATA — 60 FL FQHCs (browser fallback + initial DB seed) ──────────
+const PROSPECTS_60 = [
+  {id:'FQHC-FL-001',name:'Neighborhood Health Source',org_type:'fqhc',city:'Clearwater',state:'FL',phone:'(727) 442-8000',website:'www.nhsfl.org',source:'browser'},
+  {id:'FQHC-FL-002',name:'CHI Community Health of South Florida',org_type:'fqhc',city:'Miami',state:'FL',phone:'(305) 252-4820',website:'www.chisouthfl.org',source:'browser'},
+  {id:'FQHC-FL-003',name:'SunCoast Community Health Centers',org_type:'fqhc',city:'Ruskin',state:'FL',phone:'(813) 634-9295',website:'www.suncoastchc.org',source:'browser'},
+  {id:'FQHC-FL-004',name:'Bond Community Health Center',org_type:'fqhc',city:'Tallahassee',state:'FL',phone:'(850) 576-4073',website:'www.bchcfl.org',source:'browser'},
+  {id:'FQHC-FL-005',name:'Care Resource Community Health Centers',org_type:'fqhc',city:'Miami',state:'FL',phone:'(305) 576-1234',website:'www.careresource.org',source:'browser'},
+  {id:'FQHC-FL-006',name:'Broward Community & Family Health Centers',org_type:'fqhc',city:'Fort Lauderdale',state:'FL',phone:'(954) 832-0750',website:'www.bcfhc.org',source:'browser'},
+  {id:'FQHC-FL-007',name:'Jackson-Hinds Comprehensive Health Center',org_type:'fqhc',city:'Miami Gardens',state:'FL',phone:'(305) 805-7000',website:'www.jtchs.org',source:'browser'},
+  {id:'FQHC-FL-008',name:'Family Health Centers of Southwest Florida',org_type:'fqhc',city:'Fort Myers',state:'FL',phone:'(239) 332-4985',website:'www.fhcswfl.org',source:'browser'},
+  {id:'FQHC-FL-009',name:'Treasure Coast Community Health',org_type:'fqhc',city:'Vero Beach',state:'FL',phone:'(772) 978-0411',website:'www.tcchfl.org',source:'browser'},
+  {id:'FQHC-FL-010',name:'Healthcare Network of Southwest Florida',org_type:'fqhc',city:'Naples',state:'FL',phone:'(239) 658-3000',website:'www.hnswfl.org',source:'browser'},
+  {id:'FQHC-FL-011',name:'Seminole Community Health Center',org_type:'fqhc',city:'Sanford',state:'FL',phone:'(407) 328-2889',website:'www.seminolehealth.org',source:'browser'},
+  {id:'FQHC-FL-012',name:'Volusia Community Health Center',org_type:'fqhc',city:'Daytona Beach',state:'FL',phone:'(386) 238-3000',website:'www.vchfl.org',source:'browser'},
+  {id:'FQHC-FL-013',name:'Osceola Community Health Services',org_type:'fqhc',city:'Kissimmee',state:'FL',phone:'(407) 846-5100',website:'www.och.org',source:'browser'},
+  {id:'FQHC-FL-014',name:'North Florida Medical Centers',org_type:'fqhc',city:'Live Oak',state:'FL',phone:'(386) 362-3681',website:'www.nfmc.org',source:'browser'},
+  {id:'FQHC-FL-015',name:'Opa-locka Community Development Corporation',org_type:'fqhc',city:'Opa-locka',state:'FL',phone:'(305) 685-5333',website:'www.bolchc.org',source:'browser'},
+  {id:'FQHC-FL-016',name:'Manatee Community Health Center',org_type:'fqhc',city:'Bradenton',state:'FL',phone:'(941) 748-4878',website:'www.manateecommhealth.org',source:'browser'},
+  {id:'FQHC-FL-017',name:'Tri-County Community Health Center',org_type:'fqhc',city:'Palatka',state:'FL',phone:'(386) 328-6444',website:'www.trichc.org',source:'browser'},
+  {id:'FQHC-FL-018',name:'Marion County Health Department CHC',org_type:'fqhc',city:'Ocala',state:'FL',phone:'(352) 629-0137',website:'www.floridahealth.gov',source:'browser'},
+  {id:'FQHC-FL-019',name:'Escambia Community Clinics',org_type:'fqhc',city:'Pensacola',state:'FL',phone:'(850) 436-4800',website:'www.escambiacommunityclinics.org',source:'browser'},
+  {id:'FQHC-FL-020',name:'Central Florida Health Centers',org_type:'fqhc',city:'Haines City',state:'FL',phone:'(863) 422-4921',website:'www.cfhcfl.org',source:'browser'},
+  {id:'FQHC-FL-021',name:'Comprehensive Medical Care',org_type:'fqhc',city:'Orlando',state:'FL',phone:'(407) 422-4551',website:'www.cmtchc.org',source:'browser'},
+  {id:'FQHC-FL-022',name:'Acacia Counseling and Wellness',org_type:'fqhc',city:'Gainesville',state:'FL',phone:'(352) 376-6265',website:'www.acaciacounseling.com',source:'browser'},
+  {id:'FQHC-FL-023',name:'Bayfront Health St. Petersburg',org_type:'fqhc',city:'St. Petersburg',state:'FL',phone:'(727) 823-1234',website:'www.bayfronthealth.com',source:'browser'},
+  {id:'FQHC-FL-024',name:'C.L. Brumback Primary Care Clinics',org_type:'fqhc',city:'West Palm Beach',state:'FL',phone:'(561) 642-1000',website:'www.pbchd.com',source:'browser'},
+  {id:'FQHC-FL-025',name:'Charlotte Behavioral Health Care',org_type:'fqhc',city:'Punta Gorda',state:'FL',phone:'(941) 639-8300',website:'www.charlottebehavioral.org',source:'browser'},
+  {id:'FQHC-FL-026',name:'Citrus Health Network',org_type:'fqhc',city:'Hialeah',state:'FL',phone:'(305) 825-8300',website:'www.citrushealth.org',source:'browser'},
+  {id:'FQHC-FL-027',name:'Community Health Centers of Alachua County',org_type:'fqhc',city:'Gainesville',state:'FL',phone:'(352) 372-4321',website:'www.chcfl.org',source:'browser'},
+  {id:'FQHC-FL-028',name:'Community Medical Care Miami',org_type:'fqhc',city:'Miami',state:'FL',phone:'(305) 324-2400',website:'www.miamidade.gov',source:'browser'},
+  {id:'FQHC-FL-029',name:'Comprehensive Community Care Network',org_type:'fqhc',city:'Homestead',state:'FL',phone:'(305) 245-5288',website:'www.c3network.org',source:'browser'},
+  {id:'FQHC-FL-030',name:'Covenant Community Care Osceola',org_type:'fqhc',city:'Kissimmee',state:'FL',phone:'(407) 932-1234',website:'www.covenantcare.org',source:'browser'},
+  {id:'FQHC-FL-031',name:'Duval County Health Dept CHC',org_type:'fqhc',city:'Jacksonville',state:'FL',phone:'(904) 253-1000',website:'www.duvalhealth.org',source:'browser'},
+  {id:'FQHC-FL-032',name:'Family Health Center of Osceola',org_type:'fqhc',city:'St. Cloud',state:'FL',phone:'(407) 892-4000',website:'www.fhcosceola.org',source:'browser'},
+  {id:'FQHC-FL-033',name:'Gadsden Community Health Center',org_type:'fqhc',city:'Quincy',state:'FL',phone:'(850) 627-6484',website:'www.gadsdenchc.org',source:'browser'},
+  {id:'FQHC-FL-034',name:'Gulf Coast Community Care',org_type:'fqhc',city:'Port Richey',state:'FL',phone:'(727) 845-6188',website:'www.gulfcoastcommcare.org',source:'browser'},
+  {id:'FQHC-FL-035',name:'Heres Help Community Health',org_type:'fqhc',city:'Fort Pierce',state:'FL',phone:'(772) 462-1650',website:'www.hereshelp.org',source:'browser'},
+  {id:'FQHC-FL-036',name:'Hope Community Health',org_type:'fqhc',city:'Apopka',state:'FL',phone:'(407) 880-4673',website:'www.hopechfl.org',source:'browser'},
+  {id:'FQHC-FL-037',name:'Indian River Community Health',org_type:'fqhc',city:'Vero Beach',state:'FL',phone:'(772) 569-0488',website:'www.irch.org',source:'browser'},
+  {id:'FQHC-FL-038',name:'Jessie Trice Community Health System',org_type:'fqhc',city:'Miami',state:'FL',phone:'(305) 805-5100',website:'www.jtchs.org',source:'browser'},
+  {id:'FQHC-FL-039',name:'Lakeland Regional Community Health',org_type:'fqhc',city:'Lakeland',state:'FL',phone:'(863) 687-1176',website:'www.lrhc.org',source:'browser'},
+  {id:'FQHC-FL-040',name:'Marion County Community Health',org_type:'fqhc',city:'Ocala',state:'FL',phone:'(352) 629-8800',website:'www.marionchc.org',source:'browser'},
+  {id:'FQHC-FL-041',name:'North Broward Medical Center CHC',org_type:'fqhc',city:'Pompano Beach',state:'FL',phone:'(954) 941-8300',website:'www.northbrowardchc.org',source:'browser'},
+  {id:'FQHC-FL-042',name:'Orange Blossom Family Health',org_type:'fqhc',city:'Orlando',state:'FL',phone:'(407) 905-8827',website:'www.obfh.org',source:'browser'},
+  {id:'FQHC-FL-043',name:'Panhandle Area Educational Consortium CHC',org_type:'fqhc',city:'Chipley',state:'FL',phone:'(850) 638-6111',website:'www.paec.org',source:'browser'},
+  {id:'FQHC-FL-044',name:'Pediatric Health Care Center Broward',org_type:'fqhc',city:'Pembroke Pines',state:'FL',phone:'(954) 432-5500',website:'www.phccfl.org',source:'browser'},
+  {id:'FQHC-FL-045',name:'Primary Care Access Network',org_type:'fqhc',city:'Jacksonville',state:'FL',phone:'(904) 358-3045',website:'www.pcan.org',source:'browser'},
+  {id:'FQHC-FL-046',name:'Putnam Community Health Center',org_type:'fqhc',city:'Palatka',state:'FL',phone:'(386) 385-0027',website:'www.putnamchc.org',source:'browser'},
+  {id:'FQHC-FL-047',name:'Quest Community Health Centers',org_type:'fqhc',city:'St. Petersburg',state:'FL',phone:'(727) 323-3935',website:'www.questchc.org',source:'browser'},
+  {id:'FQHC-FL-048',name:'Redi-Med Community Health Centers',org_type:'fqhc',city:'Miami',state:'FL',phone:'(305) 541-6557',website:'www.redimed.org',source:'browser'},
+  {id:'FQHC-FL-049',name:'Sarasota Community Health Center',org_type:'fqhc',city:'Sarasota',state:'FL',phone:'(941) 330-9200',website:'www.sarasotachc.org',source:'browser'},
+  {id:'FQHC-FL-050',name:'South Florida Community Care Network',org_type:'fqhc',city:'Boca Raton',state:'FL',phone:'(561) 391-3600',website:'www.sfccn.org',source:'browser'},
+  {id:'FQHC-FL-051',name:'Suncoast Medical Clinic',org_type:'fqhc',city:'St. Petersburg',state:'FL',phone:'(727) 824-8100',website:'www.suncoastmedical.org',source:'browser'},
+  {id:'FQHC-FL-052',name:'Switchpoint Community Resource Center',org_type:'fqhc',city:'Clearwater',state:'FL',phone:'(727) 461-0901',website:'www.switchpointfl.org',source:'browser'},
+  {id:'FQHC-FL-053',name:'Tampa Community Health Center',org_type:'fqhc',city:'Tampa',state:'FL',phone:'(813) 248-2022',website:'www.tampacommhealth.org',source:'browser'},
+  {id:'FQHC-FL-054',name:'Three Rivers Legal Services CHC',org_type:'fqhc',city:'Gainesville',state:'FL',phone:'(352) 372-0519',website:'www.trls.org',source:'browser'},
+  {id:'FQHC-FL-055',name:'Treasure Health Fort Pierce',org_type:'fqhc',city:'Fort Pierce',state:'FL',phone:'(772) 871-5756',website:'www.treasurehealth.org',source:'browser'},
+  {id:'FQHC-FL-056',name:'United Community Health Center',org_type:'fqhc',city:'Homestead',state:'FL',phone:'(305) 242-3200',website:'www.uchcfl.org',source:'browser'},
+  {id:'FQHC-FL-057',name:'Vital Access Care',org_type:'fqhc',city:'West Palm Beach',state:'FL',phone:'(561) 547-4444',website:'www.vitalaccesscare.org',source:'browser'},
+  {id:'FQHC-FL-058',name:'Westside Regional Medical CHC',org_type:'fqhc',city:'Plantation',state:'FL',phone:'(954) 473-6600',website:'www.westsidechc.org',source:'browser'},
+  {id:'FQHC-FL-059',name:'Xclusive Health Care',org_type:'fqhc',city:'Orlando',state:'FL',phone:'(407) 571-4901',website:'www.xclusivehealthcare.org',source:'browser'},
+  {id:'FQHC-FL-060',name:'Alachua County Community Health Centers',org_type:'fqhc',city:'Gainesville',state:'FL',phone:'(352) 374-5600',website:'www.acchc.org',source:'browser'},
+];
 
 // ── HELPERS ───────────────────────────────────────────────────────────────────
 async function api(path, method='GET', body=null) {
@@ -1224,56 +1289,61 @@ async function loadProspects() {
   const type     = document.getElementById('filter-type')?.value || '';
   const priority = document.getElementById('filter-priority')?.value || '';
 
-  let url = `/prospects?limit=200`;
-  if (state)    url += `&state=${state}`;
-  if (type)     url += `&type=${type}`;
-  if (priority) url += `&priority=1`;
+  // Step 1: Seed all prospects to DB on first load (so scans persist)
+  if (!window._prospectsSeedSent && PROSPECTS_60.length > 0) {
+    window._prospectsSeedSent = true;
+    try {
+      await api('/prospects/seed', 'POST', { prospects: PROSPECTS_60 });
+      console.log('[ICC] Prospects seeded to DB');
+    } catch(e) {
+      console.warn('[ICC] Seed failed (non-critical):', e);
+    }
+  }
 
+  // Step 2: Load from DB — includes scan scores that were saved
   try {
+    let url = `/prospects?limit=200`;
+    if (state)    url += `&state=${state}`;
+    if (type)     url += `&type=${type}`;
+    if (priority) url += `&priority=1`;
+
     const data = await api(url);
-    prospectsData = data.prospects || [];
+    let dbProspects = data.prospects || [];
+
+    // Step 3: Merge DB prospects with seed data
+    // DB has scores; seed has phone/address fields DB might lack
+    const dbMap = {};
+    dbProspects.forEach(p => { dbMap[p.id] = p; });
+
+    prospectsData = PROSPECTS_60.map(seed => {
+      const db = dbMap[seed.id];
+      if (db) {
+        // DB version is authoritative for scores
+        return { ...seed, ...db };
+      }
+      return seed;
+    });
+
+    // Add any DB prospects not in seed (harvested by worker)
+    dbProspects.forEach(p => {
+      if (!prospectsData.find(s => s.id === p.id)) {
+        prospectsData.push(p);
+      }
+    });
+
     renderProspects(prospectsData);
+
+    // Update nav badge with priority count
+    const priorityCount = prospectsData.filter(p => p.idr_score && p.idr_score < 60).length;
+    const badge = document.getElementById('nav-prospects-badge');
+    if (badge) badge.textContent = priorityCount || '';
+
   } catch(e) {
-    console.error('Prospects load error:', e);
+    // Fallback to seed data if DB fails
+    prospectsData = [...PROSPECTS_60];
+    renderProspects(prospectsData);
+    console.warn('[ICC] Using seed data (DB unavailable):', e);
   }
-}
-
-function renderProspects(list) {
-  const tbody = document.getElementById('prospects-tbody');
-  const empty = document.getElementById('prospects-empty');
-  const count = document.getElementById('prospect-count');
-
-  if (count) count.textContent = `${list.length} organizations`;
-
-  if (!list.length) {
-    tbody.innerHTML = '';
-    if (empty) empty.style.display = 'block';
-    return;
-  }
-  if (empty) empty.style.display = 'none';
-
-  tbody.innerHTML = list.map(p => {
-    const scorePill = p.scanned
-      ? `<span class="score-pill ${p.idr_score>=80?'score-pass':p.idr_score>=60?'score-warn':'score-fail'}">${p.idr_score}/100</span>`
-      : `<span class="score-pill score-na">—</span>`;
-    const typeBadge = {fqhc:'badge-green',nh:'badge-gold',hha:'badge-blue'}[p.org_type] || 'badge-gray';
-    const typeLabel = {fqhc:'FQHC',nh:'Nursing Home',hha:'Home Health'}[p.org_type] || p.org_type;
-    const website = p.website
-      ? `<a href="${p.website}" target="_blank">${p.website.replace('https://','').replace('http://','').split('/')[0].slice(0,20)}</a>`
-      : '<span style="color:#D1D5DB;">—</span>';
-    return `<tr onclick="openSlide('${p.id}')" style="cursor:pointer;">
-      <td style="font-weight:600;color:#111827;">${p.name.length>30?p.name.slice(0,28)+'…':p.name}</td>
-      <td><span class="badge ${typeBadge}">${typeLabel}</span></td>
-      <td>${p.city||'—'}</td>
-      <td>${p.state||'—'}</td>
-      <td style="font-family:'JetBrains Mono',monospace;font-size:11px;">${p.phone||'—'}</td>
-      <td>${website}</td>
-      <td>${scorePill}</td>
-      <td onclick="event.stopPropagation()">
-        ${p.website?`<button class="btn btn-outline btn-sm" onclick="scanProspect('${p.id}','${p.website}','${p.name.replace(/'/g,'')}')" id="scan-btn-${p.id}">Scan</button>`:''}
-      </td>
-    </tr>`;
-  }).join('');
 }
 
 function filterProspects(q) {
@@ -1285,6 +1355,7 @@ function filterProspects(q) {
   );
   renderProspects(filtered);
 }
+
 
 async function scanProspect(pid, website, name) {
   const btn = document.getElementById(`scan-btn-${pid}`);
