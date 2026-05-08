@@ -496,6 +496,39 @@ td a:hover{color:var(--gold);}
   display:inline-flex;align-items:center;gap:8px;
   color:var(--gray);font-size:13px;
 }
+
+@media (max-width: 768px) {
+  .layout { flex-direction: column; }
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex-wrap: nowrap;
+    padding: 8px;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    height: auto;
+    min-height: 52px;
+  }
+  .sidebar-logo { display: none; }
+  .nav-section-label { display: none; }
+  .nav-item {
+    flex-shrink: 0;
+    padding: 8px 12px;
+    font-size: 11px;
+    white-space: nowrap;
+    border-radius: 6px;
+    margin: 0 4px;
+  }
+  .nav-icon { font-size: 14px; }
+  .main { min-height: calc(100vh - 60px); }
+  .panel { padding: 16px; }
+  .page-title { font-size: 20px; }
+  table { font-size: 12px; }
+  th, td { padding: 6px 8px; }
+}
+
 .spinner{
   width:16px;height:16px;border-radius:50%;
   border:2px solid var(--border);
@@ -1284,6 +1317,62 @@ function buildTodayTasks(data) {
 }
 
 // ── PROSPECTS ─────────────────────────────────────────────────────────────────
+
+// ── RENDER PROSPECTS TABLE ────────────────────────────────────────────────────
+function renderProspects(prospects) {
+  const tbody = document.getElementById('prospects-tbody');
+  const empty = document.getElementById('prospects-empty');
+  const counter = document.getElementById('prospect-count');
+  if (!tbody) return;
+
+  if (!prospects || prospects.length === 0) {
+    tbody.innerHTML = '';
+    if (empty) empty.style.display = 'flex';
+    if (counter) counter.textContent = '';
+    return;
+  }
+
+  if (empty) empty.style.display = 'none';
+  if (counter) counter.textContent = prospects.length + ' organizations';
+
+  const scoreColor = s => {
+    if (s == null) return 'var(--gray)';
+    if (s < 60) return 'var(--red)';
+    if (s < 80) return 'var(--amber)';
+    return 'var(--green)';
+  };
+
+  tbody.innerHTML = prospects.map(p => {
+    const score = p.idr_score;
+    const scBadge = score != null
+      ? `<span style="font-weight:700;color:${scoreColor(score)};font-size:13px;">${score}/100</span>`
+      : `<span style="color:var(--gray);font-size:12px;">—</span>`;
+    const priority = score != null && score < 60;
+    const site = (p.website || '').replace(/^https?:\/\//, '');
+    const scanBtnId = `scan-btn-${p.id}`;
+    return `<tr style="${priority ? 'background:#FEF2F2;' : ''}">
+      <td style="font-weight:600;max-width:180px;">
+        ${priority ? '<span style="color:var(--red);font-size:10px;font-weight:700;display:block;">🔴 PRIORITY</span>' : ''}
+        ${p.name || ''}
+      </td>
+      <td><span style="font-size:10px;background:#E5E7EB;border-radius:3px;padding:2px 6px;">${(p.org_type||'fqhc').toUpperCase()}</span></td>
+      <td>${p.city || ''}</td>
+      <td>${p.state || ''}</td>
+      <td style="font-size:12px;white-space:nowrap;">${p.phone || '—'}</td>
+      <td style="font-size:11px;"><a href="https://${site}" target="_blank" style="color:var(--gold);text-decoration:none;">${site || '—'}</a></td>
+      <td>${scBadge}</td>
+      <td>
+        ${p.website
+          ? `<button class="btn btn-outline btn-sm" id="${scanBtnId}"
+               onclick="scanProspect('${p.id}','${p.website}','${(p.name||'').replace(/'/g,'')}')">
+               ${score != null ? 'Rescan' : 'Scan'}
+             </button>`
+          : '<span style="color:var(--gray);font-size:11px;">No URL</span>'}
+      </td>
+    </tr>`;
+  }).join('');
+}
+
 async function loadProspects() {
   // STEP 1: Show seed data immediately — never show blank table
   if (prospectsData.length === 0) {
