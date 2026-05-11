@@ -711,7 +711,7 @@ tr.priority-row:hover td { background: #FEE2E2; }
             </div>
             <div style="display:flex;gap:8px;">
               <button class="btn btn-outline btn-sm" onclick="sendTestEmail()">Send Test</button>
-              <button class="btn btn-outline btn-sm" onclick="generateEmails()">Generate from Prospects</button>
+              <button class="btn btn-outline btn-sm" onclick="generateEmailsAndRefresh()">Generate from Prospects</button>
               <button class="btn btn-gold btn-sm" onclick="approveAllAssociations()">Approve All Associations</button>
             </div>
           </div>
@@ -1233,6 +1233,20 @@ async function triggerHarvest() {
   }
 }
 
+async function generateEmailsAndRefresh() {
+  toast('Generating emails from scanned prospects...');
+  try {
+    const data = await api('/queue/generate', 'POST');
+    const count = data.queued || 0;
+    toast(count > 0 ? `${count} emails generated — refreshing queue...` : 'No new emails — scan more prospects first', count > 0 ? 'success' : 'info');
+    if (count > 0) {
+      setTimeout(() => { loadProspectQueue(); loadQueueStats(); }, 1500);
+    }
+  } catch(e) {
+    toast('Generation error — check backend', 'error');
+  }
+}
+
 async function generateEmails() {
   toast('Generating personalized emails from scanned prospects...');
   try {
@@ -1411,14 +1425,28 @@ function renderEmailCard(e, type) {
     </div>
     ${recipientField}
     <div id="preview-${e.id}" class="email-preview">
-      <textarea id="body-${e.id}" class="email-body-ta">${(e.body_text||'').replace(/</g,'&lt;')}</textarea>
+      <div style="padding:8px 0 10px;font-size:11px;color:var(--sub);letter-spacing:0.08em;text-transform:uppercase;">
+        Email Body — Edit before sending if needed
+      </div>
+      <textarea id="body-${e.id}" class="email-body-ta"
+        data-email-id="${e.id}"
+        placeholder="Loading email body...">${(e.body_text||'').replace(/</g,'&lt;')}</textarea>
+      ${!e.body_text ? `<div style="font-size:11px;color:var(--amber);margin-top:6px;">
+        Body not loaded — click Generate from Prospects to refresh email content.
+      </div>` : ''}
     </div>
   </div>`;
 }
 
 function previewEmail(id) {
   const el = document.getElementById(`preview-${id}`);
-  if (el) el.style.display = el.style.display === 'none' ? 'block' : 'none';
+  if (!el) { console.error('Preview div not found: preview-' + id); return; }
+  const isHidden = el.style.display === '' || el.style.display === 'none';
+  el.style.display = isHidden ? 'block' : 'none';
+  // Scroll into view when opening
+  if (isHidden) {
+    setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+  }
 }
 
 async function storeContactEmail(prospectId, email) {
