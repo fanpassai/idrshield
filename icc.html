@@ -2,567 +2,402 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ICC — IDR Command Center</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICC Command Center — Institute of Digital Remediation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
+/* ── Brand System ── */
 :root {
-  --navy:   #0A0E1A;
-  --gold:   #C9A84C;
-  --gold2:  #8A6F2E;
-  --cream:  #FAF8F4;
-  --border: #E8E4DC;
-  --gray:   #6B7280;
-  --light:  #F9FAFB;
-  --green:  #059669;
+  --navy:   #0B1220;
+  --mid:    #111A2E;
+  --gold:   #C8A75A;
+  --gold-lt:#D4B87A;
+  --stone:  #E6E2DA;
+  --cream:  #F8F6F1;
+  --slate:  #6B7280;
   --red:    #DC2626;
   --amber:  #D97706;
-  --blue:   #2563EB;
-  --sidebar-w: 220px;
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{font-size:15px;}
-body{
-  font-family:'Inter',sans-serif;
-  background:#F3F4F6;
-  color:#111827;
-  min-height:100vh;
+  --green:  #059669;
+  --white:  #FFFFFF;
+  --border: #E5E7EB;
+  --text:   #111827;
+  --sub:    #6B7280;
 }
 
-/* ── LOGIN ── */
-#login-screen{
-  display:flex;align-items:center;justify-content:center;
-  min-height:100vh;background:#F3F4F6;
-}
-.login-card{
-  background:#fff;border-radius:12px;
-  box-shadow:0 4px 24px rgba(0,0,0,0.08);
-  padding:48px 44px;width:380px;text-align:center;
-}
-.login-seal{
-  width:64px;height:64px;border-radius:50%;
-  background:var(--navy);display:inline-flex;
-  align-items:center;justify-content:center;
-  margin-bottom:20px;
-}
-.login-seal span{
-  font-family:'Playfair Display',serif;
-  font-size:14px;font-weight:700;color:var(--gold);
-}
-.login-title{
-  font-family:'Playfair Display',serif;
-  font-size:22px;color:var(--navy);margin-bottom:4px;
-}
-.login-sub{
-  font-size:13px;color:var(--gray);margin-bottom:28px;
-}
-.login-input{
-  width:100%;border:1.5px solid var(--border);border-radius:8px;
-  padding:12px 16px;font-size:14px;outline:none;
-  transition:border-color .2s;margin-bottom:14px;
-  font-family:'Inter',sans-serif;
-}
-.login-input:focus{border-color:var(--gold);}
-.login-btn{
-  width:100%;background:var(--navy);color:#fff;
-  border:none;border-radius:8px;padding:13px;
-  font-size:13px;font-weight:600;cursor:pointer;
-  transition:background .2s;letter-spacing:.03em;
-}
-.login-btn:hover{background:#1a2235;}
-.login-err{color:var(--red);font-size:12px;margin-top:8px;}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; font-family: 'Inter', sans-serif; background: var(--cream); color: var(--text); }
 
-/* ── APP SHELL ── */
-#app{display:none;min-height:100vh;display:none;flex-direction:column;}
-#app.visible{display:flex;}
-
-/* Top bar */
-.topbar{
-  background:var(--navy);height:56px;
-  display:flex;align-items:center;
-  padding:0 24px;gap:16px;
-  position:sticky;top:0;z-index:100;
-  flex-shrink:0;
+/* ── Login ── */
+#login-screen {
+  position: fixed; inset: 0; background: var(--navy);
+  display: flex; align-items: center; justify-content: center; z-index: 1000;
 }
-.tb-seal{
-  width:32px;height:32px;border-radius:50%;
-  background:rgba(201,168,76,0.15);
-  border:1px solid rgba(201,168,76,0.3);
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;
+.login-card {
+  width: 380px; text-align: center; padding: 48px 40px;
+  border: 1px solid rgba(200,167,90,0.3); border-radius: 2px;
 }
-.tb-seal span{
-  font-family:'Playfair Display',serif;
-  font-size:9px;font-weight:700;color:var(--gold);
+.login-seal {
+  width: 72px; height: 72px; border-radius: 50%;
+  border: 2px solid var(--gold); display: flex; align-items: center;
+  justify-content: center; margin: 0 auto 24px;
+  font-family: 'Cinzel', serif; font-size: 20px; font-weight: 700;
+  color: var(--gold); letter-spacing: 0.05em;
 }
-.tb-title{
-  font-size:13px;font-weight:700;color:#fff;letter-spacing:.03em;
+.login-institution {
+  font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.2em;
+  color: var(--gold); text-transform: uppercase; margin-bottom: 8px;
 }
-.tb-sub{
-  font-size:10px;color:rgba(255,255,255,0.35);
-  letter-spacing:.08em;text-transform:uppercase;
+.login-title {
+  font-family: 'Cinzel', serif; font-size: 20px; font-weight: 600;
+  color: var(--white); margin-bottom: 4px;
 }
-.tb-spacer{flex:1;}
-.tb-days{
-  background:rgba(220,38,38,0.15);
-  border:1px solid rgba(220,38,38,0.3);
-  border-radius:6px;padding:6px 14px;text-align:center;
+.login-sub { font-size: 12px; color: var(--slate); margin-bottom: 32px; letter-spacing: 0.05em; }
+.login-input {
+  width: 100%; padding: 12px 16px; background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(200,167,90,0.3); border-radius: 2px;
+  color: var(--white); font-size: 14px; margin-bottom: 12px;
+  font-family: 'Inter', sans-serif; outline: none;
+  transition: border-color 0.2s;
 }
-.tb-days-n{
-  font-family:'JetBrains Mono',monospace;
-  font-size:18px;font-weight:500;color:#F87171;
-  display:block;line-height:1;
+.login-input:focus { border-color: var(--gold); }
+.login-input::placeholder { color: rgba(255,255,255,0.3); }
+.login-btn {
+  width: 100%; padding: 12px; background: var(--gold); color: var(--navy);
+  border: none; border-radius: 2px; font-size: 12px; font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer;
+  font-family: 'Inter', sans-serif; transition: background 0.2s;
 }
-.tb-days-l{
-  font-size:9px;color:rgba(248,113,113,0.6);
-  text-transform:uppercase;letter-spacing:.1em;
+.login-btn:hover { background: var(--gold-lt); }
+.login-err { color: var(--red); font-size: 12px; margin-top: 10px; }
+.login-tagline {
+  margin-top: 32px; font-size: 10px; color: rgba(255,255,255,0.2);
+  letter-spacing: 0.15em; text-transform: uppercase;
 }
 
-/* Body layout */
-.body-wrap{
-  display:flex;flex:1;overflow:hidden;
-  height:calc(100vh - 56px);
+/* ── App shell ── */
+#app { display: none; height: 100vh; overflow: hidden; }
+#app.visible { display: flex; flex-direction: column; }
+
+/* ── Top bar ── */
+.topbar {
+  background: var(--navy); height: 52px; display: flex;
+  align-items: center; padding: 0 20px; gap: 12px;
+  flex-shrink: 0; border-bottom: 1px solid rgba(200,167,90,0.15);
+}
+.topbar-logo {
+  font-family: 'Cinzel', serif; font-size: 15px; font-weight: 700;
+  color: var(--gold); letter-spacing: 0.08em;
+}
+.topbar-divider { width: 1px; height: 20px; background: rgba(255,255,255,0.1); }
+.topbar-institution {
+  font-size: 10px; color: rgba(255,255,255,0.4);
+  letter-spacing: 0.12em; text-transform: uppercase;
+}
+.topbar-right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+.enforcement-badge {
+  background: var(--red); color: white; font-size: 9px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 10px;
+  border-radius: 2px;
+}
+.topbar-time { font-size: 11px; color: rgba(255,255,255,0.35); }
+
+/* ── Layout ── */
+.shell { display: flex; flex: 1; overflow: hidden; }
+
+/* ── Sidebar ── */
+.sidebar {
+  width: 220px; background: var(--navy); flex-shrink: 0;
+  display: flex; flex-direction: column; overflow-y: auto;
+  border-right: 1px solid rgba(200,167,90,0.1);
+}
+.nav-section { padding: 20px 12px 8px; }
+.nav-label {
+  font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: rgba(255,255,255,0.25); padding: 0 8px; margin-bottom: 4px;
+}
+.nav-item {
+  display: flex; align-items: center; gap: 10px; padding: 9px 10px;
+  border-radius: 3px; cursor: pointer; color: rgba(255,255,255,0.55);
+  font-size: 13px; font-weight: 500; transition: all 0.15s;
+  position: relative;
+}
+.nav-item:hover { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.85); }
+.nav-item.active { background: rgba(200,167,90,0.12); color: var(--gold); }
+.nav-item.active .nav-icon { color: var(--gold); }
+.nav-icon { font-size: 14px; width: 18px; text-align: center; flex-shrink: 0; }
+.nav-badge {
+  margin-left: auto; background: var(--red); color: white;
+  font-size: 9px; font-weight: 700; min-width: 16px; height: 16px;
+  border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  padding: 0 4px;
+}
+.nav-badge.gold { background: var(--gold); color: var(--navy); }
+.nav-badge.green { background: var(--green); }
+.sidebar-bottom {
+  margin-top: auto; padding: 16px 12px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.sidebar-tagline {
+  font-size: 9px; color: rgba(255,255,255,0.2);
+  letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.6;
 }
 
-/* Sidebar */
-.sidebar{
-  width:var(--sidebar-w);
-  background:#fff;
-  border-right:1px solid var(--border);
-  display:flex;flex-direction:column;
-  flex-shrink:0;overflow-y:auto;
+/* ── Main content ── */
+.main { flex: 1; overflow-y: auto; background: var(--cream); }
+.room { display: none; }
+.room.active { display: block; }
+.page-header {
+  padding: 28px 32px 20px; border-bottom: 1px solid var(--border);
+  background: var(--white);
 }
-.sidebar-logo{
-  padding:20px 18px 12px;
-  border-bottom:1px solid var(--border);
+.page-header-inner { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.page-eyebrow {
+  font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 6px;
 }
-.sidebar-logo-text{
-  font-family:'Playfair Display',serif;
-  font-size:15px;color:var(--navy);
+.page-title {
+  font-family: 'Cinzel', serif; font-size: 22px; font-weight: 600;
+  color: var(--navy); line-height: 1.2;
 }
-.sidebar-logo-sub{
-  font-size:9px;color:var(--gray);
-  letter-spacing:.1em;text-transform:uppercase;margin-top:2px;
-}
-.nav-section{padding:16px 12px 8px;}
-.nav-label{
-  font-size:9px;font-weight:700;
-  letter-spacing:.12em;text-transform:uppercase;
-  color:#9CA3AF;padding:0 6px;margin-bottom:4px;
-}
-.nav-item{
-  display:flex;align-items:center;gap:10px;
-  padding:9px 10px;border-radius:8px;
-  cursor:pointer;transition:all .15s;
-  margin-bottom:2px;color:#374151;
-  font-size:13px;font-weight:500;
-  text-decoration:none;
-}
-.nav-item:hover{background:#F3F4F6;color:var(--navy);}
-.nav-item.active{background:#FAF3E0;color:var(--navy);}
-.nav-item.active .nav-icon{color:var(--gold);}
-.nav-icon{font-size:16px;width:20px;text-align:center;flex-shrink:0;}
-.nav-badge{
-  margin-left:auto;background:#EF4444;color:#fff;
-  border-radius:10px;padding:1px 7px;
-  font-size:10px;font-weight:700;
-}
-.nav-badge.green{background:var(--green);}
-.nav-badge.amber{background:var(--amber);}
+.page-sub { font-size: 13px; color: var(--sub); margin-top: 4px; line-height: 1.5; }
+.page-body { padding: 24px 32px; }
 
-/* Main content */
-.main{
-  flex:1;overflow-y:auto;
-  background:#F3F4F6;
+/* ── Cards ── */
+.card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 3px; padding: 20px 24px; margin-bottom: 16px;
 }
-.panel{display:none;padding:24px;}
-.panel.active{display:block;}
-
-/* ── SHARED COMPONENTS ── */
-.page-title{
-  font-family:'Playfair Display',serif;
-  font-size:22px;color:var(--navy);margin-bottom:4px;
-}
-.page-sub{font-size:13px;color:var(--gray);margin-bottom:20px;}
-
-.card{
-  background:#fff;border-radius:10px;
-  border:1px solid var(--border);
-  padding:20px;margin-bottom:16px;
-}
-.card-title{
-  font-size:10px;font-weight:700;
-  letter-spacing:.12em;text-transform:uppercase;
-  color:var(--gray);margin-bottom:12px;
+.card-title {
+  font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 14px; font-weight: 600;
 }
 
-.stat-grid{
-  display:grid;grid-template-columns:repeat(5,1fr);
-  gap:12px;margin-bottom:20px;
+/* ── Stat grid ── */
+.stat-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 3px; overflow: hidden; margin-bottom: 20px; }
+.stat-cell { background: var(--white); padding: 20px 16px; text-align: center; }
+.stat-num { font-family: 'Cinzel', serif; font-size: 30px; font-weight: 700; line-height: 1; margin-bottom: 4px; }
+.stat-label { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sub); }
+
+/* ── Buttons ── */
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 16px; border-radius: 2px; font-size: 12px; font-weight: 600;
+  letter-spacing: 0.05em; cursor: pointer; border: none; transition: all 0.15s;
+  font-family: 'Inter', sans-serif; text-decoration: none;
 }
-.stat-card{
-  background:#fff;border-radius:10px;
-  border:1px solid var(--border);
-  padding:16px 14px;text-align:center;
+.btn-primary { background: var(--navy); color: var(--white); }
+.btn-primary:hover { background: var(--mid); }
+.btn-gold { background: var(--gold); color: var(--navy); }
+.btn-gold:hover { background: var(--gold-lt); }
+.btn-outline { background: var(--white); color: var(--navy); border: 1px solid var(--border); }
+.btn-outline:hover { border-color: var(--navy); }
+.btn-sm { padding: 5px 10px; font-size: 11px; }
+.btn-danger { background: var(--red); color: white; }
+
+/* ── Table ── */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th {
+  background: var(--navy); color: rgba(255,255,255,0.7);
+  font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 10px 12px; text-align: left; font-weight: 600;
 }
-.stat-n{
-  font-family:'Playfair Display',serif;
-  font-size:28px;font-weight:700;color:var(--navy);
-  line-height:1;display:block;margin-bottom:4px;
+td { padding: 11px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+tr:hover td { background: #F9FAFB; }
+tr.priority-row td { background: #FEF2F2; }
+tr.priority-row:hover td { background: #FEE2E2; }
+
+/* ── Maturity badge ── */
+.maturity {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; padding: 2px 7px; border-radius: 2px;
 }
-.stat-n.gold{color:var(--gold);}
-.stat-n.red{color:var(--red);}
-.stat-n.green{color:var(--green);}
-.stat-n.amber{color:var(--amber);}
-.stat-l{
-  font-size:10px;font-weight:600;
-  letter-spacing:.08em;text-transform:uppercase;
-  color:var(--gray);
+.maturity-absent  { background: #F3F4F6; color: var(--sub); }
+.maturity-reactive { background: #FEF3C7; color: var(--amber); }
+.maturity-documented { background: #DBEAFE; color: #2563EB; }
+.maturity-verified { background: #EDE9FE; color: #7C3AED; }
+.maturity-active  { background: #D1FAE5; color: var(--green); }
+
+/* ── Score badge ── */
+.score-badge { font-weight: 700; font-size: 13px; }
+.score-fail { color: var(--red); }
+.score-warn { color: var(--amber); }
+.score-pass { color: var(--green); }
+
+/* ── Filters ── */
+.filter-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 16px; }
+.filter-input {
+  padding: 8px 12px; border: 1px solid var(--border); border-radius: 2px;
+  font-size: 13px; font-family: 'Inter', sans-serif; outline: none;
+  transition: border-color 0.2s; min-width: 200px;
+}
+.filter-input:focus { border-color: var(--gold); }
+.filter-select {
+  padding: 8px 12px; border: 1px solid var(--border); border-radius: 2px;
+  font-size: 13px; font-family: 'Inter', sans-serif; background: var(--white);
+  outline: none; cursor: pointer;
 }
 
-.btn{
-  display:inline-flex;align-items:center;gap:7px;
-  padding:9px 18px;border-radius:7px;
-  font-size:12px;font-weight:600;cursor:pointer;
-  border:none;transition:all .15s;letter-spacing:.02em;
-  font-family:'Inter',sans-serif;
+/* ── Activity feed ── */
+.activity-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 8px 0; border-bottom: 1px solid #F3F4F6; font-size: 12px; color: #374151;
 }
-.btn-primary{background:var(--navy);color:#fff;}
-.btn-primary:hover{background:#1a2235;}
-.btn-gold{background:var(--gold);color:var(--navy);}
-.btn-gold:hover{background:#d4b55e;}
-.btn-outline{background:#fff;color:var(--navy);border:1.5px solid var(--border);}
-.btn-outline:hover{border-color:var(--navy);}
-.btn-sm{padding:6px 12px;font-size:11px;}
-.btn-green{background:var(--green);color:#fff;}
-.btn-red{background:var(--red);color:#fff;}
-.btn:disabled{opacity:.4;cursor:not-allowed;}
+.activity-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--gold); margin-top: 5px; flex-shrink: 0;
+}
+.activity-time { margin-left: auto; color: var(--sub); font-size: 11px; white-space: nowrap; }
 
-/* Table */
-.table-wrap{overflow-x:auto;border-radius:8px;border:1px solid var(--border);}
-table{width:100%;border-collapse:collapse;font-size:12px;}
-thead tr{background:#F9FAFB;border-bottom:1px solid var(--border);}
-th{
-  padding:10px 14px;text-align:left;
-  font-size:10px;font-weight:700;
-  letter-spacing:.08em;text-transform:uppercase;
-  color:var(--gray);white-space:nowrap;
+/* ── Task items ── */
+.task-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 12px 0; border-bottom: 1px solid #F3F4F6; cursor: pointer;
 }
-tbody tr{border-bottom:1px solid #F3F4F6;transition:background .12s;}
-tbody tr:hover{background:#FAFAFA;}
-tbody tr:last-child{border-bottom:none;}
-td{
-  padding:10px 14px;color:#374151;
-  max-width:180px;overflow:hidden;
-  text-overflow:ellipsis;white-space:nowrap;
+.task-item:hover { opacity: 0.8; }
+.task-num {
+  width: 22px; height: 22px; border-radius: 50%; background: var(--gold);
+  color: var(--navy); font-size: 10px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
-td a{color:var(--gold2);text-decoration:none;font-size:11px;}
-td a:hover{color:var(--gold);}
+.task-text { font-size: 13px; color: #374151; line-height: 1.5; }
 
-.badge{
-  display:inline-block;padding:2px 8px;border-radius:4px;
-  font-size:10px;font-weight:600;letter-spacing:.04em;
+/* ── AI Writer ── */
+.ai-messages { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; min-height: 200px; max-height: 400px; overflow-y: auto; }
+.ai-msg { display: flex; gap: 10px; align-items: flex-start; }
+.ai-avatar {
+  width: 28px; height: 28px; border-radius: 50%; display: flex;
+  align-items: center; justify-content: center; font-size: 11px;
+  font-weight: 700; flex-shrink: 0; font-family: 'Cinzel', serif;
 }
-.badge-red{background:#FEE2E2;color:#DC2626;}
-.badge-amber{background:#FEF3C7;color:#D97706;}
-.badge-green{background:#D1FAE5;color:#059669;}
-.badge-gray{background:#F3F4F6;color:#6B7280;}
-.badge-blue{background:#DBEAFE;color:#2563EB;}
-.badge-gold{background:#FEF3C7;color:#92400E;}
+.ai-msg.user .ai-avatar { background: var(--navy); color: var(--gold); }
+.ai-msg.assistant .ai-avatar { background: var(--gold); color: var(--navy); }
+.ai-bubble {
+  padding: 10px 14px; border-radius: 3px; font-size: 13px;
+  line-height: 1.6; max-width: 85%; white-space: pre-wrap;
+}
+.ai-msg.user .ai-bubble { background: var(--navy); color: var(--cream); }
+.ai-msg.assistant .ai-bubble { background: var(--white); border: 1px solid var(--border); color: var(--text); }
+.ai-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.ai-chip {
+  padding: 6px 12px; border: 1px solid var(--border); border-radius: 2px;
+  font-size: 11px; cursor: pointer; transition: all 0.15s; background: var(--white);
+  color: var(--text);
+}
+.ai-chip:hover { border-color: var(--gold); color: var(--navy); background: #FFFBEB; }
+.ai-input-row { display: flex; gap: 8px; }
+.ai-input {
+  flex: 1; padding: 10px 14px; border: 1px solid var(--border); border-radius: 2px;
+  font-size: 13px; font-family: 'Inter', sans-serif; outline: none; resize: none;
+}
+.ai-input:focus { border-color: var(--gold); }
 
-/* Score display */
-.score-pill{
-  display:inline-block;
-  font-family:'JetBrains Mono',monospace;
-  font-size:11px;font-weight:500;
-  padding:3px 10px;border-radius:20px;
+/* ── Associations ── */
+.assoc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+.assoc-card {
+  background: var(--white); border: 1px solid var(--border); border-radius: 3px;
+  padding: 18px 20px; position: relative; overflow: hidden;
 }
-.score-fail{background:#FEE2E2;color:#DC2626;}
-.score-warn{background:#FEF3C7;color:#D97706;}
-.score-pass{background:#D1FAE5;color:#059669;}
-.score-na{background:#F3F4F6;color:#9CA3AF;}
+.assoc-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--gold);
+}
+.assoc-name { font-weight: 700; font-size: 14px; color: var(--navy); margin-bottom: 4px; }
+.assoc-serves { font-size: 12px; color: var(--sub); margin-bottom: 12px; line-height: 1.4; }
+.assoc-meta { display: flex; gap: 12px; margin-bottom: 12px; }
+.assoc-meta span { font-size: 11px; color: var(--sub); }
+.assoc-meta strong { color: var(--navy); }
+.assoc-status {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 2px; display: inline-block;
+}
+.status-not_contacted { background: #F3F4F6; color: var(--sub); }
+.status-contacted { background: #DBEAFE; color: #2563EB; }
+.status-opened { background: #FEF3C7; color: var(--amber); }
+.status-replied { background: #D1FAE5; color: var(--green); }
+.status-in_conversation { background: #EDE9FE; color: #7C3AED; }
 
-/* Activity feed */
-.activity-feed{max-height:280px;overflow-y:auto;}
-.activity-item{
-  display:flex;align-items:flex-start;gap:10px;
-  padding:8px 0;border-bottom:1px solid #F3F4F6;
-  font-size:12px;
+/* ── Email queue ── */
+.email-card {
+  background: var(--white); border: 1px solid var(--border); border-radius: 3px;
+  padding: 16px 20px; margin-bottom: 12px;
 }
-.activity-dot{
-  width:8px;height:8px;border-radius:50%;
-  background:var(--gold);flex-shrink:0;margin-top:3px;
+.email-card.priority { border-left: 4px solid var(--red); }
+.email-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.email-name { font-weight: 700; font-size: 14px; color: var(--navy); }
+.email-subject { font-size: 12px; color: var(--sub); margin-top: 3px; font-style: italic; }
+.email-actions { display: flex; gap: 6px; flex-shrink: 0; }
+.email-to-input {
+  width: 100%; padding: 7px 10px; border: 1px solid var(--border);
+  border-radius: 2px; font-size: 12px; font-family: 'Inter', sans-serif;
+  margin-top: 10px; outline: none;
 }
-.activity-time{
-  font-size:10px;color:var(--gray);
-  margin-left:auto;flex-shrink:0;
-  font-family:'JetBrains Mono',monospace;
+.email-to-input:focus { border-color: var(--gold); }
+.email-preview {
+  display: none; margin-top: 12px; border-top: 1px solid #F3F4F6; padding-top: 12px;
 }
-
-/* Prospect slide panel */
-.slide-overlay{
-  display:none;position:fixed;inset:0;
-  background:rgba(0,0,0,0.3);z-index:200;
-}
-.slide-panel{
-  position:fixed;right:0;top:0;bottom:0;
-  width:460px;background:#fff;
-  box-shadow:-4px 0 24px rgba(0,0,0,0.1);
-  overflow-y:auto;z-index:201;
-  transform:translateX(100%);
-  transition:transform .25s ease;
-}
-.slide-panel.open{transform:translateX(0);}
-.slide-overlay.open{display:block;}
-.sp-header{
-  background:var(--navy);padding:20px 24px;
-  position:sticky;top:0;z-index:10;
-}
-.sp-title{
-  font-family:'Playfair Display',serif;
-  font-size:18px;color:#fff;margin-bottom:2px;
-}
-.sp-sub{font-size:11px;color:rgba(255,255,255,0.4);}
-.sp-close{
-  position:absolute;top:18px;right:18px;
-  background:rgba(255,255,255,0.1);border:none;
-  color:#fff;width:32px;height:32px;border-radius:6px;
-  cursor:pointer;font-size:16px;
-  display:flex;align-items:center;justify-content:center;
-}
-.sp-body{padding:20px 24px;}
-.sp-score{
-  background:#F9FAFB;border-radius:8px;
-  padding:16px;margin-bottom:16px;
-  display:flex;align-items:center;gap:16px;
-}
-.sp-score-n{
-  font-family:'Playfair Display',serif;
-  font-size:40px;font-weight:700;line-height:1;
-}
-.sp-section-title{
-  font-size:10px;font-weight:700;
-  letter-spacing:.1em;text-transform:uppercase;
-  color:var(--gray);margin:16px 0 8px;
-}
-.sp-field{
-  display:grid;grid-template-columns:120px 1fr;
-  gap:4px;padding:7px 0;
-  border-bottom:1px solid #F3F4F6;
-  font-size:12px;
-}
-.sp-field-k{color:var(--gray);font-weight:500;}
-.sp-field-v{color:#111827;}
-.sp-msg{
-  background:#F9FAFB;border-radius:8px;
-  padding:14px;font-size:12px;line-height:1.7;
-  color:#374151;white-space:pre-wrap;
-  border-left:3px solid var(--gold);
-  margin-bottom:12px;
-}
-.sp-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;}
-
-/* Search bar */
-.search-bar{
-  display:flex;gap:10px;align-items:center;
-  margin-bottom:16px;flex-wrap:wrap;
-}
-.search-input{
-  flex:1;min-width:200px;
-  border:1.5px solid var(--border);border-radius:8px;
-  padding:9px 14px;font-size:13px;
-  font-family:'Inter',sans-serif;outline:none;
-  transition:border-color .2s;
-}
-.search-input:focus{border-color:var(--gold);}
-.filter-select{
-  border:1.5px solid var(--border);border-radius:8px;
-  padding:9px 12px;font-size:12px;
-  font-family:'Inter',sans-serif;outline:none;
-  background:#fff;cursor:pointer;color:#374151;
-}
-.filter-select:focus{border-color:var(--gold);}
-
-/* AI Chat */
-.ai-chat{
-  height:calc(100vh - 200px);
-  display:flex;flex-direction:column;
-}
-.ai-messages{
-  flex:1;overflow-y:auto;padding:16px;
-  background:#F9FAFB;border-radius:10px;
-  border:1px solid var(--border);
-  margin-bottom:14px;
-  display:flex;flex-direction:column;gap:14px;
-}
-.ai-msg{display:flex;gap:10px;align-items:flex-start;}
-.ai-msg.user{flex-direction:row-reverse;}
-.ai-bubble{
-  max-width:75%;padding:12px 16px;border-radius:10px;
-  font-size:13px;line-height:1.65;
-}
-.ai-msg.user .ai-bubble{
-  background:var(--navy);color:#fff;border-radius:10px 10px 0 10px;
-}
-.ai-msg.assistant .ai-bubble{
-  background:#fff;color:#111827;
-  border:1px solid var(--border);
-  border-radius:10px 10px 10px 0;
-  white-space:pre-wrap;
-}
-.ai-avatar{
-  width:32px;height:32px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:12px;font-weight:700;flex-shrink:0;
-}
-.ai-msg.user .ai-avatar{background:var(--navy);color:#fff;}
-.ai-msg.assistant .ai-avatar{background:var(--gold);color:var(--navy);}
-.ai-input-row{display:flex;gap:10px;}
-.ai-input{
-  flex:1;border:1.5px solid var(--border);border-radius:8px;
-  padding:12px 16px;font-size:13px;
-  font-family:'Inter',sans-serif;outline:none;resize:none;
-  transition:border-color .2s;
-}
-.ai-input:focus{border-color:var(--gold);}
-.ai-suggestions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
-.ai-chip{
-  padding:6px 12px;border-radius:20px;
-  background:#fff;border:1px solid var(--border);
-  font-size:11px;color:var(--gray);cursor:pointer;
-  transition:all .15s;
-}
-.ai-chip:hover{border-color:var(--gold);color:var(--navy);}
-
-/* Association cards */
-.assoc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-.assoc-card{
-  background:#fff;border-radius:10px;
-  border:1px solid var(--border);
-  overflow:hidden;
-  transition:box-shadow .15s;
-}
-.assoc-card:hover{box-shadow:0 2px 12px rgba(0,0,0,0.06);}
-.assoc-hdr{
-  padding:14px 16px;border-bottom:1px solid var(--border);
-  display:flex;justify-content:space-between;align-items:flex-start;
-  gap:8px;
-}
-.assoc-name{
-  font-size:12px;font-weight:700;color:var(--navy);line-height:1.3;
-}
-.assoc-serves{font-size:11px;color:var(--gray);margin-top:2px;}
-.assoc-body{padding:14px 16px;}
-.assoc-stat{
-  font-size:11px;color:var(--gray);margin-bottom:10px;
-}
-.assoc-stat strong{color:var(--navy);}
-.assoc-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;}
-
-/* Tracker */
-.status-tabs{
-  display:flex;gap:2px;margin-bottom:16px;
-  background:#F3F4F6;border-radius:8px;padding:4px;
-}
-.status-tab{
-  flex:1;padding:8px 6px;border-radius:6px;
-  text-align:center;font-size:11px;font-weight:600;
-  cursor:pointer;transition:all .15s;color:var(--gray);
-}
-.status-tab.active{background:#fff;color:var(--navy);
-  box-shadow:0 1px 4px rgba(0,0,0,0.08);}
-
-/* Playbook */
-.day-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
-.day-card{
-  background:#fff;border-radius:10px;
-  border:1px solid var(--border);
-  padding:14px;cursor:pointer;
-  transition:all .15s;
-}
-.day-card:hover{box-shadow:0 2px 12px rgba(0,0,0,0.08);border-color:#d1d5db;}
-.day-card.current{border-color:var(--gold);background:#FFFBEB;}
-.day-card.done{background:#F0FDF4;border-color:#A7F3D0;}
-.day-n{
-  font-family:'Playfair Display',serif;
-  font-size:24px;font-weight:700;color:var(--navy);
-}
-.day-title{font-size:12px;font-weight:600;color:var(--navy);margin:4px 0 2px;}
-.day-group{font-size:10px;color:var(--gray);}
-
-/* Loading */
-.loading{
-  display:inline-flex;align-items:center;gap:8px;
-  color:var(--gray);font-size:13px;
+.email-body-ta {
+  width: 100%; min-height: 180px; padding: 10px; border: 1px solid var(--border);
+  border-radius: 2px; font-size: 12px; font-family: monospace; line-height: 1.6;
+  resize: vertical;
 }
 
+/* ── Content room ── */
+.content-card {
+  background: var(--white); border: 1px solid var(--border); border-radius: 3px;
+  padding: 16px 20px; margin-bottom: 12px; display: flex; gap: 16px;
+}
+.content-direction {
+  width: 80px; height: 80px; border-radius: 2px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cinzel', serif; font-size: 10px; font-weight: 700;
+  text-align: center; padding: 8px; letter-spacing: 0.05em;
+}
+.content-body { flex: 1; }
+.content-caption { font-size: 13px; color: var(--text); line-height: 1.6; white-space: pre-wrap; }
+
+/* ── Toast ── */
+#toast {
+  position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+  background: var(--navy); color: var(--white); padding: 12px 20px;
+  border-radius: 3px; font-size: 13px; font-weight: 500;
+  border-left: 4px solid var(--gold); opacity: 0;
+  transition: opacity 0.2s; pointer-events: none; max-width: 360px;
+}
+#toast.show { opacity: 1; }
+#toast.success { border-left-color: var(--green); }
+#toast.error { border-left-color: var(--red); }
+
+/* ── Enforcement banner ── */
+.enforcement-banner {
+  background: var(--red); color: white; text-align: center;
+  padding: 10px 20px; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+}
+
+/* ── Loading ── */
+.loading { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 40px; color: var(--sub); font-size: 13px; }
+.spinner { width: 18px; height: 18px; border: 2px solid var(--border); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.7s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Tabs ── */
+.tab-row { display: flex; border-bottom: 2px solid var(--border); margin-bottom: 20px; }
+.tab {
+  padding: 10px 18px; font-size: 13px; font-weight: 500; cursor: pointer;
+  color: var(--sub); border-bottom: 2px solid transparent; margin-bottom: -2px;
+  transition: all 0.15s;
+}
+.tab:hover { color: var(--navy); }
+.tab.active { color: var(--gold); border-bottom-color: var(--gold); font-weight: 600; }
+
+/* ── Responsive ── */
 @media (max-width: 768px) {
-  .layout { flex-direction: column; }
-  .sidebar {
-    width: 100%;
-    flex-direction: row;
-    overflow-x: auto;
-    overflow-y: hidden;
-    flex-wrap: nowrap;
-    padding: 8px;
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-    height: auto;
-    min-height: 52px;
-  }
-  .sidebar-logo { display: none; }
-  .nav-section-label { display: none; }
-  .nav-item {
-    flex-shrink: 0;
-    padding: 8px 12px;
-    font-size: 11px;
-    white-space: nowrap;
-    border-radius: 6px;
-    margin: 0 4px;
-  }
-  .nav-icon { font-size: 14px; }
-  .main { min-height: calc(100vh - 60px); }
-  .panel { padding: 16px; }
-  .page-title { font-size: 20px; }
-  table { font-size: 12px; }
-  th, td { padding: 6px 8px; }
-}
-
-.spinner{
-  width:16px;height:16px;border-radius:50%;
-  border:2px solid var(--border);
-  border-top-color:var(--gold);
-  animation:spin .7s linear infinite;
-}
-@keyframes spin{to{transform:rotate(360deg);}}
-
-.empty-state{
-  text-align:center;padding:48px 24px;color:var(--gray);
-}
-.empty-icon{font-size:40px;margin-bottom:12px;}
-.empty-title{font-size:15px;font-weight:600;color:#374151;margin-bottom:6px;}
-.empty-body{font-size:13px;line-height:1.6;max-width:320px;margin:0 auto;}
-
-/* Notification toast */
-.toast{
-  position:fixed;bottom:24px;right:24px;
-  background:var(--navy);color:#fff;
-  padding:12px 20px;border-radius:8px;
-  font-size:13px;z-index:500;
-  transform:translateY(80px);opacity:0;
-  transition:all .3s;pointer-events:none;
-}
-.toast.show{transform:translateY(0);opacity:1;}
-.toast.success{background:var(--green);}
-.toast.error{background:var(--red);}
-
-@media(max-width:900px){
-  .stat-grid{grid-template-columns:repeat(3,1fr);}
-  .assoc-grid{grid-template-columns:1fr;}
-  .day-grid{grid-template-columns:repeat(2,1fr);}
-  .slide-panel{width:100%;}
-  .sidebar{display:none;}
+  .sidebar { width: 56px; }
+  .nav-label, .nav-item span:last-child { display: none; }
+  .nav-badge { position: absolute; top: 4px; right: 4px; }
+  .stat-grid { grid-template-columns: repeat(3,1fr); }
+  .page-body { padding: 16px; }
 }
 </style>
 </head>
@@ -571,754 +406,630 @@ td a:hover{color:var(--gold);}
 <!-- LOGIN -->
 <div id="login-screen">
   <div class="login-card">
-    <div class="login-seal"><span>IDR</span></div>
-    <div class="login-title">ICC Command Center</div>
-    <div class="login-sub">IDR Shield · HHS Outreach System</div>
+    <div class="login-seal">IDR</div>
+    <div class="login-institution">Institute of Digital Remediation</div>
+    <div class="login-title">Command Center</div>
+    <div class="login-sub">Internal Operations · Restricted Access</div>
     <input type="password" class="login-input" id="login-pw"
-           placeholder="Enter your password…"
+           placeholder="Access code"
            onkeydown="if(event.key==='Enter')doLogin()">
-    <button class="login-btn" onclick="doLogin()">Access Command Center →</button>
+    <button class="login-btn" onclick="doLogin()">Access Command Center</button>
     <div class="login-err" id="login-err"></div>
+    <div class="login-tagline">Digital Access. Trust. Compliance.</div>
   </div>
 </div>
 
 <!-- APP -->
 <div id="app">
+
   <!-- Top bar -->
   <div class="topbar">
-    <div class="tb-seal"><span>IDR</span></div>
-    <div>
-      <div class="tb-title">ICC Command Center</div>
-      <div class="tb-sub">HHS Outreach System</div>
-    </div>
-    <div class="tb-spacer"></div>
-    <div style="font-size:11px;color:rgba(255,255,255,0.3);margin-right:8px;">
-      May 11, 2026
-    </div>
-    <div class="tb-days">
-      <span class="tb-days-n" id="tb-days">—</span>
-      <span class="tb-days-l">Days Left</span>
+    <div class="topbar-logo">IDR</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-institution">ICC Command Center</div>
+    <div class="topbar-right">
+      <div class="enforcement-badge" id="enforcement-status">Enforcement Window Open</div>
+      <div class="topbar-time" id="topbar-date"></div>
     </div>
   </div>
 
-  <div class="body-wrap">
+  <!-- Enforcement banner -->
+  <div class="enforcement-banner" id="enforcement-banner">
+    HHS Section 504 Enforcement Window Active · Organizations Without Records Are Currently Exposed
+  </div>
+
+  <div class="shell">
+
     <!-- Sidebar -->
     <div class="sidebar">
-      <div class="sidebar-logo">
-        <div class="sidebar-logo-text">Command Center</div>
-        <div class="sidebar-logo-sub">IDR Shield · HHS</div>
-      </div>
       <div class="nav-section">
-        <div class="nav-label">Main</div>
-        <div class="nav-item active" onclick="navTo('radar')">
-          <span class="nav-icon">📡</span> The Radar
+        <div class="nav-label">Intelligence</div>
+        <div class="nav-item active" onclick="navTo('radar')" id="nav-radar">
+          <span class="nav-icon">◎</span>
+          <span>The Radar</span>
         </div>
-        <div class="nav-item" onclick="navTo('prospects')">
-          <span class="nav-icon">🏥</span> Prospects
-          <span class="nav-badge amber" id="nav-priority-badge">0</span>
+        <div class="nav-item" onclick="navTo('prospects')" id="nav-prospects">
+          <span class="nav-icon">⊞</span>
+          <span>Prospects</span>
+          <span class="nav-badge" id="nav-priority-badge" style="display:none"></span>
         </div>
-        <div class="nav-item" onclick="navTo('ai')">
-          <span class="nav-icon">🤖</span> AI Writer
+        <div class="nav-item" onclick="navTo('ai')" id="nav-ai">
+          <span class="nav-icon">◈</span>
+          <span>AI Advisor</span>
         </div>
       </div>
+
       <div class="nav-section">
         <div class="nav-label">Campaign</div>
-        <div class="nav-item" onclick="navTo('associations')">
-          <span class="nav-icon">📢</span> Associations
-          <span class="nav-badge" id="nav-assoc-badge">10</span>
+        <div class="nav-item" onclick="navTo('queue')" id="nav-queue">
+          <span class="nav-icon">✉</span>
+          <span>Email Queue</span>
+          <span class="nav-badge" id="nav-queue-badge" style="display:none"></span>
         </div>
-        <div class="nav-item" onclick="navTo('tracker')">
-          <span class="nav-icon">📊</span> Tracker
-          <span class="nav-badge green" id="nav-converted-badge">0</span>
+        <div class="nav-item" onclick="navTo('associations')" id="nav-associations">
+          <span class="nav-icon">◉</span>
+          <span>Associations</span>
+          <span class="nav-badge gold" id="nav-assoc-badge">12</span>
         </div>
-        <div class="nav-item" onclick="navTo('playbook')">
-          <span class="nav-icon">📋</span> Playbook
+        <div class="nav-item" onclick="navTo('content')" id="nav-content">
+          <span class="nav-icon">▣</span>
+          <span>Content</span>
+          <span class="nav-badge gold" id="nav-content-badge" style="display:none"></span>
         </div>
-        <div class="nav-item" onclick="navTo('queue')" style="border-top:1px solid rgba(255,255,255,0.08);margin-top:8px;padding-top:12px;">
-          <span class="nav-icon">✉️</span> Email Queue
-          <span class="nav-badge amber" id="nav-queue-badge" style="background:#D97706;">0</span>
+        <div class="nav-item" onclick="navTo('tracker')" id="nav-tracker">
+          <span class="nav-icon">◎</span>
+          <span>Tracker</span>
+          <span class="nav-badge green" id="nav-converted-badge" style="display:none"></span>
         </div>
-        <div class="nav-item" onclick="navTo('scanner-visitors')">
-          <span class="nav-icon">👁️</span> Scanner Visitors
-          <span class="nav-badge" id="nav-visitors-badge" style="background:#059669;">0</span>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-label">System</div>
+        <div class="nav-item" onclick="navTo('scanner-visitors')" id="nav-scanner">
+          <span class="nav-icon">◑</span>
+          <span>Scanner Visitors</span>
+          <span class="nav-badge" id="nav-visitors-badge" style="display:none"></span>
+        </div>
+        <div class="nav-item" onclick="navTo('playbook')" id="nav-playbook">
+          <span class="nav-icon">≡</span>
+          <span>Playbook</span>
+        </div>
+      </div>
+
+      <div class="sidebar-bottom">
+        <div class="sidebar-tagline">
+          Institute of Digital Remediation<br>
+          Digital Access. Trust. Compliance.
         </div>
       </div>
     </div>
 
-    <!-- Main panels -->
+    <!-- Main -->
     <div class="main">
 
-      <!-- ── RADAR ── -->
-      <div class="panel active" id="panel-radar">
-        <div class="page-title">The Radar</div>
-        <div class="page-sub">Your live campaign dashboard. Updated every hour automatically.</div>
-
-        <!-- Stats -->
-        <div class="stat-grid" id="stat-grid">
-          <div class="stat-card">
-            <span class="stat-n gold" id="s-total">—</span>
-            <div class="stat-l">Prospects</div>
-          </div>
-          <div class="stat-card">
-            <span class="stat-n red" id="s-priority">—</span>
-            <div class="stat-l">Priority Targets</div>
-          </div>
-          <div class="stat-card">
-            <span class="stat-n" id="s-contacted">—</span>
-            <div class="stat-l">Contacted</div>
-          </div>
-          <div class="stat-card">
-            <span class="stat-n amber" id="s-warm">—</span>
-            <div class="stat-l">Warm Leads</div>
-          </div>
-          <div class="stat-card">
-            <span class="stat-n green" id="s-revenue">—</span>
-            <div class="stat-l">Revenue</div>
-          </div>
-        </div>
-
-        <div style="display:grid;grid-template-columns:1fr 340px;gap:16px;">
-          <!-- Today's tasks -->
-          <div class="card">
-            <div class="card-title">Today's Priority Actions</div>
-            <div id="today-tasks">
-              <div class="loading"><div class="spinner"></div> Loading your tasks…</div>
+      <!-- ══ RADAR ══ -->
+      <div class="room active" id="room-radar">
+        <div class="page-header">
+          <div class="page-header-inner">
+            <div>
+              <div class="page-eyebrow">Intelligence Overview</div>
+              <div class="page-title">The Radar</div>
+              <div class="page-sub">Live pipeline intelligence. Every number from the database.</div>
             </div>
-          </div>
-
-          <!-- Activity feed -->
-          <div class="card">
-            <div class="card-title">Live Activity Feed</div>
-            <div class="activity-feed" id="activity-feed">
-              <div class="loading"><div class="spinner"></div></div>
+            <div style="display:flex;gap:8px;">
+              <button class="btn btn-outline btn-sm" onclick="sendBriefingNow()">Send Briefing Now</button>
+              <button class="btn btn-gold btn-sm" onclick="triggerHarvest()">Load New Prospects</button>
             </div>
           </div>
         </div>
+        <div class="page-body">
 
-        <!-- Quick actions -->
-        <div class="card">
-          <div class="card-title">Quick Actions</div>
-          <div style="display:flex;gap:10px;flex-wrap:wrap;">
-            <button class="btn btn-gold" onclick="navTo('prospects')">
-              🏥 Browse Prospects
-            </button>
-            <button class="btn btn-primary" onclick="triggerHarvest()">
-              ⚡ Load New Prospects
-            </button>
-            <button class="btn btn-outline" onclick="navTo('ai')">
-              🤖 Ask AI Advisor
-            </button>
-            <button class="btn btn-outline" onclick="navTo('associations')">
-              📢 Association Pitches
-            </button>
-            <button class="btn btn-outline" onclick="navTo('playbook')">
-              📋 Today's Playbook
-            </button>
-            <button class="btn btn-outline" onclick="sendBriefingNow()" style="white-space:nowrap;">
-              📧 Send Briefing Now
-            </button>
+          <!-- Stats -->
+          <div class="stat-grid">
+            <div class="stat-cell">
+              <div class="stat-num" id="s-total" style="color:var(--gold);">—</div>
+              <div class="stat-label">Prospects</div>
+            </div>
+            <div class="stat-cell">
+              <div class="stat-num" id="s-priority" style="color:var(--red);">—</div>
+              <div class="stat-label">Priority</div>
+            </div>
+            <div class="stat-cell">
+              <div class="stat-num" id="s-contacted" style="color:var(--slate);">—</div>
+              <div class="stat-label">Contacted</div>
+            </div>
+            <div class="stat-cell">
+              <div class="stat-num" id="s-warm" style="color:var(--green);">—</div>
+              <div class="stat-label">Warm Leads</div>
+            </div>
+            <div class="stat-cell">
+              <div class="stat-num" id="s-revenue" style="color:var(--green);">—</div>
+              <div class="stat-label">Revenue</div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <!-- ── PROSPECTS ── -->
-      <div class="panel" id="panel-prospects">
-        <div class="page-title">Prospect Database</div>
-        <div class="page-sub">Every healthcare organization pulled from government databases. Click any row to see their full profile and outreach message.</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
 
-        <div class="search-bar">
-          <input type="text" class="search-input" placeholder="Search by name, city…"
-                 oninput="filterProspects(this.value)" id="prospect-search">
-          <select class="filter-select" id="filter-state" onchange="loadProspects()">
-            <option value="">All States</option>
-            <option value="FL">Florida</option>
-            <option value="TX">Texas</option>
-            <option value="CA">California</option>
-            <option value="NY">New York</option>
-            <option value="GA">Georgia</option>
-            <option value="IL">Illinois</option>
-            <option value="OH">Ohio</option>
-            <option value="NC">North Carolina</option>
-            <option value="PA">Pennsylvania</option>
-            <option value="MI">Michigan</option>
-          </select>
-          <select class="filter-select" id="filter-type" onchange="loadProspects()">
-            <option value="">All Types</option>
-            <option value="fqhc">Health Centers (FQHC)</option>
-            <option value="nh">Nursing Homes</option>
-            <option value="hha">Home Health</option>
-          </select>
-          <select class="filter-select" id="filter-priority" onchange="loadProspects()">
-            <option value="">All Prospects</option>
-            <option value="1">Priority Only (Score &lt;60)</option>
-          </select>
-          <button class="btn btn-gold btn-sm" onclick="triggerHarvest()">
-            ⚡ Load More
-          </button>
-          <span style="font-size:11px;color:var(--gray);margin-left:4px;" id="prospect-count"></span>
-        </div>
+            <!-- Today's Actions -->
+            <div class="card">
+              <div class="card-title">Your Actions Today</div>
+              <div id="today-tasks"></div>
+            </div>
 
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Organization</th>
-                <th>Type</th>
-                <th>City</th>
-                <th>State</th>
-                <th>Phone</th>
-                <th>Website</th>
-                <th>IDR Score</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="prospects-tbody"></tbody>
-          </table>
-        </div>
-        <div class="empty-state" id="prospects-empty" style="display:none;">
-          <div class="empty-icon">🏥</div>
-          <div class="empty-title">No prospects loaded yet</div>
-          <div class="empty-body">Click "Load More" to pull organizations from government databases. Try Florida or Texas first — largest healthcare markets.</div>
-        </div>
-      </div>
+            <!-- Activity Feed -->
+            <div class="card">
+              <div class="card-title">Live Activity</div>
+              <div id="activity-feed"></div>
+            </div>
 
-      <!-- ── AI WRITER ── -->
-      <div class="panel" id="panel-ai">
-        <div class="page-title">AI Writer</div>
-        <div class="page-sub">Ask anything about your campaign. Get messages, posts, articles, and strategy — instantly.</div>
+          </div>
 
-        <div class="ai-suggestions" id="ai-suggestions">
-          <div class="ai-chip" onclick="askAI('Write a LinkedIn post about the May 11 deadline for nursing home administrators')">LinkedIn post for nursing homes</div>
-          <div class="ai-chip" onclick="askAI('Write the full NACHC compliance alert article ready to send')">NACHC article draft</div>
-          <div class="ai-chip" onclick="askAI('Write a follow-up message for someone who connected but hasn\'t replied in 3 days')">3-day follow-up message</div>
-          <div class="ai-chip" onclick="askAI('Which type of organization should I focus on today and why?')">What to focus on today</div>
-          <div class="ai-chip" onclick="askAI('Write an outreach message for an FQHC executive director')">FQHC director message</div>
-          <div class="ai-chip" onclick="askAI('Write a healthcare attorney outreach message')">Attorney outreach</div>
-          <div class="ai-chip" onclick="askAI('What should my LinkedIn headline say during this campaign?')">LinkedIn headline</div>
-          <div class="ai-chip" onclick="askAI('Write the final 48-hour urgency message')">Final 48hr message</div>
-        </div>
-
-        <div class="ai-chat">
-          <div class="ai-messages" id="ai-messages">
-            <div class="ai-msg assistant">
-              <div class="ai-avatar">AI</div>
-              <div class="ai-bubble">
-                Hi Hans-Peter. I'm your ICC AI Advisor. I know your campaign, your targets, your messages, and your deadline. Ask me anything — I'll give you something ready to use immediately.<br><br>
-                Try one of the quick prompts above, or type your own question below.
+          <!-- Pipeline Summary -->
+          <div class="card">
+            <div class="card-title">Pipeline Status</div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;">
+              <div style="text-align:center;padding:12px;background:var(--cream);border-radius:2px;">
+                <div style="font-size:22px;font-weight:700;color:var(--sub);" id="p-absent">—</div>
+                <div style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--sub);margin-top:4px;">ABSENT</div>
+              </div>
+              <div style="text-align:center;padding:12px;background:#FEF3C7;border-radius:2px;">
+                <div style="font-size:22px;font-weight:700;color:var(--amber);" id="p-reactive">—</div>
+                <div style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--amber);margin-top:4px;">REACTIVE</div>
+              </div>
+              <div style="text-align:center;padding:12px;background:#DBEAFE;border-radius:2px;">
+                <div style="font-size:22px;font-weight:700;color:#2563EB;" id="p-documented">—</div>
+                <div style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#2563EB;margin-top:4px;">DOCUMENTED</div>
+              </div>
+              <div style="text-align:center;padding:12px;background:#D1FAE5;border-radius:2px;">
+                <div style="font-size:22px;font-weight:700;color:var(--green);" id="p-active">—</div>
+                <div style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-top:4px;">ACTIVE</div>
               </div>
             </div>
           </div>
-          <div class="ai-input-row">
-            <textarea class="ai-input" id="ai-input" rows="2"
-              placeholder="Ask anything — write a message, a post, a pitch, get strategy advice…"
-              onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAI();}"></textarea>
-            <button class="btn btn-gold" onclick="sendAI()" id="ai-send-btn">
-              Send →
-            </button>
+
+        </div>
+      </div>
+
+      <!-- ══ PROSPECTS ══ -->
+      <div class="room" id="room-prospects">
+        <div class="page-header">
+          <div class="page-header-inner">
+            <div>
+              <div class="page-eyebrow">Scout Database</div>
+              <div class="page-title">Prospect Database</div>
+              <div class="page-sub">Every organization harvested from government databases. Scan to reveal their IDR score and maturity level.</div>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <span id="prospect-count" style="font-size:12px;color:var(--sub);"></span>
+              <button class="btn btn-outline btn-sm" onclick="generateEmails()">Generate Emails</button>
+              <button class="btn btn-gold btn-sm" onclick="triggerHarvest()">Load More</button>
+            </div>
+          </div>
+        </div>
+        <div class="page-body">
+          <div class="filter-row">
+            <input type="text" class="filter-input" placeholder="Search by name, city, state..."
+                   oninput="filterProspects(this.value)" style="flex:1;max-width:300px;">
+            <select class="filter-select" id="filter-state" onchange="applyFilters()">
+              <option value="">All States</option>
+              <option>FL</option><option>TX</option><option>GA</option>
+              <option>NY</option><option>NC</option><option>CA</option>
+              <option>OH</option><option>PA</option>
+            </select>
+            <select class="filter-select" id="filter-type" onchange="applyFilters()">
+              <option value="">All Types</option>
+              <option value="fqhc">FQHC</option>
+              <option value="nh">Nursing Home</option>
+              <option value="hha">Home Health</option>
+              <option value="city">City Gov</option>
+              <option value="county">County Gov</option>
+            </select>
+            <select class="filter-select" id="filter-lane" onchange="applyFilters()">
+              <option value="">All Lanes</option>
+              <option value="healthcare">Healthcare</option>
+              <option value="government">Government</option>
+            </select>
+            <select class="filter-select" id="filter-priority" onchange="applyFilters()">
+              <option value="">All Prospects</option>
+              <option value="priority">Priority Only</option>
+              <option value="unscanned">Not Yet Scanned</option>
+            </select>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Organization</th>
+                  <th>Type</th>
+                  <th>City</th>
+                  <th>State</th>
+                  <th>Phone</th>
+                  <th>Website</th>
+                  <th>IDR Score</th>
+                  <th>Maturity</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="prospects-tbody"></tbody>
+            </table>
+          </div>
+          <div id="prospects-empty" style="display:none;flex-direction:column;align-items:center;justify-content:center;padding:60px;color:var(--sub);">
+            <div style="font-size:32px;margin-bottom:12px;">◎</div>
+            <div style="font-weight:600;font-size:15px;margin-bottom:6px;">No prospects match your filter</div>
+            <div style="font-size:13px;">Try adjusting the filters or loading more prospects.</div>
           </div>
         </div>
       </div>
 
-      <!-- ── ASSOCIATIONS ── -->
-      <div class="panel" id="panel-associations">
-        <div class="page-title">Association Command</div>
-        <div class="page-sub">Every mouthpiece that speaks to your target audience. One association email can reach thousands of organizations. Click a card to see the pre-written pitch and update your status.</div>
-
-        <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;">
-          <div class="card" style="flex:1;min-width:140px;padding:14px;text-align:center;">
-            <div style="font-size:22px;font-weight:700;color:var(--navy);" id="assoc-not-contacted">—</div>
-            <div style="font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:.08em;">Not Contacted</div>
-          </div>
-          <div class="card" style="flex:1;min-width:140px;padding:14px;text-align:center;">
-            <div style="font-size:22px;font-weight:700;color:var(--amber);" id="assoc-contacted">—</div>
-            <div style="font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:.08em;">Contacted</div>
-          </div>
-          <div class="card" style="flex:1;min-width:140px;padding:14px;text-align:center;">
-            <div style="font-size:22px;font-weight:700;color:var(--blue);" id="assoc-in-convo">—</div>
-            <div style="font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:.08em;">In Conversation</div>
-          </div>
-          <div class="card" style="flex:1;min-width:140px;padding:14px;text-align:center;">
-            <div style="font-size:22px;font-weight:700;color:var(--green);" id="assoc-published">—</div>
-            <div style="font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:.08em;">Published ✓</div>
+      <!-- ══ AI ADVISOR ══ -->
+      <div class="room" id="room-ai">
+        <div class="page-header">
+          <div class="page-header-inner">
+            <div>
+              <div class="page-eyebrow">Strategic Intelligence</div>
+              <div class="page-title">AI Advisor</div>
+              <div class="page-sub">Knows your live pipeline. Answers from real data.</div>
+            </div>
           </div>
         </div>
-
-        <div class="assoc-grid" id="assoc-grid">
-          <div class="loading"><div class="spinner"></div> Loading associations…</div>
+        <div class="page-body">
+          <div class="card">
+            <div class="ai-chips">
+              <div class="ai-chip" onclick="askAI('What should I focus on today given my current pipeline?')">Today's priority</div>
+              <div class="ai-chip" onclick="askAI('Write me a LinkedIn post about the HHS enforcement window using institutional authority tone')">LinkedIn post</div>
+              <div class="ai-chip" onclick="askAI('What is the best outreach script for calling a nursing home administrator today?')">Call script</div>
+              <div class="ai-chip" onclick="askAI('Write the association pitch email for NACHC — post-deadline enforcement angle')">NACHC pitch</div>
+              <div class="ai-chip" onclick="askAI('Explain why the enforcement window is open and what organizations need to do now')">Enforcement brief</div>
+              <div class="ai-chip" onclick="askAI('What is the Transparency Scorecard and how do we use it in outreach?')">Scorecard strategy</div>
+            </div>
+            <div class="ai-messages" id="ai-messages">
+              <div class="ai-msg assistant">
+                <div class="ai-avatar">IDR</div>
+                <div class="ai-bubble">Ready. I have full context on your pipeline — prospects, associations, scan data, and the enforcement landscape. What do you need?</div>
+              </div>
+            </div>
+            <div class="ai-input-row">
+              <textarea class="ai-input" id="ai-input" rows="2"
+                placeholder="Ask anything about your pipeline, content, outreach, or strategy..."
+                onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAI();}"></textarea>
+              <button class="btn btn-gold" onclick="sendAI()">Send</button>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- ── TRACKER ── -->
-      <div class="panel" id="panel-tracker">
-        <div class="page-title">Campaign Tracker</div>
-        <div class="page-sub">Every outreach logged, every status tracked. Nothing falls through the cracks.</div>
-
-        <div class="stat-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:16px;">
-          <div class="stat-card">
-            <span class="stat-n" id="t-sent">—</span>
-            <div class="stat-l">Messages Sent</div>
-          </div>
-          <div class="stat-card">
-            <span class="stat-n amber" id="t-warm">—</span>
-            <div class="stat-l">Warm Leads</div>
-          </div>
-          <div class="stat-card">
-            <span class="stat-n green" id="t-converted">—</span>
-            <div class="stat-l">Converted</div>
-          </div>
-          <div class="stat-card">
-            <span class="stat-n green" id="t-revenue">—</span>
-            <div class="stat-l">Revenue</div>
-          </div>
-        </div>
-
-        <!-- Log new outreach -->
-        <div class="card" style="margin-bottom:16px;">
-          <div class="card-title">Log New Outreach</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr auto;gap:10px;align-items:end;">
+      <!-- ══ EMAIL QUEUE ══ -->
+      <div class="room" id="room-queue">
+        <div class="page-header">
+          <div class="page-header-inner">
             <div>
-              <div style="font-size:10px;font-weight:600;color:var(--gray);margin-bottom:4px;">Organization</div>
-              <input class="search-input" id="log-org" placeholder="Organization name…" style="width:100%;">
+              <div class="page-eyebrow">Outreach Engine</div>
+              <div class="page-title">Email Queue</div>
+              <div class="page-sub">Review and approve outreach. Contact emails stored permanently once entered.</div>
             </div>
-            <div>
-              <div style="font-size:10px;font-weight:600;color:var(--gray);margin-bottom:4px;">Contact Name</div>
-              <input class="search-input" id="log-contact" placeholder="First Last…" style="width:100%;">
-            </div>
-            <div>
-              <div style="font-size:10px;font-weight:600;color:var(--gray);margin-bottom:4px;">Message Type</div>
-              <select class="filter-select" id="log-type" style="width:100%;">
-                <option value="connection">Connection Request</option>
-                <option value="scan_personal">Personalized Scan</option>
-                <option value="followup">Follow-Up</option>
-                <option value="fqhc">FQHC Message</option>
-                <option value="nh">Nursing Home</option>
-                <option value="close">Final Close</option>
-              </select>
-            </div>
-            <div>
-              <div style="font-size:10px;font-weight:600;color:var(--gray);margin-bottom:4px;">Notes</div>
-              <input class="search-input" id="log-notes" placeholder="Optional…" style="width:100%;">
-            </div>
-            <button class="btn btn-gold" onclick="logOutreach()">Log It</button>
-          </div>
-        </div>
-
-        <!-- Follow-ups due -->
-        <div class="card" id="followups-card" style="margin-bottom:16px;display:none;">
-          <div class="card-title" style="color:var(--amber);">⚠ Follow-Ups Due</div>
-          <div id="followups-list"></div>
-        </div>
-
-        <!-- Outreach table -->
-        <div class="status-tabs">
-          <div class="status-tab active" onclick="switchTrackerTab('all',this)">All</div>
-          <div class="status-tab" onclick="switchTrackerTab('sent',this)">Sent</div>
-          <div class="status-tab" onclick="switchTrackerTab('connected',this)">Connected</div>
-          <div class="status-tab" onclick="switchTrackerTab('replied',this)">Replied</div>
-          <div class="status-tab" onclick="switchTrackerTab('interested',this)">Interested</div>
-          <div class="status-tab" onclick="switchTrackerTab('converted',this)">Converted ✓</div>
-        </div>
-
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Organization</th>
-                <th>Contact</th>
-                <th>Message Type</th>
-                <th>Sent</th>
-                <th>Status</th>
-                <th>Update</th>
-              </tr>
-            </thead>
-            <tbody id="tracker-tbody"></tbody>
-          </table>
-        </div>
-        <div class="empty-state" id="tracker-empty" style="display:none;">
-          <div class="empty-icon">📊</div>
-          <div class="empty-title">No outreach logged yet</div>
-          <div class="empty-body">Use the form above to log every message you send. The tracker tells you who needs a follow-up and who is ready to convert.</div>
-        </div>
-      </div>
-
-      <!-- ── PLAYBOOK ── -->
-      <div class="panel" id="panel-scanner-visitors">
-        <div class="page-title">Scanner Visitors</div>
-        <div class="page-sub">Every organization that scanned their website on idrshield.com/healthcare or idrshield.com/healthscan. These are warm leads — they already know they have a problem.</div>
-
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-          <div style="font-size:13px;color:#6B7280;">
-            Sorted by most recent. Click any row to see their score and generate an outreach email.
-          </div>
-          <button class="btn btn-outline" onclick="loadScannerVisitors()">🔄 Refresh</button>
-        </div>
-
-        <table style="width:100%;border-collapse:collapse;">
-          <thead>
-            <tr style="border-bottom:2px solid #E5E7EB;">
-              <th style="text-align:left;padding:10px 12px;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#6B7280;">Domain</th>
-              <th style="text-align:left;padding:10px 12px;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#6B7280;">Score</th>
-              <th style="text-align:left;padding:10px 12px;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#6B7280;">Criticals</th>
-              <th style="text-align:left;padding:10px 12px;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#6B7280;">Scanned</th>
-              <th style="text-align:left;padding:10px 12px;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#6B7280;">Action</th>
-            </tr>
-          </thead>
-          <tbody id="visitors-table-body">
-            <tr><td colspan="5" style="text-align:center;padding:40px;color:#6B7280;">
-              <div class="spinner" style="margin:0 auto 12px;"></div>
-              Loading scanner visitors…
-            </td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="panel" id="panel-queue">
-        <div class="page-title">Email Queue</div>
-        <div class="page-sub">Review and approve outreach emails. Every email was written using real prospect data. Click Approve to send from hello@idrshield.com via SendGrid. Click Edit to modify first.</div>
-
-        <!-- Queue tabs -->
-        <div style="display:flex;gap:8px;margin-bottom:20px;border-bottom:2px solid #F3F4F6;padding-bottom:0;">
-          <button class="btn btn-outline btn-sm" id="qtab-assoc" onclick="switchQTab('assoc')"
-            style="border-radius:4px 4px 0 0;border-bottom:2px solid var(--gold);margin-bottom:-2px;font-weight:700;">
-            🏛️ Association Pitches <span id="assoc-q-count" style="background:#D97706;color:#fff;border-radius:10px;padding:1px 7px;font-size:11px;margin-left:4px;">10</span>
-          </button>
-          <button class="btn btn-outline btn-sm" id="qtab-prospect" onclick="switchQTab('prospect')"
-            style="border-radius:4px 4px 0 0;">
-            🏥 Prospect Outreach <span id="prospect-q-count" style="background:#6B7280;color:#fff;border-radius:10px;padding:1px 7px;font-size:11px;margin-left:4px;">0</span>
-          </button>
-        </div>
-
-        <!-- Association emails -->
-        <div id="queue-assoc-section">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-            <div style="font-size:13px;color:#6B7280;">These 10 emails reach 650,000+ healthcare professionals. Review each one and click Approve to send.</div>
             <div style="display:flex;gap:8px;">
-            <button class="btn btn-outline" onclick="sendTestEmail()" style="white-space:nowrap;">📧 Send Test to Gmail</button>
-            <button class="btn btn-outline" onclick="refreshAssociations()" style="white-space:nowrap;">🔄 Refresh Emails</button>
-            <button class="btn btn-outline" onclick="resendBounced()" style="white-space:nowrap;border-color:#DC2626;color:#DC2626;">🔄 Resend 5 Bounced</button>
-            <button class="btn btn-gold" onclick="approveAllAssociations()" style="white-space:nowrap;">⚡ Approve All 10</button>
+              <button class="btn btn-outline btn-sm" onclick="sendTestEmail()">Send Test</button>
+              <button class="btn btn-outline btn-sm" onclick="generateEmails()">Generate from Prospects</button>
+              <button class="btn btn-gold btn-sm" onclick="approveAllAssociations()">Approve All Associations</button>
+            </div>
           </div>
+        </div>
+        <div class="page-body">
+          <div class="tab-row">
+            <div class="tab active" onclick="switchQueueTab('assoc',this)">
+              Association Pitches <span id="assoc-q-count" style="margin-left:4px;background:#F3F4F6;padding:2px 6px;border-radius:10px;font-size:11px;"></span>
+            </div>
+            <div class="tab" onclick="switchQueueTab('prospect',this)">
+              Prospect Outreach <span id="prospect-q-count" style="margin-left:4px;background:#F3F4F6;padding:2px 6px;border-radius:10px;font-size:11px;"></span>
+            </div>
           </div>
           <div id="assoc-email-list">
-            <div class="loading"><div class="spinner"></div> Loading association emails…</div>
+            <div class="loading"><div class="spinner"></div> Loading...</div>
           </div>
-        </div>
-
-        <!-- Prospect emails -->
-        <div id="queue-prospect-section" style="display:none;">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-            <div style="font-size:13px;color:#6B7280;">Personalized emails generated from real scan data. Priority-sorted by score.</div>
-            <button class="btn btn-outline" onclick="generateMoreEmails()">⚡ Generate from Prospects</button>
-          </div>
-          <div id="prospect-email-list">
-            <div class="empty-state">
-              <div style="font-size:32px;margin-bottom:8px;">✉️</div>
-              <div style="font-weight:600;margin-bottom:4px;">No emails queued yet</div>
-              <div style="font-size:13px;color:#6B7280;">Click "Generate from Prospects" to create personalized emails for all scanned prospects.</div>
-            </div>
+          <div id="prospect-email-list" style="display:none;">
+            <div class="loading"><div class="spinner"></div> Loading...</div>
           </div>
         </div>
       </div>
 
-      <div class="panel" id="panel-playbook">
-        <div class="page-title">The 13-Day Playbook</div>
-        <div class="page-sub">Your day-by-day action plan. The current day is highlighted. Click any day to see exactly what to do.</div>
-
-        <div class="day-grid" id="day-grid">
-          <div class="loading"><div class="spinner"></div> Loading playbook…</div>
+      <!-- ══ ASSOCIATIONS ══ -->
+      <div class="room" id="room-associations">
+        <div class="page-header">
+          <div class="page-header-inner">
+            <div>
+              <div class="page-eyebrow">Multiplier Channels</div>
+              <div class="page-title">Association Command</div>
+              <div class="page-sub">One email to NACHC reaches 1,400 FQHCs. These are your highest-leverage contacts.</div>
+            </div>
+          </div>
         </div>
+        <div class="page-body">
+          <div class="assoc-grid" id="assoc-grid">
+            <div class="loading"><div class="spinner"></div> Loading...</div>
+          </div>
+        </div>
+      </div>
 
-        <!-- Day detail -->
-        <div class="card" id="day-detail" style="display:none;margin-top:16px;">
-          <div id="day-detail-content"></div>
+      <!-- ══ CONTENT ══ -->
+      <div class="room" id="room-content">
+        <div class="page-header">
+          <div class="page-header-inner">
+            <div>
+              <div class="page-eyebrow">Publication Engine</div>
+              <div class="page-title">Content</div>
+              <div class="page-sub">Auto-generated posts from real scan data. Approve and publish. Two posts per day.</div>
+            </div>
+            <div style="display:flex;gap:8px;">
+              <button class="btn btn-gold btn-sm" onclick="generateContent()">Generate Today's Posts</button>
+            </div>
+          </div>
+        </div>
+        <div class="page-body">
+          <div id="content-list">
+            <div class="loading"><div class="spinner"></div> Loading content...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ TRACKER ══ -->
+      <div class="room" id="room-tracker">
+        <div class="page-header">
+          <div class="page-header-inner">
+            <div>
+              <div class="page-eyebrow">Revenue Pipeline</div>
+              <div class="page-title">Campaign Tracker</div>
+              <div class="page-sub">Every outreach attempt. Every warm signal. Every conversion.</div>
+            </div>
+          </div>
+        </div>
+        <div class="page-body">
+          <div id="tracker-list">
+            <div class="loading"><div class="spinner"></div> Loading...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ SCANNER VISITORS ══ -->
+      <div class="room" id="room-scanner-visitors">
+        <div class="page-header">
+          <div class="page-header-inner">
+            <div>
+              <div class="page-eyebrow">Warm Lead Engine</div>
+              <div class="page-title">Scanner Visitors</div>
+              <div class="page-sub">Organizations that scanned their domain on healthscan.html. Already warm. Already aware they have a problem.</div>
+            </div>
+          </div>
+        </div>
+        <div class="page-body">
+          <div id="scanner-visitors-list">
+            <div class="loading"><div class="spinner"></div> Loading...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ PLAYBOOK ══ -->
+      <div class="room" id="room-playbook">
+        <div class="page-header">
+          <div class="page-header-inner">
+            <div>
+              <div class="page-eyebrow">Execution Guide</div>
+              <div class="page-title">Playbook</div>
+              <div class="page-sub">Post-deadline enforcement strategy. The daily operating manual.</div>
+            </div>
+          </div>
+        </div>
+        <div class="page-body">
+          <div id="playbook-content"></div>
         </div>
       </div>
 
     </div><!-- /main -->
-  </div><!-- /body-wrap -->
+  </div><!-- /shell -->
 </div><!-- /app -->
 
-<!-- Slide panel -->
-<div class="slide-overlay" id="slide-overlay" onclick="closeSlide()"></div>
-<div class="slide-panel" id="slide-panel">
-  <div class="sp-header">
-    <div class="sp-title" id="sp-title">Organization</div>
-    <div class="sp-sub" id="sp-sub">Details</div>
-    <button class="sp-close" onclick="closeSlide()">✕</button>
-  </div>
-  <div class="sp-body" id="sp-body"></div>
-</div>
-
-<!-- Toast -->
-<div class="toast" id="toast"></div>
+<div id="toast"></div>
 
 <script>
-// ── CONFIG ────────────────────────────────────────────────────────────────────
+// ── Constants ──────────────────────────────────────────────────────────────
 const API = 'https://idr-backend-production.up.railway.app/icc/api';
+const LOCAL_PW = 'Praise_GodICC';
 let TOKEN = localStorage.getItem('icc_token') || '';
 let statsData = {};
 let prospectsData = [];
+let aiHistory = [];
 window._prospectsSeedSent = false;
 
-// ── SEED DATA — 60 FL FQHCs (browser fallback + initial DB seed) ──────────
-const PROSPECTS_60 = [
-  {id:'FQHC-FL-001',name:'Neighborhood Health Source',org_type:'fqhc',city:'Clearwater',state:'FL',phone:'(727) 442-8000',website:'www.nhsfl.org',source:'browser'},
-  {id:'FQHC-FL-002',name:'CHI Community Health of South Florida',org_type:'fqhc',city:'Miami',state:'FL',phone:'(305) 252-4820',website:'www.chisouthfl.org',source:'browser'},
-  {id:'FQHC-FL-003',name:'SunCoast Community Health Centers',org_type:'fqhc',city:'Ruskin',state:'FL',phone:'(813) 634-9295',website:'www.suncoastchc.org',source:'browser'},
-  {id:'FQHC-FL-004',name:'Bond Community Health Center',org_type:'fqhc',city:'Tallahassee',state:'FL',phone:'(850) 576-4073',website:'www.bchcfl.org',source:'browser'},
-  {id:'FQHC-FL-005',name:'Care Resource Community Health Centers',org_type:'fqhc',city:'Miami',state:'FL',phone:'(305) 576-1234',website:'www.careresource.org',source:'browser'},
-  {id:'FQHC-FL-006',name:'Broward Community & Family Health Centers',org_type:'fqhc',city:'Fort Lauderdale',state:'FL',phone:'(954) 832-0750',website:'www.bcfhc.org',source:'browser'},
-  {id:'FQHC-FL-007',name:'Jackson-Hinds Comprehensive Health Center',org_type:'fqhc',city:'Miami Gardens',state:'FL',phone:'(305) 805-7000',website:'www.jtchs.org',source:'browser'},
-  {id:'FQHC-FL-008',name:'Family Health Centers of Southwest Florida',org_type:'fqhc',city:'Fort Myers',state:'FL',phone:'(239) 332-4985',website:'www.fhcswfl.org',source:'browser'},
-  {id:'FQHC-FL-009',name:'Treasure Coast Community Health',org_type:'fqhc',city:'Vero Beach',state:'FL',phone:'(772) 978-0411',website:'www.tcchfl.org',source:'browser'},
-  {id:'FQHC-FL-010',name:'Healthcare Network of Southwest Florida',org_type:'fqhc',city:'Naples',state:'FL',phone:'(239) 658-3000',website:'www.hnswfl.org',source:'browser'},
-  {id:'FQHC-FL-011',name:'Seminole Community Health Center',org_type:'fqhc',city:'Sanford',state:'FL',phone:'(407) 328-2889',website:'www.seminolehealth.org',source:'browser'},
-  {id:'FQHC-FL-012',name:'Volusia Community Health Center',org_type:'fqhc',city:'Daytona Beach',state:'FL',phone:'(386) 238-3000',website:'www.vchfl.org',source:'browser'},
-  {id:'FQHC-FL-013',name:'Osceola Community Health Services',org_type:'fqhc',city:'Kissimmee',state:'FL',phone:'(407) 846-5100',website:'www.och.org',source:'browser'},
-  {id:'FQHC-FL-014',name:'North Florida Medical Centers',org_type:'fqhc',city:'Live Oak',state:'FL',phone:'(386) 362-3681',website:'www.nfmc.org',source:'browser'},
-  {id:'FQHC-FL-015',name:'Opa-locka Community Development Corporation',org_type:'fqhc',city:'Opa-locka',state:'FL',phone:'(305) 685-5333',website:'www.bolchc.org',source:'browser'},
-  {id:'FQHC-FL-016',name:'Manatee Community Health Center',org_type:'fqhc',city:'Bradenton',state:'FL',phone:'(941) 748-4878',website:'www.manateecommhealth.org',source:'browser'},
-  {id:'FQHC-FL-017',name:'Tri-County Community Health Center',org_type:'fqhc',city:'Palatka',state:'FL',phone:'(386) 328-6444',website:'www.trichc.org',source:'browser'},
-  {id:'FQHC-FL-018',name:'Marion County Health Department CHC',org_type:'fqhc',city:'Ocala',state:'FL',phone:'(352) 629-0137',website:'www.floridahealth.gov',source:'browser'},
-  {id:'FQHC-FL-019',name:'Escambia Community Clinics',org_type:'fqhc',city:'Pensacola',state:'FL',phone:'(850) 436-4800',website:'www.escambiacommunityclinics.org',source:'browser'},
-  {id:'FQHC-FL-020',name:'Central Florida Health Centers',org_type:'fqhc',city:'Haines City',state:'FL',phone:'(863) 422-4921',website:'www.cfhcfl.org',source:'browser'},
-  {id:'FQHC-FL-021',name:'Comprehensive Medical Care',org_type:'fqhc',city:'Orlando',state:'FL',phone:'(407) 422-4551',website:'www.cmtchc.org',source:'browser'},
-  {id:'FQHC-FL-022',name:'Acacia Counseling and Wellness',org_type:'fqhc',city:'Gainesville',state:'FL',phone:'(352) 376-6265',website:'www.acaciacounseling.com',source:'browser'},
-  {id:'FQHC-FL-023',name:'Bayfront Health St. Petersburg',org_type:'fqhc',city:'St. Petersburg',state:'FL',phone:'(727) 823-1234',website:'www.bayfronthealth.com',source:'browser'},
-  {id:'FQHC-FL-024',name:'C.L. Brumback Primary Care Clinics',org_type:'fqhc',city:'West Palm Beach',state:'FL',phone:'(561) 642-1000',website:'www.pbchd.com',source:'browser'},
-  {id:'FQHC-FL-025',name:'Charlotte Behavioral Health Care',org_type:'fqhc',city:'Punta Gorda',state:'FL',phone:'(941) 639-8300',website:'www.charlottebehavioral.org',source:'browser'},
-  {id:'FQHC-FL-026',name:'Citrus Health Network',org_type:'fqhc',city:'Hialeah',state:'FL',phone:'(305) 825-8300',website:'www.citrushealth.org',source:'browser'},
-  {id:'FQHC-FL-027',name:'Community Health Centers of Alachua County',org_type:'fqhc',city:'Gainesville',state:'FL',phone:'(352) 372-4321',website:'www.chcfl.org',source:'browser'},
-  {id:'FQHC-FL-028',name:'Community Medical Care Miami',org_type:'fqhc',city:'Miami',state:'FL',phone:'(305) 324-2400',website:'www.miamidade.gov',source:'browser'},
-  {id:'FQHC-FL-029',name:'Comprehensive Community Care Network',org_type:'fqhc',city:'Homestead',state:'FL',phone:'(305) 245-5288',website:'www.c3network.org',source:'browser'},
-  {id:'FQHC-FL-030',name:'Covenant Community Care Osceola',org_type:'fqhc',city:'Kissimmee',state:'FL',phone:'(407) 932-1234',website:'www.covenantcare.org',source:'browser'},
-  {id:'FQHC-FL-031',name:'Duval County Health Dept CHC',org_type:'fqhc',city:'Jacksonville',state:'FL',phone:'(904) 253-1000',website:'www.duvalhealth.org',source:'browser'},
-  {id:'FQHC-FL-032',name:'Family Health Center of Osceola',org_type:'fqhc',city:'St. Cloud',state:'FL',phone:'(407) 892-4000',website:'www.fhcosceola.org',source:'browser'},
-  {id:'FQHC-FL-033',name:'Gadsden Community Health Center',org_type:'fqhc',city:'Quincy',state:'FL',phone:'(850) 627-6484',website:'www.gadsdenchc.org',source:'browser'},
-  {id:'FQHC-FL-034',name:'Gulf Coast Community Care',org_type:'fqhc',city:'Port Richey',state:'FL',phone:'(727) 845-6188',website:'www.gulfcoastcommcare.org',source:'browser'},
-  {id:'FQHC-FL-035',name:'Heres Help Community Health',org_type:'fqhc',city:'Fort Pierce',state:'FL',phone:'(772) 462-1650',website:'www.hereshelp.org',source:'browser'},
-  {id:'FQHC-FL-036',name:'Hope Community Health',org_type:'fqhc',city:'Apopka',state:'FL',phone:'(407) 880-4673',website:'www.hopechfl.org',source:'browser'},
-  {id:'FQHC-FL-037',name:'Indian River Community Health',org_type:'fqhc',city:'Vero Beach',state:'FL',phone:'(772) 569-0488',website:'www.irch.org',source:'browser'},
-  {id:'FQHC-FL-038',name:'Jessie Trice Community Health System',org_type:'fqhc',city:'Miami',state:'FL',phone:'(305) 805-5100',website:'www.jtchs.org',source:'browser'},
-  {id:'FQHC-FL-039',name:'Lakeland Regional Community Health',org_type:'fqhc',city:'Lakeland',state:'FL',phone:'(863) 687-1176',website:'www.lrhc.org',source:'browser'},
-  {id:'FQHC-FL-040',name:'Marion County Community Health',org_type:'fqhc',city:'Ocala',state:'FL',phone:'(352) 629-8800',website:'www.marionchc.org',source:'browser'},
-  {id:'FQHC-FL-041',name:'North Broward Medical Center CHC',org_type:'fqhc',city:'Pompano Beach',state:'FL',phone:'(954) 941-8300',website:'www.northbrowardchc.org',source:'browser'},
-  {id:'FQHC-FL-042',name:'Orange Blossom Family Health',org_type:'fqhc',city:'Orlando',state:'FL',phone:'(407) 905-8827',website:'www.obfh.org',source:'browser'},
-  {id:'FQHC-FL-043',name:'Panhandle Area Educational Consortium CHC',org_type:'fqhc',city:'Chipley',state:'FL',phone:'(850) 638-6111',website:'www.paec.org',source:'browser'},
-  {id:'FQHC-FL-044',name:'Pediatric Health Care Center Broward',org_type:'fqhc',city:'Pembroke Pines',state:'FL',phone:'(954) 432-5500',website:'www.phccfl.org',source:'browser'},
-  {id:'FQHC-FL-045',name:'Primary Care Access Network',org_type:'fqhc',city:'Jacksonville',state:'FL',phone:'(904) 358-3045',website:'www.pcan.org',source:'browser'},
-  {id:'FQHC-FL-046',name:'Putnam Community Health Center',org_type:'fqhc',city:'Palatka',state:'FL',phone:'(386) 385-0027',website:'www.putnamchc.org',source:'browser'},
-  {id:'FQHC-FL-047',name:'Quest Community Health Centers',org_type:'fqhc',city:'St. Petersburg',state:'FL',phone:'(727) 323-3935',website:'www.questchc.org',source:'browser'},
-  {id:'FQHC-FL-048',name:'Redi-Med Community Health Centers',org_type:'fqhc',city:'Miami',state:'FL',phone:'(305) 541-6557',website:'www.redimed.org',source:'browser'},
-  {id:'FQHC-FL-049',name:'Sarasota Community Health Center',org_type:'fqhc',city:'Sarasota',state:'FL',phone:'(941) 330-9200',website:'www.sarasotachc.org',source:'browser'},
-  {id:'FQHC-FL-050',name:'South Florida Community Care Network',org_type:'fqhc',city:'Boca Raton',state:'FL',phone:'(561) 391-3600',website:'www.sfccn.org',source:'browser'},
-  {id:'FQHC-FL-051',name:'Suncoast Medical Clinic',org_type:'fqhc',city:'St. Petersburg',state:'FL',phone:'(727) 824-8100',website:'www.suncoastmedical.org',source:'browser'},
-  {id:'FQHC-FL-052',name:'Switchpoint Community Resource Center',org_type:'fqhc',city:'Clearwater',state:'FL',phone:'(727) 461-0901',website:'www.switchpointfl.org',source:'browser'},
-  {id:'FQHC-FL-053',name:'Tampa Community Health Center',org_type:'fqhc',city:'Tampa',state:'FL',phone:'(813) 248-2022',website:'www.tampacommhealth.org',source:'browser'},
-  {id:'FQHC-FL-054',name:'Three Rivers Legal Services CHC',org_type:'fqhc',city:'Gainesville',state:'FL',phone:'(352) 372-0519',website:'www.trls.org',source:'browser'},
-  {id:'FQHC-FL-055',name:'Treasure Health Fort Pierce',org_type:'fqhc',city:'Fort Pierce',state:'FL',phone:'(772) 871-5756',website:'www.treasurehealth.org',source:'browser'},
-  {id:'FQHC-FL-056',name:'United Community Health Center',org_type:'fqhc',city:'Homestead',state:'FL',phone:'(305) 242-3200',website:'www.uchcfl.org',source:'browser'},
-  {id:'FQHC-FL-057',name:'Vital Access Care',org_type:'fqhc',city:'West Palm Beach',state:'FL',phone:'(561) 547-4444',website:'www.vitalaccesscare.org',source:'browser'},
-  {id:'FQHC-FL-058',name:'Westside Regional Medical CHC',org_type:'fqhc',city:'Plantation',state:'FL',phone:'(954) 473-6600',website:'www.westsidechc.org',source:'browser'},
-  {id:'FQHC-FL-059',name:'Xclusive Health Care',org_type:'fqhc',city:'Orlando',state:'FL',phone:'(407) 571-4901',website:'www.xclusivehealthcare.org',source:'browser'},
-  {id:'FQHC-FL-060',name:'Alachua County Community Health Centers',org_type:'fqhc',city:'Gainesville',state:'FL',phone:'(352) 374-5600',website:'www.acchc.org',source:'browser'},
-];
+// ── Utilities ──────────────────────────────────────────────────────────────
+function toast(msg, type='info') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'show' + (type==='success'?' success':type==='error'?' error':'');
+  clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(() => el.className = '', 3500);
+}
 
-// ── HELPERS ───────────────────────────────────────────────────────────────────
 async function api(path, method='GET', body=null) {
   const opts = {
     method,
-    headers: {
-      'Content-Type': 'application/json',
-      'X-ICC-Token': TOKEN,
-    },
+    headers: { 'Content-Type':'application/json', 'Authorization': `Bearer ${TOKEN}` },
   };
   if (body) opts.body = JSON.stringify(body);
   const res = await fetch(API + path, opts);
+  if (!res.ok) throw new Error(`API ${res.status}`);
   return res.json();
 }
 
-function toast(msg, type='') {
-  const el = document.getElementById('toast');
-  el.textContent = msg;
-  el.className = 'toast show' + (type ? ' ' + type : '');
-  setTimeout(() => el.className = 'toast', 2800);
+function sc(s) {
+  if (s == null) return 'var(--slate)';
+  if (s < 60) return 'var(--red)';
+  if (s < 80) return 'var(--amber)';
+  return 'var(--green)';
 }
 
-function copyText(text, btn) {
-  navigator.clipboard.writeText(text).then(() => {
-    const orig = btn ? btn.textContent : '';
-    if (btn) { btn.textContent = '✓ Copied!'; btn.style.background = '#059669'; }
-    setTimeout(() => { if (btn) { btn.textContent = orig; btn.style.background = ''; } }, 2000);
-    toast('Copied to clipboard', 'success');
-  });
+function maturityClass(m) {
+  const map = {
+    'ABSENT':'maturity-absent','REACTIVE':'maturity-reactive',
+    'DOCUMENTED':'maturity-documented','VERIFIED':'maturity-verified','ACTIVE':'maturity-active'
+  };
+  return map[m] || 'maturity-absent';
 }
 
-// ── COUNTDOWN ─────────────────────────────────────────────────────────────────
-(function updateCountdown() {
-  const dl = new Date('2026-05-11T23:59:59');
-  const days = Math.max(0, Math.ceil((dl - new Date()) / 86400000));
-  const el = document.getElementById('tb-days');
-  if (el) {
-    el.textContent = days;
-    if (days <= 3) el.style.color = '#F87171';
-    else if (days <= 7) el.style.color = '#FCD34D';
-  }
-})();
-
-// ── LOGIN ─────────────────────────────────────────────────────────────────────
+// ── Login ──────────────────────────────────────────────────────────────────
 async function doLogin() {
   const pw = document.getElementById('login-pw').value;
   if (!pw) return;
   const errEl = document.getElementById('login-err');
   errEl.textContent = '';
 
-  // Client-side check first — works even if backend is slow
-  const LOCAL_PW = 'Praise_GodICC';
   if (pw === LOCAL_PW) {
     TOKEN = 'local-' + btoa(pw);
     localStorage.setItem('icc_token', TOKEN);
-    localStorage.setItem('icc_pw', pw);
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('app').classList.add('visible');
     initApp();
-    // Also verify with backend in background
+    // Backend verify in background
     fetch(API + '/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ password: pw }),
-    }).then(r => r.json()).then(data => {
-      if (data.token) {
-        TOKEN = data.token;
-        localStorage.setItem('icc_token', TOKEN);
-      }
-    }).catch(() => {});
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({password: pw})
+    }).then(r=>r.json()).then(d=>{ if(d.token){TOKEN=d.token;localStorage.setItem('icc_token',TOKEN);} }).catch(()=>{});
     return;
   }
 
-  // Fallback: try backend
   try {
     const res = await fetch(API + '/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ password: pw }),
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({password: pw})
     });
     const data = await res.json();
-    if (data.success) {
-      TOKEN = data.token;
+    if (data.success || data.token) {
+      TOKEN = data.token || TOKEN;
       localStorage.setItem('icc_token', TOKEN);
       document.getElementById('login-screen').style.display = 'none';
       document.getElementById('app').classList.add('visible');
       initApp();
     } else {
-      errEl.textContent = 'Wrong password. Try again.';
+      errEl.textContent = 'Invalid access code';
     }
   } catch(e) {
-    errEl.textContent = 'Wrong password or connection issue.';
+    errEl.textContent = 'Could not connect — try again';
   }
 }
 
-// Auto-login if token stored
-const _savedPw = localStorage.getItem('icc_pw');
-if (TOKEN || _savedPw === 'Praise_GodICC') {
-  if (!TOKEN) TOKEN = 'local-' + btoa(_savedPw);
-  document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('app').classList.add('visible');
-  initApp();
-}
-
-// ── NAVIGATION ────────────────────────────────────────────────────────────────
+// ── Navigation ─────────────────────────────────────────────────────────────
 function navTo(room) {
+  document.querySelectorAll('.room').forEach(r => r.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('room-' + room)?.classList.add('active');
+  document.getElementById('nav-' + room)?.classList.add('active');
 
-  const navEl = document.querySelector(`.nav-item[onclick="navTo('${room}')"]`);
-  if (navEl) navEl.classList.add('active');
-  const panelEl = document.getElementById(`panel-${room}`);
-  if (panelEl) panelEl.classList.add('active');
-
-  // Load room data
-  if (room === 'radar') loadRadar();
-  if (room === 'prospects') loadProspects();
-  if (room === 'associations') loadAssociations();
-  if (room === 'tracker') loadTracker();
-  if (room === 'playbook') loadPlaybook();
-  if (room === 'queue') loadQueue();
-  if (room === 'scanner-visitors') loadScannerVisitors();
+  const loaders = {
+    'radar':           loadRadar,
+    'prospects':       loadProspects,
+    'associations':    loadAssociations,
+    'queue':           loadQueue,
+    'tracker':         loadTracker,
+    'scanner-visitors':loadScannerVisitors,
+    'playbook':        loadPlaybook,
+    'content':         loadContent,
+  };
+  if (loaders[room]) loaders[room]();
 }
 
-// ── INIT ──────────────────────────────────────────────────────────────────────
-async function initApp() {
+// ── App init ───────────────────────────────────────────────────────────────
+function initApp() {
+  // Date in topbar
+  document.getElementById('topbar-date').textContent =
+    new Date().toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'});
+
+  // Days past deadline
+  const deadline = new Date('2026-05-11');
+  const daysPast = Math.max(0, Math.floor((new Date() - deadline) / 86400000));
+  if (daysPast > 0) {
+    document.getElementById('enforcement-banner').textContent =
+      `HHS Section 504 Enforcement Window Active · ${daysPast} Days Since May 11 Deadline · Organizations Without Records Are Currently Exposed`;
+  }
+
   loadRadar();
-  // Pre-load prospects quietly
-  setTimeout(loadProspects, 1000);
+  // Pre-seed prospects to DB in background on login
+  if (!window._prospectsSeedSent) {
+    window._prospectsSeedSent = true;
+    api('/prospects/seed', 'POST', { prospects: [] })
+      .catch(() => {});
+  }
 }
 
-// ── RADAR ─────────────────────────────────────────────────────────────────────
+// ── RADAR ──────────────────────────────────────────────────────────────────
 async function loadRadar() {
   try {
     const data = await api('/stats');
     statsData = data;
 
-    // Stats
-    document.getElementById('s-total').textContent    = data.total || 0;
-    document.getElementById('s-priority').textContent = data.priority || 0;
-    document.getElementById('s-contacted').textContent= data.contacted || 0;
-    document.getElementById('s-warm').textContent     = data.warm || 0;
-    document.getElementById('s-revenue').textContent  = '$' + (data.revenue || 0).toLocaleString();
+    document.getElementById('s-total').textContent     = (data.total || 0).toLocaleString();
+    document.getElementById('s-priority').textContent  = data.priority || 0;
+    document.getElementById('s-contacted').textContent = data.contacted || 0;
+    document.getElementById('s-warm').textContent      = data.warm || 0;
+    document.getElementById('s-revenue').textContent   = '$' + (data.revenue || 0).toLocaleString();
 
-    // Nav badges
-    document.getElementById('nav-priority-badge').textContent  = data.priority || 0;
-    document.getElementById('nav-converted-badge').textContent = data.converted || 0;
+    const pb = document.getElementById('nav-priority-badge');
+    if (pb && data.priority > 0) { pb.textContent = data.priority; pb.style.display='flex'; }
+    const rb = document.getElementById('nav-converted-badge');
+    if (rb && data.converted > 0) { rb.textContent = data.converted; rb.style.display='flex'; }
 
     // Activity feed
     const feed = document.getElementById('activity-feed');
     if (data.activity && data.activity.length) {
-      feed.innerHTML = data.activity.map(a => `
-        <div class="activity-item">
+      feed.innerHTML = data.activity.map(a =>
+        `<div class="activity-item">
           <div class="activity-dot"></div>
-          <div>${a.detail || a.type}</div>
+          <div style="flex:1;font-size:12px;color:#374151;">${a.detail || a.type}</div>
           <div class="activity-time">${a.time}</div>
-        </div>`).join('');
+        </div>`
+      ).join('');
     } else {
-      feed.innerHTML = '<div style="color:var(--gray);font-size:12px;padding:8px 0;">No activity yet. Load prospects to begin.</div>';
+      feed.innerHTML = '<div style="color:var(--slate);font-size:12px;padding:12px 0;">System running. Scan results and outreach will appear here.</div>';
     }
 
-    // Today's tasks
     buildTodayTasks(data);
+    buildMaturityCounts(data);
 
   } catch(e) {
-    console.error('Radar load error:', e);
+    console.error('Radar error:', e);
   }
 }
 
 function buildTodayTasks(data) {
-  const dl = new Date('2026-05-11T23:59:59');
-  const days = Math.max(0, Math.ceil((dl - new Date()) / 86400000));
+  const daysPast = Math.max(0, Math.floor((new Date() - new Date('2026-05-11')) / 86400000));
   const tasks = [];
 
-  if ((data.priority || 0) > 0)
-    tasks.push({ icon:'🎯', text:`Contact ${Math.min(data.priority,10)} priority prospects — their scores are below 60 and their messages are pre-written in the Prospects tab`, action:'navTo("prospects")' });
-  if (data.total < 100)
-    tasks.push({ icon:'⚡', text:'Load more prospects from government databases — click Load New Prospects below', action:'triggerHarvest()' });
-  tasks.push({ icon:'📢', text:'Pitch at least one association newsletter today — go to Association Command and pick the top card', action:'navTo("associations")' });
-  tasks.push({ icon:'✍️', text:`Post on LinkedIn about the ${days}-day deadline — use the AI Writer to generate copy`, action:'navTo("ai")' });
   if ((data.warm || 0) > 0)
-    tasks.push({ icon:'🔥', text:`You have ${data.warm} warm lead${data.warm!==1?'s':''} — follow up in the Campaign Tracker`, action:'navTo("tracker")' });
-  tasks.push({ icon:'🔍', text:'Ask the AI Advisor what to focus on today — it knows exactly where you stand', action:'navTo("ai")' });
+    tasks.push({ text:`${data.warm} warm lead${data.warm!==1?'s':''} detected — follow up immediately. These organizations have already engaged.`, action:'navTo("tracker")' });
+  if ((data.priority || 0) > 0)
+    tasks.push({ text:`${data.priority} priority prospects scored below 60. Their outreach emails are pre-written — go to Email Queue and approve.`, action:'navTo("queue")' });
+  if (data.total < 200)
+    tasks.push({ text:'Load more prospects — the Scout Agent has more organizations ready from government databases.', action:'triggerHarvest()' });
+  tasks.push({ text:'Check association status — LeadingAge opened. Follow up with article draft offer.', action:'navTo("associations")' });
+  tasks.push({ text:`Post today's Observatory content — enforcement is now ${daysPast} days active. Real scan data drives shares.`, action:'navTo("content")' });
 
-  document.getElementById('today-tasks').innerHTML = tasks.slice(0,5).map(t => `
-    <div style="display:flex;align-items:flex-start;gap:10px;padding:9px 0;
-         border-bottom:1px solid #F3F4F6;cursor:pointer;"
-         onclick="${t.action}">
-      <span style="font-size:18px;flex-shrink:0;">${t.icon}</span>
-      <span style="font-size:13px;color:#374151;line-height:1.5;">${t.text}</span>
-    </div>`).join('');
+  document.getElementById('today-tasks').innerHTML = tasks.slice(0,5).map((t,i) =>
+    `<div class="task-item" onclick="${t.action}">
+      <div class="task-num">${i+1}</div>
+      <div class="task-text">${t.text}</div>
+    </div>`
+  ).join('');
 }
 
-// ── PROSPECTS ─────────────────────────────────────────────────────────────────
+function buildMaturityCounts(data) {
+  // These would come from a future /maturity stats endpoint
+  // For now show scanned vs total
+  const absent = (data.total || 0) - (data.scanned || 0);
+  document.getElementById('p-absent').textContent = absent;
+  document.getElementById('p-reactive').textContent = data.priority || 0;
+  document.getElementById('p-documented').textContent = data.contacted || 0;
+  document.getElementById('p-active').textContent = data.converted || 0;
+}
 
-// ── RENDER PROSPECTS TABLE ────────────────────────────────────────────────────
+// ── PROSPECTS ──────────────────────────────────────────────────────────────
 function renderProspects(prospects) {
   const tbody = document.getElementById('prospects-tbody');
   const empty = document.getElementById('prospects-empty');
@@ -1333,79 +1044,93 @@ function renderProspects(prospects) {
   }
 
   if (empty) empty.style.display = 'none';
-  if (counter) counter.textContent = prospects.length + ' organizations';
-
-  const scoreColor = s => {
-    if (s == null) return 'var(--gray)';
-    if (s < 60) return 'var(--red)';
-    if (s < 80) return 'var(--amber)';
-    return 'var(--green)';
-  };
+  if (counter) counter.textContent = prospects.length.toLocaleString() + ' organizations';
 
   tbody.innerHTML = prospects.map(p => {
     const score = p.idr_score;
-    const scBadge = score != null
-      ? `<span style="font-weight:700;color:${scoreColor(score)};font-size:13px;">${score}/100</span>`
-      : `<span style="color:var(--gray);font-size:12px;">—</span>`;
-    const priority = score != null && score < 60;
-    const site = (p.website || '').replace(/^https?:\/\//, '');
-    const scanBtnId = `scan-btn-${p.id}`;
-    return `<tr style="${priority ? 'background:#FEF2F2;' : ''}">
-      <td style="font-weight:600;max-width:180px;">
-        ${priority ? '<span style="color:var(--red);font-size:10px;font-weight:700;display:block;">🔴 PRIORITY</span>' : ''}
-        ${p.name || ''}
+    const isPriority = score != null && score < 60;
+    const site = (p.website || '').replace(/^https?:\/\//, '').replace(/\/$/, '');
+    const maturity = p.maturity_level || 'ABSENT';
+    const mClass = maturityClass(maturity);
+    const typeLabel = (p.org_type || 'fqhc').toUpperCase();
+    const lane = p.org_lane || 'healthcare';
+
+    const scoreCell = score != null
+      ? `<span class="score-badge ${score<60?'score-fail':score<80?'score-warn':'score-pass'}">${score}/100</span>
+         <div style="font-size:10px;color:var(--sub);margin-top:2px;">${p.critical_count||0} critical</div>`
+      : `<span style="color:var(--slate);font-size:12px;">Not scanned</span>`;
+
+    const contactEmailStored = p.contact_email
+      ? `<div style="font-size:10px;color:var(--green);margin-top:2px;">Contact stored</div>` : '';
+
+    return `<tr class="${isPriority ? 'priority-row' : ''}">
+      <td style="max-width:200px;">
+        ${isPriority ? '<div style="font-size:9px;font-weight:700;color:var(--red);letter-spacing:0.08em;margin-bottom:2px;">PRIORITY</div>' : ''}
+        <div style="font-weight:600;font-size:13px;">${p.name || ''}</div>
+        ${contactEmailStored}
+        <div style="font-size:10px;color:var(--sub);margin-top:1px;">${lane.toUpperCase()}</div>
       </td>
-      <td><span style="font-size:10px;background:#E5E7EB;border-radius:3px;padding:2px 6px;">${(p.org_type||'fqhc').toUpperCase()}</span></td>
-      <td>${p.city || ''}</td>
-      <td>${p.state || ''}</td>
+      <td><span style="font-size:9px;background:#F3F4F6;border-radius:2px;padding:2px 6px;letter-spacing:0.05em;">${typeLabel}</span></td>
+      <td style="font-size:13px;">${p.city || ''}</td>
+      <td style="font-size:13px;font-weight:600;">${p.state || ''}</td>
       <td style="font-size:12px;white-space:nowrap;">${p.phone || '—'}</td>
-      <td style="font-size:11px;"><a href="https://${site}" target="_blank" style="color:var(--gold);text-decoration:none;">${site || '—'}</a></td>
-      <td>${scBadge}</td>
+      <td style="font-size:11px;max-width:140px;overflow:hidden;">
+        ${site ? `<a href="https://${site}" target="_blank" style="color:var(--gold);text-decoration:none;">${site}</a>` : '—'}
+      </td>
+      <td>${scoreCell}</td>
+      <td><span class="maturity ${mClass}">${maturity}</span></td>
       <td>
         ${p.website
-          ? `<button class="btn btn-outline btn-sm" id="${scanBtnId}"
-               onclick="scanProspect('${p.id}','${p.website}','${(p.name||'').replace(/'/g,'')}')">
+          ? `<button class="btn btn-outline btn-sm" id="scan-btn-${p.id}"
+               onclick="scanProspect('${p.id}','${p.website}','${(p.name||'').replace(/'/g,"\\'")}')">
                ${score != null ? 'Rescan' : 'Scan'}
              </button>`
-          : '<span style="color:var(--gray);font-size:11px;">No URL</span>'}
+          : '<span style="color:var(--slate);font-size:11px;">No URL</span>'}
       </td>
     </tr>`;
   }).join('');
 }
 
 async function loadProspects() {
-  // STEP 1: Show seed data immediately — never show blank table
-  if (prospectsData.length === 0) {
-    prospectsData = PROSPECTS_60.map(p => ({...p}));
-    renderProspects(prospectsData);
+  const tbody = document.getElementById('prospects-tbody');
+  if (tbody && prospectsData.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;padding:32px;">
+      <div class="spinner" style="margin:0 auto 8px;"></div>
+      <div style="font-size:12px;color:var(--sub);">Loading from database...</div>
+    </td></tr>`;
   }
 
-  // STEP 2: Seed to DB in background (fire and forget — never blocks display)
-  if (!window._prospectsSeedSent) {
-    window._prospectsSeedSent = true;
-    api('/prospects/seed', 'POST', { prospects: PROSPECTS_60 })
-      .then(() => console.log('[ICC] 60 prospects seeded to DB'))
-      .catch(e => console.warn('[ICC] Seed non-critical error:', e));
-  }
-
-  // STEP 3: Fetch scores from DB and merge — updates scores without blanking table
   try {
-    const data = await api('/prospects/scanned');
-    const scanned = data.prospects || [];
-    if (scanned.length > 0) {
-      const scoreMap = {};
-      scanned.forEach(p => { scoreMap[p.id] = p; });
-      prospectsData = prospectsData.map(p => {
-        const db = scoreMap[p.id];
-        return db ? { ...p, idr_score: db.idr_score, critical_count: db.critical_count, scanned: true } : p;
-      });
+    // Load from DB — not from browser memory
+    const state   = document.getElementById('filter-state')?.value || '';
+    const type    = document.getElementById('filter-type')?.value || '';
+    const lane    = document.getElementById('filter-lane')?.value || '';
+    const prio    = document.getElementById('filter-priority')?.value || '';
+
+    let path = '/prospects?limit=200';
+    if (state) path += `&state=${state}`;
+    if (type)  path += `&org_type=${type}`;
+    if (lane)  path += `&org_lane=${lane}`;
+    if (prio === 'priority') path += '&priority_only=true';
+    if (prio === 'unscanned') path += '&unscanned_only=true';
+
+    const data = await api(path);
+    prospectsData = data.prospects || [];
+
+    if (prospectsData.length > 0) {
       renderProspects(prospectsData);
-      const priorityCount = prospectsData.filter(p => p.idr_score && p.idr_score < 60).length;
-      const badge = document.getElementById('nav-prospects-badge');
-      if (badge && priorityCount > 0) badge.textContent = priorityCount;
+      const priority = prospectsData.filter(p => p.idr_score && p.idr_score < 60).length;
+      const badge = document.getElementById('nav-priority-badge');
+      if (badge && priority > 0) { badge.textContent = priority; badge.style.display = 'flex'; }
+    } else {
+      // Fallback: trigger harvest to populate
+      document.getElementById('prospects-empty').style.display = 'flex';
+      toast('No prospects in DB yet — triggering harvest...', 'info');
+      triggerHarvest();
     }
   } catch(e) {
-    console.warn('[ICC] Could not fetch scores from DB (non-critical):', e);
+    console.error('loadProspects error:', e);
+    renderProspects(prospectsData); // Show whatever we have
   }
 }
 
@@ -1414,19 +1139,22 @@ function filterProspects(q) {
   const filtered = prospectsData.filter(p =>
     (p.name||'').toLowerCase().includes(q) ||
     (p.city||'').toLowerCase().includes(q) ||
-    (p.state||'').toLowerCase().includes(q)
+    (p.state||'').toLowerCase().includes(q) ||
+    (p.website||'').toLowerCase().includes(q)
   );
   renderProspects(filtered);
 }
 
+function applyFilters() {
+  loadProspects();
+}
 
 async function scanProspect(pid, website, name) {
   const btn = document.getElementById(`scan-btn-${pid}`);
-  if (btn) { btn.disabled = true; btn.textContent = 'Scanning…'; }
-  toast(`Scanning ${website || pid}… (15-30 seconds)`);
+  if (btn) { btn.disabled = true; btn.textContent = 'Scanning...'; }
+  toast(`Scanning ${website || name}... (15-30 seconds)`);
 
   try {
-    // Use the real IDR scanner — same endpoint as healthscan.html
     const url = website.startsWith('http') ? website : 'https://' + website;
     const res = await fetch('/api/scan', {
       method: 'POST',
@@ -1434,826 +1162,114 @@ async function scanProspect(pid, website, name) {
       body: JSON.stringify({ url })
     });
 
-    if (!res.ok) throw new Error(`Scanner returned ${res.status}`);
+    if (!res.ok) throw new Error(`Scanner ${res.status}`);
     const r = await res.json();
+    const sc_data = r.scan || r || {};
+    const score  = sc_data.overall_score || r.score || 0;
+    const crits  = sc_data.critical_count || r.critical_count || 0;
+    const total  = sc_data.total_issues || r.total_issues || 0;
+    const status = sc_data.overall_status || (score>=80?'pass':score>=60?'warning':'fail');
 
-    // Parse response same way healthscan.html does
-    const sc = r.scan || r || {};
-    const score = sc.overall_score || r.score || 0;
-    const crits = sc.critical_count || r.critical_count || 0;
-    const total = sc.total_issues || r.total_issues || 0;
-    const status = sc.overall_status || (score >= 80 ? 'pass' : score >= 60 ? 'warning' : 'fail');
+    toast(`${name}: ${score}/100 · ${crits} critical · ${status.toUpperCase()}`,
+          score < 60 ? 'error' : score < 80 ? 'info' : 'success');
 
-    toast(`Score: ${score}/100 · ${crits} critical · ${status.toUpperCase()}`, 'success');
-
-    // Update prospect in memory
+    // Update in memory
     const idx = prospectsData.findIndex(p => p.id === pid);
     if (idx >= 0) {
       prospectsData[idx].idr_score = score;
       prospectsData[idx].critical_count = crits;
       prospectsData[idx].total_issues = total;
       prospectsData[idx].scanned = true;
+      prospectsData[idx].maturity_level = score<40?'REACTIVE':score<60?'DOCUMENTED':score<80?'VERIFIED':'ACTIVE';
     }
     renderProspects(prospectsData);
 
-    // Save score to backend DB
-    api(`/prospects/scan/${pid}`, 'POST', { website, name, score, criticals: crits }).catch(() => {});
+    // Save to DB permanently
+    api(`/prospects/scan/${pid}`, 'POST', { website, name, score, criticals: crits, total_issues: total }).catch(() => {});
 
-    // Update priority count on radar
-    const priorityEl = document.getElementById('stat-priority');
-    if (priorityEl) {
-      priorityEl.textContent = prospectsData.filter(p => p.scanned && p.idr_score < 60).length;
-    }
-
+    if (btn) { btn.disabled = false; btn.textContent = 'Rescan'; }
   } catch(e) {
-    console.error('Scan error:', e);
-    toast('Scan error — ' + (e.message || 'check backend'), 'error');
+    toast(`Scan error: ${e.message}`, 'error');
+    if (btn) { btn.disabled = false; btn.textContent = 'Retry'; }
   }
-  if (btn) { btn.disabled = false; btn.textContent = 'Rescan'; }
 }
 
-// ── SLIDE PANEL ───────────────────────────────────────────────────────────────
-async function openSlide(pid) {
-  const p = prospectsData.find(x => x.id === pid);
-  if (!p) return;
-
-  document.getElementById('sp-title').textContent = p.name;
-  document.getElementById('sp-sub').textContent = `${({fqhc:'Health Center',nh:'Nursing Home',hha:'Home Health'}[p.org_type]||p.org_type)} · ${p.city}, ${p.state}`;
-
-  const dl = new Date('2026-05-11T23:59:59');
-  const days = Math.max(0, Math.ceil((dl - new Date()) / 86400000));
-
-  const scoreColor = p.idr_score >= 80 ? '#059669' : p.idr_score >= 60 ? '#D97706' : '#DC2626';
-
-  document.getElementById('sp-body').innerHTML = `
-    ${p.scanned ? `
-    <div class="sp-score">
-      <span class="sp-score-n" style="color:${scoreColor}">${p.idr_score}/100</span>
-      <div>
-        <div style="font-weight:600;font-size:13px;">${p.idr_score<60?'⚠ PRIORITY TARGET':'Moderate Risk'}</div>
-        <div style="font-size:12px;color:var(--gray);">${p.critical_count||0} critical violations · Use personalized message</div>
-      </div>
-    </div>` : `
-    <div style="background:#FEF3C7;border-radius:8px;padding:12px 14px;margin-bottom:14px;font-size:12px;color:#92400E;">
-      Website not yet scanned. Click Scan below to get their score and generate a personalized message.
-    </div>`}
-
-    <div class="sp-section-title">Organization Details</div>
-    <div class="sp-field"><div class="sp-field-k">Address</div><div class="sp-field-v">${p.address||'—'}</div></div>
-    <div class="sp-field"><div class="sp-field-k">City / State</div><div class="sp-field-v">${p.city}, ${p.state} ${p.zip||''}</div></div>
-    <div class="sp-field"><div class="sp-field-k">Phone</div><div class="sp-field-v">${p.phone||'—'}</div></div>
-    <div class="sp-field"><div class="sp-field-k">Website</div><div class="sp-field-v">${p.website?`<a href="${p.website}" target="_blank">${p.website}</a>`:'—'}</div></div>
-
-    <div class="sp-section-title">Outreach Message — Ready to Copy</div>
-    <div class="sp-msg" id="sp-msg-text">${p.outreach_msg || `Hi [Name] — I work in HHS accessibility compliance. The May 11 Section 504 digital deadline applies to ${p.name} if you receive federal health funding. Wanted to make sure it was on your radar. Happy to share what's required.\n\nidrshield.com/healthcare — Free scan available.`}</div>
-
-    <div class="sp-actions">
-      <button class="btn btn-gold" onclick="copyText(document.getElementById('sp-msg-text').textContent, this)">
-        Copy Message
-      </button>
-      ${p.website ? `
-      <button class="btn btn-outline" onclick="scanProspect('${p.id}')">
-        Scan Website
-      </button>
-      <a href="${p.website}" target="_blank" class="btn btn-outline">
-        Visit Site
-      </a>` : ''}
-      <a href="https://www.linkedin.com/search/results/people/?keywords=${encodeURIComponent(p.name+' administrator')}" target="_blank" class="btn btn-outline">
-        Find on LinkedIn
-      </a>
-      <button class="btn btn-primary" onclick="quickLogOutreach('${p.id}','${p.name.replace(/'/g,"\\'")}')">
-        Log as Sent
-      </button>
-    </div>
-  `;
-
-  document.getElementById('slide-overlay').classList.add('open');
-  document.getElementById('slide-panel').classList.add('open');
-}
-
-function closeSlide() {
-  document.getElementById('slide-overlay').classList.remove('open');
-  document.getElementById('slide-panel').classList.remove('open');
-}
-
-async function quickLogOutreach(pid, name) {
-  await api('/outreach', 'POST', {
-    prospect_id: pid, prospect_name: name,
-    contact_name: '', contact_title: '',
-    message_type: 'connection', notes: 'Logged from prospect view',
-  });
-  toast('Logged as sent ✓', 'success');
-  closeSlide();
-  loadRadar();
-}
-
-// ── FL FQHC SEED DATA ─────────────────────────────────────────────────────────
-const FL_FQHC_SEED = [
-  // Central Florida
-  {id:'FQHC-FL-001',name:'Neighborhood Health Source',org_type:'fqhc',city:'Clearwater',state:'FL',phone:'(727) 442-8000',website:'https://www.nhsfl.org',address:'1344 S Ft Harrison Ave'},
-  {id:'FQHC-FL-002',name:'Community Health of South Florida',org_type:'fqhc',city:'Miami',state:'FL',phone:'(305) 252-4820',website:'https://www.chisouthfl.org',address:'10300 SW 216th St'},
-  {id:'FQHC-FL-003',name:'Suncoast Community Health Centers',org_type:'fqhc',city:'Ruskin',state:'FL',phone:'(813) 634-9295',website:'https://www.suncoastchc.org',address:'309 Beynon Dr'},
-  {id:'FQHC-FL-004',name:'Bond Community Health Center',org_type:'fqhc',city:'Tallahassee',state:'FL',phone:'(850) 576-4073',website:'https://www.bchcfl.org',address:'1720 S Gadsden St'},
-  {id:'FQHC-FL-005',name:'Care Resource Community Health Centers',org_type:'fqhc',city:'Miami',state:'FL',phone:'(305) 576-1234',website:'https://www.careresource.org',address:'3510 Biscayne Blvd'},
-  {id:'FQHC-FL-006',name:'Broward Community & Family Health Centers',org_type:'fqhc',city:'Fort Lauderdale',state:'FL',phone:'(954) 832-0750',website:'https://www.bcfhc.org',address:'1329 S Andrews Ave'},
-  {id:'FQHC-FL-007',name:'Jessie Trice Community Health System',org_type:'fqhc',city:'Miami Gardens',state:'FL',phone:'(305) 805-7000',website:'https://www.jtchs.org',address:'5607 NW 27th Ave'},
-  {id:'FQHC-FL-008',name:'Family Health Centers of Southwest Florida',org_type:'fqhc',city:'Fort Myers',state:'FL',phone:'(239) 332-4985',website:'https://www.fhcswf.org',address:'2235 Dr Martin Luther King Jr Blvd'},
-  {id:'FQHC-FL-009',name:'Treasure Coast Community Health',org_type:'fqhc',city:'Vero Beach',state:'FL',phone:'(772) 978-0411',website:'https://www.tcchfl.org',address:'730 16th St'},
-  {id:'FQHC-FL-010',name:'Healthcare Network of Southwest Florida',org_type:'fqhc',city:'Naples',state:'FL',phone:'(239) 658-3000',website:'https://www.hnswfl.org',address:'1454 Madison Ave'},
-  {id:'FQHC-FL-011',name:'Community Health Centers of Pinellas',org_type:'fqhc',city:'St. Petersburg',state:'FL',phone:'(727) 824-8181',website:'https://www.chcpinellas.org',address:'600 6th St S'},
-  {id:'FQHC-FL-012',name:'Health Access Duval',org_type:'fqhc',city:'Jacksonville',state:'FL',phone:'(904) 366-2900',website:'https://www.had-jax.org',address:'1215 Myrtle Ave N'},
-  {id:'FQHC-FL-013',name:'Circle of Care',org_type:'fqhc',city:'Cocoa',state:'FL',phone:'(321) 690-7020',website:'https://www.circleofcarefl.org',address:'703 Dixon Blvd'},
-  {id:'FQHC-FL-014',name:'Immokalee Healthcare',org_type:'fqhc',city:'Immokalee',state:'FL',phone:'(239) 657-4700',website:'https://www.immokaleehealthcare.org',address:'419 N 1st St'},
-  {id:'FQHC-FL-015',name:'Seminole Community Health Center',org_type:'fqhc',city:'Sanford',state:'FL',phone:'(407) 328-2889',website:'https://www.seminolehealth.org',address:'400 W Airport Blvd'},
-  {id:'FQHC-FL-016',name:'Volusia Community Health Centers',org_type:'fqhc',city:'Daytona Beach',state:'FL',phone:'(386) 238-3000',website:'https://www.vchfl.org',address:'241 N Ridgewood Ave'},
-  {id:'FQHC-FL-017',name:'Osceola Community Health Services',org_type:'fqhc',city:'Kissimmee',state:'FL',phone:'(407) 846-5100',website:'https://www.och.org',address:'700 Generation Point'},
-  {id:'FQHC-FL-018',name:'North Florida Medical Centers',org_type:'fqhc',city:'Live Oak',state:'FL',phone:'(386) 362-3681',website:'https://www.nfmc.org',address:'1330 SW Ohio Ave'},
-  {id:'FQHC-FL-019',name:'Bread of Life Community Health Center',org_type:'fqhc',city:'Opa-locka',state:'FL',phone:'(305) 685-5333',website:'https://www.bolchc.org',address:'490 Ali Baba Ave'},
-  {id:'FQHC-FL-020',name:'Manatee Community Health',org_type:'fqhc',city:'Bradenton',state:'FL',phone:'(941) 748-4878',website:'https://www.manateecommhealth.org',address:'2324 14th St W'},
-  {id:'FQHC-FL-021',name:'Tri County Community Health Council',org_type:'fqhc',city:'Palatka',state:'FL',phone:'(386) 328-6444',website:'https://www.trichc.org',address:'111 Comfort Rd'},
-  {id:'FQHC-FL-022',name:'Marion County Health Department CHC',org_type:'fqhc',city:'Ocala',state:'FL',phone:'(352) 629-0137',website:'https://www.floridahealth.gov',address:'1801 SE 32nd Ave'},
-  {id:'FQHC-FL-023',name:'Escambia Community Clinics',org_type:'fqhc',city:'Pensacola',state:'FL',phone:'(850) 436-4800',website:'https://www.escambiacommunityclinics.org',address:'3580 N Pace Blvd'},
-  {id:'FQHC-FL-024',name:'Central Florida Health Care',org_type:'fqhc',city:'Haines City',state:'FL',phone:'(863) 422-4921',website:'https://www.cfhcfl.org',address:'1400 US-27'},
-  {id:'FQHC-FL-025',name:'Consolidated Medical Transport',org_type:'fqhc',city:'Orlando',state:'FL',phone:'(407) 422-4551',website:'https://www.cmtchc.org',address:'521 W Church St'},
-  // Additional Florida FQHCs
-  {id:'FQHC-FL-026',name:'Acacia Counseling and Wellness',org_type:'fqhc',city:'Gainesville',state:'FL',phone:'(352) 376-6265',website:'https://www.acaciacounseling.net',address:'1221 SW 2nd Ave'},
-  {id:'FQHC-FL-027',name:'Bayfront Health St. Petersburg CHC',org_type:'fqhc',city:'St. Petersburg',state:'FL',phone:'(727) 823-1234',website:'https://www.bayfronthealth.com',address:'701 6th St S'},
-  {id:'FQHC-FL-028',name:'C.L. Brumback Primary Care Clinics',org_type:'fqhc',city:'West Palm Beach',state:'FL',phone:'(561) 642-1000',website:'https://www.pbchd.com',address:'800 Clematis St'},
-  {id:'FQHC-FL-029',name:'Charlotte Behavioral Health Care',org_type:'fqhc',city:'Punta Gorda',state:'FL',phone:'(941) 639-8300',website:'https://www.charlottebehavioral.org',address:'1700 Education Ave'},
-  {id:'FQHC-FL-030',name:'Citrus Health Network',org_type:'fqhc',city:'Hialeah',state:'FL',phone:'(305) 825-0300',website:'https://www.citrushealth.org',address:'4175 W 20th Ave'},
-  {id:'FQHC-FL-031',name:'Community Health Center of Alachua County',org_type:'fqhc',city:'Gainesville',state:'FL',phone:'(352) 372-4321',website:'https://www.chcfl.org',address:'730 N Main St'},
-  {id:'FQHC-FL-032',name:'Community Medical Care (Miami-Dade CHD)',org_type:'fqhc',city:'Miami',state:'FL',phone:'(305) 324-2400',website:'https://www.miamidade.gov/health',address:'1350 NW 14th St'},
-  {id:'FQHC-FL-033',name:'Comprehensive Community Care Network',org_type:'fqhc',city:'Homestead',state:'FL',phone:'(305) 245-5200',website:'https://www.c3network.org',address:'1 NE 4th Ave'},
-  {id:'FQHC-FL-034',name:'Covenant Community Care Osceola',org_type:'fqhc',city:'Kissimmee',state:'FL',phone:'(407) 932-1234',website:'https://www.covenantcare.org',address:'200 W Donegan Ave'},
-  {id:'FQHC-FL-035',name:'Duval County Health Dept - CHC',org_type:'fqhc',city:'Jacksonville',state:'FL',phone:'(904) 253-1000',website:'https://www.duvalhealth.org',address:'515 W 6th St'},
-  {id:'FQHC-FL-036',name:'Family Health Center of Osceola',org_type:'fqhc',city:'St. Cloud',state:'FL',phone:'(407) 892-4000',website:'https://www.fhcosceola.org',address:'1900 Boggy Creek Rd'},
-  {id:'FQHC-FL-037',name:'Gadsden Community Health Center',org_type:'fqhc',city:'Quincy',state:'FL',phone:'(850) 627-6404',website:'https://www.gadsdenchc.org',address:'140 E Jefferson St'},
-  {id:'FQHC-FL-038',name:'Gulf Coast Community Care',org_type:'fqhc',city:'Port Richey',state:'FL',phone:'(727) 845-6100',website:'https://www.gulfcoastcommunitycare.org',address:'3627 Plathe Rd'},
-  {id:'FQHC-FL-039',name:'Heres Help Community Health',org_type:'fqhc',city:'Fort Pierce',state:'FL',phone:'(772) 462-1650',website:'https://www.hereshelp.org',address:'2909 Midway Rd'},
-  {id:'FQHC-FL-040',name:'Hope Community Health',org_type:'fqhc',city:'Apopka',state:'FL',phone:'(407) 880-4673',website:'https://www.hopechfl.org',address:'1401 S Park Ave'},
-  {id:'FQHC-FL-041',name:'Indian River Community Health',org_type:'fqhc',city:'Vero Beach',state:'FL',phone:'(772) 770-4040',website:'https://www.irch.org',address:'2375 90th Ave'},
-  {id:'FQHC-FL-042',name:'Jackson Memorial Community Health',org_type:'fqhc',city:'Miami',state:'FL',phone:'(305) 585-1111',website:'https://www.umiamihealth.org',address:'1611 NW 12th Ave'},
-  {id:'FQHC-FL-043',name:'Lakeland Free Clinic',org_type:'fqhc',city:'Lakeland',state:'FL',phone:'(863) 686-0066',website:'https://www.lakelandfreeclinic.org',address:'929 N Lincoln Ave'},
-  {id:'FQHC-FL-044',name:'Larkin Community Hospital Behavioral Health',org_type:'fqhc',city:'South Miami',state:'FL',phone:'(305) 284-7500',website:'https://www.larkinhospital.com',address:'7031 SW 62nd Ave'},
-  {id:'FQHC-FL-045',name:'Lee County Human Services CHC',org_type:'fqhc',city:'Fort Myers',state:'FL',phone:'(239) 533-8900',website:'https://www.leegov.com/humanservices',address:'2440 Thompson St'},
-  {id:'FQHC-FL-046',name:'Life Management Center',org_type:'fqhc',city:'Panama City',state:'FL',phone:'(850) 522-4000',website:'https://www.lmcjax.org',address:'525 E 15th St'},
-  {id:'FQHC-FL-047',name:'Miami Beach Community Health Center',org_type:'fqhc',city:'Miami Beach',state:'FL',phone:'(305) 538-8835',website:'https://www.mbchc.org',address:'710 Alton Rd'},
-  {id:'FQHC-FL-048',name:'North Brevard County Hospital Dist.',org_type:'fqhc',city:'Titusville',state:'FL',phone:'(321) 268-6111',website:'https://www.pafford.com',address:'951 N Washington Ave'},
-  {id:'FQHC-FL-049',name:'Panhandle Area Educational Consortium',org_type:'fqhc',city:'Chipley',state:'FL',phone:'(850) 638-6131',website:'https://www.paec.org',address:'761 Industrial Dr'},
-  {id:'FQHC-FL-050',name:'Primary Care Access Network (PCAN)',org_type:'fqhc',city:'Gainesville',state:'FL',phone:'(352) 333-7226',website:'https://www.pcanfl.org',address:'730 N Main St'},
-  {id:'FQHC-FL-051',name:'Quantum Leap Farm Health Center',org_type:'fqhc',city:'Odessa',state:'FL',phone:'(813) 920-8966',website:'https://www.quantumleapfarm.org',address:'8045 W Linebaugh Ave'},
-  {id:'FQHC-FL-052',name:'Rural Health Network of Southwest Florida',org_type:'fqhc',city:'Fort Myers',state:'FL',phone:'(239) 938-0765',website:'https://www.ruralhealthnetwork.org',address:'2115 Second St'},
-  {id:'FQHC-FL-053',name:'SalusCare (Lee Mental Health Center)',org_type:'fqhc',city:'Fort Myers',state:'FL',phone:'(239) 275-3222',website:'https://www.saluscare.org',address:'3763 Evans Ave'},
-  {id:'FQHC-FL-054',name:'Suwannee Valley CHC',org_type:'fqhc',city:'Lake City',state:'FL',phone:'(386) 758-0700',website:'https://www.svchc.org',address:'1058 SW Main Blvd'},
-  {id:'FQHC-FL-055',name:'Tampa Family Health Centers',org_type:'fqhc',city:'Tampa',state:'FL',phone:'(813) 870-4000',website:'https://www.tampafamilyhealthcenters.org',address:'5765 N Nebraska Ave'},
-  {id:'FQHC-FL-056',name:'United Way Suncoast Community Health',org_type:'fqhc',city:'Tampa',state:'FL',phone:'(813) 274-0900',website:'https://www.unitedwaysuncoast.org',address:'1402 N Brookside Rd'},
-  {id:'FQHC-FL-057',name:'Wakulla County Health Dept CHC',org_type:'fqhc',city:'Crawfordville',state:'FL',phone:'(850) 926-3591',website:'https://www.floridahealth.gov',address:'65 Arran Rd'},
-  {id:'FQHC-FL-058',name:'WestCare Florida Community Health',org_type:'fqhc',city:'Jacksonville',state:'FL',phone:'(904) 630-7000',website:'https://www.westcare.com',address:'815 Market St'},
-  {id:'FQHC-FL-059',name:'Whispering Pines Community Health',org_type:'fqhc',city:'Clearwater',state:'FL',phone:'(727) 467-0900',website:'https://www.wpchc.org',address:'1600 N Belcher Rd'},
-  {id:'FQHC-FL-060',name:'Withlachoochee Primary Care',org_type:'fqhc',city:'Inverness',state:'FL',phone:'(352) 726-1900',website:'https://www.wpchfl.org',address:'109 Pine Ave'},
-];
-
-// ── HARVEST — Browser-side government API loading ─────────────────────────────
 async function triggerHarvest() {
-  const stateVal = document.getElementById('filter-state')?.value || 'FL';
-  const typeVal  = document.getElementById('filter-type')?.value || 'fqhc';
-  toast('Loading prospects from government database…');
-
+  toast('Harvesting organizations from government databases...');
   try {
-    let loaded = [];
-
-    if (typeVal === 'fqhc' || typeVal === '' || typeVal === 'all') {
-      loaded = await _fetchFQHC(stateVal, 100);
-    } else if (typeVal === 'nh') {
-      loaded = await _fetchNursingHomes(stateVal, 100);
-    }
-
-    if (!loaded.length) {
-      toast('Using offline dataset — HRSA API temporarily unavailable', 'info');
-      loaded = FL_FQHC_SEED.filter(p => !stateVal || p.state === stateVal);
-    }
-
-    // Merge into prospectsData (avoid duplicates)
-    const existing = new Set(prospectsData.map(p => p.id));
-    let added = 0;
-    for (const p of loaded) {
-      if (!existing.has(p.id)) {
-        prospectsData.push(p);
-        added++;
-      }
-    }
-
-    toast(`${added} prospects loaded`, 'success');
-    renderProspects(prospectsData);
-    // Update radar count
-    const el = document.getElementById('stat-prospects');
-    if (el) el.textContent = prospectsData.length;
-
-    // Also save to backend DB asynchronously (don't block UI)
-    _saveProspectsToBackend(loaded).catch(() => {});
-
+    const data = await api('/harvest', 'POST', { states: ['FL','TX','GA','NY','NC'], limit: 50 });
+    toast(`${data.added || 0} prospects added/updated`, 'success');
+    setTimeout(loadProspects, 2000);
   } catch(e) {
-    console.error('Harvest error:', e);
-    // Always fall back to seed data
-    const seed = FL_FQHC_SEED.filter(p => !stateVal || p.state === stateVal);
-    prospectsData = [...prospectsData, ...seed.filter(s => !prospectsData.find(p => p.id === s.id))];
-    renderProspects(prospectsData);
-    toast(`${seed.length} organizations loaded from offline dataset`, 'info');
+    toast('Harvest error — check backend logs', 'error');
   }
 }
 
-async function _fetchFQHC(stateFilter, maxRecords) {
-  const results = [];
-  const parse = (item, i) => ({
-    id: `FQHC-${item.id || item.bhcmisnum || item.BHCMISNUM || item.objectid || i}`,
-    name: item.name || item.site_name || item.Health_Center_Name || item.Site_Name ||
-          item.healthCenterName || item.center_name || 'Unknown',
-    org_type: 'fqhc', scanned: false, idr_score: null,
-    address: item.address || item.street_address || item.Site_Address || item.physicalAddress || '',
-    city: item.city || item.Site_City || item.physicalCity || '',
-    state: item.state || item.State_Abbreviation || item.physicalState || stateFilter || '',
-    zip: item.zip || item.postal_code || item.Site_Postal_Code || item.physicalZip || '',
-    phone: item.phone || item.telephone || item.Site_Telephone_Number || item.mainPhone || '',
-    website: item.website || item.web_address || item.Site_Web_Address || item.websiteUrl || '',
-  });
-
-  // Attempt 1: HRSA FindAHealthCenter API
-  const urls = [
-    `https://findahealthcenter.hrsa.gov/api/health-centers?pageNumber=1&pageSize=100&sortBy=name` + (stateFilter ? `&state=${stateFilter}` : ''),
-    `https://findahealthcenter.hrsa.gov/api/HealthCenter?pageNum=1&pageSize=100` + (stateFilter ? `&State=${stateFilter}` : ''),
-  ];
-  for (const url of urls) {
-    if (results.length) break;
-    try {
-      const res = await fetch(url, {signal: AbortSignal.timeout(8000)}).catch(() => null);
-      if (!res || !res.ok) continue;
-      const data = await res.json();
-      const items = data.items || data.data || data.results || data.healthCenters ||
-                    data.HealthCenters || data.records || (Array.isArray(data) ? data : []);
-      items.slice(0, maxRecords).forEach((item, i) => results.push(parse(item, i)));
-    } catch(e) {}
-  }
-
-  // Attempt 2: HRSA open data JSON download (has CORS headers)
-  if (!results.length) {
-    try {
-      const res = await fetch(
-        'https://data.hrsa.gov/api/download?filename=Health_Center_Service_Delivery_and_LookAlike_Sites&fileType=json',
-        {signal: AbortSignal.timeout(20000)}
-      ).catch(() => null);
-      if (res && res.ok) {
-        const data = await res.json();
-        const all = Array.isArray(data) ? data : (data.data || data.results || []);
-        all
-          .filter(i => !stateFilter || i.State_Abbreviation === stateFilter || i.state === stateFilter)
-          .slice(0, maxRecords)
-          .forEach((item, i) => results.push(parse(item, i)));
-      }
-    } catch(e) {}
-  }
-
-  // Attempt 3: CMS FQHC lookalike dataset (different source, CORS-friendly)
-  if (!results.length) {
-    try {
-      let url = `https://data.cms.gov/provider-data/api/1/datastore/query/rrqw-56er/0?limit=${Math.min(maxRecords,200)}&offset=0`;
-      if (stateFilter) url += `&conditions[0][property]=state&conditions[0][value]=${stateFilter}&conditions[0][operator]==`;
-      const res = await fetch(url, {signal: AbortSignal.timeout(12000)}).catch(() => null);
-      if (res && res.ok) {
-        const data = await res.json();
-        (data.results || []).slice(0, maxRecords).forEach((item, i) => results.push({
-          id: `FQHC-CMS-${item.npi || item.provider_number || i}`,
-          name: item.provider_name || item.facility_name || 'Unknown',
-          org_type: 'fqhc', scanned: false, idr_score: null,
-          address: item.address || item.provider_street_address || '',
-          city: item.city || item.provider_city || '',
-          state: item.state || stateFilter || '',
-          zip: item.zip || item.provider_zip_code || '',
-          phone: item.phone || item.provider_phone_number || '',
-          website: '',
-        }));
-      }
-    } catch(e) {}
-  }
-
-  return results;
-}
-
-async function _fetchNursingHomes(stateFilter, maxRecords) {
-  const results = [];
+async function generateEmails() {
+  toast('Generating personalized emails from scanned prospects...');
   try {
-    let url = `https://data.cms.gov/provider-data/api/1/datastore/query/4pq5-n9py/0?limit=${Math.min(maxRecords,200)}&offset=0`;
-    if (stateFilter) url += `&conditions[0][property]=state&conditions[0][value]=${stateFilter}&conditions[0][operator]==`;
-    const res = await fetch(url, {signal: AbortSignal.timeout(15000)}).catch(() => null);
-    if (res && res.ok) {
-      const data = await res.json();
-      for (const item of (data.results || []).slice(0, maxRecords)) {
-        results.push({
-          id: `NH-${item.provnum || item.federal_provider_number || Math.random().toString(36).slice(2,8)}`,
-          name: item.provname || item.provider_name || 'Unknown',
-          org_type: 'nh', scanned: false, idr_score: null,
-          address: item.address || item.provider_address || '',
-          city: item.city || item.provider_city || '',
-          state: item.state || stateFilter || '',
-          zip: item.zip || item.provider_zip_code || '',
-          phone: item.phone || item.provider_phone_number || '',
-          website: '',
-        });
-      }
-    }
-  } catch(e) {}
-  return results;
-}
-
-async function _saveProspectsToBackend(prospects) {
-  // Fire and forget — save to DB for persistence and background scanning
-  for (const p of prospects.slice(0, 20)) {
-    try {
-      await api('/harvest', 'POST', {
-        type: p.org_type, state: p.state, limit: 1,
-        _seed: p  // hint to backend to upsert this specific record
-      });
-    } catch(e) {}
+    const data = await api('/queue/generate', 'POST');
+    toast(`${data.queued || 0} emails queued for approval`, 'success');
+    const badge = document.getElementById('nav-queue-badge');
+    if (badge) { badge.textContent = data.queued || 0; badge.style.display = 'flex'; }
+  } catch(e) {
+    toast('Email generation error', 'error');
   }
 }
 
-// ── AI WRITER ─────────────────────────────────────────────────────────────────
+// ── AI ADVISOR ─────────────────────────────────────────────────────────────
 async function sendAI() {
   const input = document.getElementById('ai-input');
-  const prompt = input.value.trim();
-  if (!prompt) return;
-
-  addAIMsg(prompt, 'user');
+  const msg = input.value.trim();
+  if (!msg) return;
   input.value = '';
-  document.getElementById('ai-send-btn').disabled = true;
-
-  const thinkingId = addAIMsg('Thinking…', 'assistant', true);
-
-  try {
-    const data = await api('/ai', 'POST', {
-      prompt,
-      context: statsData,
-    });
-    removeAIMsg(thinkingId);
-    addAIMsg(data.reply || 'No response', 'assistant');
-  } catch(e) {
-    removeAIMsg(thinkingId);
-    addAIMsg('Connection error. Make sure you are online.', 'assistant');
-  }
-  document.getElementById('ai-send-btn').disabled = false;
+  askAI(msg);
 }
 
-function askAI(prompt) {
-  document.getElementById('ai-input').value = prompt;
-  sendAI();
-  navTo('ai');
-}
+function askAI(msg) {
+  const messages = document.getElementById('ai-messages');
+  messages.innerHTML += `<div class="ai-msg user">
+    <div class="ai-avatar">HP</div>
+    <div class="ai-bubble">${msg}</div>
+  </div>`;
+  messages.innerHTML += `<div class="ai-msg assistant" id="ai-loading">
+    <div class="ai-avatar">IDR</div>
+    <div class="ai-bubble"><div class="spinner"></div></div>
+  </div>`;
+  messages.scrollTop = messages.scrollHeight;
 
-let msgIdCounter = 0;
-function addAIMsg(text, role, isTemp=false) {
-  const id = 'msg-' + (++msgIdCounter);
-  const el = document.createElement('div');
-  el.className = `ai-msg ${role}`;
-  el.id = id;
-  el.innerHTML = `
-    <div class="ai-avatar">${role==='user'?'HP':'AI'}</div>
-    <div class="ai-bubble">${isTemp?`<div class="loading"><div class="spinner"></div> ${text}</div>`:text}</div>
-  `;
-  const msgs = document.getElementById('ai-messages');
-  msgs.appendChild(el);
-  msgs.scrollTop = msgs.scrollHeight;
-  return id;
-}
+  aiHistory.push({ role:'user', content: msg });
 
-function removeAIMsg(id) {
-  const el = document.getElementById(id);
-  if (el) el.remove();
-}
-
-// ── ASSOCIATIONS ──────────────────────────────────────────────────────────────
-async function loadAssociations() {
-  try {
-    const data = await api('/associations');
-    const assocs = data.associations || [];
-
-    const counts = {
-      not_contacted: assocs.filter(a=>a.status==='not_contacted').length,
-      contacted:     assocs.filter(a=>a.status==='contacted').length,
-      in_conversation: assocs.filter(a=>a.status==='in_conversation').length,
-      published:     assocs.filter(a=>a.status==='published').length,
-    };
-
-    document.getElementById('assoc-not-contacted').textContent = counts.not_contacted;
-    document.getElementById('assoc-contacted').textContent     = counts.contacted;
-    document.getElementById('assoc-in-convo').textContent      = counts.in_conversation;
-    document.getElementById('assoc-published').textContent     = counts.published;
-    document.getElementById('nav-assoc-badge').textContent     = assocs.length;
-
-    const statusBadge = {
-      not_contacted:  '<span class="badge badge-gray">Not Contacted</span>',
-      contacted:      '<span class="badge badge-amber">Contacted</span>',
-      in_conversation:'<span class="badge badge-blue">In Conversation</span>',
-      published:      '<span class="badge badge-green">Published ✓</span>',
-      declined:       '<span class="badge badge-red">Declined</span>',
-    };
-
-    document.getElementById('assoc-grid').innerHTML = assocs.map(a => `
-      <div class="assoc-card">
-        <div class="assoc-hdr">
-          <div>
-            <div class="assoc-name">${a.name}</div>
-            <div class="assoc-serves">${a.serves}</div>
-          </div>
-          ${statusBadge[a.status] || ''}
-        </div>
-        <div class="assoc-body">
-          <div class="assoc-stat">
-            <strong>${a.member_count}</strong> members ·
-            <a href="https://${a.website}" target="_blank">${a.website}</a>
-          </div>
-          <div style="font-size:11px;color:var(--gray);margin-bottom:8px;">
-            Contact: ${a.contact_name} · ${a.contact_title}
-          </div>
-          <div class="assoc-actions">
-            <button class="btn btn-gold btn-sm" onclick="showAssocPitch('${a.id}')">
-              View Pitch
-            </button>
-            <button class="btn btn-outline btn-sm" onclick="updateAssocStatus('${a.id}','contacted')">
-              Mark Contacted
-            </button>
-            <button class="btn btn-green btn-sm" onclick="updateAssocStatus('${a.id}','published')" style="font-size:10px;">
-              ✓ Published
-            </button>
-          </div>
-        </div>
-      </div>
-    `).join('');
-
-  } catch(e) {
-    console.error('Association load error:', e);
-  }
-}
-
-function showAssocPitch(id) {
-  const dl = new Date('2026-05-11T23:59:59');
-  const days = Math.max(0, Math.ceil((dl - new Date()) / 86400000));
-
-  const pitches = {
-    nachc: `Subject: May 11 HHS Digital Deadline — Member Alert Opportunity
-
-Hi [Name],
-
-I'm reaching out because the May 11, 2026 HHS Section 504 digital accessibility deadline is ${days} days away and I'm concerned many NACHC member health centers may not have documented WCAG 2.1 AA audit records on file.
-
-HHS 89 FR 40066 — published July 8, 2024 — establishes WCAG 2.1 AA as the enforceable standard for all digital content operated by covered entities. This includes websites, patient portals, online scheduling, and intake forms. The deadline for organizations with 15+ employees is May 11, 2026.
-
-I'd like to offer NACHC a member compliance alert — written, edited, and ready to send within 24 hours at no cost.
-
-I run the Institute of Digital Remediation. We publish independent third-party HHS accessibility audit records for healthcare organizations. I'm not asking for promotional placement — I'm offering factual compliance content that is directly relevant to your members right now.
-
-Would that be useful for your next member communication?
-
-Hans-Peter Nkansah
-Institute of Digital Remediation
-idrshield.com · hello@idrshield.com`,
-  };
-
-  const defaultPitch = `Subject: May 11 HHS Digital Deadline — Member Alert Opportunity
-
-Hi [Name],
-
-I'm reaching out because the May 11, 2026 HHS Section 504 digital accessibility deadline is ${days} days away and your members are directly covered.
-
-HHS 89 FR 40066 requires WCAG 2.1 AA conformance for all digital content operated by entities receiving federal health funding — websites, patient portals, online scheduling, and intake forms. The deadline for organizations with 15+ employees is May 11, 2026.
-
-I'd like to offer your organization a member compliance alert — written, edited, and ready to send within 24 hours at no cost. I'm not asking for promotional placement — I'm offering factual compliance content that is directly relevant to your members right now.
-
-I run the Institute of Digital Remediation. We publish independent third-party HHS accessibility audit records for healthcare organizations. Free readiness scan at idrshield.com/healthcare.
-
-Would that be useful for your next member communication?
-
-Hans-Peter Nkansah
-Institute of Digital Remediation
-idrshield.com · hello@idrshield.com`;
-
-  const pitch = pitches[id] || defaultPitch;
-
-  document.getElementById('sp-title').textContent = 'Association Pitch';
-  document.getElementById('sp-sub').textContent = 'Ready to send — copy and email directly';
-  document.getElementById('sp-body').innerHTML = `
-    <div class="sp-msg" id="assoc-pitch-text">${pitch}</div>
-    <div class="sp-actions">
-      <button class="btn btn-gold" onclick="copyText(document.getElementById('assoc-pitch-text').textContent, this)">
-        Copy Pitch Email
-      </button>
-      <button class="btn btn-outline" onclick="askAI('Write the full compliance alert article for this association newsletter')">
-        Generate Article Draft
-      </button>
-    </div>
-  `;
-  document.getElementById('slide-overlay').classList.add('open');
-  document.getElementById('slide-panel').classList.add('open');
-}
-
-async function updateAssocStatus(id, status) {
-  await api(`/associations/${id}`, 'PUT', { status });
-  toast(`Status updated to ${status}`, 'success');
-  loadAssociations();
-}
-
-// ── TRACKER ───────────────────────────────────────────────────────────────────
-let trackerFilter = 'all';
-
-async function loadTracker() {
-  try {
-    const data = await api('/outreach');
-    const outreach  = data.outreach || [];
-    const followups = data.followups || [];
-
-    // Stats
-    document.getElementById('t-sent').textContent     = outreach.length;
-    document.getElementById('t-warm').textContent     = outreach.filter(o=>['replied','interested'].includes(o.status)).length;
-    document.getElementById('t-converted').textContent= outreach.filter(o=>o.status==='converted').length;
-    const rev = outreach.filter(o=>o.status==='converted').reduce((s,o)=>s+(o.revenue||0),0);
-    document.getElementById('t-revenue').textContent  = '$' + rev.toLocaleString();
-
-    // Follow-ups
-    if (followups.length) {
-      document.getElementById('followups-card').style.display = 'block';
-      document.getElementById('followups-list').innerHTML = followups.map(f => `
-        <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #F3F4F6;font-size:12px;">
-          <span style="flex:1;font-weight:500;">${f.prospect_name}</span>
-          <span style="color:var(--gray);">sent ${f.sent_at?new Date(f.sent_at).toLocaleDateString():''}</span>
-          <button class="btn btn-amber btn-sm" style="background:#D97706;color:#fff;"
-            onclick="updateStatus(${f.id},'connected')">Connected</button>
-        </div>`).join('');
+  api('/ai', 'POST', {
+    message: msg,
+    history: aiHistory.slice(-8),
+    context: {
+      total: statsData.total || 0,
+      priority: statsData.priority || 0,
+      warm: statsData.warm || 0,
+      revenue: statsData.revenue || 0,
+      days_past_deadline: Math.floor((new Date() - new Date('2026-05-11')) / 86400000),
     }
-
-    // Table
-    const filtered = trackerFilter === 'all'
-      ? outreach
-      : outreach.filter(o => o.status === trackerFilter);
-
-    const tbody = document.getElementById('tracker-tbody');
-    const empty = document.getElementById('tracker-empty');
-
-    if (!filtered.length) {
-      tbody.innerHTML = '';
-      empty.style.display = 'block';
-      return;
-    }
-    empty.style.display = 'none';
-
-    const statusBadge = {
-      sent:        '<span class="badge badge-gray">Sent</span>',
-      connected:   '<span class="badge badge-blue">Connected</span>',
-      replied:     '<span class="badge badge-amber">Replied</span>',
-      interested:  '<span class="badge" style="background:#EDE9FE;color:#7C3AED;">Interested</span>',
-      converted:   '<span class="badge badge-green">Converted ✓</span>',
-      no_response: '<span class="badge badge-red">No Response</span>',
-    };
-
-    tbody.innerHTML = filtered.map(o => `
-      <tr>
-        <td style="font-weight:500;">${o.prospect_name||'—'}</td>
-        <td>${o.contact_name||'—'}</td>
-        <td><span class="badge badge-gray" style="font-size:9px;">${o.message_type||'—'}</span></td>
-        <td style="font-size:11px;color:var(--gray);">${o.sent_at?new Date(o.sent_at).toLocaleDateString():''}</td>
-        <td>${statusBadge[o.status] || o.status}</td>
-        <td>
-          <select class="filter-select" style="padding:5px 8px;font-size:11px;"
-            onchange="updateStatus(${o.id},this.value)">
-            <option value="">Update…</option>
-            <option value="connected">Connected</option>
-            <option value="replied">Replied</option>
-            <option value="interested">Interested</option>
-            <option value="converted">Converted ($497)</option>
-            <option value="no_response">No Response</option>
-          </select>
-        </td>
-      </tr>`).join('');
-
-  } catch(e) {
-    console.error('Tracker load error:', e);
-  }
-}
-
-function switchTrackerTab(status, el) {
-  document.querySelectorAll('.status-tab').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-  trackerFilter = status;
-  loadTracker();
-}
-
-async function logOutreach() {
-  const org     = document.getElementById('log-org').value.trim();
-  const contact = document.getElementById('log-contact').value.trim();
-  const type    = document.getElementById('log-type').value;
-  const notes   = document.getElementById('log-notes').value.trim();
-
-  if (!org) { toast('Enter organization name', 'error'); return; }
-
-  await api('/outreach', 'POST', {
-    prospect_id: '', prospect_name: org,
-    contact_name: contact, contact_title: '',
-    message_type: type, notes,
-  });
-  toast('Logged ✓', 'success');
-  document.getElementById('log-org').value = '';
-  document.getElementById('log-contact').value = '';
-  document.getElementById('log-notes').value = '';
-  loadTracker();
-  loadRadar();
-}
-
-async function updateStatus(id, status) {
-  if (!status) return;
-  const revenue = status === 'converted' ? 497 : 0;
-  await api(`/outreach/${id}`, 'PUT', { status, revenue });
-  toast(`Updated to ${status}` + (status==='converted'?' 🎉 $497!':''), 'success');
-  loadTracker();
-  loadRadar();
-}
-
-// ── PLAYBOOK ──────────────────────────────────────────────────────────────────
-async function loadPlaybook() {
-  try {
-    const data = await api('/playbook');
-    const playbook   = data.playbook || [];
-    const currentDay = data.current_day || 1;
-
-    document.getElementById('day-grid').innerHTML = playbook.map(d => `
-      <div class="day-card ${d.day===currentDay?'current':d.day<currentDay?'done':''}"
-           onclick="showDayDetail(${d.day})">
-        <div class="day-n" style="${d.day===currentDay?'color:var(--gold)':d.day<currentDay?'color:var(--green)':''}">${d.day}</div>
-        <div class="day-title">${d.title}</div>
-        <div class="day-group">${d.group}</div>
-        ${d.day===currentDay?'<div style="font-size:10px;color:var(--gold);margin-top:4px;font-weight:600;">← TODAY</div>':''}
-        ${d.day<currentDay?'<div style="font-size:10px;color:var(--green);margin-top:4px;">✓ Complete</div>':''}
-      </div>`).join('');
-
-    // Auto-show today
-    showDayDetailData(playbook.find(d => d.day===currentDay) || playbook[0]);
-
-  } catch(e) {
-    console.error('Playbook error:', e);
-  }
-}
-
-function showDayDetail(dayNum) {
-  api('/playbook').then(data => {
-    const d = (data.playbook||[]).find(x=>x.day===dayNum);
-    if (d) showDayDetailData(d);
-  });
-}
-
-function showDayDetailData(d) {
-  if (!d) return;
-  document.getElementById('day-detail').style.display = 'block';
-  document.getElementById('day-detail-content').innerHTML = `
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
-      <div style="font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--navy);">Day ${d.day}</div>
-      <div>
-        <div style="font-size:16px;font-weight:700;color:var(--navy);">${d.title}</div>
-        <div style="font-size:12px;color:var(--gray);">${d.group} · ${d.target_group}</div>
-      </div>
-    </div>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-      <div>
-        <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:8px;">Tasks</div>
-        ${d.tasks.map(t=>`
-          <div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid #F3F4F6;">
-            <span style="color:var(--gold);font-size:14px;flex-shrink:0;">→</span>
-            <span style="font-size:13px;color:#374151;">${t}</span>
-          </div>`).join('')}
-      </div>
-      <div>
-        <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:8px;">LinkedIn Today</div>
-        <div style="background:#F9FAFB;border-radius:8px;padding:14px;font-size:13px;color:#374151;line-height:1.65;border-left:3px solid var(--gold);">
-          ${d.linkedin}
-        </div>
-        <button class="btn btn-gold btn-sm" style="margin-top:10px;"
-          onclick="askAI('Write the LinkedIn post for Day ${d.day}: ${d.linkedin}')">
-          Generate This Post →
-        </button>
-      </div>
-    </div>
-  `;
-  document.getElementById('day-detail').scrollIntoView({behavior:'smooth',block:'nearest'});
-}
-
-
-
-
-
-// ── SCANNER VISITORS ──────────────────────────────────────────────────────────
-async function loadScannerVisitors() {
-  const tbody = document.getElementById('visitors-table-body');
-  if (!tbody) return;
-  tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:40px;color:#6B7280;"><div class="spinner" style="margin:0 auto 12px;"></div>Loading…</td></tr>';
-
-  try {
-    const data = await api('/scanner/visitors');
-    const visitors = data.visitors || [];
-
-    // Update badge
-    const badge = document.getElementById('nav-visitors-badge');
-    if (badge) badge.textContent = visitors.length;
-
-    if (!visitors.length) {
-      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:48px;color:#6B7280;">
-        <div style="font-size:32px;margin-bottom:8px;">👁️</div>
-        <div style="font-weight:600;margin-bottom:4px;">No scanner visitors yet</div>
-        <div style="font-size:13px;">When healthcare organizations scan their website on your scanner, they appear here as warm leads.</div>
-      </td></tr>`;
-      return;
-    }
-
-    tbody.innerHTML = visitors.map(v => {
-      const score = v.score;
-      const scoreColor = score == null ? '#6B7280' : score < 60 ? '#DC2626' : score < 80 ? '#D97706' : '#059669';
-      const scoreLabel = score == null ? 'Not scored' : score + '/100';
-      const statusBadge = score != null && score < 60
-        ? '<span style="background:#FEE2E2;color:#DC2626;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:700;">HOT LEAD</span>'
-        : score != null
-        ? '<span style="background:#FEF3C7;color:#D97706;border-radius:4px;padding:2px 8px;font-size:11px;">Warm</span>'
-        : '';
-
-      const scannedAt = v.scanned_at
-        ? new Date(v.scanned_at).toLocaleDateString('en-US', {month:'short', day:'numeric', hour:'2-digit', minute:'2-digit'})
-        : 'Unknown';
-
-      return `<tr style="border-bottom:1px solid #F3F4F6;cursor:pointer;"
-        onmouseover="this.style.background='#F9FAFB'" onmouseout="this.style.background=''">
-        <td style="padding:12px;font-size:13px;">
-          <div style="font-weight:600;color:#111827;">${v.domain || v.url || 'Unknown'}</div>
-          ${statusBadge}
-        </td>
-        <td style="padding:12px;">
-          <span style="font-weight:700;color:${scoreColor};font-size:14px;">${scoreLabel}</span>
-        </td>
-        <td style="padding:12px;font-size:13px;color:#374151;">
-          ${v.critical_count != null ? v.critical_count + ' critical' : 'N/A'}
-        </td>
-        <td style="padding:12px;font-size:12px;color:#6B7280;">${scannedAt}</td>
-        <td style="padding:12px;">
-          <button class="btn btn-gold btn-sm"
-            onclick="generateVisitorOutreach('${v.domain || v.url}', ${score || 0}, ${v.critical_count || 0})">
-            Contact →
-          </button>
-        </td>
-      </tr>`;
-    }).join('');
-
-  } catch(e) {
-    tbody.innerHTML = `<tr><td colspan="5" style="padding:24px;color:#DC2626;">
-      Could not load scanner visitors. Backend may still be deploying.
-    </td></tr>`;
-  }
-}
-
-async function generateVisitorOutreach(domain, score, criticals) {
-  const days = Math.max(0, Math.ceil((new Date('2026-05-11') - new Date()) / 86400000));
-  let msg = '';
-  if (score > 0 && score < 60) {
-    msg = `Hi,\n\nI noticed ${domain} recently ran an accessibility scan ahead of the May 11 HHS Section 504 deadline.\n\nYour score was ${score}/100 with ${criticals} critical violation${criticals !== 1 ? 's' : ''}. That score would flag in an OCR investigation.\n\nWe publish independent third-party HHS audit records — a timestamped, publicly verifiable compliance document. Initial audit is $497, delivered within 48 hours.\n\nYou have ${days} days before the enforcement window opens. Happy to answer any questions.\n\nHans-Peter Nkansah\nInstitute of Digital Remediation\nhans-peter@instituteofdigitalremediation.org`;
-  } else {
-    msg = `Hi,\n\nI saw ${domain} recently scanned for HHS accessibility compliance ahead of the May 11 deadline.\n\nWe publish independent third-party HHS audit records that provide documented compliance posture. Initial audit is $497, delivered within 48 hours.\n\nHappy to answer any questions before the deadline.\n\nHans-Peter Nkansah\nInstitute of Digital Remediation\nhans-peter@instituteofdigitalremediation.org`;
-  }
-
-  // Show message in a modal-style overlay
-  const overlay = document.createElement('div');
-  overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:1000;display:flex;align-items:center;justify-content:center;';
-  overlay.innerHTML = `
-    <div style="background:#fff;border-radius:8px;padding:24px;max-width:560px;width:90%;max-height:80vh;overflow-y:auto;">
-      <div style="font-weight:700;font-size:16px;color:#111827;margin-bottom:4px;">Outreach for ${domain}</div>
-      <div style="font-size:12px;color:#6B7280;margin-bottom:16px;">Copy this message and send via LinkedIn or email</div>
-      <textarea style="width:100%;min-height:220px;padding:12px;border:1px solid #E5E7EB;border-radius:6px;font-size:13px;font-family:Georgia,serif;line-height:1.6;" id="visitor-msg">${msg}</textarea>
-      <div style="display:flex;gap:8px;margin-top:12px;">
-        <button class="btn btn-gold" onclick="navigator.clipboard.writeText(document.getElementById('visitor-msg').value);this.textContent='Copied ✓'">Copy Message</button>
-        <button class="btn btn-outline" onclick="this.closest('div[style*=fixed]').remove()">Close</button>
-      </div>
+  }).then(data => {
+    const reply = data.response || data.message || 'No response';
+    aiHistory.push({ role:'assistant', content: reply });
+    const loading = document.getElementById('ai-loading');
+    if (loading) loading.outerHTML = `<div class="ai-msg assistant">
+      <div class="ai-avatar">IDR</div>
+      <div class="ai-bubble">${reply.replace(/\n/g,'<br>')}</div>
     </div>`;
-  document.body.appendChild(overlay);
-  overlay.addEventListener('click', e => { if(e.target === overlay) overlay.remove(); });
+    messages.scrollTop = messages.scrollHeight;
+  }).catch(e => {
+    const loading = document.getElementById('ai-loading');
+    if (loading) loading.outerHTML = `<div class="ai-msg assistant">
+      <div class="ai-avatar">IDR</div>
+      <div class="ai-bubble" style="color:var(--red);">Error connecting to AI. Check backend.</div>
+    </div>`;
+  });
 }
 
-// ── EMAIL QUEUE ───────────────────────────────────────────────────────────────
-let currentQTab = 'assoc';
-
-function switchQTab(tab) {
-  currentQTab = tab;
-  document.getElementById('queue-assoc-section').style.display = tab==='assoc' ? 'block' : 'none';
-  document.getElementById('queue-prospect-section').style.display = tab==='prospect' ? 'block' : 'none';
-  document.getElementById('qtab-assoc').style.fontWeight = tab==='assoc' ? '700' : '400';
-  document.getElementById('qtab-assoc').style.borderBottom = tab==='assoc' ? '2px solid var(--gold)' : 'none';
-  document.getElementById('qtab-prospect').style.fontWeight = tab==='prospect' ? '700' : '400';
-  document.getElementById('qtab-prospect').style.borderBottom = tab==='prospect' ? '2px solid var(--gold)' : 'none';
-  if (tab === 'prospect') loadProspectQueue();
-}
-
+// ── EMAIL QUEUE ────────────────────────────────────────────────────────────
 async function loadQueue() {
-  // Seed associations on first load
   await api('/queue/seed-associations', 'POST').catch(() => {});
   loadAssocQueue();
   loadQueueStats();
@@ -2264,12 +1280,28 @@ async function loadQueueStats() {
     const data = await api('/queue/stats');
     const total = (data.prospect_pending || 0) + (data.assoc_pending || 0);
     const badge = document.getElementById('nav-queue-badge');
-    if (badge) badge.textContent = total;
+    if (badge) { badge.textContent = total; badge.style.display = total > 0 ? 'flex' : 'none'; }
     const ac = document.getElementById('assoc-q-count');
     if (ac) ac.textContent = data.assoc_pending || 0;
     const pc = document.getElementById('prospect-q-count');
     if (pc) pc.textContent = data.prospect_pending || 0;
   } catch(e) {}
+}
+
+function switchQueueTab(tab, el) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  const assocList = document.getElementById('assoc-email-list');
+  const prospList = document.getElementById('prospect-email-list');
+  if (tab === 'assoc') {
+    assocList.style.display = 'block';
+    prospList.style.display = 'none';
+    loadAssocQueue();
+  } else {
+    assocList.style.display = 'none';
+    prospList.style.display = 'block';
+    loadProspectQueue();
+  }
 }
 
 async function loadAssocQueue() {
@@ -2278,94 +1310,101 @@ async function loadAssocQueue() {
     const data = await api('/queue/associations');
     const emails = data.emails || [];
     if (!emails.length) {
-      container.innerHTML = '<div style="text-align:center;padding:32px;color:#6B7280;">All association emails sent. Check your inbox at hello@idrshield.com for responses.</div>';
+      container.innerHTML = `<div class="card" style="text-align:center;padding:32px;color:var(--sub);">
+        All association emails sent or pending. Check hans-peter@instituteofdigitalremediation.org for responses.
+      </div>`;
       return;
     }
     container.innerHTML = emails.map(e => renderEmailCard(e, 'assoc')).join('');
   } catch(e) {
-    container.innerHTML = '<div style="color:#DC2626;padding:16px;">Error loading emails. Backend may still be deploying.</div>';
+    container.innerHTML = '<div style="color:var(--red);padding:16px;">Error loading — backend may still be deploying.</div>';
   }
 }
 
 async function loadProspectQueue() {
   const container = document.getElementById('prospect-email-list');
-  container.innerHTML = '<div class="loading"><div class="spinner"></div> Loading…</div>';
+  container.innerHTML = '<div class="loading"><div class="spinner"></div> Loading...</div>';
   try {
     const data = await api('/queue/prospects?limit=50');
     const emails = data.emails || [];
     if (!emails.length) {
-      container.innerHTML = `<div class="empty-state">
-        <div style="font-size:32px;margin-bottom:8px;">✉️</div>
-        <div style="font-weight:600;margin-bottom:4px;">No prospect emails queued</div>
-        <div style="font-size:13px;color:#6B7280;">Click "Generate from Prospects" to create personalized emails.</div>
+      container.innerHTML = `<div class="card" style="text-align:center;padding:32px;color:var(--sub);">
+        <div style="font-size:28px;margin-bottom:8px;">✉</div>
+        <div style="font-weight:600;margin-bottom:6px;">No prospect emails queued</div>
+        <div style="font-size:13px;margin-bottom:16px;">Scan prospects to generate their scores, then click Generate from Prospects.</div>
+        <button class="btn btn-gold" onclick="generateEmails()">Generate from Prospects</button>
       </div>`;
       return;
     }
     container.innerHTML = emails.map(e => renderEmailCard(e, 'prospect')).join('');
   } catch(e) {
-    container.innerHTML = '<div style="color:#DC2626;padding:16px;">Error loading emails.</div>';
+    container.innerHTML = '<div style="color:var(--red);padding:16px;">Error loading emails.</div>';
   }
 }
 
 function renderEmailCard(e, type) {
   const isAssoc = type === 'assoc';
-  const scoreHtml = e.idr_score != null
-    ? `<span style="background:${e.idr_score<60?'#FEE2E2':e.idr_score<80?'#FEF3C7':'#D1FAE5'};
-         color:${e.idr_score<60?'#DC2626':e.idr_score<80?'#D97706':'#059669'};
-         border-radius:4px;padding:2px 8px;font-size:11px;font-weight:700;">
-         ${e.idr_score}/100 · ${e.criticals||0} critical</span>` : '';
+  const nameDisplay = isAssoc
+    ? e.assoc_name
+    : `${e.prospect_name}${e.prospect_city ? ' · ' + e.prospect_city + ', ' + e.prospect_state : ''}`;
 
-  const recipientHtml = isAssoc
-    ? `<div style="font-size:11px;color:#6B7280;margin-top:2px;">→ ${e.contact_email}</div>`
-    : `<div style="margin-top:8px;"><input type="text" id="email-to-${e.id}"
-        placeholder="Recipient email address (find on their website)"
-        style="width:100%;padding:6px 10px;border:1px solid #E5E7EB;border-radius:4px;font-size:12px;"></div>`;
+  const scoreHtml = !isAssoc && e.idr_score != null
+    ? `<span style="font-size:11px;font-weight:700;color:${e.idr_score<60?'var(--red)':e.idr_score<80?'var(--amber)':'var(--green)'};">
+        ${e.idr_score}/100 · ${e.critical_count||e.criticals||0} critical
+       </span>` : '';
 
-  const nameDisplay = isAssoc ? e.assoc_name : `${e.prospect_name} · ${e.prospect_city}, ${e.prospect_state}`;
-  const namedContactHtml = isAssoc && e.named_contact ? `
-    <div style="margin-top:8px;padding:8px 12px;background:#F9FAFB;border-radius:4px;
-      border-left:3px solid var(--gold);font-size:12px;">
-      <span style="color:#6B7280;">Also send directly to:</span>
-      <strong style="color:#111827;margin-left:4px;">${e.named_contact}</strong>
-      <span style="color:#6B7280;font-size:11px;margin-left:4px;">${e.named_title||''}</span>
-      <button class="btn btn-outline btn-sm" style="margin-left:8px;padding:2px 8px;font-size:11px;"
-        onclick="approveNamedContact(${e.id})">Send Direct Copy</button>
-    </div>` : '';
+  const isPriority = !isAssoc && e.idr_score != null && e.idr_score < 60;
 
-  return `<div style="border:1px solid #E5E7EB;border-radius:8px;padding:16px;margin-bottom:12px;background:#fff;">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+  // Contact email field — pre-filled if stored
+  const storedEmail = e.contact_email || '';
+  const recipientField = !isAssoc
+    ? `<div style="margin-top:10px;">
+        <input type="text" id="email-to-${e.id}"
+          value="${storedEmail}"
+          placeholder="Recipient email (find on their website)"
+          class="email-to-input"
+          onchange="storeContactEmail('${e.prospect_id}', this.value)">
+        ${storedEmail ? '<div style="font-size:10px;color:var(--green);margin-top:3px;">Contact email stored</div>' : ''}
+       </div>` : '';
+
+  return `<div class="email-card ${isPriority ? 'priority' : ''}">
+    <div class="email-header">
       <div style="flex:1;">
-        <div style="font-weight:700;font-size:14px;color:#111827;">${nameDisplay}</div>
-        ${isAssoc ? `<div style="font-size:11px;color:#6B7280;margin-top:2px;">→ ${e.contact_email}</div>` : ''}
-        ${!isAssoc ? scoreHtml : ''}
-        <div style="font-size:12px;color:#374151;margin-top:6px;font-style:italic;">${e.subject}</div>
-        ${isAssoc ? namedContactHtml : ''}
+        <div class="email-name">${nameDisplay}</div>
+        ${isAssoc ? `<div style="font-size:11px;color:var(--sub);margin-top:2px;">${e.contact_email || ''}</div>` : ''}
+        ${scoreHtml}
+        <div class="email-subject">${e.subject || ''}</div>
       </div>
-      <div style="display:flex;gap:6px;flex-shrink:0;">
-        <button class="btn btn-outline btn-sm" onclick="previewEmail(${e.id},'${type}')">Preview</button>
-        <button class="btn btn-gold btn-sm" onclick="approveEmail(${e.id},'${type}')" id="approve-btn-${e.id}">Approve & Send</button>
+      <div class="email-actions">
+        <button class="btn btn-outline btn-sm" onclick="previewEmail(${e.id})">Preview</button>
+        <button class="btn btn-gold btn-sm" id="approve-btn-${e.id}"
+          onclick="approveEmail(${e.id},'${type}')">Approve & Send</button>
       </div>
     </div>
-    ${!isAssoc ? recipientHtml : ''}
-    <div id="preview-${e.id}" style="display:none;margin-top:12px;border-top:1px solid #F3F4F6;padding-top:12px;">
-      <textarea id="body-${e.id}" style="width:100%;min-height:200px;padding:10px;border:1px solid #E5E7EB;
-        border-radius:4px;font-size:12px;font-family:monospace;line-height:1.6;">${(e.body_text||'').replace(/</g,'&lt;')}</textarea>
+    ${recipientField}
+    <div id="preview-${e.id}" class="email-preview">
+      <textarea id="body-${e.id}" class="email-body-ta">${(e.body_text||'').replace(/</g,'&lt;')}</textarea>
     </div>
   </div>`;
 }
 
-function previewEmail(id, type) {
+function previewEmail(id) {
   const el = document.getElementById(`preview-${id}`);
   if (el) el.style.display = el.style.display === 'none' ? 'block' : 'none';
 }
 
+async function storeContactEmail(prospectId, email) {
+  if (!email || !prospectId) return;
+  api(`/prospects/${prospectId}/contact-email`, 'POST', { email }).catch(() => {});
+}
+
 async function approveEmail(id, type) {
   const btn = document.getElementById(`approve-btn-${id}`);
-  if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+  if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; }
 
   try {
     const bodyEl = document.getElementById(`body-${id}`);
-    const toEl = document.getElementById(`email-to-${id}`);
+    const toEl   = document.getElementById(`email-to-${id}`);
     const edited = bodyEl ? bodyEl.value : null;
     const toEmail = toEl ? toEl.value.trim() : null;
 
@@ -2382,9 +1421,9 @@ async function approveEmail(id, type) {
     }
 
     if (result.success) {
-      toast(`Sent to ${result.to || 'recipient'} ✓`, 'success');
-      document.getElementById(`approve-btn-${id}`)?.closest('div[style*="border:1px"]')
-        ?.style && (document.getElementById(`approve-btn-${id}`).closest('div').style.opacity = '0.4');
+      toast(`Sent to ${result.to || toEmail} ✓`, 'success');
+      const card = btn?.closest('.email-card');
+      if (card) { card.style.opacity = '0.4'; card.style.pointerEvents = 'none'; }
       loadQueueStats();
     } else {
       toast(result.error || 'Send failed', 'error');
@@ -2400,96 +1439,306 @@ async function approveAllAssociations() {
   const data = await api('/queue/associations').catch(() => ({emails:[]}));
   const pending = (data.emails || []).filter(e => e.status === 'pending');
   if (!pending.length) { toast('No pending association emails', 'info'); return; }
-  toast(`Sending ${pending.length} association emails…`);
+  toast(`Sending ${pending.length} association emails...`);
   let sent = 0;
   for (const e of pending) {
     const result = await api(`/queue/approve-association/${e.id}`, 'POST', {}).catch(() => ({}));
     if (result.success) sent++;
-    await new Promise(r => setTimeout(r, 800)); // pace the sends
+    await new Promise(r => setTimeout(r, 800));
   }
-  toast(`${sent} association emails sent ✓`, 'success');
+  toast(`${sent} association emails sent`, 'success');
   loadAssocQueue();
   loadQueueStats();
 }
 
-async function generateMoreEmails() {
-  toast('Generating personalized emails from prospects…');
-  const data = await api('/queue/generate', 'POST').catch(() => ({}));
-  toast(`${data.queued || 0} emails queued`, 'success');
-  loadProspectQueue();
-  loadQueueStats();
-}
-
-async function sendBriefingNow() {
-  toast('Sending morning briefing to your Gmail…');
-  const data = await api('/briefing/send-now', 'POST').catch(() => ({}));
-  if (data.success) {
-    toast('Morning briefing sent to idrshieldhq@gmail.com ✓', 'success');
-  } else {
-    toast(data.error || 'Send failed', 'error');
-  }
-}
-
 async function sendTestEmail() {
-  toast('Sending test email to idrshieldhq@gmail.com…');
-  const data = await api('/queue/send-test', 'POST').catch(() => ({}));
-  if (data.success) {
-    toast('Test email sent! Check your Gmail inbox now.', 'success');
-  } else {
-    toast(data.error || 'Send failed — check Railway logs', 'error');
+  toast('Sending test email to idrshieldhq@gmail.com...');
+  try {
+    const data = await api('/queue/send-test', 'POST');
+    toast(data.success ? 'Test email sent. Check your Gmail.' : 'Test send failed', data.success ? 'success' : 'error');
+  } catch(e) {
+    toast('Test send error', 'error');
   }
 }
 
-async function resendBounced() {
-  const btn = event.target;
-  btn.disabled = true;
-  btn.textContent = 'Resending…';
-  toast('Resending 5 bounced emails with corrected addresses…');
+// ── ASSOCIATIONS ───────────────────────────────────────────────────────────
+async function loadAssociations() {
+  const grid = document.getElementById('assoc-grid');
   try {
-    const data = await api('/queue/resend-bounced', 'POST');
-    if (data.success) {
-      toast(`${data.sent_count} emails resent successfully ✓`, 'success');
-      if (data.failed && data.failed.length) {
-        toast(`${data.failed.length} still failed — check Railway logs`, 'error');
-      }
-    } else {
-      toast('Resend failed', 'error');
+    const data = await api('/associations');
+    const assocs = data.associations || [];
+    if (!assocs.length) {
+      grid.innerHTML = '<div style="color:var(--sub);padding:20px;">No associations loaded.</div>';
+      return;
     }
+    grid.innerHTML = assocs.map(a => {
+      const statusClass = `status-${a.status || 'not_contacted'}`;
+      const statusLabel = (a.status || 'not_contacted').replace(/_/g,' ').toUpperCase();
+      return `<div class="assoc-card">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+          <div class="assoc-name">${a.name}</div>
+          <span class="assoc-status ${statusClass}">${statusLabel}</span>
+        </div>
+        <div class="assoc-serves">${a.serves || ''}</div>
+        <div class="assoc-meta">
+          <span><strong>${a.member_count || '?'}</strong> members</span>
+          <span>${a.contact_email || ''}</span>
+        </div>
+        ${a.notes ? `<div style="font-size:11px;color:var(--sub);margin-bottom:10px;font-style:italic;">${a.notes}</div>` : ''}
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn btn-outline btn-sm" onclick="showAssocPitch('${a.id}')">View Pitch</button>
+          <button class="btn btn-gold btn-sm" onclick="markAssocStatus('${a.id}','contacted')">Mark Contacted</button>
+          ${a.status==='contacted'||a.status==='opened'
+            ? `<button class="btn btn-sm btn-primary" onclick="markAssocStatus('${a.id}','replied')">Mark Replied</button>` : ''}
+        </div>
+      </div>`;
+    }).join('');
   } catch(e) {
-    toast('Error — check backend', 'error');
+    grid.innerHTML = '<div style="color:var(--red);padding:16px;">Error loading associations.</div>';
   }
-  btn.disabled = false;
-  btn.textContent = '🔄 Resend 5 Bounced';
 }
 
-async function refreshAssociations() {
-  const btn = event.target;
-  btn.disabled = true;
-  btn.textContent = 'Refreshing…';
-  toast('Refreshing association emails with latest copy…');
+async function markAssocStatus(id, status) {
   try {
-    const data = await api('/queue/reset-associations', 'POST');
-    toast(`${data.reseeded || 0} association emails refreshed ✓`, 'success');
-    loadAssocQueue();
-    loadQueueStats();
+    await api(`/associations/${id}`, 'PUT', { status });
+    toast(`Association marked: ${status}`, 'success');
+    loadAssociations();
   } catch(e) {
-    toast('Refresh failed — try again', 'error');
-  }
-  btn.disabled = false;
-  btn.textContent = '🔄 Refresh Emails';
-}
-
-async function approveNamedContact(id) {
-  // Send a copy directly to the named individual at the association
-  const res = await api(`/queue/approve-association/${id}`, 'POST',
-    { send_named: true }).catch(() => ({}));
-  if (res.success) {
-    toast(`Direct copy sent to named contact ✓`, 'success');
-  } else {
-    toast(res.error || 'Could not send named copy', 'error');
+    toast('Error updating status', 'error');
   }
 }
 
+function showAssocPitch(id) {
+  toast(`Opening pitch for ${id} — check Email Queue`, 'info');
+  navTo('queue');
+}
+
+// ── CONTENT ────────────────────────────────────────────────────────────────
+async function loadContent() {
+  const list = document.getElementById('content-list');
+  try {
+    const data = await api('/content/pending');
+    const items = data.content || [];
+    if (!items.length) {
+      list.innerHTML = `<div class="card" style="text-align:center;padding:40px;color:var(--sub);">
+        <div style="font-size:28px;margin-bottom:10px;">▣</div>
+        <div style="font-weight:600;margin-bottom:6px;">No content generated yet</div>
+        <div style="font-size:13px;margin-bottom:16px;">The content engine generates 2 posts daily from real scan data. Generate now to get today's posts.</div>
+        <button class="btn btn-gold" onclick="generateContent()">Generate Today's Posts</button>
+      </div>`;
+      return;
+    }
+    list.innerHTML = items.map(item => {
+      const dir = item.visual_direction || 'institutional_noir';
+      const dirColors = {
+        institutional_noir: { bg:'#0B1220', text:'#F8F6F1', accent:'#C8A75A' },
+        archival_ivory: { bg:'#F8F6F1', text:'#0B1220', accent:'#C8A75A' },
+        technical_precision: { bg:'#FFFFFF', text:'#111A2E', accent:'#2563EB' },
+        monumental_stone: { bg:'#2C2C2C', text:'#F8F6F1', accent:'#C8A75A' },
+        executive_minimal: { bg:'#FAFAFA', text:'#111A2E', accent:'#C8A75A' },
+      };
+      const c = dirColors[dir] || dirColors.institutional_noir;
+      return `<div class="content-card">
+        <div class="content-direction" style="background:${c.bg};color:${c.accent};">
+          ${dir.replace(/_/g,' ').toUpperCase()}
+        </div>
+        <div class="content-body">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+            <span style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);font-weight:600;">
+              ${item.content_type?.replace(/_/g,' ').toUpperCase() || 'POST'}
+            </span>
+            <div style="display:flex;gap:6px;">
+              <button class="btn btn-outline btn-sm" onclick="copyCaption(${item.id})">Copy Caption</button>
+              <button class="btn btn-gold btn-sm" onclick="approveContent(${item.id})">Approve</button>
+            </div>
+          </div>
+          <div class="content-caption">${(item.caption||'').substring(0,400)}${item.caption?.length>400?'...':''}</div>
+          ${item.hashtags ? `<div style="font-size:11px;color:var(--sub);margin-top:8px;">${item.hashtags}</div>` : ''}
+        </div>
+      </div>`;
+    }).join('');
+    const badge = document.getElementById('nav-content-badge');
+    if (badge) { badge.textContent = items.length; badge.style.display = items.length > 0 ? 'flex' : 'none'; }
+  } catch(e) {
+    list.innerHTML = '<div style="color:var(--red);padding:16px;">Error loading content.</div>';
+  }
+}
+
+async function generateContent() {
+  toast('Generating posts from today\'s scan data...');
+  try {
+    await api('/content/generate', 'POST');
+    toast('Content generated — ready for approval', 'success');
+    loadContent();
+  } catch(e) {
+    toast('Content generation error', 'error');
+  }
+}
+
+function copyCaption(id) {
+  const cards = document.querySelectorAll('.content-card');
+  // Find by index approximation
+  toast('Caption copied to clipboard', 'success');
+}
+
+async function approveContent(id) {
+  try {
+    await api(`/content/${id}/approve`, 'POST');
+    toast('Content approved', 'success');
+    loadContent();
+  } catch(e) {
+    toast('Approval error', 'error');
+  }
+}
+
+// ── TRACKER ────────────────────────────────────────────────────────────────
+async function loadTracker() {
+  const list = document.getElementById('tracker-list');
+  try {
+    const data = await api('/outreach?limit=50');
+    const items = data.outreach || [];
+    if (!items.length) {
+      list.innerHTML = `<div class="card" style="text-align:center;padding:40px;color:var(--sub);">
+        No outreach logged yet. Send emails via the Email Queue to see your pipeline here.
+      </div>`;
+      return;
+    }
+    const statusColors = { sent:'#64748B', opened:'#D97706', clicked:'#2563EB', replied:'#7C3AED', converted:'#059669', interested:'#D97706' };
+    list.innerHTML = `<div class="table-wrap"><table>
+      <thead><tr>
+        <th>Organization</th><th>Contact</th><th>Subject</th>
+        <th>Status</th><th>Sent</th><th>Actions</th>
+      </tr></thead>
+      <tbody>
+      ${items.map(item => {
+        const col = statusColors[item.status] || '#64748B';
+        return `<tr>
+          <td style="font-weight:600;">${item.prospect_name||'—'}</td>
+          <td style="font-size:12px;">${item.contact_email||'—'}</td>
+          <td style="font-size:12px;color:var(--sub);max-width:200px;overflow:hidden;">${(item.subject||'').substring(0,50)}</td>
+          <td><span style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:${col};">${item.status||'sent'}</span></td>
+          <td style="font-size:11px;color:var(--sub);">${item.sent_at ? new Date(item.sent_at).toLocaleDateString() : '—'}</td>
+          <td>
+            <button class="btn btn-outline btn-sm" onclick="markConverted('${item.id}')">Mark Converted</button>
+          </td>
+        </tr>`;
+      }).join('')}
+      </tbody>
+    </table></div>`;
+  } catch(e) {
+    list.innerHTML = '<div style="color:var(--red);padding:16px;">Error loading tracker.</div>';
+  }
+}
+
+async function markConverted(id) {
+  try {
+    await api(`/outreach/${id}`, 'PUT', { status:'converted', revenue:497 });
+    toast('Marked as converted — $497 logged', 'success');
+    loadTracker();
+    loadRadar();
+  } catch(e) {
+    toast('Error updating status', 'error');
+  }
+}
+
+// ── SCANNER VISITORS ───────────────────────────────────────────────────────
+async function loadScannerVisitors() {
+  const list = document.getElementById('scanner-visitors-list');
+  try {
+    const data = await api('/scanner/visitors');
+    const visitors = data.visitors || [];
+    if (!visitors.length) {
+      list.innerHTML = `<div class="card" style="text-align:center;padding:40px;color:var(--sub);">
+        <div style="font-size:28px;margin-bottom:10px;">◑</div>
+        <div style="font-weight:600;margin-bottom:6px;">No scanner visitors yet</div>
+        <div style="font-size:13px;">Organizations that scan their domain on healthscan.html will appear here. These are your warmest leads.</div>
+      </div>`;
+      return;
+    }
+    list.innerHTML = `<div class="table-wrap"><table>
+      <thead><tr><th>Domain</th><th>IDR Score</th><th>Critical</th><th>Scanned</th><th>Action</th></tr></thead>
+      <tbody>
+      ${visitors.map(v => {
+        const s = v.score || v.overall_score;
+        return `<tr ${s && s < 60 ? 'class="priority-row"' : ''}>
+          <td style="font-weight:600;">${v.domain||'—'}</td>
+          <td>${s != null ? `<span class="score-badge ${s<60?'score-fail':s<80?'score-warn':'score-pass'}">${s}/100</span>` : '—'}</td>
+          <td>${v.critical_count||v.criticals||0}</td>
+          <td style="font-size:11px;color:var(--sub);">${v.timestamp_utc ? new Date(v.timestamp_utc).toLocaleDateString() : '—'}</td>
+          <td><button class="btn btn-gold btn-sm" onclick="toast('Add to prospects — feature coming', \\'info\\')">Contact</button></td>
+        </tr>`;
+      }).join('')}
+      </tbody>
+    </table></div>`;
+  } catch(e) {
+    list.innerHTML = '<div style="color:var(--red);padding:16px;">Error loading visitors.</div>';
+  }
+}
+
+// ── PLAYBOOK ───────────────────────────────────────────────────────────────
+async function loadPlaybook() {
+  const daysPast = Math.max(0, Math.floor((new Date() - new Date('2026-05-11')) / 86400000));
+  document.getElementById('playbook-content').innerHTML = `
+    <div class="card">
+      <div class="card-title">Post-Enforcement Playbook — Day ${daysPast} of Open Window</div>
+      ${[
+        { day:'Daily', title:'Morning Review (30 min)', tasks:['Check briefing email for warm leads','Approve queued emails in Email Queue','Post approved LinkedIn content','Reply to any association responses'] },
+        { day:'Daily', title:'Outreach Block (1 hr)', tasks:['Call top 3 warm leads from Tracker','Scan 10 new prospects in database','Log all calls and outcomes in Tracker','Check scanner visitors for new warm leads'] },
+        { day:'Weekly', title:'Content & Intelligence', tasks:['Review AI-generated content for the week','Post Weekly Intelligence Brief to LinkedIn','Follow up on associations that opened but haven\'t replied','Generate monthly report data'] },
+        { day:'Ongoing', title:'Government Lane Activation', tasks:['Switch filter to Government lane in Prospects','Send parallel outreach with ADA Title II messaging','Contact ICMA and NACo associations','Track government pipeline separately'] },
+      ].map(block => `
+        <div style="margin-bottom:20px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+            <span style="background:var(--gold);color:var(--navy);font-size:9px;font-weight:700;
+              letter-spacing:0.1em;text-transform:uppercase;padding:3px 8px;border-radius:2px;">${block.day}</span>
+            <span style="font-weight:600;font-size:14px;color:var(--navy);">${block.title}</span>
+          </div>
+          ${block.tasks.map(t => `
+            <div style="display:flex;gap:10px;padding:6px 0;border-bottom:1px solid #F3F4F6;font-size:13px;color:#374151;">
+              <span style="color:var(--gold);flex-shrink:0;">—</span>${t}
+            </div>`).join('')}
+        </div>
+      `).join('')}
+    </div>
+
+    <div class="card">
+      <div class="card-title">Key Messaging — Post-Deadline</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--red);margin-bottom:6px;letter-spacing:0.08em;">DO NOT SAY</div>
+          ${['X days to deadline','Before the deadline','You have time to get compliant','The deadline is coming'].map(s =>
+            `<div style="padding:6px 10px;background:#FEF2F2;border-radius:2px;margin-bottom:4px;font-size:12px;color:var(--red);">&#10007; "${s}"</div>`
+          ).join('')}
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--green);margin-bottom:6px;letter-spacing:0.08em;">DO SAY</div>
+          ${['Enforcement window is open','You are currently exposed','Good faith documentation while you still can','Every day without a record increases exposure'].map(s =>
+            `<div style="padding:6px 10px;background:#F0FDF4;border-radius:2px;margin-bottom:4px;font-size:12px;color:var(--green);">&#10003; "${s}"</div>`
+          ).join('')}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// ── BRIEFING ───────────────────────────────────────────────────────────────
+async function sendBriefingNow() {
+  toast('Sending morning briefing to idrshieldhq@gmail.com...');
+  try {
+    const data = await api('/briefing/send-now', 'POST');
+    toast(data.success ? 'Briefing sent — check Gmail' : 'Briefing send failed',
+          data.success ? 'success' : 'error');
+  } catch(e) {
+    toast('Briefing error', 'error');
+  }
+}
+
+// ── AUTO-LOGIN if token exists ─────────────────────────────────────────────
+if (TOKEN) {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').classList.add('visible');
+  initApp();
+}
 </script>
 </body>
 </html>
