@@ -607,6 +607,7 @@ tr.priority-row:hover td { background: #FEE2E2; }
           </div>
         </div>
         <div class="page-body">
+          <div id="db-summary" style="display:none;padding:10px 0;margin-bottom:8px;"></div>
           <div class="filter-row">
             <input type="text" class="filter-input" placeholder="Search by name, city, state..."
                    oninput="filterProspects(this.value)" style="flex:1;max-width:300px;">
@@ -939,8 +940,11 @@ function navTo(room) {
 // ── App init ───────────────────────────────────────────────────────────────
 function initApp() {
   // Date in topbar
+  const _now = new Date();
+  const _edt = new Date(_now.toLocaleString('en-US', {timeZone:'America/New_York'}));
   document.getElementById('topbar-date').textContent =
-    new Date().toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'});
+    _edt.toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'}) +
+    ' ' + _edt.toLocaleTimeString('en-US', {hour:'numeric',minute:'2-digit',hour12:true}) + ' EDT';
 
   // Days past deadline
   const deadline = new Date('2026-05-11');
@@ -983,7 +987,7 @@ async function loadRadar() {
         `<div class="activity-item">
           <div class="activity-dot"></div>
           <div style="flex:1;font-size:12px;color:#374151;">${a.detail || a.type}</div>
-          <div class="activity-time">${a.time}</div>
+          <div class="activity-time">${a.time} EDT</div>
         </div>`
       ).join('');
     } else {
@@ -1107,7 +1111,7 @@ async function loadProspects() {
     const lane    = document.getElementById('filter-lane')?.value || '';
     const prio    = document.getElementById('filter-priority')?.value || '';
 
-    let path = '/prospects?limit=200';
+    let path = '/prospects?limit=300';
     if (state) path += `&state=${state}`;
     if (type)  path += `&org_type=${type}`;
     if (lane)  path += `&org_lane=${lane}`;
@@ -1122,16 +1126,40 @@ async function loadProspects() {
       const priority = prospectsData.filter(p => p.idr_score && p.idr_score < 60).length;
       const badge = document.getElementById('nav-priority-badge');
       if (badge && priority > 0) { badge.textContent = priority; badge.style.display = 'flex'; }
+      // Show DB summary
+      showDBSummary();
     } else {
-      // Fallback: trigger harvest to populate
       document.getElementById('prospects-empty').style.display = 'flex';
       toast('No prospects in DB yet — triggering harvest...', 'info');
       triggerHarvest();
     }
   } catch(e) {
     console.error('loadProspects error:', e);
-    renderProspects(prospectsData); // Show whatever we have
+    renderProspects(prospectsData);
   }
+}
+
+async function showDBSummary() {
+  // Show what's actually in the DB — proof the Scout Agent is working
+  try {
+    const data = await api('/stats/breakdown');
+    const byType = data.by_type || [];
+    if (!byType.length) return;
+    const summaryEl = document.getElementById('db-summary');
+    if (!summaryEl) return;
+    const parts = byType.map(t =>
+      `<span style="background:#F3F4F6;border-radius:2px;padding:3px 8px;font-size:11px;margin-right:6px;">
+        <strong>${t.count.toLocaleString()}</strong> ${t.type.toUpperCase()}
+      </span>`
+    ).join('');
+    summaryEl.innerHTML = `
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+        <span style="font-size:10px;color:var(--sub);letter-spacing:0.1em;text-transform:uppercase;">In Database:</span>
+        ${parts}
+        <span style="font-size:10px;color:var(--sub);">Use filters above to view by type or state</span>
+      </div>`;
+    summaryEl.style.display = 'block';
+  } catch(e) {}
 }
 
 function filterProspects(q) {
