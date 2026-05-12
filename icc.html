@@ -1374,13 +1374,37 @@ async function loadProspectQueue() {
         <div style="font-size:28px;margin-bottom:8px;">✉</div>
         <div style="font-weight:600;margin-bottom:6px;">No prospect emails queued</div>
         <div style="font-size:13px;margin-bottom:16px;">Scan prospects to generate their scores, then click Generate from Prospects.</div>
-        <button class="btn btn-gold" onclick="generateEmails()">Generate from Prospects</button>
+        <button class="btn btn-gold" onclick="generateEmailsAndRefresh()">Generate from Prospects</button>
       </div>`;
       return;
     }
-    container.innerHTML = emails.map(e => renderEmailCard(e, 'prospect')).join('');
+    // Enrich emails with stored contact info from prospects table
+    const enriched = await enrichQueueWithContacts(emails);
+    container.innerHTML = enriched.map(e => renderEmailCard(e, 'prospect')).join('');
   } catch(e) {
     container.innerHTML = '<div style="color:var(--red);padding:16px;">Error loading emails.</div>';
+  }
+}
+
+async function enrichQueueWithContacts(emails) {
+  // For each queued email, check if the prospect now has a stored contact email
+  try {
+    const ids = emails.map(e => e.prospect_id).filter(Boolean);
+    if (!ids.length) return emails;
+    // Pull current prospect data to get stored contact emails
+    const resp = await api('/prospects?limit=300');
+    const prospects = resp.prospects || [];
+    const contactMap = {};
+    prospects.forEach(p => {
+      if (p.contact_email) contactMap[p.id] = p.contact_email;
+    });
+    // Merge stored contacts into queue emails
+    return emails.map(e => ({
+      ...e,
+      contact_email: contactMap[e.prospect_id] || e.contact_email || '',
+    }));
+  } catch(err) {
+    return emails; // Return unchanged if enrichment fails
   }
 }
 
@@ -1403,10 +1427,12 @@ function renderEmailCard(e, type) {
     ? `<div style="margin-top:10px;">
         <input type="text" id="email-to-${e.id}"
           value="${storedEmail}"
-          placeholder="Recipient email (find on their website)"
+          placeholder="Recipient email — enrichment agent is finding this automatically"
           class="email-to-input"
           onchange="storeContactEmail('${e.prospect_id}', this.value)">
-        ${storedEmail ? '<div style="font-size:10px;color:var(--green);margin-top:3px;">Contact email stored</div>' : ''}
+        ${storedEmail
+          ? `<div style="font-size:10px;color:var(--green);margin-top:3px;">Contact found automatically: ${storedEmail}</div>`
+          : '<div style="font-size:10px;color:var(--amber);margin-top:3px;">Enrichment agent searching — or enter manually above</div>'}
        </div>` : '';
 
   return `<div class="email-card ${isPriority ? 'priority' : ''}">
@@ -1440,11 +1466,15 @@ function renderEmailCard(e, type) {
 
 function previewEmail(id) {
   const el = document.getElementById(`preview-${id}`);
-  if (!el) { console.error('Preview div not found: preview-' + id); return; }
-  const isHidden = el.style.display === '' || el.style.display === 'none';
-  el.style.display = isHidden ? 'block' : 'none';
-  // Scroll into view when opening
-  if (isHidden) {
+  if (!el) return;
+  // Force override CSS class with !important equivalent via style
+  const isOpen = el.getAttribute('data-open') === '1';
+  if (isOpen) {
+    el.setAttribute('data-open', '0');
+    el.style.cssText = 'display:none!important';
+  } else {
+    el.setAttribute('data-open', '1');
+    el.style.cssText = 'display:block!important;margin-top:12px;border-top:1px solid #F3F4F6;padding-top:12px;';
     setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
   }
 }
